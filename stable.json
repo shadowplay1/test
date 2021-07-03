@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.10.0",
         "format": 20,
-        "date": 1625317441074
+        "date": 1625319036396
     },
     "custom": {
         "general": {
@@ -25,1042 +25,181 @@
     },
     "classes": [
         {
-            "name": "EconomyError",
-            "construct": {
-                "name": "EconomyError",
-                "description": "Creates an 'EconomyError' error instance.",
-                "params": [
-                    {
-                        "name": "message",
-                        "description": "Error message.",
-                        "type": [
-                            [
-                                [
-                                    "String"
-                                ]
-                            ],
-                            [
-                                [
-                                    "Error"
-                                ]
-                            ]
-                        ]
-                    }
+            "name": "ClassyClass",
+            "description": "A very classy class with lots of class",
+            "extends": [
+                [
+                    [
+                        "EventEmitter"
+                    ]
                 ]
-            },
-            "meta": {
-                "line": 6,
-                "file": "EconomyError.js",
-                "path": "src"
-            }
-        },
-        {
-            "name": "Economy",
+            ],
             "construct": {
-                "name": "Economy",
-                "description": "The Economy class.",
-                "params": [
-                    {
-                        "name": "options",
-                        "description": "Constructor options object.",
-                        "type": [
-                            [
-                                [
-                                    "Object"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.storagePath",
-                        "description": "Full path to a JSON file. Default: './storage.json'.",
-                        "type": [
-                            [
-                                [
-                                    "String"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.checkStorage",
-                        "description": "Checks the if database file exists and if it has errors. Default: true",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dailyCooldown",
-                        "description": "Cooldown for Daily Command (in ms). Default: 24 Hours (60000 * 60 * 24) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.workCooldown",
-                        "description": "Cooldown for Work Command (in ms). Default: 1 Hour (60000 * 60) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dailyAmount",
-                        "description": "Amount of money for Daily Command. Default: 100.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.weeklyCooldown",
-                        "description": "Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.weeklyAmount",
-                        "description": "Amount of money for Weekly Command. Default: 1000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.workAmount",
-                        "description": "Amount of money for Work Command. Default: [10, 50].",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ],
-                            [
-                                [
-                                    "Array"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updateCountdown",
-                        "description": "Checks for if storage file exists in specified time (in ms). Default: 1000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dateLocale",
-                        "description": "The region (example: 'ru'; 'en') to format date and time. Default: 'ru'.",
-                        "type": [
-                            [
-                                [
-                                    "String"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater",
-                        "description": "Update Checker options object.",
-                        "type": [
-                            [
-                                [
-                                    "Object"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater.checkUpdates",
-                        "description": "Sends the update state message in console on start. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater.upToDateMessage",
-                        "description": "Sends the message in console on start if module is up to date. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler",
-                        "description": "Error Handler options object.",
-                        "type": [
-                            [
-                                [
-                                    "Object"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.handleErrors",
-                        "description": "Handles all errors on startup. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.attempts",
-                        "description": "Amount of attempts to load the module. Use 'null' for infinity attempts. Default: 5.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.time",
-                        "description": "Time between every attempt to start the module (in ms). Default: 3000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    }
-                ]
+                "name": "ClassyClass",
+                "description": "Constructs a thing."
             },
             "props": [
                 {
-                    "name": "ready",
-                    "description": "Module ready status.",
+                    "name": "thing",
+                    "description": "Just some thing",
                     "nullable": true,
                     "type": [
                         [
                             [
-                                "boolean"
+                                "number"
                             ]
                         ]
                     ],
                     "meta": {
-                        "line": 41,
-                        "file": "index.js",
-                        "path": "src"
+                        "line": 18,
+                        "file": "SomeClass.js",
+                        "path": "node_modules/@discordjs/docgen/test/src"
                     }
-                },
+                }
+            ],
+            "methods": [
                 {
-                    "name": "errored",
-                    "description": "Economy errored status.",
-                    "nullable": true,
-                    "type": [
-                        [
+                    "name": "doStuff",
+                    "description": "Does stuff.",
+                    "params": [
+                        {
+                            "name": "stuff",
+                            "description": "Stuff to do",
+                            "nullable": true,
+                            "type": [
+                                [
+                                    [
+                                        "string"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "doer",
+                            "description": "Callback to do the stuff",
+                            "type": [
+                                [
+                                    [
+                                        "StuffDoer"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
                             [
-                                "boolean"
+                                [
+                                    "number"
+                                ]
                             ]
-                        ]
-                    ],
+                        ],
+                        "description": "A thing",
+                        "nullable": true
+                    },
                     "meta": {
-                        "line": 46,
-                        "file": "index.js",
-                        "path": "src"
+                        "line": 27,
+                        "file": "SomeClass.js",
+                        "path": "node_modules/@discordjs/docgen/test/src"
                     }
                 },
                 {
-                    "name": "version",
-                    "description": "Module version.",
+                    "name": "hmm",
+                    "description": "Who knows what this does.",
+                    "emits": [
+                        "ClassyClass#event:thingDone"
+                    ],
+                    "meta": {
+                        "line": 37,
+                        "file": "SomeClass.js",
+                        "path": "node_modules/@discordjs/docgen/test/src"
+                    }
+                }
+            ],
+            "events": [
+                {
+                    "name": "thingDone",
+                    "description": "Emitted when a thing is done",
+                    "params": [
+                        {
+                            "name": "thingy",
+                            "description": "Thing",
+                            "type": [
+                                [
+                                    [
+                                        "SomeThing"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "meta": {
+                        "line": 40,
+                        "file": "SomeClass.js",
+                        "path": "node_modules/@discordjs/docgen/test/src"
+                    }
+                }
+            ],
+            "meta": {
+                "line": 7,
+                "file": "SomeClass.js",
+                "path": "node_modules/@discordjs/docgen/test/src"
+            }
+        }
+    ],
+    "interfaces": [
+        {
+            "name": "SomeThing",
+            "meta": {
+                "line": 49,
+                "file": "SomeClass.js",
+                "path": "node_modules/@discordjs/docgen/test/src"
+            }
+        }
+    ],
+    "typedefs": [
+        {
+            "name": "StuffDoer",
+            "description": "Does some stuff with some other stuff.",
+            "type": [
+                [
+                    [
+                        "function"
+                    ]
+                ]
+            ],
+            "params": [
+                {
+                    "name": "stuff",
+                    "description": "Stuff to use to do stuff",
+                    "nullable": true,
                     "type": [
                         [
                             [
                                 "string"
                             ]
                         ]
-                    ],
-                    "meta": {
-                        "line": 51,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "options",
-                    "description": "Constructor options object.",
-                    "nullable": true,
-                    "type": [
-                        [
-                            [
-                                "object"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 56,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "interval",
-                    "description": "Database checking interval.",
-                    "nullable": true,
-                    "type": [
-                        [
-                            [
-                                "NodeJSTimeout"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 61,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "errors",
-                    "description": "Economy errors object.",
-                    "type": [
-                        [
-                            [
-                                "object"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 66,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "balance",
-                    "description": "Balance methods object.",
-                    "type": [
-                        [
-                            [
-                                "object"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 73,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "bank",
-                    "description": "Bank balance methods object.",
-                    "type": [
-                        [
-                            [
-                                "object"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 194,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "shop",
-                    "description": "An object with methods to create a shop on your server.",
-                    "type": [
-                        [
-                            [
-                                "object"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 315,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                }
-            ],
-            "methods": [
-                {
-                    "name": "checkUpdates",
-                    "description": "Checks for if the module is up to date.",
-                    "async": true,
-                    "returns": {
-                        "types": [
-                            [
-                                [
-                                    "Promise"
-                                ]
-                            ]
-                        ],
-                        "description": "This method will show is the module updated, latest version and installed version."
-                    },
-                    "meta": {
-                        "line": 631,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "all",
-                    "description": "Fetches the entire database.",
-                    "returns": {
-                        "types": [
-                            [
-                                [
-                                    "Object"
-                                ]
-                            ]
-                        ],
-                        "description": "Database contents"
-                    },
-                    "meta": {
-                        "line": 649,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "clearStorage",
-                    "description": "Clears the storage file.",
-                    "returns": {
-                        "types": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ],
-                        "description": "If cleared successfully: true; else: false"
-                    },
-                    "meta": {
-                        "line": 656,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "removeGuild",
-                    "description": "Fully removes the guild from database.",
-                    "params": [
-                        {
-                            "name": "guildID",
-                            "description": "Guild ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        }
-                    ],
-                    "returns": {
-                        "types": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ],
-                        "description": "If cleared successfully: true; else: false"
-                    },
-                    "meta": {
-                        "line": 666,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "removeUser",
-                    "description": "Removes the user from database.",
-                    "params": [
-                        {
-                            "name": "memberID",
-                            "description": "Member ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        },
-                        {
-                            "name": "guildID",
-                            "description": "Guild ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        }
-                    ],
-                    "returns": {
-                        "types": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ],
-                        "description": "If cleared successfully: true; else: false"
-                    },
-                    "meta": {
-                        "line": 683,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "daily",
-                    "description": "Adds a daily reward on user's balance",
-                    "params": [
-                        {
-                            "name": "memberID",
-                            "description": "Member ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        },
-                        {
-                            "name": "guildID",
-                            "description": "Guild ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        },
-                        {
-                            "name": "reason",
-                            "description": "The reason why the money was added. Default: 'claimed the daily reward'",
-                            "default": "claimed the daily reward",
-                            "type": [
-                                [
-                                    [
-                                        "string"
-                                    ]
-                                ]
-                            ]
-                        }
-                    ],
-                    "returns": {
-                        "types": [
-                            [
-                                [
-                                    "data"
-                                ]
-                            ]
-                        ],
-                        "description": "Daily money amount or time before next claim"
-                    },
-                    "meta": {
-                        "line": 700,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "work",
-                    "description": "Adds a work reward on user's balance",
-                    "params": [
-                        {
-                            "name": "memberID",
-                            "description": "Member ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        },
-                        {
-                            "name": "guildID",
-                            "description": "Guild ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        },
-                        {
-                            "name": "reason",
-                            "description": "The reason why the money was added. Default: 'claimed the work reward'",
-                            "default": "claimed the work reward",
-                            "type": [
-                                [
-                                    [
-                                        "string"
-                                    ]
-                                ]
-                            ]
-                        }
-                    ],
-                    "returns": {
-                        "types": [
-                            [
-                                [
-                                    "data"
-                                ]
-                            ]
-                        ],
-                        "description": "Work money amount"
-                    },
-                    "meta": {
-                        "line": 752,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "weekly",
-                    "description": "Adds a weekly reward on user's balance",
-                    "params": [
-                        {
-                            "name": "memberID",
-                            "description": "Member ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        },
-                        {
-                            "name": "guildID",
-                            "description": "Guild ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        },
-                        {
-                            "name": "reason",
-                            "description": "The reason why the money was added. Default: 'claimed the weekly reward'",
-                            "default": "claimed the weekly reward",
-                            "type": [
-                                [
-                                    [
-                                        "string"
-                                    ]
-                                ]
-                            ]
-                        }
-                    ],
-                    "returns": {
-                        "types": [
-                            [
-                                [
-                                    "data"
-                                ]
-                            ]
-                        ],
-                        "description": "Weekly money amount"
-                    },
-                    "meta": {
-                        "line": 805,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "getDailyCooldown",
-                    "description": "Gets user's daily cooldown",
-                    "params": [
-                        {
-                            "name": "memberID",
-                            "description": "Member ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        },
-                        {
-                            "name": "guildID",
-                            "description": "Guild ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        }
-                    ],
-                    "returns": {
-                        "types": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ],
-                        "description": "Cooldown end timestamp"
-                    },
-                    "meta": {
-                        "line": 856,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "getWorkCooldown",
-                    "description": "Gets user's work cooldown",
-                    "params": [
-                        {
-                            "name": "memberID",
-                            "description": "Member ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        },
-                        {
-                            "name": "guildID",
-                            "description": "Guild ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        }
-                    ],
-                    "returns": {
-                        "types": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ],
-                        "description": "Cooldown end timestamp"
-                    },
-                    "meta": {
-                        "line": 868,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "getWeeklyCooldown",
-                    "description": "Gets user's work cooldown",
-                    "params": [
-                        {
-                            "name": "memberID",
-                            "description": "Member ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        },
-                        {
-                            "name": "guildID",
-                            "description": "Guild ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        }
-                    ],
-                    "returns": {
-                        "types": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ],
-                        "description": "Cooldown end timestamp"
-                    },
-                    "meta": {
-                        "line": 880,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "clearDailyCooldown",
-                    "description": "Clears user's daily cooldown",
-                    "params": [
-                        {
-                            "name": "memberID",
-                            "description": "Member ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        },
-                        {
-                            "name": "guildID",
-                            "description": "Guild ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        }
-                    ],
-                    "returns": {
-                        "types": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ],
-                        "description": "If cleared: true; else: false"
-                    },
-                    "meta": {
-                        "line": 892,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "clearWorkCooldown",
-                    "description": "Clears user's work cooldown",
-                    "params": [
-                        {
-                            "name": "memberID",
-                            "description": "Member ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        },
-                        {
-                            "name": "guildID",
-                            "description": "Guild ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        }
-                    ],
-                    "returns": {
-                        "types": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ],
-                        "description": "If cleared: true; else: false"
-                    },
-                    "meta": {
-                        "line": 916,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "clearWeeklyCooldown",
-                    "description": "Clears user's work cooldown",
-                    "params": [
-                        {
-                            "name": "memberID",
-                            "description": "Member ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        },
-                        {
-                            "name": "guildID",
-                            "description": "Guild ID",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        }
-                    ],
-                    "returns": {
-                        "types": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ],
-                        "description": "If cleared: true; else: false"
-                    },
-                    "meta": {
-                        "line": 940,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "kill",
-                    "description": "Kills the Economy instance.",
-                    "returns": {
-                        "types": [
-                            [
-                                [
-                                    "this"
-                                ]
-                            ]
-                        ],
-                        "description": "Economy instance."
-                    },
-                    "meta": {
-                        "line": 962,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "init",
-                    "description": "Starts the module.",
-                    "returns": {
-                        "types": [
-                            [
-                                [
-                                    "Promise",
-                                    "<("
-                                ],
-                                [
-                                    "true",
-                                    "|"
-                                ],
-                                [
-                                    "void",
-                                    "|"
-                                ],
-                                [
-                                    "Error",
-                                    ")>"
-                                ]
-                            ]
-                        ],
-                        "description": "If started successfully: true; else: Error instance."
-                    },
-                    "meta": {
-                        "line": 975,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "_init",
-                    "description": "Initializates the module.",
-                    "access": "private",
-                    "returns": {
-                        "types": [
-                            [
-                                [
-                                    "Promise",
-                                    "<("
-                                ],
-                                [
-                                    "true",
-                                    "|"
-                                ],
-                                [
-                                    "Error",
-                                    ")>"
-                                ]
-                            ]
-                        ],
-                        "description": "If started successfully: true; else: Error instance."
-                    },
-                    "meta": {
-                        "line": 1028,
-                        "file": "index.js",
-                        "path": "src"
-                    }
+                    ]
                 }
             ],
             "meta": {
-                "line": 36,
-                "file": "index.js",
-                "path": "src"
+                "line": 55,
+                "file": "SomeClass.js",
+                "path": "node_modules/@discordjs/docgen/test/src"
             }
         }
     ],
-    "interfaces": [],
-    "typedefs": [],
-    "externals": []
+    "externals": [
+        {
+            "name": "ClientOptions",
+            "see": [
+                "{@link http://hydrabolt.github.io/discord.js/#!/docs/tag/master/typedef/ClientOptions}"
+            ],
+            "meta": {
+                "line": 61,
+                "file": "SomeClass.js",
+                "path": "node_modules/@discordjs/docgen/test/src"
+            }
+        }
+    ]
 }
