@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.10.0",
         "format": 20,
-        "date": 1626046340993
+        "date": 1626047541399
     },
     "custom": {
         "general": {
@@ -2257,7 +2257,7 @@
             ],
             "construct": {
                 "name": "BalanceManager",
-                "description": "Economy constructor options object.",
+                "description": "Economy constructor options object. There's only needed options object properties for this manager to work properly.",
                 "params": [
                     {
                         "name": "options",
@@ -2280,187 +2280,6 @@
                                 ]
                             ]
                         ]
-                    },
-                    {
-                        "name": "options.checkStorage",
-                        "description": "Checks the if database file exists and if it has errors. Default: true",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dailyCooldown",
-                        "description": "Cooldown for Daily Command (in ms). Default: 24 Hours (60000 * 60 * 24) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.workCooldown",
-                        "description": "Cooldown for Work Command (in ms). Default: 1 Hour (60000 * 60) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dailyAmount",
-                        "description": "Amount of money for Daily Command. Default: 100.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.weeklyCooldown",
-                        "description": "Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.weeklyAmount",
-                        "description": "Amount of money for Weekly Command. Default: 1000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.workAmount",
-                        "description": "Amount of money for Work Command. Default: [10, 50].",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ],
-                            [
-                                [
-                                    "Array"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updateCountdown",
-                        "description": "Checks for if storage file exists in specified time (in ms). Default: 1000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dateLocale",
-                        "description": "The region (example: 'ru'; 'en') to format date and time. Default: 'ru'.",
-                        "type": [
-                            [
-                                [
-                                    "String"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater",
-                        "description": "Update Checker options object.",
-                        "type": [
-                            [
-                                [
-                                    "Object"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater.checkUpdates",
-                        "description": "Sends the update state message in console on start. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater.upToDateMessage",
-                        "description": "Sends the message in console on start if module is up to date. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler",
-                        "description": "Error Handler options object.",
-                        "type": [
-                            [
-                                [
-                                    "Object"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.handleErrors",
-                        "description": "Handles all errors on startup. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.attempts",
-                        "description": "Amount of attempts to load the module. Use 'null' for infinity attempts. Default: 5.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.time",
-                        "description": "Time between every attempt to start the module (in ms). Default: 3000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
                     }
                 ]
             },
@@ -2476,7 +2295,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 47,
+                        "line": 31,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -2492,7 +2311,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 52,
+                        "line": 36,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -2508,7 +2327,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 57,
+                        "line": 41,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -2524,7 +2343,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 62,
+                        "line": 46,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -2541,7 +2360,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 67,
+                        "line": 51,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -2586,7 +2405,7 @@
                         "description": "User's balance"
                     },
                     "meta": {
-                        "line": 77,
+                        "line": 61,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -2652,7 +2471,7 @@
                         "description": "Money amount"
                     },
                     "meta": {
-                        "line": 90,
+                        "line": 74,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -2718,7 +2537,7 @@
                         "description": "Money amount"
                     },
                     "meta": {
-                        "line": 117,
+                        "line": 101,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -2784,7 +2603,7 @@
                         "description": "Money amount"
                     },
                     "meta": {
-                        "line": 145,
+                        "line": 129,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -2816,7 +2635,7 @@
                         "description": "Sorted leaderboard array"
                     },
                     "meta": {
-                        "line": 170,
+                        "line": 154,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -3164,7 +2983,7 @@
             ],
             "construct": {
                 "name": "BankManager",
-                "description": "Economy constructor options object.",
+                "description": "Economy constructor options object. There's only needed options object properties for this manager to work properly.",
                 "params": [
                     {
                         "name": "options",
@@ -3187,187 +3006,6 @@
                                 ]
                             ]
                         ]
-                    },
-                    {
-                        "name": "options.checkStorage",
-                        "description": "Checks the if database file exists and if it has errors. Default: true",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dailyCooldown",
-                        "description": "Cooldown for Daily Command (in ms). Default: 24 Hours (60000 * 60 * 24) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.workCooldown",
-                        "description": "Cooldown for Work Command (in ms). Default: 1 Hour (60000 * 60) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dailyAmount",
-                        "description": "Amount of money for Daily Command. Default: 100.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.weeklyCooldown",
-                        "description": "Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.weeklyAmount",
-                        "description": "Amount of money for Weekly Command. Default: 1000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.workAmount",
-                        "description": "Amount of money for Work Command. Default: [10, 50].",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ],
-                            [
-                                [
-                                    "Array"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updateCountdown",
-                        "description": "Checks for if storage file exists in specified time (in ms). Default: 1000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dateLocale",
-                        "description": "The region (example: 'ru'; 'en') to format date and time. Default: 'ru'.",
-                        "type": [
-                            [
-                                [
-                                    "String"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater",
-                        "description": "Update Checker options object.",
-                        "type": [
-                            [
-                                [
-                                    "Object"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater.checkUpdates",
-                        "description": "Sends the update state message in console on start. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater.upToDateMessage",
-                        "description": "Sends the message in console on start if module is up to date. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler",
-                        "description": "Error Handler options object.",
-                        "type": [
-                            [
-                                [
-                                    "Object"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.handleErrors",
-                        "description": "Handles all errors on startup. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.attempts",
-                        "description": "Amount of attempts to load the module. Use 'null' for infinity attempts. Default: 5.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.time",
-                        "description": "Time between every attempt to start the module (in ms). Default: 3000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
                     }
                 ]
             },
@@ -3383,7 +3021,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 48,
+                        "line": 32,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -3399,7 +3037,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 53,
+                        "line": 37,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -3415,7 +3053,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 58,
+                        "line": 42,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -3431,7 +3069,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 63,
+                        "line": 47,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -3448,7 +3086,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 68,
+                        "line": 52,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -3493,7 +3131,7 @@
                         "description": "User's bank balance"
                     },
                     "meta": {
-                        "line": 78,
+                        "line": 62,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -3559,7 +3197,7 @@
                         "description": "Money amount"
                     },
                     "meta": {
-                        "line": 91,
+                        "line": 75,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -3625,7 +3263,7 @@
                         "description": "Money amount"
                     },
                     "meta": {
-                        "line": 118,
+                        "line": 102,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -3691,7 +3329,7 @@
                         "description": "Money amount"
                     },
                     "meta": {
-                        "line": 146,
+                        "line": 130,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -3723,7 +3361,7 @@
                         "description": "Sorted leaderboard array"
                     },
                     "meta": {
-                        "line": 171,
+                        "line": 155,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -4071,7 +3709,7 @@
             ],
             "construct": {
                 "name": "CooldownManager",
-                "description": "Economy constructor options object.",
+                "description": "Economy constructor options object. There's only needed options object properties for this manager to work properly.",
                 "params": [
                     {
                         "name": "options",
@@ -4094,187 +3732,6 @@
                                 ]
                             ]
                         ]
-                    },
-                    {
-                        "name": "options.checkStorage",
-                        "description": "Checks the if database file exists and if it has errors. Default: true",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dailyCooldown",
-                        "description": "Cooldown for Daily Command (in ms). Default: 24 Hours (60000 * 60 * 24) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.workCooldown",
-                        "description": "Cooldown for Work Command (in ms). Default: 1 Hour (60000 * 60) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dailyAmount",
-                        "description": "Amount of money for Daily Command. Default: 100.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.weeklyCooldown",
-                        "description": "Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.weeklyAmount",
-                        "description": "Amount of money for Weekly Command. Default: 1000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.workAmount",
-                        "description": "Amount of money for Work Command. Default: [10, 50].",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ],
-                            [
-                                [
-                                    "Array"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updateCountdown",
-                        "description": "Checks for if storage file exists in specified time (in ms). Default: 1000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dateLocale",
-                        "description": "The region (example: 'ru'; 'en') to format date and time. Default: 'ru'.",
-                        "type": [
-                            [
-                                [
-                                    "String"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater",
-                        "description": "Update Checker options object.",
-                        "type": [
-                            [
-                                [
-                                    "Object"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater.checkUpdates",
-                        "description": "Sends the update state message in console on start. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater.upToDateMessage",
-                        "description": "Sends the message in console on start if module is up to date. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler",
-                        "description": "Error Handler options object.",
-                        "type": [
-                            [
-                                [
-                                    "Object"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.handleErrors",
-                        "description": "Handles all errors on startup. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.attempts",
-                        "description": "Amount of attempts to load the module. Use 'null' for infinity attempts. Default: 5.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.time",
-                        "description": "Time between every attempt to start the module (in ms). Default: 3000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
                     }
                 ]
             },
@@ -4290,7 +3747,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 45,
+                        "line": 29,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -4307,7 +3764,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 50,
+                        "line": 34,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -4352,7 +3809,7 @@
                         "description": "Cooldown end timestamp"
                     },
                     "meta": {
-                        "line": 60,
+                        "line": 44,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -4395,7 +3852,7 @@
                         "description": "Cooldown end timestamp"
                     },
                     "meta": {
-                        "line": 71,
+                        "line": 55,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -4438,7 +3895,7 @@
                         "description": "Cooldown end timestamp"
                     },
                     "meta": {
-                        "line": 82,
+                        "line": 66,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -4481,7 +3938,7 @@
                         "description": "If cleared: true; else: false"
                     },
                     "meta": {
-                        "line": 93,
+                        "line": 77,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -4524,7 +3981,7 @@
                         "description": "If cleared: true; else: false"
                     },
                     "meta": {
-                        "line": 116,
+                        "line": 100,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -4567,7 +4024,7 @@
                         "description": "If cleared: true; else: false"
                     },
                     "meta": {
-                        "line": 139,
+                        "line": 123,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -4915,7 +4372,7 @@
             ],
             "construct": {
                 "name": "DatabaseManager",
-                "description": "Economy constructor options object.",
+                "description": "Economy constructor options object. There's only needed options object properties for this manager to work properly.",
                 "params": [
                     {
                         "name": "options",
@@ -4938,187 +4395,6 @@
                                 ]
                             ]
                         ]
-                    },
-                    {
-                        "name": "options.checkStorage",
-                        "description": "Checks the if database file exists and if it has errors. Default: true",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dailyCooldown",
-                        "description": "Cooldown for Daily Command (in ms). Default: 24 Hours (60000 * 60 * 24) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.workCooldown",
-                        "description": "Cooldown for Work Command (in ms). Default: 1 Hour (60000 * 60) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dailyAmount",
-                        "description": "Amount of money for Daily Command. Default: 100.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.weeklyCooldown",
-                        "description": "Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.weeklyAmount",
-                        "description": "Amount of money for Weekly Command. Default: 1000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.workAmount",
-                        "description": "Amount of money for Work Command. Default: [10, 50].",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ],
-                            [
-                                [
-                                    "Array"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updateCountdown",
-                        "description": "Checks for if storage file exists in specified time (in ms). Default: 1000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dateLocale",
-                        "description": "The region (example: 'ru'; 'en') to format date and time. Default: 'ru'.",
-                        "type": [
-                            [
-                                [
-                                    "String"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater",
-                        "description": "Update Checker options object.",
-                        "type": [
-                            [
-                                [
-                                    "Object"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater.checkUpdates",
-                        "description": "Sends the update state message in console on start. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater.upToDateMessage",
-                        "description": "Sends the message in console on start if module is up to date. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler",
-                        "description": "Error Handler options object.",
-                        "type": [
-                            [
-                                [
-                                    "Object"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.handleErrors",
-                        "description": "Handles all errors on startup. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.attempts",
-                        "description": "Amount of attempts to load the module. Use 'null' for infinity attempts. Default: 5.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.time",
-                        "description": "Time between every attempt to start the module (in ms). Default: 3000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
                     }
                 ]
             },
@@ -5134,7 +4410,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 38,
+                        "line": 25,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -5150,7 +4426,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 44,
+                        "line": 31,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -5166,7 +4442,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 50,
+                        "line": 37,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -5192,7 +4468,7 @@
                         "description": "An array with all keys in database or 'null' if nothing found."
                     },
                     "meta": {
-                        "line": 59,
+                        "line": 46,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -5235,7 +4511,7 @@
                         "description": "If set successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 76,
+                        "line": 63,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -5272,7 +4548,7 @@
                         "description": "Value from the specified key or 'false' if failed to read or 'null' if nothing found."
                     },
                     "meta": {
-                        "line": 88,
+                        "line": 75,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -5304,7 +4580,7 @@
                         "description": "If cleared: true; else: false."
                     },
                     "meta": {
-                        "line": 98,
+                        "line": 85,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -5323,7 +4599,7 @@
                         "description": "Database contents"
                     },
                     "meta": {
-                        "line": 108,
+                        "line": 95,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -5654,7 +4930,7 @@
                 }
             ],
             "meta": {
-                "line": 9,
+                "line": 10,
                 "file": "DatabaseManager.js",
                 "path": "src/managers"
             }
@@ -5671,7 +4947,7 @@
             ],
             "construct": {
                 "name": "RewardManager",
-                "description": "Economy constructor options object.",
+                "description": "Economy constructor options object. There's only needed options object properties for this manager to work properly.",
                 "params": [
                     {
                         "name": "options",
@@ -5691,17 +4967,6 @@
                             [
                                 [
                                     "String"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.checkStorage",
-                        "description": "Checks the if database file exists and if it has errors. Default: true",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
                                 ]
                             ]
                         ]
@@ -5776,105 +5041,6 @@
                                 ]
                             ]
                         ]
-                    },
-                    {
-                        "name": "options.updateCountdown",
-                        "description": "Checks for if storage file exists in specified time (in ms). Default: 1000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dateLocale",
-                        "description": "The region (example: 'ru'; 'en') to format date and time. Default: 'ru'.",
-                        "type": [
-                            [
-                                [
-                                    "String"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater",
-                        "description": "Update Checker options object.",
-                        "type": [
-                            [
-                                [
-                                    "Object"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater.checkUpdates",
-                        "description": "Sends the update state message in console on start. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater.upToDateMessage",
-                        "description": "Sends the message in console on start if module is up to date. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler",
-                        "description": "Error Handler options object.",
-                        "type": [
-                            [
-                                [
-                                    "Object"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.handleErrors",
-                        "description": "Handles all errors on startup. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.attempts",
-                        "description": "Amount of attempts to load the module. Use 'null' for infinity attempts. Default: 5.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.time",
-                        "description": "Time between every attempt to start the module (in ms). Default: 3000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
                     }
                 ]
             },
@@ -5890,7 +5056,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 56,
+                        "line": 46,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -5906,7 +5072,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 61,
+                        "line": 51,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -5922,7 +5088,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 66,
+                        "line": 56,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -5938,7 +5104,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 71,
+                        "line": 61,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -5955,7 +5121,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 76,
+                        "line": 66,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -6012,7 +5178,7 @@
                         "description": "Daily money amount or time before next claim"
                     },
                     "meta": {
-                        "line": 96,
+                        "line": 86,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -6067,7 +5233,7 @@
                         "description": "Work money amount"
                     },
                     "meta": {
-                        "line": 147,
+                        "line": 137,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -6122,7 +5288,7 @@
                         "description": "Weekly money amount"
                     },
                     "meta": {
-                        "line": 199,
+                        "line": 189,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -6470,7 +5636,7 @@
             ],
             "construct": {
                 "name": "ShopManager",
-                "description": "Economy constructor options object.",
+                "description": "Economy constructor options object. There's only needed options object properties for this manager to work properly.",
                 "params": [
                     {
                         "name": "options",
@@ -6495,182 +5661,12 @@
                         ]
                     },
                     {
-                        "name": "options.checkStorage",
-                        "description": "Checks the if database file exists and if it has errors. Default: true",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dailyCooldown",
-                        "description": "Cooldown for Daily Command (in ms). Default: 24 Hours (60000 * 60 * 24) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.workCooldown",
-                        "description": "Cooldown for Work Command (in ms). Default: 1 Hour (60000 * 60) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dailyAmount",
-                        "description": "Amount of money for Daily Command. Default: 100.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.weeklyCooldown",
-                        "description": "Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.weeklyAmount",
-                        "description": "Amount of money for Weekly Command. Default: 1000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.workAmount",
-                        "description": "Amount of money for Work Command. Default: [10, 50].",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ],
-                            [
-                                [
-                                    "Array"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updateCountdown",
-                        "description": "Checks for if storage file exists in specified time (in ms). Default: 1000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
                         "name": "options.dateLocale",
                         "description": "The region (example: 'ru'; 'en') to format date and time. Default: 'ru'.",
                         "type": [
                             [
                                 [
                                     "String"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater",
-                        "description": "Update Checker options object.",
-                        "type": [
-                            [
-                                [
-                                    "Object"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater.checkUpdates",
-                        "description": "Sends the update state message in console on start. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater.upToDateMessage",
-                        "description": "Sends the message in console on start if module is up to date. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler",
-                        "description": "Error Handler options object.",
-                        "type": [
-                            [
-                                [
-                                    "Object"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.handleErrors",
-                        "description": "Handles all errors on startup. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.attempts",
-                        "description": "Amount of attempts to load the module. Use 'null' for infinity attempts. Default: 5.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.time",
-                        "description": "Time between every attempt to start the module (in ms). Default: 3000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
                                 ]
                             ]
                         ]
@@ -6690,7 +5686,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 37,
+                        "line": 26,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -6801,7 +5797,7 @@
                         "description": "Item info."
                     },
                     "meta": {
-                        "line": 53,
+                        "line": 43,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -6891,7 +5887,7 @@
                         "description": "If edited successfully: true, else: false"
                     },
                     "meta": {
-                        "line": 81,
+                        "line": 71,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -6939,7 +5935,7 @@
                         "description": "If removed: true, else: false"
                     },
                     "meta": {
-                        "line": 128,
+                        "line": 118,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -6971,7 +5967,7 @@
                         "description": "If cleared: true, else: false"
                     },
                     "meta": {
-                        "line": 146,
+                        "line": 136,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -7014,7 +6010,7 @@
                         "description": "If cleared: true, else: false"
                     },
                     "meta": {
-                        "line": 164,
+                        "line": 154,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -7057,7 +6053,7 @@
                         "description": "If cleared: true, else: false"
                     },
                     "meta": {
-                        "line": 188,
+                        "line": 178,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -7094,7 +6090,7 @@
                         "description": "The shop array."
                     },
                     "meta": {
-                        "line": 209,
+                        "line": 199,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -7142,7 +6138,7 @@
                         "description": "If item not found: null; else: item data array"
                     },
                     "meta": {
-                        "line": 219,
+                        "line": 209,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -7218,7 +6214,7 @@
                         "description": "If item bought successfully: true; if item not found: false; if user reached the item's max amount: 'max'"
                     },
                     "meta": {
-                        "line": 236,
+                        "line": 226,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -7266,7 +6262,7 @@
                         "description": "The user's inventory array."
                     },
                     "meta": {
-                        "line": 274,
+                        "line": 264,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -7336,7 +6332,7 @@
                         "description": "Item message"
                     },
                     "meta": {
-                        "line": 289,
+                        "line": 279,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -7384,7 +6380,7 @@
                         "description": "User's purchase history."
                     },
                     "meta": {
-                        "line": 332,
+                        "line": 322,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -7715,7 +6711,7 @@
                 }
             ],
             "meta": {
-                "line": 9,
+                "line": 13,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -7725,7 +6721,7 @@
             "description": "Utils manager methods class.",
             "construct": {
                 "name": "UtilsManager",
-                "description": "Economy constructor options object.",
+                "description": "Economy constructor options object. There's only needed options object properties for this manager to work properly.",
                 "params": [
                     {
                         "name": "options",
@@ -7748,187 +6744,6 @@
                                 ]
                             ]
                         ]
-                    },
-                    {
-                        "name": "options.checkStorage",
-                        "description": "Checks the if database file exists and if it has errors. Default: true",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dailyCooldown",
-                        "description": "Cooldown for Daily Command (in ms). Default: 24 Hours (60000 * 60 * 24) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.workCooldown",
-                        "description": "Cooldown for Work Command (in ms). Default: 1 Hour (60000 * 60) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dailyAmount",
-                        "description": "Amount of money for Daily Command. Default: 100.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.weeklyCooldown",
-                        "description": "Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.weeklyAmount",
-                        "description": "Amount of money for Weekly Command. Default: 1000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.workAmount",
-                        "description": "Amount of money for Work Command. Default: [10, 50].",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ],
-                            [
-                                [
-                                    "Array"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updateCountdown",
-                        "description": "Checks for if storage file exists in specified time (in ms). Default: 1000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.dateLocale",
-                        "description": "The region (example: 'ru'; 'en') to format date and time. Default: 'ru'.",
-                        "type": [
-                            [
-                                [
-                                    "String"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater",
-                        "description": "Update Checker options object.",
-                        "type": [
-                            [
-                                [
-                                    "Object"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater.checkUpdates",
-                        "description": "Sends the update state message in console on start. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.updater.upToDateMessage",
-                        "description": "Sends the message in console on start if module is up to date. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler",
-                        "description": "Error Handler options object.",
-                        "type": [
-                            [
-                                [
-                                    "Object"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.handleErrors",
-                        "description": "Handles all errors on startup. Default: true.",
-                        "type": [
-                            [
-                                [
-                                    "Boolean"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.attempts",
-                        "description": "Amount of attempts to load the module. Use 'null' for infinity attempts. Default: 5.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
-                        "name": "options.errorHandler.time",
-                        "description": "Time between every attempt to start the module (in ms). Default: 3000.",
-                        "type": [
-                            [
-                                [
-                                    "Number"
-                                ]
-                            ]
-                        ]
                     }
                 ]
             },
@@ -7945,7 +6760,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 39,
+                        "line": 23,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -7972,7 +6787,7 @@
                         "description": "This method will show is the module updated, latest version and installed version."
                     },
                     "meta": {
-                        "line": 47,
+                        "line": 31,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -7991,7 +6806,7 @@
                         "description": "Database contents"
                     },
                     "meta": {
-                        "line": 65,
+                        "line": 49,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -8034,7 +6849,7 @@
                         "description": "If successfully written: true; else: false."
                     },
                     "meta": {
-                        "line": 75,
+                        "line": 59,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -8053,7 +6868,7 @@
                         "description": "If cleared successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 87,
+                        "line": 71,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -8085,7 +6900,7 @@
                         "description": "If cleared successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 97,
+                        "line": 81,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -8128,7 +6943,7 @@
                         "description": "If cleared successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 113,
+                        "line": 97,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -8189,7 +7004,7 @@
                 }
             ],
             "meta": {
-                "line": 182,
+                "line": 166,
                 "file": "BalanceManager.js",
                 "path": "src/managers"
             }
@@ -8240,7 +7055,7 @@
                 }
             ],
             "meta": {
-                "line": 183,
+                "line": 167,
                 "file": "BankManager.js",
                 "path": "src/managers"
             }
@@ -8346,7 +7161,7 @@
                 }
             ],
             "meta": {
-                "line": 337,
+                "line": 327,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -8441,7 +7256,7 @@
                 }
             ],
             "meta": {
-                "line": 350,
+                "line": 340,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -8546,7 +7361,7 @@
                 }
             ],
             "meta": {
-                "line": 362,
+                "line": 352,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -8597,7 +7412,7 @@
                 }
             ],
             "meta": {
-                "line": 124,
+                "line": 108,
                 "file": "UtilsManager.js",
                 "path": "src/managers"
             }
