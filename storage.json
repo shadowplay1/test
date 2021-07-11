@@ -1,0 +1,65 @@
+{
+	"a": "12345",
+	"test123": {
+		"a": "12345"
+	},
+	"ae": {
+		"somethings": "123"
+	},
+	"TESTING": {
+		"1": {
+			"2": {
+				"3": {
+					"4": {
+						"5": {
+							"6": {
+								"7": {
+									"8": {
+										"9": {
+											"10": {
+												"data": 123
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"TESTING.1.2.3.4.5.6.7.8.9.10": 123,
+	"TESTING.1.2.3.4.5.6": 123,
+	"aa": {
+		"testing": "123",
+		"aae": {
+			"test": 123
+		},
+		"test123": null
+	},
+	"aaa": null,
+	"ttt": null,
+	"553079016484241409": {
+		"295199677333241857": {
+			"dailyCooldown": 1625963754977,
+			"workCooldown": 1625963759128,
+			"weeklyCooldown": null,
+			"money": 61,
+			"bank": 50,
+			"inventory": [],
+			"history": []
+		}
+	},
+	"551501245295099944": {
+		"295199677333241857": {
+			"dailyCooldown": 1626001528793,
+			"workCooldown": 1626001525449,
+			"weeklyCooldown": null,
+			"money": 128,
+			"bank": 0,
+			"inventory": [],
+			"history": []
+		}
+	}
+}
