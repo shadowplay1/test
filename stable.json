@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.10.0",
         "format": 20,
-        "date": 1626003704224
+        "date": 1626005180988
     },
     "custom": {
         "general": {
@@ -1918,6 +1918,7 @@
         {
             "name": "Emitter",
             "description": "Simple Economy event emitter with only important emitter methods.",
+            "access": "private",
             "methods": [
                 {
                     "name": "on",
@@ -2020,7 +2021,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 12,
+                        "line": 13,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -2126,7 +2127,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 20,
+                        "line": 21,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -2232,14 +2233,14 @@
                         }
                     ],
                     "meta": {
-                        "line": 28,
+                        "line": 29,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
                 }
             ],
             "meta": {
-                "line": 6,
+                "line": 7,
                 "file": "Emitter.js",
                 "path": "src/classes"
             }
