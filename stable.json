@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.10.0",
         "format": 20,
-        "date": 1626044557069
+        "date": 1626046340993
     },
     "custom": {
         "general": {
@@ -6794,7 +6794,7 @@
                         "types": [
                             [
                                 [
-                                    "Object"
+                                    "ItemData"
                                 ]
                             ]
                         ],
