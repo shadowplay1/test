@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.10.0",
         "format": 20,
-        "date": 1625965438604
+        "date": 1626033586905
     },
     "custom": {
         "general": {
@@ -19,6 +19,12 @@
                     "type": "md",
                     "content": "# Discord Economy Super\n\n[![Downloads](https://img.shields.io/npm/dt/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)\n[![Stable Version](https://img.shields.io/npm/v/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)\n\n<b>Discord Economy Super</b> - Easy and customizable economy framework for your [Discord Bot](https://discord.js.org/#/).\n\n## Simple Example\n```js\nconst { Client } = require('discord.js')\nconst client = new Client();\n\nconst Economy = require('discord-economy-super');\nconst eco = new Economy();\n\nclient.on('ready', () => {\n  console.log(`${client.user.tag} is ready!`);\n});\n\nclient.login('token')\n```\n\n## Advanced Example\n```js\nconst { Client, Intents } = require('discord.js') // npm i discord.js\nconst client = new Client({\n    partials: ['CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION', 'USER'], \n    ws: {\n        intents: Intents.ALL \n    } \n});\n\nconst Economy = require('discord-economy-super');\nconst eco = new Economy({\n  storagePath: './storage.json', // Full path to a JSON File. Default: './storage.json'.\n  checkStorage: true, // Checks the if database file exists and if it has errors. Default: true.\n  dailyCooldown: 60000 * 60 * 24, // Daily Cooldown, ms (24 Hours = 1 Day). Default: 24 Hours (60000 * 60 * 24) ms.\n  workCooldown: 60000 * 60, // Work Cooldown, ms (1 Hour). Default: 1 Hour (60000 * 60) ms.\n  weeklyCooldown: 60000 * 60 * 24 * 7, // Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms\n  dailyAmount: 100, // Daily Amount. Default: 100.\n  workAmount: [10, 50], // Work Amount: first element is min value, second is max value (It also can be a Number). Default: [10, 50].\n  weeklyAmount: 1000, // Amount of money for Weekly Command. Default: 1000.\n  updateCountdown: 1000, // Checks for if storage file exists in specified time (in ms). Default: 1000.\n  dateLocale: 'ru', // The region (example: ru; en) to format date and time. Default: 'ru'.\n  updater: {\n        checkUpdates: true, // Sends the update state message in console on start. Default: true.\n        upToDateMessage: true // Sends the message in console on start if module is up to date. Default: true.\n    },\n    errorHandler: {\n        handleErrors: true, // Handles all errors on start. Default: true.\n        attempts: 5, // Amount of attempts to load the module. Use 'null' for infinity attempts. Default: 5.\n        time: 3000 // Time between every attempt to start the module. Default: 3000.\n    }\n});\n\nclient.on('ready', () => {\n  console.log(`${bot.user.tag} is ready!`);\n});\n\nclient.login('token') // https://discord.com/developers/applications\n```\n\n## Example Events Usage\n```js\nconst { Client, Intents } = require('discord.js') // npm i discord.js\nconst client = new Client({\n    partials: ['CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION', 'USER'], \n    ws: {\n        intents: Intents.ALL \n    }\n});\n\nconst Economy = require('discord-economy-super');\nconst eco = new Economy({\n  storagePath: './storage.json', // Full path to a JSON File. Default: './storage.json'.\n  checkStorage: true, // Checks the if database file exists and if it has errors. Default: true.\n  dailyCooldown: 60000 * 60 * 24, // Daily Cooldown, ms (24 Hours = 1 Day). Default: 24 Hours (60000 * 60 * 24) ms.\n  workCooldown: 60000 * 60, // Work Cooldown, ms (1 Hour). Default: 1 Hour (60000 * 60) ms.\n  weeklyCooldown: 60000 * 60 * 24 * 7, // Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms\n  dailyAmount: 100, // Daily Amount. Default: 100.\n  workAmount: [10, 50], // Work Amount: first element is min value, second is max value (It also can be a Number). Default: [10, 50].\n  weeklyAmount: 1000, // Amount of money for Weekly Command. Default: 1000.\n  updateCountdown: 1000, // Checks for if storage file exists in specified time (in ms). Default: 1000.\n  dateLocale: 'ru', // The region (example: ru; en) to format date and time. Default: 'ru'.\n  updater: {\n        checkUpdates: true, // Sends the update state message in console on start. Default: true.\n        upToDateMessage: true // Sends the message in console on start if module is up to date. Default: true.\n    },\n    errorHandler: {\n        handleErrors: true, // Handles all errors on start. Default: true.\n        attempts: 5, // Amount of attempts to load the module. Use 'null' for infinity attempts. Default: 5.\n        time: 3000 // Time between every attempt to start the module. Default: 3000.\n    }\n});\n\nclient.on('ready', () => {\n  console.log(`${bot.user.tag} is ready!`);\n});\n\n// balance events\neco.on('balanceSet', balance => {\n    console.log(`Someone's just set ${balance.amount} coins for balance for member ${balance.memberID} on guild ${balance.guildID}. His bank balance is ${balance.balance} coins now.\\nReason: ${balance.reason}\\nOperation type: '${balance.type}'`)\n})\neco.on('balanceAdd', balance => {\n    console.log(`Someone's just added ${balance.amount} coins for balance for member ${balance.memberID} on guild ${balance.guildID}. His bank balance is ${balance.balance} coins now.\\nReason: ${balance.reason}\\nOperation type: '${balance.type}'`)\n})\neco.on('balanceSubtract', balance => {\n    console.log(`Someone's just subtracted ${balance.amount} coins from balance for member ${balance.memberID} on guild ${balance.guildID}. His balance is ${balance.balance} coins now.\\nReason: ${balance.reason}\\nOperation type: '${balance.type}'.`)\n})\n\n\n// bank balance events\neco.on('bankSet', balance => {\n    console.log(`Someone's just set ${balance.amount} coins in bank for member ${balance.memberID} on guild ${balance.guildID}. His bank balance is ${balance.balance} coins now.\\nReason: ${balance.reason}\\nOperation type: '${balance.type}'`)\n})\neco.on('bankAdd', balance => {\n    console.log(`Someone's just added ${balance.amount} coins in bank for member ${balance.memberID} on guild ${balance.guildID}. His bank balance is ${balance.balance} coins now.\\nReason: ${balance.reason}\\nOperation type: '${balance.type}'`)\n})\neco.on('bankSubtract', balance => {\n    console.log(`Someone's just subtracted ${balance.amount} coins from bank for member ${balance.memberID} on guild ${balance.guildID}. His bank balance is ${balance.balance} coins now.\\nReason: ${balance.reason}\\nOperation type: '${balance.type}'`)\n})\n\n// shop events\neco.on('shopAddItem', item => {\n    console.log(`Someone's just added an item in the shop!\\nItem data:\\nID: ${item.id}\\nName: ${item.itemName}\\nPrice: ${item.price}\\nDescription: ${item.description}\\nMessage on use: ${item.message}\\nMax amount of item in inventory: ${item.maxAmount}\\nRole ID: ${item.role || 'Not specified'}`)\n})\neco.on('shopRemoveItem', item => {\n    console.log(`Someone's just removed an item from the shop!\\nItem data:\\nID: ${item.id}\\nName: ${item.itemName}\\nPrice: ${item.price}\\nDescription: ${item.description}\\nMessage on use: ${item.message}\\nMax amount of item in inventory: ${item.maxAmount}\\nRole ID: ${item.role || 'Not specified'}`)\n})\neco.on('shopEditItem', item => {\n    console.log(`Someone's just edited an item in the shop!\\nID: ${item.id}\\Guild ID: ${item.guildID}\\nWhat changed: ${item.changed}\\nBefore: ${item.oldValue}\\nAfter: ${item.newValue}`)\n})\neco.on('shopItemBuy', item => {\n    console.log(`Someone's just bought an item from the shop!\\nItem data:\\nID: ${item.id}\\nName: ${item.itemName}\\nPrice: ${item.price}\\nDescription: ${item.description || 'Not specified'}\\nMessage on use: ${item.message || 'Not specified'}\\nMax amount of item in inventory: ${item.maxAmount || 'Any'}\\nRole ID: ${item.role || 'Not specified'}`)\n})\neco.on('shopItemUse', item => {\n    console.log(`Someone's just used an item!\\nItem data:\\nID: ${item.id}\\nName: ${item.itemName}\\nPrice: ${item.price}\\nDescription: ${item.description || 'Not specified'}\\nMessage on use: ${item.message || 'Not specified'}\\nMax amount of item in inventory: ${item.maxAmount || 'Any'}\\nRole ID: ${item.role || 'Not specified'}`)\n})\neco.on('shopClear', cleared => {\n  if(cleared) console.log('The shop was cleared successfully!')\n  else console.log('Cannot clear the shop!')\n})\n\n\n// core events\neco.on('ready', () => {\n    console.log('Economy is ready!')\n})\neco.on('destroy', () => {\n    console.log('Economy was destroyed.')\n})\n\nclient.login('token') // https://discord.com/developers/applications\n```\n\n## Useful Links\n<ul>\n<li><b><a href = \"https://www.npmjs.com/package/discord-economy-super\">NPM</a></b></li>\n<li><b><a href = \"https://github.com/shadowplay1/discord-economy-super\">GitHub</a></b></li>\n<li><b><a href = \"https://github.com/shadowplay1/discord-economy-super/tree/main/examples\">Bot Examples</a></b></li>\n<li><b><a href = \"https://discord.gg/afUTRzfb\">Discord Server</a></b></li>\n</ul>\n<b>If you found a bug, please send it in Discord to ShadowPlay#9706.</b>\n<br>\n<b>If you have any questions or need help, join the <a href = \"https://discord.gg/afUTRzfb\">Support Server</a>.</b>\n<br>\n<b>Module Created by ShadowPlay.</b>\n\n# Thanks for using Discord Economy Super ♥",
                     "path": "general/examples.md"
+                },
+                "updating": {
+                    "name": "Updating your code",
+                    "type": "md",
+                    "content": "# test123",
+                    "path": "general/updating.md"
                 },
                 "changelog": {
                     "name": "Changelog",
@@ -1912,6 +1918,7 @@
         {
             "name": "Emitter",
             "description": "Simple Economy event emitter with only important emitter methods.",
+            "access": "private",
             "methods": [
                 {
                     "name": "on",
@@ -2014,7 +2021,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 12,
+                        "line": 13,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -2120,7 +2127,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 20,
+                        "line": 21,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -2226,14 +2233,14 @@
                         }
                     ],
                     "meta": {
-                        "line": 28,
+                        "line": 29,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
                 }
             ],
             "meta": {
-                "line": 6,
+                "line": 7,
                 "file": "Emitter.js",
                 "path": "src/classes"
             }
@@ -2241,6 +2248,13 @@
         {
             "name": "BalanceManager",
             "description": "Balance manager methods class.",
+            "extends": [
+                [
+                    [
+                        "Emitter"
+                    ]
+                ]
+            ],
             "construct": {
                 "name": "BalanceManager",
                 "description": "Economy constructor options object.",
@@ -2462,7 +2476,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 46,
+                        "line": 47,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -2478,7 +2492,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 51,
+                        "line": 52,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -2494,7 +2508,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 56,
+                        "line": 57,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -2510,7 +2524,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 61,
+                        "line": 62,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -2527,7 +2541,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 66,
+                        "line": 67,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -2572,7 +2586,7 @@
                         "description": "User's balance"
                     },
                     "meta": {
-                        "line": 76,
+                        "line": 77,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -2638,7 +2652,7 @@
                         "description": "Money amount"
                     },
                     "meta": {
-                        "line": 89,
+                        "line": 90,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -2704,7 +2718,7 @@
                         "description": "Money amount"
                     },
                     "meta": {
-                        "line": 116,
+                        "line": 117,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -2770,7 +2784,7 @@
                         "description": "Money amount"
                     },
                     "meta": {
-                        "line": 144,
+                        "line": 145,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -2802,14 +2816,338 @@
                         "description": "Sorted leaderboard array"
                     },
                     "meta": {
-                        "line": 169,
+                        "line": 170,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "on",
+                    "description": "Listens to the event.",
+                    "inherits": "Emitter#on",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "balanceSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopAddItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopEditItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemBuy",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemUse",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopClear",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "ready",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "destroy",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "fn",
+                            "description": "Callback function.",
+                            "type": [
+                                [
+                                    [
+                                        "function"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "meta": {
+                        "line": 13,
+                        "file": "Emitter.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "once",
+                    "description": "Listens to the event only for once.",
+                    "inherits": "Emitter#once",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "balanceSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopAddItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopEditItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemBuy",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemUse",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopClear",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "ready",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "destroy",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "fn",
+                            "description": "Callback function.",
+                            "type": [
+                                [
+                                    [
+                                        "function"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "meta": {
+                        "line": 21,
+                        "file": "Emitter.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "emit",
+                    "description": "Emits the event.",
+                    "inherits": "Emitter#emit",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "balanceSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopAddItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopEditItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemBuy",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemUse",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopClear",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "ready",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "destroy",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "data",
+                            "description": "Any data to send.",
+                            "type": [
+                                [
+                                    [
+                                        "any"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "meta": {
+                        "line": 29,
+                        "file": "Emitter.js",
+                        "path": "src/classes"
                     }
                 }
             ],
             "meta": {
-                "line": 17,
+                "line": 18,
                 "file": "BalanceManager.js",
                 "path": "src/managers"
             }
@@ -2817,6 +3155,13 @@
         {
             "name": "BankManager",
             "description": "Bank balance manager methods class.",
+            "extends": [
+                [
+                    [
+                        "Emitter"
+                    ]
+                ]
+            ],
             "construct": {
                 "name": "BankManager",
                 "description": "Economy constructor options object.",
@@ -3038,7 +3383,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 47,
+                        "line": 48,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -3054,7 +3399,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 52,
+                        "line": 53,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -3070,7 +3415,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 57,
+                        "line": 58,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -3086,7 +3431,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 62,
+                        "line": 63,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -3103,7 +3448,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 67,
+                        "line": 68,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -3148,7 +3493,7 @@
                         "description": "User's bank balance"
                     },
                     "meta": {
-                        "line": 77,
+                        "line": 78,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -3214,7 +3559,7 @@
                         "description": "Money amount"
                     },
                     "meta": {
-                        "line": 90,
+                        "line": 91,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -3280,7 +3625,7 @@
                         "description": "Money amount"
                     },
                     "meta": {
-                        "line": 117,
+                        "line": 118,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -3346,7 +3691,7 @@
                         "description": "Money amount"
                     },
                     "meta": {
-                        "line": 145,
+                        "line": 146,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -3378,14 +3723,338 @@
                         "description": "Sorted leaderboard array"
                     },
                     "meta": {
-                        "line": 170,
+                        "line": 171,
                         "file": "BankManager.js",
                         "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "on",
+                    "description": "Listens to the event.",
+                    "inherits": "Emitter#on",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "balanceSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopAddItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopEditItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemBuy",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemUse",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopClear",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "ready",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "destroy",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "fn",
+                            "description": "Callback function.",
+                            "type": [
+                                [
+                                    [
+                                        "function"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "meta": {
+                        "line": 13,
+                        "file": "Emitter.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "once",
+                    "description": "Listens to the event only for once.",
+                    "inherits": "Emitter#once",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "balanceSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopAddItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopEditItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemBuy",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemUse",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopClear",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "ready",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "destroy",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "fn",
+                            "description": "Callback function.",
+                            "type": [
+                                [
+                                    [
+                                        "function"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "meta": {
+                        "line": 21,
+                        "file": "Emitter.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "emit",
+                    "description": "Emits the event.",
+                    "inherits": "Emitter#emit",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "balanceSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopAddItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopEditItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemBuy",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemUse",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopClear",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "ready",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "destroy",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "data",
+                            "description": "Any data to send.",
+                            "type": [
+                                [
+                                    [
+                                        "any"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "meta": {
+                        "line": 29,
+                        "file": "Emitter.js",
+                        "path": "src/classes"
                     }
                 }
             ],
             "meta": {
-                "line": 16,
+                "line": 17,
                 "file": "BankManager.js",
                 "path": "src/managers"
             }
@@ -3393,6 +4062,13 @@
         {
             "name": "CooldownManager",
             "description": "Cooldown manager methods class.",
+            "extends": [
+                [
+                    [
+                        "Emitter"
+                    ]
+                ]
+            ],
             "construct": {
                 "name": "CooldownManager",
                 "description": "Economy constructor options object.",
@@ -3614,7 +4290,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 44,
+                        "line": 45,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -3631,7 +4307,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 49,
+                        "line": 50,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -3676,7 +4352,7 @@
                         "description": "Cooldown end timestamp"
                     },
                     "meta": {
-                        "line": 59,
+                        "line": 60,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -3719,7 +4395,7 @@
                         "description": "Cooldown end timestamp"
                     },
                     "meta": {
-                        "line": 70,
+                        "line": 71,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -3762,7 +4438,7 @@
                         "description": "Cooldown end timestamp"
                     },
                     "meta": {
-                        "line": 81,
+                        "line": 82,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -3805,7 +4481,7 @@
                         "description": "If cleared: true; else: false"
                     },
                     "meta": {
-                        "line": 92,
+                        "line": 93,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -3848,7 +4524,7 @@
                         "description": "If cleared: true; else: false"
                     },
                     "meta": {
-                        "line": 115,
+                        "line": 116,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -3891,14 +4567,338 @@
                         "description": "If cleared: true; else: false"
                     },
                     "meta": {
-                        "line": 138,
+                        "line": 139,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "on",
+                    "description": "Listens to the event.",
+                    "inherits": "Emitter#on",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "balanceSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopAddItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopEditItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemBuy",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemUse",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopClear",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "ready",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "destroy",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "fn",
+                            "description": "Callback function.",
+                            "type": [
+                                [
+                                    [
+                                        "function"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "meta": {
+                        "line": 13,
+                        "file": "Emitter.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "once",
+                    "description": "Listens to the event only for once.",
+                    "inherits": "Emitter#once",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "balanceSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopAddItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopEditItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemBuy",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemUse",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopClear",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "ready",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "destroy",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "fn",
+                            "description": "Callback function.",
+                            "type": [
+                                [
+                                    [
+                                        "function"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "meta": {
+                        "line": 21,
+                        "file": "Emitter.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "emit",
+                    "description": "Emits the event.",
+                    "inherits": "Emitter#emit",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "balanceSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopAddItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopEditItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemBuy",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemUse",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopClear",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "ready",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "destroy",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "data",
+                            "description": "Any data to send.",
+                            "type": [
+                                [
+                                    [
+                                        "any"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "meta": {
+                        "line": 29,
+                        "file": "Emitter.js",
+                        "path": "src/classes"
                     }
                 }
             ],
             "meta": {
-                "line": 12,
+                "line": 13,
                 "file": "CooldownManager.js",
                 "path": "src/managers"
             }
@@ -3906,6 +4906,13 @@
         {
             "name": "DatabaseManager",
             "description": "Database manager methods class.",
+            "extends": [
+                [
+                    [
+                        "Emitter"
+                    ]
+                ]
+            ],
             "construct": {
                 "name": "DatabaseManager",
                 "description": "Economy constructor options object.",
@@ -4127,7 +5134,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 37,
+                        "line": 38,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -4143,7 +5150,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 42,
+                        "line": 44,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -4159,7 +5166,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 47,
+                        "line": 50,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -4185,7 +5192,7 @@
                         "description": "An array with all keys in database or 'null' if nothing found."
                     },
                     "meta": {
-                        "line": 55,
+                        "line": 59,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -4228,7 +5235,7 @@
                         "description": "If set successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 69,
+                        "line": 76,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -4265,7 +5272,7 @@
                         "description": "Value from the specified key or 'false' if failed to read or 'null' if nothing found."
                     },
                     "meta": {
-                        "line": 80,
+                        "line": 88,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -4297,7 +5304,7 @@
                         "description": "If cleared: true; else: false."
                     },
                     "meta": {
-                        "line": 89,
+                        "line": 98,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -4316,9 +5323,333 @@
                         "description": "Database contents"
                     },
                     "meta": {
-                        "line": 98,
+                        "line": 108,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "on",
+                    "description": "Listens to the event.",
+                    "inherits": "Emitter#on",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "balanceSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopAddItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopEditItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemBuy",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemUse",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopClear",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "ready",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "destroy",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "fn",
+                            "description": "Callback function.",
+                            "type": [
+                                [
+                                    [
+                                        "function"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "meta": {
+                        "line": 13,
+                        "file": "Emitter.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "once",
+                    "description": "Listens to the event only for once.",
+                    "inherits": "Emitter#once",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "balanceSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopAddItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopEditItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemBuy",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemUse",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopClear",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "ready",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "destroy",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "fn",
+                            "description": "Callback function.",
+                            "type": [
+                                [
+                                    [
+                                        "function"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "meta": {
+                        "line": 21,
+                        "file": "Emitter.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "emit",
+                    "description": "Emits the event.",
+                    "inherits": "Emitter#emit",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "balanceSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopAddItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopEditItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemBuy",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemUse",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopClear",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "ready",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "destroy",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "data",
+                            "description": "Any data to send.",
+                            "type": [
+                                [
+                                    [
+                                        "any"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "meta": {
+                        "line": 29,
+                        "file": "Emitter.js",
+                        "path": "src/classes"
                     }
                 }
             ],
@@ -4331,6 +5662,13 @@
         {
             "name": "RewardManager",
             "description": "Reward manager methods class.",
+            "extends": [
+                [
+                    [
+                        "Emitter"
+                    ]
+                ]
+            ],
             "construct": {
                 "name": "RewardManager",
                 "description": "Economy constructor options object.",
@@ -4552,7 +5890,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 55,
+                        "line": 56,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -4568,7 +5906,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 60,
+                        "line": 61,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -4584,7 +5922,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 65,
+                        "line": 66,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -4600,7 +5938,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 70,
+                        "line": 71,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -4617,7 +5955,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 75,
+                        "line": 76,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -4674,7 +6012,7 @@
                         "description": "Daily money amount or time before next claim"
                     },
                     "meta": {
-                        "line": 95,
+                        "line": 96,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -4729,7 +6067,7 @@
                         "description": "Work money amount"
                     },
                     "meta": {
-                        "line": 146,
+                        "line": 147,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -4784,14 +6122,338 @@
                         "description": "Weekly money amount"
                     },
                     "meta": {
-                        "line": 198,
+                        "line": 199,
                         "file": "RewardManager.js",
                         "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "on",
+                    "description": "Listens to the event.",
+                    "inherits": "Emitter#on",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "balanceSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopAddItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopEditItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemBuy",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemUse",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopClear",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "ready",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "destroy",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "fn",
+                            "description": "Callback function.",
+                            "type": [
+                                [
+                                    [
+                                        "function"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "meta": {
+                        "line": 13,
+                        "file": "Emitter.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "once",
+                    "description": "Listens to the event only for once.",
+                    "inherits": "Emitter#once",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "balanceSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopAddItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopEditItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemBuy",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemUse",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopClear",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "ready",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "destroy",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "fn",
+                            "description": "Callback function.",
+                            "type": [
+                                [
+                                    [
+                                        "function"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "meta": {
+                        "line": 21,
+                        "file": "Emitter.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "emit",
+                    "description": "Emits the event.",
+                    "inherits": "Emitter#emit",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "balanceSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopAddItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopEditItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemBuy",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemUse",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopClear",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "ready",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "destroy",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "data",
+                            "description": "Any data to send.",
+                            "type": [
+                                [
+                                    [
+                                        "any"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "meta": {
+                        "line": 29,
+                        "file": "Emitter.js",
+                        "path": "src/classes"
                     }
                 }
             ],
             "meta": {
-                "line": 24,
+                "line": 25,
                 "file": "RewardManager.js",
                 "path": "src/managers"
             }
@@ -4799,6 +6461,13 @@
         {
             "name": "ShopManager",
             "description": "Shop manager methods class.",
+            "extends": [
+                [
+                    [
+                        "Emitter"
+                    ]
+                ]
+            ],
             "construct": {
                 "name": "ShopManager",
                 "description": "Economy constructor options object.",
@@ -5021,7 +6690,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 36,
+                        "line": 37,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -5032,6 +6701,17 @@
                     "name": "addItem",
                     "description": "Creates an item in shop.",
                     "params": [
+                        {
+                            "name": "guildID",
+                            "description": "Guild ID.",
+                            "type": [
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        },
                         {
                             "name": "options",
                             "description": "Options object with item info.",
@@ -5108,17 +6788,6 @@
                                     ]
                                 ]
                             ]
-                        },
-                        {
-                            "name": "guildID",
-                            "description": "Guild ID.",
-                            "type": [
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
                         }
                     ],
                     "returns": {
@@ -5132,7 +6801,7 @@
                         "description": "Item info."
                     },
                     "meta": {
-                        "line": 52,
+                        "line": 53,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -5222,7 +6891,7 @@
                         "description": "If edited successfully: true, else: false"
                     },
                     "meta": {
-                        "line": 80,
+                        "line": 81,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -5270,7 +6939,7 @@
                         "description": "If removed: true, else: false"
                     },
                     "meta": {
-                        "line": 127,
+                        "line": 128,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -5302,7 +6971,7 @@
                         "description": "If cleared: true, else: false"
                     },
                     "meta": {
-                        "line": 145,
+                        "line": 146,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -5345,7 +7014,7 @@
                         "description": "If cleared: true, else: false"
                     },
                     "meta": {
-                        "line": 163,
+                        "line": 164,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -5388,7 +7057,7 @@
                         "description": "If cleared: true, else: false"
                     },
                     "meta": {
-                        "line": 187,
+                        "line": 188,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -5420,7 +7089,7 @@
                         "description": "The shop array."
                     },
                     "meta": {
-                        "line": 208,
+                        "line": 209,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -5468,7 +7137,7 @@
                         "description": "If item not found: null; else: item data array"
                     },
                     "meta": {
-                        "line": 219,
+                        "line": 220,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -5544,7 +7213,7 @@
                         "description": "If item bought successfully: true; if item not found: false; if user reached the item's max amount: 'max'"
                     },
                     "meta": {
-                        "line": 237,
+                        "line": 238,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -5587,7 +7256,7 @@
                         "description": "The user's inventory array."
                     },
                     "meta": {
-                        "line": 275,
+                        "line": 276,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -5657,7 +7326,7 @@
                         "description": "Item message"
                     },
                     "meta": {
-                        "line": 291,
+                        "line": 292,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -5700,14 +7369,338 @@
                         "description": "User's purchase history."
                     },
                     "meta": {
-                        "line": 334,
+                        "line": 335,
                         "file": "ShopManager.js",
                         "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "on",
+                    "description": "Listens to the event.",
+                    "inherits": "Emitter#on",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "balanceSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopAddItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopEditItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemBuy",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemUse",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopClear",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "ready",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "destroy",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "fn",
+                            "description": "Callback function.",
+                            "type": [
+                                [
+                                    [
+                                        "function"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "meta": {
+                        "line": 13,
+                        "file": "Emitter.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "once",
+                    "description": "Listens to the event only for once.",
+                    "inherits": "Emitter#once",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "balanceSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopAddItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopEditItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemBuy",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemUse",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopClear",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "ready",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "destroy",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "fn",
+                            "description": "Callback function.",
+                            "type": [
+                                [
+                                    [
+                                        "function"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "meta": {
+                        "line": 21,
+                        "file": "Emitter.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "emit",
+                    "description": "Emits the event.",
+                    "inherits": "Emitter#emit",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "balanceSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "balanceSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSet",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankAdd",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "bankSubtract",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopAddItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopEditItem",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemBuy",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopItemUse",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "shopClear",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "ready",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "destroy",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "data",
+                            "description": "Any data to send.",
+                            "type": [
+                                [
+                                    [
+                                        "any"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "meta": {
+                        "line": 29,
+                        "file": "Emitter.js",
+                        "path": "src/classes"
                     }
                 }
             ],
             "meta": {
-                "line": 8,
+                "line": 9,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -5937,7 +7930,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 36,
+                        "line": 46,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -5956,7 +7949,7 @@
                                     "<"
                                 ],
                                 [
-                                    "data",
+                                    "VersionData",
                                     ">"
                                 ]
                             ]
@@ -5964,7 +7957,7 @@
                         "description": "This method will show is the module updated, latest version and installed version."
                     },
                     "meta": {
-                        "line": 44,
+                        "line": 54,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -5983,7 +7976,7 @@
                         "description": "Database contents"
                     },
                     "meta": {
-                        "line": 67,
+                        "line": 72,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -6026,7 +8019,7 @@
                         "description": "If successfully written: true; else: false."
                     },
                     "meta": {
-                        "line": 77,
+                        "line": 82,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -6045,7 +8038,7 @@
                         "description": "If cleared successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 89,
+                        "line": 94,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -6077,7 +8070,7 @@
                         "description": "If cleared successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 99,
+                        "line": 104,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -6120,20 +8113,72 @@
                         "description": "If cleared successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 115,
+                        "line": 120,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
                 }
             ],
             "meta": {
-                "line": 8,
+                "line": 11,
                 "file": "UtilsManager.js",
                 "path": "src/managers"
             }
         }
     ],
     "interfaces": [],
-    "typedefs": [],
+    "typedefs": [
+        {
+            "name": "VersionData",
+            "description": "Module update state.",
+            "type": [
+                [
+                    [
+                        "Object"
+                    ]
+                ]
+            ],
+            "props": [
+                {
+                    "name": "updated",
+                    "description": "Is the module updated",
+                    "type": [
+                        [
+                            [
+                                "Boolean"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "installedVersion",
+                    "description": "Installed version",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "packageVersion",
+                    "description": "Avaible version",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ]
+                }
+            ],
+            "meta": {
+                "line": 12,
+                "file": "UtilsManager.js",
+                "path": "src/managers"
+            }
+        }
+    ],
     "externals": []
 }
