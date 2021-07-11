@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.10.0",
         "format": 20,
-        "date": 1626047766566
+        "date": 1626047922100
     },
     "custom": {
         "general": {
@@ -2021,7 +2021,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 17,
+                        "line": 19,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -2127,7 +2127,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 26,
+                        "line": 28,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -2233,7 +2233,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 35,
+                        "line": 37,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -2743,7 +2743,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 17,
+                        "line": 19,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -2851,7 +2851,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 26,
+                        "line": 28,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -2959,7 +2959,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 35,
+                        "line": 37,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -3469,7 +3469,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 17,
+                        "line": 19,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -3577,7 +3577,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 26,
+                        "line": 28,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -3685,7 +3685,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 35,
+                        "line": 37,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -4132,7 +4132,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 17,
+                        "line": 19,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -4240,7 +4240,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 26,
+                        "line": 28,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -4348,7 +4348,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 35,
+                        "line": 37,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -4707,7 +4707,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 17,
+                        "line": 19,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -4815,7 +4815,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 26,
+                        "line": 28,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -4923,7 +4923,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 35,
+                        "line": 37,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -5396,7 +5396,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 17,
+                        "line": 19,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -5504,7 +5504,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 26,
+                        "line": 28,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -5612,7 +5612,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 35,
+                        "line": 37,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -6488,7 +6488,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 17,
+                        "line": 19,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -6596,7 +6596,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 26,
+                        "line": 28,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -6704,7 +6704,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 35,
+                        "line": 37,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
