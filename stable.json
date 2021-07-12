@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.10.0",
         "format": 20,
-        "date": 1626106296938
+        "date": 1626106701164
     },
     "custom": {
         "general": {
@@ -5284,11 +5284,11 @@
             "methods": [
                 {
                     "name": "daily",
-                    "description": "Adds a daily reward on user's balance",
+                    "description": "Adds a daily reward on user's balance.",
                     "params": [
                         {
                             "name": "memberID",
-                            "description": "Member ID",
+                            "description": "Member ID.",
                             "type": [
                                 [
                                     [
@@ -5299,7 +5299,7 @@
                         },
                         {
                             "name": "guildID",
-                            "description": "Guild ID",
+                            "description": "Guild ID.",
                             "type": [
                                 [
                                     [
@@ -5310,7 +5310,7 @@
                         },
                         {
                             "name": "reason",
-                            "description": "The reason why the money was added. Default: 'claimed the daily reward'",
+                            "description": "The reason why the money was added. Default: 'claimed the daily reward'.",
                             "default": "claimed the daily reward",
                             "type": [
                                 [
@@ -5339,11 +5339,11 @@
                 },
                 {
                     "name": "work",
-                    "description": "Adds a work reward on user's balance",
+                    "description": "Adds a work reward on user's balance.",
                     "params": [
                         {
                             "name": "memberID",
-                            "description": "Member ID",
+                            "description": "Member ID.",
                             "type": [
                                 [
                                     [
@@ -5354,7 +5354,7 @@
                         },
                         {
                             "name": "guildID",
-                            "description": "Guild ID",
+                            "description": "Guild ID.",
                             "type": [
                                 [
                                     [
@@ -5365,7 +5365,7 @@
                         },
                         {
                             "name": "reason",
-                            "description": "The reason why the money was added. Default: 'claimed the work reward'",
+                            "description": "The reason why the money was added. Default: 'claimed the work reward'.",
                             "default": "claimed the work reward",
                             "type": [
                                 [
@@ -5394,11 +5394,11 @@
                 },
                 {
                     "name": "weekly",
-                    "description": "Adds a weekly reward on user's balance",
+                    "description": "Adds a weekly reward on user's balance.",
                     "params": [
                         {
                             "name": "memberID",
-                            "description": "Member ID",
+                            "description": "Member ID.",
                             "type": [
                                 [
                                     [
@@ -5409,7 +5409,7 @@
                         },
                         {
                             "name": "guildID",
-                            "description": "Guild ID",
+                            "description": "Guild ID.",
                             "type": [
                                 [
                                     [
@@ -5420,7 +5420,7 @@
                         },
                         {
                             "name": "reason",
-                            "description": "The reason why the money was added. Default: 'claimed the weekly reward'",
+                            "description": "The reason why the money was added. Default: 'claimed the weekly reward'.",
                             "default": "claimed the weekly reward",
                             "type": [
                                 [
