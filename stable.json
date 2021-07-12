@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.10.0",
         "format": 20,
-        "date": 1626048685201
+        "date": 1626050094929
     },
     "custom": {
         "general": {
@@ -1921,38 +1921,8 @@
             "access": "private",
             "construct": {
                 "name": "Emitter",
-                "description": "aaaa",
-                "params": [
-                    {
-                        "name": "aa",
-                        "type": [
-                            [
-                                [
-                                    "String"
-                                ]
-                            ]
-                        ]
-                    }
-                ]
+                "description": "Simple Economy event emitter with only important emitter methods."
             },
-            "props": [
-                {
-                    "name": "aa",
-                    "description": "aaaaaaaaaa",
-                    "type": [
-                        [
-                            [
-                                "String"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 18,
-                        "file": "Emitter.js",
-                        "path": "src/classes"
-                    }
-                }
-            ],
             "methods": [
                 {
                     "name": "on",
@@ -2054,8 +2024,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Emitter"
+                                ]
+                            ]
+                        ],
+                        "description": "Economy Emitter."
+                    },
                     "meta": {
-                        "line": 25,
+                        "line": 21,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -2160,8 +2140,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Emitter"
+                                ]
+                            ]
+                        ],
+                        "description": "Economy Emitter."
+                    },
                     "meta": {
-                        "line": 34,
+                        "line": 31,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -2266,8 +2256,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "If emitted: true; else: false."
+                    },
                     "meta": {
-                        "line": 43,
+                        "line": 41,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -2397,22 +2397,6 @@
                         "line": 51,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
-                    }
-                },
-                {
-                    "name": "aa",
-                    "description": "aaaaaaaaaa",
-                    "type": [
-                        [
-                            [
-                                "String"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 18,
-                        "file": "Emitter.js",
-                        "path": "src/classes"
                     }
                 }
             ],
@@ -2792,8 +2776,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Emitter"
+                                ]
+                            ]
+                        ],
+                        "description": "Economy Emitter."
+                    },
                     "meta": {
-                        "line": 25,
+                        "line": 21,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -2900,8 +2894,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Emitter"
+                                ]
+                            ]
+                        ],
+                        "description": "Economy Emitter."
+                    },
                     "meta": {
-                        "line": 34,
+                        "line": 31,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -3008,8 +3012,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "If emitted: true; else: false."
+                    },
                     "meta": {
-                        "line": 43,
+                        "line": 41,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -3139,22 +3153,6 @@
                         "line": 52,
                         "file": "BankManager.js",
                         "path": "src/managers"
-                    }
-                },
-                {
-                    "name": "aa",
-                    "description": "aaaaaaaaaa",
-                    "type": [
-                        [
-                            [
-                                "String"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 18,
-                        "file": "Emitter.js",
-                        "path": "src/classes"
                     }
                 }
             ],
@@ -3534,8 +3532,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Emitter"
+                                ]
+                            ]
+                        ],
+                        "description": "Economy Emitter."
+                    },
                     "meta": {
-                        "line": 25,
+                        "line": 21,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -3642,8 +3650,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Emitter"
+                                ]
+                            ]
+                        ],
+                        "description": "Economy Emitter."
+                    },
                     "meta": {
-                        "line": 34,
+                        "line": 31,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -3750,8 +3768,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "If emitted: true; else: false."
+                    },
                     "meta": {
-                        "line": 43,
+                        "line": 41,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -3833,22 +3861,6 @@
                         "line": 34,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
-                    }
-                },
-                {
-                    "name": "aa",
-                    "description": "aaaaaaaaaa",
-                    "type": [
-                        [
-                            [
-                                "String"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 18,
-                        "file": "Emitter.js",
-                        "path": "src/classes"
                     }
                 }
             ],
@@ -4213,8 +4225,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Emitter"
+                                ]
+                            ]
+                        ],
+                        "description": "Economy Emitter."
+                    },
                     "meta": {
-                        "line": 25,
+                        "line": 21,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -4321,8 +4343,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Emitter"
+                                ]
+                            ]
+                        ],
+                        "description": "Economy Emitter."
+                    },
                     "meta": {
-                        "line": 34,
+                        "line": 31,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -4429,8 +4461,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "If emitted: true; else: false."
+                    },
                     "meta": {
-                        "line": 43,
+                        "line": 41,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -4527,22 +4569,6 @@
                         "line": 37,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
-                    }
-                },
-                {
-                    "name": "aa",
-                    "description": "aaaaaaaaaa",
-                    "type": [
-                        [
-                            [
-                                "String"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 18,
-                        "file": "Emitter.js",
-                        "path": "src/classes"
                     }
                 }
             ],
@@ -4804,8 +4830,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Emitter"
+                                ]
+                            ]
+                        ],
+                        "description": "Economy Emitter."
+                    },
                     "meta": {
-                        "line": 25,
+                        "line": 21,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -4912,8 +4948,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Emitter"
+                                ]
+                            ]
+                        ],
+                        "description": "Economy Emitter."
+                    },
                     "meta": {
-                        "line": 34,
+                        "line": 31,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -5020,8 +5066,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "If emitted: true; else: false."
+                    },
                     "meta": {
-                        "line": 43,
+                        "line": 41,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -5222,22 +5278,6 @@
                         "line": 66,
                         "file": "RewardManager.js",
                         "path": "src/managers"
-                    }
-                },
-                {
-                    "name": "aa",
-                    "description": "aaaaaaaaaa",
-                    "type": [
-                        [
-                            [
-                                "String"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 18,
-                        "file": "Emitter.js",
-                        "path": "src/classes"
                     }
                 }
             ],
@@ -5509,8 +5549,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Emitter"
+                                ]
+                            ]
+                        ],
+                        "description": "Economy Emitter."
+                    },
                     "meta": {
-                        "line": 25,
+                        "line": 21,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -5617,8 +5667,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Emitter"
+                                ]
+                            ]
+                        ],
+                        "description": "Economy Emitter."
+                    },
                     "meta": {
-                        "line": 34,
+                        "line": 31,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -5725,8 +5785,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "If emitted: true; else: false."
+                    },
                     "meta": {
-                        "line": 43,
+                        "line": 41,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -5803,22 +5873,6 @@
                         "line": 26,
                         "file": "ShopManager.js",
                         "path": "src/managers"
-                    }
-                },
-                {
-                    "name": "aa",
-                    "description": "aaaaaaaaaa",
-                    "type": [
-                        [
-                            [
-                                "String"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 18,
-                        "file": "Emitter.js",
-                        "path": "src/classes"
                     }
                 }
             ],
@@ -6617,8 +6671,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Emitter"
+                                ]
+                            ]
+                        ],
+                        "description": "Economy Emitter."
+                    },
                     "meta": {
-                        "line": 25,
+                        "line": 21,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -6725,8 +6789,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Emitter"
+                                ]
+                            ]
+                        ],
+                        "description": "Economy Emitter."
+                    },
                     "meta": {
-                        "line": 34,
+                        "line": 31,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -6833,8 +6907,18 @@
                             ]
                         }
                     ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "If emitted: true; else: false."
+                    },
                     "meta": {
-                        "line": 43,
+                        "line": 41,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
