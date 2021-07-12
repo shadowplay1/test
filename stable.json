@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.10.0",
         "format": 20,
-        "date": 1626048448238
+        "date": 1626048685201
     },
     "custom": {
         "general": {
@@ -1919,6 +1919,22 @@
             "name": "Emitter",
             "description": "Simple Economy event emitter with only important emitter methods.",
             "access": "private",
+            "construct": {
+                "name": "Emitter",
+                "description": "aaaa",
+                "params": [
+                    {
+                        "name": "aa",
+                        "type": [
+                            [
+                                [
+                                    "String"
+                                ]
+                            ]
+                        ]
+                    }
+                ]
+            },
             "props": [
                 {
                     "name": "aa",
@@ -1931,7 +1947,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 14,
+                        "line": 18,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -2039,7 +2055,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 21,
+                        "line": 25,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -2145,7 +2161,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 30,
+                        "line": 34,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -2251,7 +2267,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 39,
+                        "line": 43,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -2394,7 +2410,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 14,
+                        "line": 18,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -2777,7 +2793,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 21,
+                        "line": 25,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -2885,7 +2901,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 30,
+                        "line": 34,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -2993,7 +3009,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 39,
+                        "line": 43,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -3136,7 +3152,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 14,
+                        "line": 18,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -3519,7 +3535,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 21,
+                        "line": 25,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -3627,7 +3643,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 30,
+                        "line": 34,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -3735,7 +3751,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 39,
+                        "line": 43,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -3830,7 +3846,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 14,
+                        "line": 18,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -4198,7 +4214,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 21,
+                        "line": 25,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -4306,7 +4322,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 30,
+                        "line": 34,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -4414,7 +4430,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 39,
+                        "line": 43,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -4524,7 +4540,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 14,
+                        "line": 18,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -4789,7 +4805,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 21,
+                        "line": 25,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -4897,7 +4913,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 30,
+                        "line": 34,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -5005,7 +5021,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 39,
+                        "line": 43,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -5219,7 +5235,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 14,
+                        "line": 18,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -5494,7 +5510,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 21,
+                        "line": 25,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -5602,7 +5618,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 30,
+                        "line": 34,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -5710,7 +5726,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 39,
+                        "line": 43,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -5800,7 +5816,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 14,
+                        "line": 18,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -6602,7 +6618,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 21,
+                        "line": 25,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -6710,7 +6726,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 30,
+                        "line": 34,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
@@ -6818,7 +6834,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 39,
+                        "line": 43,
                         "file": "Emitter.js",
                         "path": "src/classes"
                     }
