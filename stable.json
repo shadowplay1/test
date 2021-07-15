@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.10.0",
         "format": 20,
-        "date": 1626373716559
+        "date": 1626374583100
     },
     "custom": {
         "general": {
@@ -566,7 +566,7 @@
                         "description": "If started successfully: true; else: Error instance."
                     },
                     "meta": {
-                        "line": 305,
+                        "line": 304,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -7931,7 +7931,7 @@
             ],
             "meta": {
                 "line": 22,
-                "file": "defaultOptions.js",
+                "file": "DefaultOptions.js",
                 "path": "src/structures"
             }
         },
@@ -7946,7 +7946,7 @@
             ],
             "props": [
                 {
-                    "name": "updater.checkUpdates",
+                    "name": "checkUpdates",
                     "description": "Sends the update state message in console on start. Default: true.",
                     "type": [
                         [
@@ -7957,7 +7957,7 @@
                     ]
                 },
                 {
-                    "name": "updater.upToDateMessage",
+                    "name": "upToDateMessage",
                     "description": "Sends the message in console on start if module is up to date. Default: true.",
                     "type": [
                         [
@@ -7970,7 +7970,7 @@
             ],
             "meta": {
                 "line": 39,
-                "file": "defaultOptions.js",
+                "file": "DefaultOptions.js",
                 "path": "src/structures"
             }
         },
@@ -7985,7 +7985,7 @@
             ],
             "props": [
                 {
-                    "name": "errorHandler.handleErrors",
+                    "name": "handleErrors",
                     "description": "Handles all errors on startup. Default: true.",
                     "type": [
                         [
@@ -7996,7 +7996,7 @@
                     ]
                 },
                 {
-                    "name": "errorHandler.attempts",
+                    "name": "attempts",
                     "description": "Amount of attempts to load the module. Use 'null' for infinity attempts. Default: 5.",
                     "type": [
                         [
@@ -8007,7 +8007,7 @@
                     ]
                 },
                 {
-                    "name": "errorHandler.time",
+                    "name": "time",
                     "description": "Time between every attempt to start the module (in ms). Default: 3000.",
                     "type": [
                         [
@@ -8020,7 +8020,7 @@
             ],
             "meta": {
                 "line": 45,
-                "file": "defaultOptions.js",
+                "file": "DefaultOptions.js",
                 "path": "src/structures"
             }
         }
