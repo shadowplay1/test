@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.10.0",
         "format": 20,
-        "date": 1626372535470
+        "date": 1626373716559
     },
     "custom": {
         "general": {
@@ -1871,7 +1871,7 @@
             "description": "EconomyError class.",
             "construct": {
                 "name": "EconomyError",
-                "description": "Creates an 'EconomyError' error instance.",
+                "description": "Creates an 'EconomyError' instance.",
                 "params": [
                     {
                         "name": "message",
@@ -7778,6 +7778,250 @@
                 "line": 108,
                 "file": "UtilsManager.js",
                 "path": "src/managers"
+            }
+        },
+        {
+            "name": "EconomyOptions",
+            "description": "Default Economy options object.",
+            "type": [
+                [
+                    [
+                        "Object"
+                    ]
+                ]
+            ],
+            "props": [
+                {
+                    "name": "storagePath",
+                    "description": "Full path to a JSON file. Default: './storage.json'.",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "checkStorage",
+                    "description": "Checks the if database file exists and if it has errors. Default: true",
+                    "type": [
+                        [
+                            [
+                                "Boolean"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "dailyCooldown",
+                    "description": "Cooldown for Daily Command (in ms). Default: 24 Hours (60000 * 60 * 24) ms",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "workCooldown",
+                    "description": "Cooldown for Work Command (in ms). Default: 1 Hour (60000 * 60) ms",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "dailyAmount",
+                    "description": "Amount of money for Daily Command. Default: 100.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "weeklyCooldown",
+                    "description": "Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "weeklyAmount",
+                    "description": "Amount of money for Weekly Command. Default: 1000.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "workAmount",
+                    "description": "Amount of money for Work Command. Default: [10, 50].",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ],
+                        [
+                            [
+                                "Array"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "updateCountdown",
+                    "description": "Checks for if storage file exists in specified time (in ms). Default: 1000.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "dateLocale",
+                    "description": "The region (example: 'ru'; 'en') to format date and time. Default: 'ru'.",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "updater",
+                    "description": "Update Checker options object.",
+                    "type": [
+                        [
+                            [
+                                "UpdaterOptions"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "errorHandler",
+                    "description": "Error Handler options object.",
+                    "type": [
+                        [
+                            [
+                                "ErrorHandlerOptions"
+                            ]
+                        ]
+                    ]
+                }
+            ],
+            "meta": {
+                "line": 22,
+                "file": "defaultOptions.js",
+                "path": "src/structures"
+            }
+        },
+        {
+            "name": "UpdaterOptions",
+            "type": [
+                [
+                    [
+                        "Object"
+                    ]
+                ]
+            ],
+            "props": [
+                {
+                    "name": "updater.checkUpdates",
+                    "description": "Sends the update state message in console on start. Default: true.",
+                    "type": [
+                        [
+                            [
+                                "Boolean"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "updater.upToDateMessage",
+                    "description": "Sends the message in console on start if module is up to date. Default: true.",
+                    "type": [
+                        [
+                            [
+                                "Boolean"
+                            ]
+                        ]
+                    ]
+                }
+            ],
+            "meta": {
+                "line": 39,
+                "file": "defaultOptions.js",
+                "path": "src/structures"
+            }
+        },
+        {
+            "name": "ErrorHandlerOptions",
+            "type": [
+                [
+                    [
+                        "Object"
+                    ]
+                ]
+            ],
+            "props": [
+                {
+                    "name": "errorHandler.handleErrors",
+                    "description": "Handles all errors on startup. Default: true.",
+                    "type": [
+                        [
+                            [
+                                "Boolean"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "errorHandler.attempts",
+                    "description": "Amount of attempts to load the module. Use 'null' for infinity attempts. Default: 5.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "errorHandler.time",
+                    "description": "Time between every attempt to start the module (in ms). Default: 3000.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ]
+                }
+            ],
+            "meta": {
+                "line": 45,
+                "file": "defaultOptions.js",
+                "path": "src/structures"
             }
         }
     ],
