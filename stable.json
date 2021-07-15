@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.10.0",
         "format": 20,
-        "date": 1626375097653
+        "date": 1626375292154
     },
     "custom": {
         "general": {
@@ -45,6 +45,7 @@
                 "params": [
                     {
                         "name": "options",
+                        "description": "Economy options object.",
                         "type": [
                             [
                                 [
