@@ -253,6 +253,7 @@ The test will look like this:
 <li><b>Full code rewrite.</b></li>
 <li><b>Lots of bugfixes.</b></li>
 <li><b>Code optimization.</b></li>
+<li><b>Fixed typos.</b></li>
 <li><b>Added a new Fetch Manager that allows you to fetch data from database.</b></li>
 <li><b>Added an 'add()', 'subtract()', 'push()' and 'removeElement()' methods in Database Manager.</b></li>
 <li><b>Added a 'checkOptions()' and 'reset()' methods in Utils Manager.</b></li>
@@ -260,12 +261,14 @@ The test will look like this:
 <li><b>Added a 'subtractOnBuy' property in constructor options.</b></li>
 <li><b>All typings were separated into files.</b></li>
 <li><b><a href="https://des-docs.tk">Documentation</a> update: now you can view the docs for a multiple module versions.</b></li>
+<li><b><a href="https://des-docs.tk">Documentation</a> update: now you can view the weekly downloads of the module on it's main page.</b></li>
+<li><b>... and more!</li>
 </ul>
 
 ## ❗ | Useful Links
 <ul>
 <li><b><a href = "https://www.npmjs.com/package/discord-economy-super">NPM</a></b></li>
-<li><b><a href = "https://github.com/shadowplay1/discord-economy-super">Github</a></b></li>
+<li><b><a href = "https://github.com/shadowplay1/discord-economy-super">GitHub</a></b></li>
 <li><b><a href = "https://github.com/shadowplay1/discord-economy-super/tree/main/examples">Examples</a></b></li>
 <li><b><a href = "https://discord.gg/4pWKq8vUnb">Discord Server</a></b></li>
 </ul>

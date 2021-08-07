@@ -44,12 +44,12 @@ new Economy({
         time: 3000 // Time between every attempt to start the module. Default: 3000.
     },
     optionsChecker: {
-        ignoreInvalidTypes: false,
-        ignoreUnspecifiedOptions: false,
-        ignoreInvalidOptions: false,
-        showProblems: false,
-        sendLog: false,
-        sendSuccessLog: false
+        ignoreInvalidTypes: false, // Allows the method to ignore the options with invalid types. Default: false.
+        ignoreUnspecifiedOptions: false, // Allows the method to ignore the unspecified options. Default: false.
+        ignoreInvalidOptions: false, // Allows the method to ignore the unexisting options. Default: false.
+        showProblems: false, // Allows the method to show all the problems in the console. Default: false.
+        sendLog: false, // Allows the method to send the result in the console. Default: false.
+        sendSuccessLog: false // Allows the method to send the result if no problems were found. Default: false.
     }
 });
 ```
