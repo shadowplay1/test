@@ -229,7 +229,6 @@ The test will look like this:
 <li><b>Updated README.md.</b></li>
 <li><b>Now this module has a <a href="https://des-docs.tk">documentation website</a>!</b></li>
 <li><b>Added an 'Economy.docs' property that contains a link to the documentation website.</b></li>
-<li><b>I think this is the last version of this module. Next versions would be only bugfixes or people's ideas. Thank you for using this module!</b></li>
 </ul>
 <b>1.3.2</b>
 <ul>
@@ -273,8 +272,22 @@ The test will look like this:
 <ul>
 <li><b>Fixed bugs.</b></li>
 <li><b>Fixed typos.</b></li>
-<li><b>Fixed typing.</b></li>
+<li><b>Fixed typings.</b></li>
 <li><b>Fixed the economy options resetting to default.</b></li>
+</ul>
+<b>1.3.7</b>
+<ul>
+<li><b>Fixed bugs.</b></li>
+<li><b>Fixed the hard crash if options object is not specified.</b></li>
+</ul>
+<b>1.3.8</b>
+<ul>
+<li><b>Fixed typings.</b></li>
+<li><b>Fixed a hard crash with 'Economy.rewards.work()' method.</b></li>
+</ul>
+<b>1.3.9</b>
+<ul>
+<li><b>Fixed typings.</b></li>
 </ul>
 
 ## ❗ | Useful Links
