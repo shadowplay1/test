@@ -37,7 +37,7 @@ class Economy extends Emitter {
     * The Economy class.
     * @param {EconomyOptions} options Economy options object.
     */
-    constructor(options) {
+    constructor(options = {}) {
         super()
 
         /**
@@ -259,6 +259,8 @@ class Economy extends Emitter {
                         else return reject(err)
                     }
                 }
+                
+                this.utils = new UtilsManager(this.options)
 
                 if (this.options?.updater?.checkUpdates) {
                     const version = await this.utils.checkUpdates()
