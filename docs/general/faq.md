@@ -15,10 +15,6 @@
 #### A: Because the module is not started and not ready yet. If you have a command handler, you have to do `<client>.economy = economy`, which will add my module in your bot client's property and you could use the module in any command without any errors. For example: `<client>.economy.ranks.get(...)` will return you a user's rank object.
 <br>
 
-### Q: Why do I get the "SyntaxError: Unexpected token '.' " or any Discord.js related error?
-#### A: Because the module is supporting only Node.js v16.6.0 or above and Discord.js 13.1.0 or above. You need to update them to make the module work.
-<br>
-
 ### Q: Why are examples not working?
 #### A: Examples provided in documentation and in GitHub are for one-file bot. See the question above to get more info. If it's a bug, see the question below.
 <br>
