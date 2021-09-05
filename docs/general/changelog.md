@@ -167,7 +167,7 @@ The test will look like this:
         milliseconds: Number
     },
     pretty: String | Number,
-    reward: Number | Array<Number> // array returns if work reward is array
+    reward: Number | Number[] // array returns if work reward is array
 }
 ```
 
@@ -288,6 +288,13 @@ The test will look like this:
 <b>1.3.9</b>
 <ul>
 <li><b>Fixed typings.</b></li>
+</ul>
+<b>1.4.0</b>
+<ul>
+<li><b>Fixed bugs.</b></li>
+<li><b>Fixed typings.</b></li>
+<li><b>Now you can put an array with 2 numbers in 'dailyAmount' and 'weeklyAmount' options.</b></li>
+<li><b>Now you can setup the module on different guilds using the brand new Settings Manager.</b></li>
 </ul>
 
 ## ❗ | Useful Links

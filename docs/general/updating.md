@@ -59,9 +59,7 @@ In version 1.2.5 everything was optimized and all balance and bank balance metho
 <li><b><a href = "https://github.com/shadowplay1/discord-economy-super/tree/main/examples">Examples</a></b></li>
 <li><b><a href = "https://discord.gg/4pWKq8vUnb">Discord Server</a></b></li>
 </ul>
-<b>If you found a bug, please send it in Discord to ShadowPlay#9706.</b>
-<br>
-<b>If you have any questions or need help, join the <a href = "https://discord.gg/4pWKq8vUnb">Support Server</a>.</b>
+<b>If you found a bug, have any questions or need help, join the <a href = "https://discord.gg/4pWKq8vUnb">Support Server</a>.</b>
 <br>
 <b>Module Created by ShadowPlay.</b>
 

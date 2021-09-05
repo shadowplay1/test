@@ -8,7 +8,15 @@
 ## Simple Example
 ```js
 const { Client } = require('discord.js')
-const client = new Client();
+const client = new Client({
+    partials: ['CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION', 'USER'],
+    intents: [
+        'GUILDS', 'GUILD_BANS', 'GUILD_EMOJIS_AND_STICKERS', 'GUILD_INTEGRATIONS',
+        'GUILD_INVITES', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS',
+        'GUILD_MESSAGE_TYPING', 'GUILD_PRESENCES', 'GUILD_VOICE_STATES', 'GUILD_WEBHOOKS',
+        'DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'DIRECT_MESSAGE_TYPING'
+    ]
+});
 
 const Economy = require('discord-economy-super');
 const eco = new Economy();
@@ -175,9 +183,7 @@ if (message.content.startsWith('+deposit') || message.content.startsWith('+dep')
 <li><b><a href = "https://github.com/shadowplay1/discord-economy-super/tree/main/examples">Bot Examples</a></b></li>
 <li><b><a href = "https://discord.gg/4pWKq8vUnb">Discord Server</a></b></li>
 </ul>
-<b>If you found a bug, please send it in Discord to ShadowPlay#9706.</b>
-<br>
-<b>If you have any questions or need help, join the <a href = "https://discord.gg/4pWKq8vUnb">Support Server</a>.</b>
+<b>If you found a bug, have any questions or need help, join the <a href = "https://discord.gg/4pWKq8vUnb">Support Server</a>.</b>
 <br>
 <b>Module Created by ShadowPlay.</b>
 
