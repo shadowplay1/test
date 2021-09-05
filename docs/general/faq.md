@@ -12,7 +12,7 @@
 <br>
 
 ### Q: Why do I get the "Cannot read property '(any manager property from main class)' of null"?
-#### A: Because the module is not started and not ready yet. if you have a command handler, you have to do `<client>.economy = economy`, which will add my module in your bot client's property and you could use the module in any command without any errors. For example: `<client>.economy.ranks.get(...)` will return you a user's rank object.
+#### A: Because the module is not started and not ready yet. If you have a command handler, you have to do `<client>.economy = economy`, which will add my module in your bot client's property and you could use the module in any command without any errors. For example: `<client>.economy.ranks.get(...)` will return you a user's rank object.
 <br>
 
 ### Q: Why do I get the "SyntaxError: Unexpected token '.' " or any Discord.js related error?
