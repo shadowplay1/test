@@ -21,7 +21,7 @@ So you have to change your code like this:
 - `eco.getDailyCooldown()` ==> `eco.cooldowns.daily()`
 - `eco.all()` ==> `eco.utils.all()`
 
-See the [changelog](https://des-docs.tk/#/docs/main/stable/general/changelog) for the full list of changes.
+See the [changelog](https://des-docs.tk/#/docs/main/1.4.0/general/changelog) for the full list of changes.
 
 ## Version 1.2.5
 In version 1.2.5 everything was optimized and all balance and bank balance methods were moved to objects:

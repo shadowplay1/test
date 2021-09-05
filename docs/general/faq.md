@@ -15,6 +15,10 @@
 #### A: Because the module is not started and not ready yet. If you have a command handler, you have to do `<client>.economy = economy`, which will add my module in your bot client's property and you could use the module in any command without any errors. For example: `<client>.economy.ranks.get(...)` will return you a user's rank object.
 <br>
 
+### Q: Can I use the module globally?
+#### A: Yes! Just use '123' as guild ID or any other value in all methods, and the module will work with only one guild.
+<br>
+
 ### Q: Why are examples not working?
 #### A: Examples provided in documentation and in GitHub are for one-file bot. See the question above to get more info. If it's a bug, see the question below.
 <br>
