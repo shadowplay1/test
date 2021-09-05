@@ -16,7 +16,8 @@
 <br>
 
 ### Q: Can I use the module globally?
-#### A: Yes! Just use '123' as guild ID or any other value in all methods, and the module will work with only one guild.
+#### A: Yes! Just use '123' as guild ID or any other value in all methods, and the module will work with only one guild. For example: guild '111' and '222' will take the 333's balance info from guild '123' in database.
+
 <br>
 
 ### Q: Why are examples not working?
