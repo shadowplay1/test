@@ -296,7 +296,7 @@ The test will look like this:
 <li><b>Now you can put an array with 2 numbers in 'dailyAmount' and 'weeklyAmount' options.</b></li>
 <li><b>Now you can setup the module on different guilds using the brand new Settings Manager.</b></li>
 <li><b>Removed 'lodash' from the dependencies.</b></li>
-<li><b>Made a function that checks the Node.js version.</b></li>
+<li><b>Made a function that checks the Node.js version on the start.</b></li>
 </ul>
 
 ## ❗ | Useful Links
