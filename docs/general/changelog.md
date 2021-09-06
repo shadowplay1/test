@@ -71,7 +71,7 @@
 <li><b>Now every balance and bank-balance event object is including 'type' and 'balance' properties. The first property is type of the operation ('set', 'add', 'subtract', 'bankSet', 'bankAdd', 'bankSubtract') and the second is user's new balance after the operation was completed successfully.</b></li>
 <li><b>Now you can manually check the module updates using the new 'Economy.checkUpdates()' method.</b></li>
 <li><b>Added an additional 'Economy.ready' and 'Economy.errored' properties to check the module state.</b></li>
-<li><b>Now you can add a role to users on your Discord server. Click <a href="https://des-docs.tk/#/docs/main/1.4.0/class/ShopManager">here</a> for more info.</b></li>
+<li><b>Now you can add a role to users on your Discord server. Click <a href="https://des-docs.tk/#/docs/main/1.4.1/class/ShopManager">here</a> for more info.</b></li>
 <li><b>Added a new 'shopItemBuy' and 'shopItemUse' events.</b></li>
 <li><b>Now if user try to buy an item when he reached the max amount of item in his inventory, the method will return a 'max' string.</b></li>
 <li><b>Now this module has a Support Server. Click <b><a href = "https://discord.gg/4pWKq8vUnb">here</a></b> to join!</b></li>
@@ -297,6 +297,10 @@ The test will look like this:
 <li><b>Now you can setup the module on different guilds using the brand new Settings Manager.</b></li>
 <li><b>Removed 'lodash' from the dependencies.</b></li>
 <li><b>Made a function that checks the Node.js version on the start.</b></li>
+</ul>
+<b>1.4.1</b>
+<ul>
+<li><b>Fixed bugs.</b></li>
 </ul>
 
 ## ❗ | Useful Links
