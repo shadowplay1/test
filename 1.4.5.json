@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.10.0",
         "format": 20,
-        "date": 1638040624312
+        "date": 1638041190297
     },
     "custom": {
         "general": {
@@ -3679,7 +3679,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 25,
+                        "line": 24,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -3696,7 +3696,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 32,
+                        "line": 31,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -3717,7 +3717,7 @@
                         "description": "Database contents"
                     },
                     "meta": {
-                        "line": 39,
+                        "line": 38,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -3757,10 +3757,10 @@
                                 ]
                             ]
                         ],
-                        "description": "User's balance"
+                        "description": "User's balance."
                     },
                     "meta": {
-                        "line": 56,
+                        "line": 55,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -3800,10 +3800,10 @@
                                 ]
                             ]
                         ],
-                        "description": "User's bank balance"
+                        "description": "User's bank balance."
                     },
                     "meta": {
-                        "line": 76,
+                        "line": 75,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -3839,14 +3839,19 @@
                         "types": [
                             [
                                 [
-                                    "InventoryData"
+                                    "Array",
+                                    "<"
+                                ],
+                                [
+                                    "InventoryData",
+                                    ">"
                                 ]
                             ]
                         ],
-                        "description": "User's bank balance"
+                        "description": "User's inventory."
                     },
                     "meta": {
-                        "line": 96,
+                        "line": 95,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -3886,10 +3891,10 @@
                                 ]
                             ]
                         ],
-                        "description": "User's bank balance"
+                        "description": "User's purchases history."
                     },
                     "meta": {
-                        "line": 116,
+                        "line": 115,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -3929,10 +3934,10 @@
                                 ]
                             ]
                         ],
-                        "description": "User's bank balance"
+                        "description": "User's cooldowns object."
                     },
                     "meta": {
-                        "line": 136,
+                        "line": 135,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -3969,14 +3974,14 @@
                         "description": "The shop array."
                     },
                     "meta": {
-                        "line": 161,
+                        "line": 160,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
                 }
             ],
             "meta": {
-                "line": 10,
+                "line": 9,
                 "file": "FetchManager.js",
                 "path": "src/managers"
             }
