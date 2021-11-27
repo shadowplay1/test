@@ -302,6 +302,32 @@ The test will look like this:
 <ul>
 <li><b>Fixed bugs.</b></li>
 </ul>
+<b>1.4.2</b>
+<ul>
+<li><b>Fixed bugs.</b></li>
+<li><b>Code optimization.</b></li>
+<li><b>Fixed typings.</b></li>
+</ul>
+<b>1.4.3</b>
+<ul>
+<li><b>Fixed bugs.</b></li>
+</ul>
+<b>1.4.4</b>
+<ul>
+<li><b>Fixed bugs.</b></li>
+<li><b>Code optimization.</b></li>
+</ul>
+<b>1.4.5</b>
+<ul>
+<li><b>Fixed bugs.</b></li>
+<li><b>Fixed typos in a README.md.</b></li>
+<li><b>Improved the FAQ.</b></li>
+<li><b>Code optimization.</b></li>
+<li><b>Improved the quality of the code.</b></li>
+<li><b>Added a new 'Economy.shop.searchInventoryItem()' method that searches for the item in user's inventory.</b></li>
+<li><b>Improved the typings: fixed wrong types and typos and replaced the "any" types with method's type parameters.</b></li>
+<li><b>TypeScript Examples!</b></li>
+</ul>
 
 ## ❗ | Useful Links
 <ul>
