@@ -19,7 +19,8 @@ pnpm add discord-economy-super
 ```
 
 ## ❓ | About
-<b>Discord Economy Super is a powerful Node.js module that allows you to make an economy system in your bot very easily.</b>
+<b>Discord Economy Super is a powerful Node.js module that allows you to make an economy system in your bot very easily.</b><br>
+Module's features:
 <br>
 <ul>
 <li><b>TypeScript Support 📘</b></li>
