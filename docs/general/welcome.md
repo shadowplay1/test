@@ -36,6 +36,11 @@ Module's features:
 ## 🤔 | Help
 <b>If you don't understand something in the documentation or you are experiencing problems, feel free to join our <a href = "https://discord.gg/4pWKq8vUnb">Support Server</a>.</b>
 
+## 🕘 | My Other Modules
+<ul>
+<li><b><a href = "https://www.npmjs.com/package/discord-leveling-super">discord-leveling-super</a></b></li>
+</ul>
+
 ## ❗ | Useful Links
 <ul>
 <li><b><a href = "https://www.npmjs.com/package/discord-economy-super">NPM</a></b></li>
