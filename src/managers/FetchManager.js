@@ -10,12 +10,13 @@ const EconomyError = require('../classes/EconomyError')
 class FetchManager {
 
     /**
-     * Economy constructor options object. There's only needed options object properties for this manager to work properly.
+     * Economy constructor options object. 
+     * There's only needed options object properties for this manager to work properly.
      * @param {Object} options Constructor options object.
      * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
      */
     constructor(options = {}) {
-        
+
         /**
          * Economy constructor options object.
          * @type {EconomyOptions}
@@ -140,7 +141,7 @@ class FetchManager {
 
         const guildData = data[guildID]
         const memberData = guildData?.[memberID]
-        
+
         const dailyCooldown = memberData?.dailyCooldown
         const workCooldown = memberData?.workCooldown
         const weeklyCooldown = memberData?.weeklyCooldown
