@@ -328,6 +328,12 @@ The test will look like this:
 <li><b>Improved the typings: fixed wrong types and typos and replaced the "any" types with method's generic type parameters.</b></li>
 <li><b>TypeScript Examples!</b></li>
 </ul>
+<b>1.4.6</b>
+<ul>
+<li><b>Fixed bugs.</b></li>
+<li><b>Removed "discord.js" module from dependencies that was accidentally added.</b></li>
+<li><b>Fixed typings.</b></li>
+</ul>
 
 ## ❗ | Useful Links
 <ul>
