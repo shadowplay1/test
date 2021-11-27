@@ -325,7 +325,7 @@ The test will look like this:
 <li><b>Code optimization.</b></li>
 <li><b>Improved the quality of the code.</b></li>
 <li><b>Added a new 'Economy.shop.searchInventoryItem()' method that searches for the item in user's inventory.</b></li>
-<li><b>Improved the typings: fixed wrong types and typos and replaced the "any" types with method's type parameters.</b></li>
+<li><b>Improved the typings: fixed wrong types and typos and replaced the "any" types with method's generic type parameters.</b></li>
 <li><b>TypeScript Examples!</b></li>
 </ul>
 
