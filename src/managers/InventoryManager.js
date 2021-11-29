@@ -320,7 +320,7 @@ class InventoryManager extends Emitter {
  * @property {Number} [sellingItemPercent=75]
  * Percent of the item's price it will be sold for. Default: 75.
  * 
- * @property {Boolean} deprecationWarnings 
+ * @property {Boolean} [deprecationWarnings=true] 
  * If true, the deprecation warnings will be sent in the console.
  * @property {Number | Number[]} [weeklyAmount=100] Amount of money for Weekly Command. Default: 1000.
  * @property {Number | Number[]} [workAmount=[10, 50]] Amount of money for Work Command. Default: [10, 50].
