@@ -10,22 +10,27 @@
 <ul>
   <li><b>The first version of the module: added a basic methods: 'Economy.fetch()', 'Economy.set()', 'Economy.add()', 'Economy.subtract()', 'Economy.daily()', 'Economy.work()', 'Economy.getDailyCooldown()', 'Economy.getWorkCooldown()', 'Economy.all()' and 'Economy.leaderboard()'. Also added an EconomyError class, but you couldn't use it yourself.</b></li>
 </ul>
+
 <b>1.0.2</b>
 <ul>
   <li><b>Edited README.md</b></li>
 </ul>
+
 <b>1.0.3</b>
 <ul>
   <li><b>Fixed bugs.</b></li>
 </ul>
+
 <b>1.0.4</b>
 <ul>
   <li><b>Fixed bugs.</b></li>
 </ul>
+
 <b>1.0.5</b>
 <ul>
   <li><b>Fixed bugs.</b></li>
 </ul>
+
 <b>1.0.6</b>
 <ul>
   <li><b>Edited README.md</b></li>
@@ -35,10 +40,12 @@
   <li><b>Added an 'EconomyError' class property.</b></li>
   <li><b>Added a 'dateLocale' property for options object.</b></li>
 </ul>
+
 <b>1.0.7</b>
 <ul>
   <li><b>Fixed bugs</b></li>
 </ul>
+
 <b>1.0.8</b>
 <ul>
 <li><b>Edted README.md</b></li>
@@ -46,6 +53,7 @@
 <li><b>Code optimization.</b></li>
 <li><b>Now this module is including Events. They are listed above.</b></li>
 </ul>
+
 <b>1.1.4</b>
 <ul>
 <li><b>Edted README.md</b></li>
@@ -54,6 +62,7 @@
 <li><b>Added an update checking system for this module.</b></li>
 <li><b>Added a 'checkUpdates' property for options object.</b></li>
 </ul>
+
 <b>1.1.5</b>
 <ul>
 <li><b>Edted README.md</b></li>
@@ -76,18 +85,21 @@
 <li><b>Now if user try to buy an item when he reached the max amount of item in his inventory, the method will return a 'max' string.</b></li>
 <li><b>Now this module has a Support Server. Click <b><a href = "https://discord.gg/4pWKq8vUnb">here</a></b> to join!</b></li>
 </ul>
+
 <b>1.1.6</b>
 <ul>
 <li><b>Code optimization.</b></li>
 <li><b>Fixed bug with "The module is not ready to work" error on startup.</b></li>
 <li><b>Removed an accidentaly added "discord.js" module from dependencies.</b></li>
 </ul>
+
 <b>1.1.7</b>
 <ul>
 <li><b>Fixed bugs.</b></li>
 <li><b>Code optimization.</b></li>
 <li><b>TypeScript support is finally here! Created a type defenitions for this module.</b></li>
 </ul>
+
 <b>1.1.8</b>
 <ul>
 <li><b>Fixed bugs.</b></li>
@@ -110,6 +122,7 @@ The test will look like this:
 ![Test](https://cdn.discordapp.com/attachments/764192017542283325/838226957166313472/Screenshot_4.png)
 </b></li>
 </ul>
+
 <b>1.1.9</b>
 <ul>
 <li><b>Fixed bugs.</b></li>
@@ -117,6 +130,7 @@ The test will look like this:
 <li><b>Fixed bugs.</b></li>
 <li><b>Fixed type defenitions.</b></li>
 </ul>
+
 <b>1.2.0</b>
 <ul>
 <li><b>Fixed bugs.</b></li>
@@ -124,6 +138,7 @@ The test will look like this:
 <li><b>Fixed typos.</b></li>
 <li><b>'Economy.shop.clearInventory()' method is working fine now.</b></li>
 </ul>
+
 <b>1.2.1</b>
 <ul>
 <li><b>Fixed minor bugs.</b></li>
@@ -132,12 +147,14 @@ The test will look like this:
 <li><b>Added an 'Economy.removeGuild()' method to fully remove the guild from database.</b></li>
 <li><b>Added an 'Economy.removeUser()' method to to remove the user from database.</b></li>
 </ul>
+
 <b>1.2.2</b>
 <ul>
 <li><b>Fixed minor bugs.</b></li>
 <li><b>Code optimization.</b></li>
 <li><b>Fixed another issues with 'Economy.work()' method...</b></li>
 </ul>
+
 <b>1.2.3</b>
 <ul>
 <li><b>Fixed minor bugs.</b></li>
@@ -146,6 +163,7 @@ The test will look like this:
 <li><b>Updated examples.</b></li>
 <li><b>Fixed typos</b></li>
 </ul>
+
 <b>1.2.4</b>
 <ul>
 <li><b>Fixed minor bugs.</b></li>
@@ -210,18 +228,21 @@ The test will look like this:
 ```
 <li><b>'Economy.balance.leaderboard()' and 'Economy.bank.leaderboard()' methods arrays are now have an 'index' property in object.</b></li>
 </ul>
+
 <b>1.2.6</b>
 <ul>
 <li><b>Fixed typos.</b></li>
 <li><b>Updated README.md.</b></li>
 <li><b>Now 'ready' and 'destroy' events will return nothing (Void) instead of Boolean.</b></li>
 </ul>
+
 <b>1.2.8</b>
 <ul>
 <li><b>Fixed typos.</b></li>
 <li><b>Fixed minor bugs.</b></li>
 <li><b>Item IDs in shop and inventory are now synced with the last element of array. It fixes the bug with similar item IDs in the shop and inventory.</b></li>
 </ul>
+
 <b>1.3.0</b>
 <ul>
 <li><b>Fixed typos.</b></li>
@@ -230,6 +251,7 @@ The test will look like this:
 <li><b>Now this module has a <a href="https://des-docs.tk">documentation website</a>!</b></li>
 <li><b>Added an 'Economy.docs' property that contains a link to the documentation website.</b></li>
 </ul>
+
 <b>1.3.2</b>
 <ul>
 <li><b>Fixed typos.</b></li>
@@ -242,11 +264,13 @@ The test will look like this:
 <li><b>The entire module structure was rewritten on Managers.</b></li>
 <li><b>Added a new Database Manager that allows you to interact with module's storage file.</b></li>
 </ul>
+
 <b>1.3.3</b>
 <ul>
 <li><b>Fixed minor bugs.</b></li>
 <li><b>Fixed bugs with Database Manager.</b></li>
 </ul>
+
 <b>1.3.4</b>
 <ul>
 <li><b>Full code rewrite.</b></li>
@@ -263,11 +287,13 @@ The test will look like this:
 <li><b><a href="https://des-docs.tk">Documentation</a> update: now you can view the weekly downloads of the module on it's main page.</b></li>
 <li><b>... and more!</li>
 </ul>
+
 <b>1.3.5</b>
 <ul>
 <li><b>Fixed the 'Cannot find module `structures/Errors`' error.</b></li>
 <li><b>Fixed bugs in typings.</b></li>
 </ul>
+
 <b>1.3.6</b>
 <ul>
 <li><b>Fixed bugs.</b></li>
@@ -275,20 +301,24 @@ The test will look like this:
 <li><b>Fixed typings.</b></li>
 <li><b>Fixed the economy options resetting to default.</b></li>
 </ul>
+
 <b>1.3.7</b>
 <ul>
 <li><b>Fixed bugs.</b></li>
 <li><b>Fixed the hard crash if options object is not specified.</b></li>
 </ul>
+
 <b>1.3.8</b>
 <ul>
 <li><b>Fixed typings.</b></li>
 <li><b>Fixed a hard crash with 'Economy.rewards.work()' method.</b></li>
 </ul>
+
 <b>1.3.9</b>
 <ul>
 <li><b>Fixed typings.</b></li>
 </ul>
+
 <b>1.4.0</b>
 <ul>
 <li><b>Fixed bugs.</b></li>
@@ -298,25 +328,30 @@ The test will look like this:
 <li><b>Removed 'lodash' from the dependencies.</b></li>
 <li><b>Made a function that checks the Node.js version on the start.</b></li>
 </ul>
+
 <b>1.4.1</b>
 <ul>
 <li><b>Fixed bugs.</b></li>
 </ul>
+
 <b>1.4.2</b>
 <ul>
 <li><b>Fixed bugs.</b></li>
 <li><b>Code optimization.</b></li>
 <li><b>Fixed typings.</b></li>
 </ul>
+
 <b>1.4.3</b>
 <ul>
 <li><b>Fixed bugs.</b></li>
 </ul>
+
 <b>1.4.4</b>
 <ul>
 <li><b>Fixed bugs.</b></li>
 <li><b>Code optimization.</b></li>
 </ul>
+
 <b>1.4.5</b>
 <ul>
 <li><b>Fixed bugs.</b></li>
@@ -328,11 +363,61 @@ The test will look like this:
 <li><b>Improved the typings: fixed wrong types and typos and replaced the "any" types with method's generic type parameters.</b></li>
 <li><b>TypeScript Examples!</b></li>
 </ul>
+
 <b>1.4.6</b>
 <ul>
 <li><b>Fixed bugs.</b></li>
 <li><b>Removed "discord.js" module from dependencies that was accidentally added.</b></li>
 <li><b>Fixed typings.</b></li>
+</ul>
+
+<b>1.4.7</b>
+<ul>
+<li><b>Fixed bugs.</b></li>
+<li><b>Fixed typings.</b></li>
+<li><b>Fixed typos.</b></li>
+<li><b>Fixed startup issues.</b></li>
+<li><b>Fixed TypeScript examples.</b></li>
+<li><b>Default date locale was changed to 'en' instead of 'ru'.</b></li>
+<li><b>Now you can import all the managers directly from the module. Example:</b></li>
+
+```js
+const { BalanceManager, ShopManager } = require('discord-economy-super')
+// or
+import { BalanceManager, ShopManager } from 'discord-economy-super'
+```
+<li><b>Added a new InventoryManager that includes all inventory related methods.</b></li>
+<li><b>Added a 'removeItem' and 'sellItem' methods to the InventoryManager.</b></li>
+<li><b>Added a new 'sellingItemPercent' option that configures the price that<br>
+the item will be sold for. (It was made for InventoryManager.sellItem method)</b></li>
+<li><b>Important:<br>
+Inventory related methods in ShopManager are now deprecated, but they won't be deleted.<br>
+If you want to use the newest inventory features and get all the bugfixes,<br>
+please switch to the new InventoryManager.<br>
+[!!!] No help and support will be provided for deprecated methods.</b></li>
+<br>
+
+```diff
+- ShopManager:
+
+- ShopManager.inventory(memberID, guildID) [deprecated]
+- ShopManager.clearInventory(memberID, guildID) [deprecated]
+- ShopManager.useItem(itemID, memberID, guildID, client?) [deprecated]
+- ShopManager.searchInventoryItem(itemID, memberID, guildID) [deprecated]
+
+
++ InventoryManager:
+
++ InventoryManager.fetch(memberID, guildID)
++ InventoryManager.clear(memberID, guildID)
++ InventoryManager.searchItem(itemID, memberID, guildID)
++ InventoryManager.useItem(itemID, memberID, guildID, client?)
++ InventoryManager.removeItem(itemID, memberID, guildID)
++ InventoryManager.sellItem(itemID, memberID, guildID, reason?)
+```
+
+<li><b>Usage of the deprecated methods will now send a deprecation warning in the console.<br>
+You can disable it by setting the `deprecationWarnings` constructor option to `false`.</b></li>
 </ul>
 
 ## ❗ | Useful Links
@@ -342,6 +427,7 @@ The test will look like this:
 <li><b><a href = "https://github.com/shadowplay1/discord-economy-super/tree/main/examples">Examples</a></b></li>
 <li><b><a href = "https://discord.gg/4pWKq8vUnb">Discord Server</a></b></li>
 </ul>
+
 <br>
 <b>If you found a bug, have any questions or need help, join the <a href = "https://discord.gg/4pWKq8vUnb">Support Server</a>.</b>
 <br>
