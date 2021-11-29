@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.10.0",
         "format": 20,
-        "date": 1638215849816
+        "date": 1638216795343
     },
     "custom": {
         "general": {
@@ -6859,6 +6859,8 @@
                 {
                     "name": "deprecationWarnings",
                     "description": "If true, the deprecation warnings will be sent in the console. Default: true.",
+                    "optional": true,
+                    "default": true,
                     "type": [
                         [
                             [
