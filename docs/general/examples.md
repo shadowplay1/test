@@ -120,7 +120,7 @@ eco.on('destroy', () => {
 ## Balance Command
 ```js
 if (message.content.startsWith('+balance')) {
-    const member = message.guild.member(message.mentions.members.first() || message.author)
+    const member = message.guild.members.cache.get(message.mentions.members.first()?.id || message.author.id)
         
     const balance = eco.balance.fetch(member.id, message.guild.id)
     const bank = eco.bank.fetch(member.user.id, message.guild.id)

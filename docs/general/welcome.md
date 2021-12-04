@@ -6,7 +6,7 @@
 <b>Discord Economy Super</b> - Easy and customizable economy framework for your [Discord Bot](https://discord.js.org/#/).
 
 ## 🙋‍♂️ | Welcome!
-Welcome to the `discord-economy-super v1.4.8` documentation.
+Welcome to the `discord-economy-super v1.4.9` documentation.
 
 ## 📂 | Installation
 <b>Note:<b>

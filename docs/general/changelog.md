@@ -432,6 +432,14 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>Added an 'InventoryManager.addItem()' method that adds the specified item to the user's inventory from the shop.</b></li>
 </ul>
 
+<b>1.4.9</b>
+<ul>
+<li><b>Fixed bugs.</b></li>
+<li><b>Fixed typings.</b></li>
+<li><b>Added a 'savePurchasesHistory' constructor option that will indicate will the module save the purchases history or not.</b></li>
+<li><b>The module will now send a message in console on startup if there's a problem with user's options object.</b></li>
+</ul>
+
 ## ❗ | Useful Links
 <ul>
 <li><b><a href = "https://www.npmjs.com/package/discord-economy-super">NPM</a></b></li>
