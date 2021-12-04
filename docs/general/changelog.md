@@ -420,6 +420,18 @@ please switch to the new InventoryManager.<br>
 You can disable it by setting the `deprecationWarnings` constructor option to `false`.</b></li>
 </ul>
 
+<b>1.4.8</b>
+<ul>
+<li><b>Fixed bugs.</b></li>
+<li><b>Fixed typings.</b></li>
+<li><b>Added a 'ShopManager.findItem()' method as alias for 'ShopManager.searchItem()' method.</b></li>
+<li><b>Added a 'ShopManager.buyItem()' method as alias for 'ShopManager.buy()' method.</b></li>
+<li><b>Added a 'ShopManager.fetch()' method as alias for 'ShopManager.list()' method.</b></li>
+<li><b>Added a 'InventoryManager.list()' method as alias for 'InventoryManager.fetch()' method.</b></li>
+<li><b>Added a 'InventoryManager.findItem()' method as alias for 'InventoryManager.searchItem()' method.</b></li>
+<li><b>Added an 'InventoryManager.addItem()' method that adds the specified item to the user's inventory from the shop.</b></li>
+</ul>
+
 ## ❗ | Useful Links
 <ul>
 <li><b><a href = "https://www.npmjs.com/package/discord-economy-super">NPM</a></b></li>
