@@ -66,6 +66,32 @@ eco.balance.fetch('1234', userID) // null; now it WON'T be the same!
 #### A: On our [Support Server](https://discord.gg/4pWKq8vUnb). We appreciate that!
 <br>
 
+### Q: Can I send a random messages on using the item?
+#### A: Of course! The version 1.5.0 allows you do do that!
+Random string syntax: `[random="item1", "item2", "etc..."]`
+
+Example usage:
+```js
+eco.shop.addItem('guildID', {
+  itemName: 'good-day',
+  price: 100,
+  message: 'What a [random="wonderful", "great", "sunny"] day!'
+})
+
+eco.shop.buy(1, 'memberID', 'guildID')
+eco.shop.buy(1, 'memberID', 'guildID')
+eco.shop.buy(1, 'memberID', 'guildID') // buying the item 3 times
+
+eco.inventory.useItem(1, 'memberID', 'guildID') // What a wonderful day!
+eco.inventory.useItem(1, 'memberID', 'guildID') // What a great day!
+eco.inventory.useItem(1, 'memberID', 'guildID') // What a sunny day!
+
+// In a returning string, [random="wonderful", "great", "sunny"]
+// will be replaced with the any of 
+// the words "wonderful", "great" or "sunny".
+```
+<br>
+
 ## ❗ | Useful Links
 <ul>
 <li><b><a href = "https://www.npmjs.com/package/discord-economy-super">NPM</a></b></li>
