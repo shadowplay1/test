@@ -390,6 +390,7 @@ import { BalanceManager, ShopManager } from 'discord-economy-super'
 <li><b>Added a 'removeItem' and 'sellItem' methods to the InventoryManager.</b></li>
 <li><b>Added a new 'sellingItemPercent' option that configures the price that<br>
 the item will be sold for. (It was made for InventoryManager.sellItem method)</b></li>
+
 <li><b>Important:<br>
 Inventory related methods in ShopManager are now deprecated, but they won't be deleted.<br>
 If you want to use the newest inventory features and get all the bugfixes,<br>
@@ -439,6 +440,65 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>Added a 'savePurchasesHistory' constructor option that will indicate will the module save the purchases history or not.</b></li>
 <li><b>The module will now send a message in console on startup if there's a problem with user's options object.</b></li>
 </ul>
+
+<b>1.5.0</b>
+<ul>
+<li><b>Fixed bugs.</b></li>
+<li><b>Fixed typings.</b></li>
+<li><b>Fixed typos.</b></li>
+<li><b>Fixed issues with 'ShopManager.editItem()' method.</b></li>
+<li><b>Added a new 'changeElement' for the Database manager that will change the element's value in the array.</b></li>
+<li><b>Added a 'InventoryManager.use()' method as alias for 'InventoryManager.useItem()' method.</b></li>
+<li><b>Added a 'ShopManager.edit()' method as alias for 'ShopManager.editItem()' method.</b></li>
+
+<li><b>Important:<br>
+History related methods in ShopManager are now deprecated, but they won't be deleted.<br>
+If you want to use the newest history features and get all the bugfixes,<br>
+please switch to the new HistoryManager.<br>
+[!!!] No help and support will be provided for deprecated methods.</b></li>
+<br>
+
+```diff
+- ShopManager:
+
+- ShopManager.history(memberID, guildID) [deprecated]
+- ShopManager.clearHistory(memberID, guildID) [deprecated]
+
+
++ HistoryManager:
+
++ HistoryManager.fetch(memberID, guildID)
++ HistoryManager.clear(memberID, guildID)
++ HistoryManager.add(itemID, memberID, guildID)  // the 'itemID' parameter is item ID from the shop \\
++ HistoryManager.remove(memberID, guildID)
++ HistoryManager.find(id, memberID, guildID)  // the 'id' parameter is the ID of the history object \\
++ HistoryManager.search(id, memberID, guildID)  // an alias for the method above ^ \\
+```
+</ul>
+<li><b>Now you can use the random strings in a item message!</b></li>
+
+Syntax: `[random="item1", "item2", "etc..."]`
+
+Example usage:
+```js
+eco.shop.addItem('guildID', {
+  itemName: 'good-day',
+  price: 100,
+  message: 'What a [random="wonderful", "great", "sunny"] day!'
+})
+
+eco.shop.buy(1, 'memberID', 'guildID')
+eco.shop.buy(1, 'memberID', 'guildID')
+eco.shop.buy(1, 'memberID', 'guildID') // buying the item 3 times
+
+eco.inventory.useItem(1, 'memberID', 'guildID') // What a wonderful day!
+eco.inventory.useItem(1, 'memberID', 'guildID') // What a great day!
+eco.inventory.useItem(1, 'memberID', 'guildID') // What a sunny day!
+
+// In a returning string, [random="wonderful", "great", "sunny"]
+// will be replaced with the any of 
+// the words "wonderful", "great" or "sunny".
+```
 
 ## ❗ | Useful Links
 <ul>

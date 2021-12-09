@@ -7,6 +7,30 @@
 
 ## ✍ | Updating your code
 
+## Version 1.5.0
+In version 1.5.0, all history related methods in ShopManager are deprecated.
+It's highly recommended to switch to the new HistoryManager:
+
+- `ShopManager.history()` ==> `HistoryManager.fetch()`
+- `ShopManager.clearHistory()` ==> `HistoryManager.clear()`
+
+See the [changelog](https://des-docs.tk/#/docs/main/1.5.0/general/changelog) for the full list of changes.
+
+## Version 1.4.7
+Since version 1.4.7, all deprecated methods/properties will not be deleted, but not be recommended to use.<br>
+If you want to receive all the new features and bugfixes, please consider switching from using the deprecated methods/properties.<br>
+[!!!] No support will be provided for any deprecated method or property.
+
+In this version, all inventory related methods in ShopManager are deprecated.
+It's highly recommended to switch to the new InventoryManager:
+
+- `ShopManager.inventory()` ==> `InventoryManager.fetch()`
+- `ShopManager.clearInventory()` ==> `InventoryManager.clear()`
+- `ShopManager.useItem()` ==> `InventoryManager.useItem()`
+- `ShopManager.searchInventoryItem()` ==> `InventoryManager.searchItem()`
+
+See the [changelog](https://des-docs.tk/#/docs/main/1.4.7/general/changelog) for the full list of changes.
+
 ## Version 1.3.2
 Version 1.3.2 takes a much more object-oriented approach than previous versions. It also contains many bug fixes, optimizations and support for new Database Manager.
 
@@ -21,7 +45,7 @@ So you have to change your code like this:
 - `eco.getDailyCooldown()` ==> `eco.cooldowns.daily()`
 - `eco.all()` ==> `eco.utils.all()`
 
-See the [changelog](https://des-docs.tk/#/docs/main/1.4.1/general/changelog) for the full list of changes.
+See the [changelog](https://des-docs.tk/#/docs/main/1.3.2/general/changelog) for the full list of changes.
 
 ## Version 1.2.5
 In version 1.2.5 everything was optimized and all balance and bank balance methods were moved to objects:
