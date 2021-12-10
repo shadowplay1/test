@@ -6,7 +6,7 @@
 <b>Discord Economy Super</b> - Easy and customizable economy framework for your [Discord Bot](https://discord.js.org/#/).
 
 ## 🙋‍♂️ | Welcome!
-Welcome to the `discord-economy-super v1.5.0` documentation.
+Welcome to the `discord-economy-super v1.5.1` documentation.
 
 ## 📂 | Installation
 <b>Note:<b>
@@ -44,7 +44,7 @@ Module's features:
 ## ❗ | Useful Links
 <ul>
 <li><b><a href = "https://www.npmjs.com/package/discord-economy-super">NPM</a></b></li>
-<li><b><a href = "https://des-docs.tk/#/docs/main/1.5.0/general/faq">Frequently Asked Questions</a></b></li>
+<li><b><a href = "https://des-docs.tk/#/docs/main/1.5.1general/faq">Frequently Asked Questions</a></b></li>
 <li><b><a href = "https://github.com/shadowplay1/discord-economy-super">GitHub</a></b></li>
 <li><b><a href = "https://github.com/shadowplay1/discord-economy-super/tree/main/examples">Examples</a></b></li>
 <li><b><a href = "https://discord.gg/4pWKq8vUnb">Discord Server</a></b></li>

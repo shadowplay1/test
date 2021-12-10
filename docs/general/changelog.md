@@ -500,6 +500,11 @@ eco.inventory.useItem(1, 'memberID', 'guildID') // What a sunny day!
 // the words "wonderful", "great" or "sunny".
 ```
 
+<b>1.5.1</b>
+<ul>
+<li><b>Fixed bugs.</b></li>
+<li><b>Fixed issues with InventoryManager.</b></li>
+
 ## ❗ | Useful Links
 <ul>
 <li><b><a href = "https://www.npmjs.com/package/discord-economy-super">NPM</a></b></li>

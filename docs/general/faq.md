@@ -69,7 +69,6 @@ eco.balance.fetch('1234', userID) // null; now it WON'T be the same!
 ### Q: Can I send a random messages on using the item?
 #### A: Of course! The version 1.5.0 allows you do do that!
 Random string syntax: `[random="item1", "item2", "etc..."]`
-
 Example usage:
 ```js
 eco.shop.addItem('guildID', {
