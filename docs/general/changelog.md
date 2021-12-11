@@ -504,6 +504,13 @@ eco.inventory.useItem(1, 'memberID', 'guildID') // What a sunny day!
 <ul>
 <li><b>Fixed bugs.</b></li>
 <li><b>Fixed issues with InventoryManager.</b></li>
+</ul>
+
+<b>1.5.2</b>
+<ul>
+<li><b>Fixed bugs.</b></li>
+<li><b>Added a 'ShopManager.add()' method as alias for 'InventoryManager.addItem()' method.</b></li>
+</ul>
 
 ## ❗ | Useful Links
 <ul>

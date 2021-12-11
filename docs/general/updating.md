@@ -14,7 +14,7 @@ It's highly recommended to switch to the new HistoryManager:
 - `ShopManager.history()` ==> `HistoryManager.fetch()`
 - `ShopManager.clearHistory()` ==> `HistoryManager.clear()`
 
-See the [changelog](https://des-docs.tk/#/docs/main/1.5.1general/changelog) for the full list of changes.
+See the [changelog](https://des-docs.tk/#/docs/main/1.5.2general/changelog) for the full list of changes.
 
 ## Version 1.4.7
 Since version 1.4.7, all deprecated methods/properties will not be deleted, but not be recommended to use.<br>
