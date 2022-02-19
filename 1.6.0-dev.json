@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.10.0",
         "format": 20,
-        "date": 1645045536524
+        "date": 1645309482775
     },
     "custom": {
         "general": {
@@ -11,7 +11,7 @@
                 "welcome": {
                     "name": "Welcome",
                     "type": "md",
-                    "content": "# Discord Economy Super\r\n\r\n[![Downloads](https://img.shields.io/npm/dt/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)\r\n[![Stable Version](https://img.shields.io/npm/v/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)\r\n\r\n<b>Discord Economy Super</b> - Easy and customizable economy framework for your [Discord Bot](https://discord.js.org/#/).\r\n\r\n## 🙋‍♂️ | Welcome!\r\nWelcome to the `discord-economy-super v1.5.1` documentation.\r\n\r\n## 📂 | Installation\r\n<b>Note:<b>\r\n</br>\r\n<b>Node.js 14.0.0 or newer is required. Otherwise, the module won't work.</b><br>\r\n```console\r\nnpm i discord-economy-super\r\nyarn add discord-economy-super\r\npnpm add discord-economy-super\r\n```\r\n\r\n## ❓ | About\r\n<b>Discord Economy Super is a powerful Node.js module that allows you to make an economy system in your bot very easily.</b><br>\r\nModule's features:\r\n<br>\r\n<ul>\r\n<li><b>TypeScript Support 📘</b></li>\r\n<li><b>Object-oriented 📜</b></li>\r\n<li><b>Flexible and Customizable ⚙️</b></li>\r\n<li><b>Easy to use 👍</b></li>\r\n<li><b>Beginner Friendly 😄</b></li>\r\n<li><b>Shop System 🛒</b></li>\r\n<li><b>Bank Balance System 🏦</b></li>\r\n<li><b>Multi-Server Setup 🔧</b></li>\r\n</ul>\r\n\r\n## 🤔 | Help\r\n<b>If you don't understand something in the documentation or you are experiencing problems, feel free to join our <a href = \"https://discord.gg/4pWKq8vUnb\">Support Server</a>.</b>\r\n\r\n## 🕘 | My Other Modules\r\n<ul>\r\n<li><b><a href = \"https://www.npmjs.com/package/discord-leveling-super\">discord-leveling-super</a></b></li>\r\n</ul>\r\n\r\n## ❗ | Useful Links\r\n<ul>\r\n<li><b><a href = \"https://www.npmjs.com/package/discord-economy-super\">NPM</a></b></li>\r\n<li><b><a href = \"https://des-docs.tk/#/docs/main/1.5.2general/faq\">Frequently Asked Questions</a></b></li>\r\n<li><b><a href = \"https://github.com/shadowplay1/discord-economy-super\">GitHub</a></b></li>\r\n<li><b><a href = \"https://github.com/shadowplay1/discord-economy-super/tree/main/examples\">Examples</a></b></li>\r\n<li><b><a href = \"https://discord.gg/4pWKq8vUnb\">Discord Server</a></b></li>\r\n</ul>\r\n<br>\r\n<b>If you don't understand something in the documentation or you are experiencing problems, feel free to join our <a href = \"https://discord.gg/4pWKq8vUnb\">Support Server</a>.</b>\r\n<br>\r\n<b>Module Created by ShadowPlay.</b>\r\n\r\n# ❤️ Thanks for using Discord Economy Super ❤️",
+                    "content": "# Discord Economy Super\r\n\r\n[![Downloads](https://img.shields.io/npm/dt/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)\r\n[![Stable Version](https://img.shields.io/npm/v/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)\r\n\r\n<b>Discord Economy Super</b> - Easy and customizable economy framework for your [Discord Bot](https://discord.js.org/#/).\r\n\r\n## 🙋‍♂️ | Welcome!\r\nWelcome to the `discord-economy-super v1.6.0-dev` documentation.\r\n\r\n## 📂 | Installation\r\n<b>Note:<b>\r\n</br>\r\n<b>Node.js 14.0.0 or newer is required. Otherwise, the module won't work.</b><br>\r\n```console\r\nnpm i discord-economy-super\r\nyarn add discord-economy-super\r\npnpm add discord-economy-super\r\n```\r\n\r\n## ❓ | About\r\n<b>Discord Economy Super is a powerful Node.js module that allows you to make an economy system in your bot very easily.</b><br>\r\nModule's features:\r\n<br>\r\n<ul>\r\n<li><b>TypeScript Support 📘</b></li>\r\n<li><b>Object-oriented 📜</b></li>\r\n<li><b>Flexible and Customizable ⚙️</b></li>\r\n<li><b>Easy to use 👍</b></li>\r\n<li><b>Beginner Friendly 😄</b></li>\r\n<li><b>Shop System 🛒</b></li>\r\n<li><b>Bank Balance System 🏦</b></li>\r\n<li><b>Multi-Server Setup 🔧</b></li>\r\n</ul>\r\n\r\n## 🤔 | Help\r\n<b>If you don't understand something in the documentation or you are experiencing problems, feel free to join our <a href = \"https://discord.gg/4pWKq8vUnb\">Support Server</a>.</b>\r\n\r\n## 🕘 | My Other Modules\r\n<ul>\r\n<li><b><a href = \"https://www.npmjs.com/package/discord-leveling-super\">discord-leveling-super</a></b></li>\r\n</ul>\r\n\r\n## ❗ | Useful Links\r\n<ul>\r\n<li><b><a href = \"https://www.npmjs.com/package/discord-economy-super\">NPM</a></b></li>\r\n<li><b><a href = \"https://des-docs.tk/#/docs/main/1.5.2general/faq\">Frequently Asked Questions</a></b></li>\r\n<li><b><a href = \"https://github.com/shadowplay1/discord-economy-super\">GitHub</a></b></li>\r\n<li><b><a href = \"https://github.com/shadowplay1/discord-economy-super/tree/main/examples\">Examples</a></b></li>\r\n<li><b><a href = \"https://discord.gg/4pWKq8vUnb\">Discord Server</a></b></li>\r\n</ul>\r\n<br>\r\n<b>If you don't understand something in the documentation or you are experiencing problems, feel free to join our <a href = \"https://discord.gg/4pWKq8vUnb\">Support Server</a>.</b>\r\n<br>\r\n<b>Module Created by ShadowPlay.</b>\r\n\r\n# ❤️ Thanks for using Discord Economy Super ❤️",
                     "path": "docs/general/welcome.md"
                 },
                 "faq": {
@@ -402,6 +402,22 @@
                         "file": "index.js",
                         "path": "src"
                     }
+                },
+                {
+                    "name": "economy",
+                    "description": "Economy class.",
+                    "type": [
+                        [
+                            [
+                                "Economy"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 183,
+                        "file": "index.js",
+                        "path": "src"
+                    }
                 }
             ],
             "methods": [
@@ -419,7 +435,7 @@
                         "description": "Economy instance."
                     },
                     "meta": {
-                        "line": 191,
+                        "line": 197,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -443,7 +459,7 @@
                         "description": "If started successfully: true; else: Error instance."
                     },
                     "meta": {
-                        "line": 229,
+                        "line": 237,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -468,7 +484,7 @@
                         "description": "If started successfully: true; else: Error instance."
                     },
                     "meta": {
-                        "line": 299,
+                        "line": 307,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -488,7 +504,7 @@
                         "description": "If successfully started: true."
                     },
                     "meta": {
-                        "line": 452,
+                        "line": 460,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -578,7 +594,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 477,
+                        "line": 486,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -666,7 +682,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 489,
+                        "line": 498,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -754,7 +770,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 501,
+                        "line": 510,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -842,7 +858,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 513,
+                        "line": 522,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -930,7 +946,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 525,
+                        "line": 534,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1018,7 +1034,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 537,
+                        "line": 546,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1117,7 +1133,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 549,
+                        "line": 558,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1216,7 +1232,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 562,
+                        "line": 571,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1315,7 +1331,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 575,
+                        "line": 584,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1381,7 +1397,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 588,
+                        "line": 597,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1403,7 +1419,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 598,
+                        "line": 607,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1425,7 +1441,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 604,
+                        "line": 613,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1491,7 +1507,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 30,
+                        "line": 28,
                         "file": "EconomyGuild.js",
                         "path": "src/classes"
                     }
@@ -1507,24 +1523,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 36,
-                        "file": "EconomyGuild.js",
-                        "path": "src/classes"
-                    }
-                },
-                {
-                    "name": "storagePath",
-                    "description": "Full path to a JSON file. Default: './storage.json'",
-                    "access": "private",
-                    "type": [
-                        [
-                            [
-                                "String"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 43,
+                        "line": 34,
                         "file": "EconomyGuild.js",
                         "path": "src/classes"
                     }
@@ -1541,7 +1540,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 50,
+                        "line": 41,
                         "file": "EconomyGuild.js",
                         "path": "src/classes"
                     }
@@ -1558,24 +1557,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 57,
-                        "file": "EconomyGuild.js",
-                        "path": "src/classes"
-                    }
-                },
-                {
-                    "name": "_shop",
-                    "description": "Shop Manager.",
-                    "access": "private",
-                    "type": [
-                        [
-                            [
-                                "ShopManager"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 64,
+                        "line": 48,
                         "file": "EconomyGuild.js",
                         "path": "src/classes"
                     }
@@ -1591,7 +1573,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 70,
+                        "line": 54,
                         "file": "EconomyGuild.js",
                         "path": "src/classes"
                     }
@@ -1612,7 +1594,7 @@
                         "description": "Deleted guild object."
                     },
                     "meta": {
-                        "line": 82,
+                        "line": 68,
                         "file": "EconomyGuild.js",
                         "path": "src/classes"
                     }
@@ -1631,14 +1613,14 @@
                         "description": "If reset successfully: true; else: false."
                     },
                     "meta": {
-                        "line": 91,
+                        "line": 77,
                         "file": "EconomyGuild.js",
                         "path": "src/classes"
                     }
                 }
             ],
             "meta": {
-                "line": 16,
+                "line": 14,
                 "file": "EconomyGuild.js",
                 "path": "src/classes"
             }
@@ -1708,7 +1690,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 30,
+                        "line": 33,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1724,7 +1706,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 36,
+                        "line": 39,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1740,7 +1722,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 43,
+                        "line": 46,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1756,7 +1738,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 49,
+                        "line": 52,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1772,7 +1754,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 55,
+                        "line": 58,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1788,41 +1770,24 @@
                         ]
                     ],
                     "meta": {
-                        "line": 62,
+                        "line": 65,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
                 },
                 {
-                    "name": "storagePath",
-                    "description": "Full path to a JSON file. Default: './storage.json'",
+                    "name": "options",
+                    "description": "Economy options object.",
                     "access": "private",
                     "type": [
                         [
                             [
-                                "String"
+                                "EconomyOptions"
                             ]
                         ]
                     ],
                     "meta": {
-                        "line": 70,
-                        "file": "EconomyUser.js",
-                        "path": "src/classes"
-                    }
-                },
-                {
-                    "name": "database",
-                    "description": "Database Manager.",
-                    "access": "private",
-                    "type": [
-                        [
-                            [
-                                "DatabaseManager"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 77,
+                        "line": 73,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1839,13 +1804,30 @@
                         ]
                     ],
                     "meta": {
-                        "line": 84,
+                        "line": 80,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
                 },
                 {
-                    "name": "shop",
+                    "name": "database",
+                    "description": "Utils Manager.",
+                    "access": "private",
+                    "type": [
+                        [
+                            [
+                                "DatabaseManager"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 87,
+                        "file": "EconomyUser.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "_shop",
                     "description": "Shop Manager.",
                     "access": "private",
                     "type": [
@@ -1856,7 +1838,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 91,
+                        "line": 94,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1872,7 +1854,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 97,
+                        "line": 100,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1888,7 +1870,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 103,
+                        "line": 106,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1904,7 +1886,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 109,
+                        "line": 112,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1920,7 +1902,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 115,
+                        "line": 118,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1941,7 +1923,7 @@
                         "description": "Deleted user object."
                     },
                     "meta": {
-                        "line": 126,
+                        "line": 129,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1960,15 +1942,606 @@
                         "description": "If reset successfully: true; else: false."
                     },
                     "meta": {
-                        "line": 135,
+                        "line": 138,
+                        "file": "EconomyUser.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "buyItem",
+                    "description": "Buys the item from the shop.",
+                    "params": [
+                        {
+                            "name": "itemID",
+                            "description": "Item ID or name.",
+                            "type": [
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "Number"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "If item bought successfully: true; if item not found, false will be returned; \rif user reached the item's max amount: 'max' string."
+                    },
+                    "meta": {
+                        "line": 150,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
                 }
             ],
             "meta": {
-                "line": 15,
+                "line": 18,
                 "file": "EconomyUser.js",
+                "path": "src/classes"
+            }
+        },
+        {
+            "name": "HistoryItem",
+            "description": "History item class.",
+            "construct": {
+                "name": "HistoryItem",
+                "description": "History item class.",
+                "params": [
+                    {
+                        "name": "guildID",
+                        "description": "Guild ID.",
+                        "type": [
+                            [
+                                [
+                                    "String"
+                                ]
+                            ]
+                        ]
+                    },
+                    {
+                        "name": "ecoOptions",
+                        "description": "Economy options object.",
+                        "type": [
+                            [
+                                [
+                                    "EconomyOptions"
+                                ]
+                            ]
+                        ]
+                    },
+                    {
+                        "name": "itemObject",
+                        "description": "User purchases history item object.",
+                        "type": [
+                            [
+                                [
+                                    "HistoryData"
+                                ]
+                            ]
+                        ]
+                    }
+                ]
+            },
+            "props": [
+                {
+                    "name": "guildID",
+                    "description": "Guild ID.",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 18,
+                        "file": "HistoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "id",
+                    "description": "Item ID in history.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 24,
+                        "file": "HistoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "itemName",
+                    "description": "Item name.",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 30,
+                        "file": "HistoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "price",
+                    "description": "Item price.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 36,
+                        "file": "HistoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "message",
+                    "description": "The message that will be returned on item use.",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 42,
+                        "file": "HistoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "date",
+                    "description": "Date when the item was bought by a user.",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 48,
+                        "file": "HistoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "role",
+                    "description": "ID of Discord Role that will be given to Wuser on item use.",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 54,
+                        "file": "HistoryItem.js",
+                        "path": "src/classes"
+                    }
+                }
+            ],
+            "methods": [
+                {
+                    "name": "delete",
+                    "description": "Removes an item from the shop.\r\rThis method is an alias for 'HistoryItem.remove()' method.",
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "If removed: true, else: false."
+                    },
+                    "meta": {
+                        "line": 67,
+                        "file": "HistoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "remove",
+                    "description": "Removes an item from the shop.",
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "If removed: true, else: false."
+                    },
+                    "meta": {
+                        "line": 75,
+                        "file": "HistoryItem.js",
+                        "path": "src/classes"
+                    }
+                }
+            ],
+            "meta": {
+                "line": 4,
+                "file": "HistoryItem.js",
+                "path": "src/classes"
+            }
+        },
+        {
+            "name": "InventoryItem",
+            "description": "Inventory item class.",
+            "construct": {
+                "name": "InventoryItem",
+                "description": "Inventory item class.",
+                "params": [
+                    {
+                        "name": "guildID",
+                        "description": "Guild ID.",
+                        "type": [
+                            [
+                                [
+                                    "String"
+                                ]
+                            ]
+                        ]
+                    },
+                    {
+                        "name": "memberID",
+                        "description": "Member ID.",
+                        "type": [
+                            [
+                                [
+                                    "String"
+                                ]
+                            ]
+                        ]
+                    },
+                    {
+                        "name": "ecoOptions",
+                        "description": "Economy options object.",
+                        "type": [
+                            [
+                                [
+                                    "EconomyOptions"
+                                ]
+                            ]
+                        ]
+                    },
+                    {
+                        "name": "itemObject",
+                        "description": "Economy guild object.",
+                        "type": [
+                            [
+                                [
+                                    "InventoryData"
+                                ]
+                            ]
+                        ]
+                    }
+                ]
+            },
+            "props": [
+                {
+                    "name": "guildID",
+                    "description": "Guild ID.",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 23,
+                        "file": "InventoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "memberID",
+                    "description": "Guild ID.",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 29,
+                        "file": "InventoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "id",
+                    "description": "Inventory item ID.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 36,
+                        "file": "InventoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "itemName",
+                    "description": "Item name.",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 42,
+                        "file": "InventoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "price",
+                    "description": "Item price.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 48,
+                        "file": "InventoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "message",
+                    "description": "The message that will be returned on item use.",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 54,
+                        "file": "InventoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "role",
+                    "description": "ID of Discord Role that will be given to Wuser on item use.",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 60,
+                        "file": "InventoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "maxAmount",
+                    "description": "Max amount of the item that user can hold in his inventory.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 66,
+                        "file": "InventoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "date",
+                    "description": "Date when the item was added in the shop.",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 72,
+                        "file": "InventoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "database",
+                    "description": "Database Manager.",
+                    "access": "private",
+                    "type": [
+                        [
+                            [
+                                "DatabaseManager"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 83,
+                        "file": "InventoryItem.js",
+                        "path": "src/classes"
+                    }
+                }
+            ],
+            "methods": [
+                {
+                    "name": "delete",
+                    "description": "Removes an item from the shop.\r\rThis method is an alias for 'InventoryItem.remove()' method.",
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "If removed: true, else: false."
+                    },
+                    "meta": {
+                        "line": 92,
+                        "file": "InventoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "remove",
+                    "description": "Removes an item from the shop.",
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "If removed: true, else: false."
+                    },
+                    "meta": {
+                        "line": 100,
+                        "file": "InventoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "use",
+                    "description": "Uses the item from user's inventory.",
+                    "params": [
+                        {
+                            "name": "itemID",
+                            "description": "Item ID or name.",
+                            "type": [
+                                [
+                                    [
+                                        "Number"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "memberID",
+                            "description": "Member ID.",
+                            "type": [
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "guildID",
+                            "description": "Guild ID.",
+                            "type": [
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "client",
+                            "description": "Discord Client [Specify if the role will be given in a discord server].",
+                            "optional": true,
+                            "type": [
+                                [
+                                    [
+                                        "Client"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "String"
+                                ]
+                            ]
+                        ],
+                        "description": "Item message."
+                    },
+                    "meta": {
+                        "line": 119,
+                        "file": "InventoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "sell",
+                    "description": "Removes the item from user's inventory\rand adds its price to the user's balance.\rThis is the same as selling something.",
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Number"
+                                ]
+                            ]
+                        ],
+                        "description": "The price the item was sold for."
+                    },
+                    "meta": {
+                        "line": 195,
+                        "file": "InventoryItem.js",
+                        "path": "src/classes"
+                    }
+                }
+            ],
+            "meta": {
+                "line": 8,
+                "file": "InventoryItem.js",
                 "path": "src/classes"
             }
         },
@@ -2003,7 +2576,7 @@
                     },
                     {
                         "name": "itemObject",
-                        "description": "Economy guild object.",
+                        "description": "Shop item object.",
                         "type": [
                             [
                                 [
@@ -2016,22 +2589,6 @@
             },
             "props": [
                 {
-                    "name": "users",
-                    "description": "Guild User Manager.",
-                    "type": [
-                        [
-                            [
-                                "UserManager"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 22,
-                        "file": "ShopItem.js",
-                        "path": "src/classes"
-                    }
-                },
-                {
                     "name": "guildID",
                     "description": "Guild ID.",
                     "type": [
@@ -2042,7 +2599,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 28,
+                        "line": 21,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -2058,7 +2615,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 34,
+                        "line": 27,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -2074,7 +2631,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 40,
+                        "line": 33,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -2090,7 +2647,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 46,
+                        "line": 39,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -2106,7 +2663,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 52,
+                        "line": 45,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -2122,7 +2679,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 58,
+                        "line": 51,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -2138,7 +2695,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 64,
+                        "line": 57,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -2154,7 +2711,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 70,
+                        "line": 63,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -2170,41 +2727,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 76,
-                        "file": "ShopItem.js",
-                        "path": "src/classes"
-                    }
-                },
-                {
-                    "name": "utils",
-                    "description": "Utils Manager.",
-                    "access": "private",
-                    "type": [
-                        [
-                            [
-                                "UtilsManager"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 83,
-                        "file": "ShopItem.js",
-                        "path": "src/classes"
-                    }
-                },
-                {
-                    "name": "_shop",
-                    "description": "Shop Manager.",
-                    "access": "private",
-                    "type": [
-                        [
-                            [
-                                "ShopManager"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 90,
+                        "line": 69,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -2280,7 +2803,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 109,
+                        "line": 87,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -2354,7 +2877,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 125,
+                        "line": 161,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -2373,7 +2896,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 135,
+                        "line": 171,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -2392,14 +2915,14 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 143,
+                        "line": 179,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
                 }
             ],
             "meta": {
-                "line": 8,
+                "line": 7,
                 "file": "ShopItem.js",
                 "path": "src/classes"
             }
@@ -2720,7 +3243,7 @@
                         "description": "Economy Emitter."
                     },
                     "meta": {
-                        "line": 21,
+                        "line": 23,
                         "file": "Emitter.js",
                         "path": "src/classes/util"
                     }
@@ -2763,7 +3286,7 @@
                         "description": "Economy Emitter."
                     },
                     "meta": {
-                        "line": 31,
+                        "line": 33,
                         "file": "Emitter.js",
                         "path": "src/classes/util"
                     }
@@ -2806,7 +3329,7 @@
                         "description": "If emitted: true; else: false."
                     },
                     "meta": {
-                        "line": 41,
+                        "line": 43,
                         "file": "Emitter.js",
                         "path": "src/classes/util"
                     }
@@ -3271,7 +3794,7 @@
                         "description": "Economy Emitter."
                     },
                     "meta": {
-                        "line": 21,
+                        "line": 23,
                         "file": "Emitter.js",
                         "path": "src/classes/util"
                     }
@@ -3316,7 +3839,7 @@
                         "description": "Economy Emitter."
                     },
                     "meta": {
-                        "line": 31,
+                        "line": 33,
                         "file": "Emitter.js",
                         "path": "src/classes/util"
                     }
@@ -3361,7 +3884,7 @@
                         "description": "If emitted: true; else: false."
                     },
                     "meta": {
-                        "line": 41,
+                        "line": 43,
                         "file": "Emitter.js",
                         "path": "src/classes/util"
                     }
@@ -3783,7 +4306,7 @@
                         "description": "Economy Emitter."
                     },
                     "meta": {
-                        "line": 21,
+                        "line": 23,
                         "file": "Emitter.js",
                         "path": "src/classes/util"
                     }
@@ -3828,7 +4351,7 @@
                         "description": "Economy Emitter."
                     },
                     "meta": {
-                        "line": 31,
+                        "line": 33,
                         "file": "Emitter.js",
                         "path": "src/classes/util"
                     }
@@ -3873,7 +4396,7 @@
                         "description": "If emitted: true; else: false."
                     },
                     "meta": {
-                        "line": 41,
+                        "line": 43,
                         "file": "Emitter.js",
                         "path": "src/classes/util"
                     }
@@ -5301,17 +5824,44 @@
                                 [
                                     "any"
                                 ]
-                            ],
-                            [
-                                [
-                                    "boolean"
-                                ]
                             ]
                         ],
                         "description": "Value from the specified key or 'false' if failed to read or 'null' if nothing found."
                     },
                     "meta": {
                         "line": 142,
+                        "file": "DatabaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "get",
+                    "description": "Fetches the data from the storage file.\r\rThis method is an alias for 'DatabaseManager.fetch()' method.",
+                    "params": [
+                        {
+                            "name": "key",
+                            "description": "The key in database.",
+                            "type": [
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "any"
+                                ]
+                            ]
+                        ],
+                        "description": "Value from the specified key or 'false' if failed to read or 'null' if nothing found."
+                    },
+                    "meta": {
+                        "line": 158,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -5348,7 +5898,7 @@
                         "description": "Value from the specified key or 'false' if failed to read or 'null' if nothing found."
                     },
                     "meta": {
-                        "line": 158,
+                        "line": 169,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -5380,7 +5930,7 @@
                         "description": "If cleared: true; else: false."
                     },
                     "meta": {
-                        "line": 167,
+                        "line": 178,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -5412,7 +5962,7 @@
                         "description": "If cleared: true; else: false."
                     },
                     "meta": {
-                        "line": 183,
+                        "line": 194,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -5455,7 +6005,7 @@
                         "description": "If cleared: true; else: false."
                     },
                     "meta": {
-                        "line": 193,
+                        "line": 204,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -5498,7 +6048,7 @@
                         "description": "If cleared: true; else: false."
                     },
                     "meta": {
-                        "line": 216,
+                        "line": 227,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -5552,7 +6102,7 @@
                         "description": "If cleared: true; else: false."
                     },
                     "meta": {
-                        "line": 239,
+                        "line": 250,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -5571,7 +6121,7 @@
                         "description": "Database contents"
                     },
                     "meta": {
-                        "line": 267,
+                        "line": 278,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -5627,7 +6177,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 27,
+                        "line": 30,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -5644,7 +6194,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 34,
+                        "line": 37,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -5665,7 +6215,7 @@
                         "description": "Database contents"
                     },
                     "meta": {
-                        "line": 41,
+                        "line": 44,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -5708,7 +6258,7 @@
                         "description": "User's balance."
                     },
                     "meta": {
-                        "line": 58,
+                        "line": 61,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -5751,7 +6301,7 @@
                         "description": "User's bank balance."
                     },
                     "meta": {
-                        "line": 78,
+                        "line": 84,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -5791,7 +6341,7 @@
                                     "<"
                                 ],
                                 [
-                                    "InventoryData",
+                                    "InventoryItem",
                                     ">"
                                 ]
                             ]
@@ -5799,7 +6349,7 @@
                         "description": "User's inventory."
                     },
                     "meta": {
-                        "line": 98,
+                        "line": 107,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -5839,7 +6389,7 @@
                                     "<"
                                 ],
                                 [
-                                    "HistoryData",
+                                    "HistoryItem",
                                     ">"
                                 ]
                             ]
@@ -5847,7 +6397,7 @@
                         "description": "User's purchases history."
                     },
                     "meta": {
-                        "line": 118,
+                        "line": 130,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -5890,7 +6440,7 @@
                         "description": "User's cooldowns object."
                     },
                     "meta": {
-                        "line": 138,
+                        "line": 153,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -5927,14 +6477,14 @@
                         "description": "The shop array."
                     },
                     "meta": {
-                        "line": 163,
+                        "line": 178,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
                 }
             ],
             "meta": {
-                "line": 10,
+                "line": 13,
                 "file": "FetchManager.js",
                 "path": "src/managers"
             }
@@ -6941,23 +7491,6 @@
                     }
                 },
                 {
-                    "name": "fetcher",
-                    "description": "Fetch Manager.",
-                    "access": "private",
-                    "type": [
-                        [
-                            [
-                                "FetchManager"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 41,
-                        "file": "HistoryManager.js",
-                        "path": "src/managers"
-                    }
-                },
-                {
                     "name": "database",
                     "description": "Database Manager.",
                     "access": "private",
@@ -6969,7 +7502,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 48,
+                        "line": 41,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -7011,7 +7544,7 @@
                                     "<"
                                 ],
                                 [
-                                    "HistoryData",
+                                    "HistoryItem",
                                     ">"
                                 ]
                             ]
@@ -7019,7 +7552,7 @@
                         "description": "User's purchases history."
                     },
                     "meta": {
-                        "line": 57,
+                        "line": 50,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -7059,7 +7592,7 @@
                                     "<"
                                 ],
                                 [
-                                    "HistoryData",
+                                    "HistoryItem",
                                     ">"
                                 ]
                             ]
@@ -7067,7 +7600,7 @@
                         "description": "User's purchases history."
                     },
                     "meta": {
-                        "line": 83,
+                        "line": 76,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -7110,7 +7643,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 93,
+                        "line": 86,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -7169,7 +7702,7 @@
                         "description": "If added: true, else: false."
                     },
                     "meta": {
-                        "line": 115,
+                        "line": 108,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -7228,7 +7761,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 155,
+                        "line": 148,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -7280,14 +7813,14 @@
                         "types": [
                             [
                                 [
-                                    "HistoryData"
+                                    "HistoryItem"
                                 ]
                             ]
                         ],
                         "description": "Purchases history item."
                     },
                     "meta": {
-                        "line": 186,
+                        "line": 179,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -7346,7 +7879,7 @@
                         "description": "Purchases history item."
                     },
                     "meta": {
-                        "line": 215,
+                        "line": 208,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -7536,12 +8069,12 @@
                             "type": [
                                 [
                                     [
-                                        "Number"
+                                        "String"
                                     ]
                                 ],
                                 [
                                     [
-                                        "String"
+                                        "Number"
                                     ]
                                 ]
                             ]
@@ -7784,7 +8317,7 @@
                         },
                         {
                             "name": "client",
-                            "description": "Discord Client [Specify if the role will be given in a server].",
+                            "description": "Discord Client [Specify if the role will be given in a discord server].",
                             "optional": true,
                             "type": [
                                 [
@@ -7803,7 +8336,7 @@
                                 ]
                             ]
                         ],
-                        "description": "Item message or null if item not found."
+                        "description": "Item message."
                     },
                     "meta": {
                         "line": 164,
@@ -7855,7 +8388,7 @@
                         },
                         {
                             "name": "client",
-                            "description": "The Discord Client. [Optional]",
+                            "description": "The Discord Client. [Specify if the role will be given in a discord server].",
                             "optional": true,
                             "type": [
                                 [
@@ -7874,7 +8407,7 @@
                                 ]
                             ]
                         ],
-                        "description": "Item message or null if item not found."
+                        "description": "Item message."
                     },
                     "meta": {
                         "line": 259,
@@ -7995,14 +8528,14 @@
                         "description": "If added successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 304,
+                        "line": 305,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
                 },
                 {
                     "name": "sellItem",
-                    "description": "Removes the item from user's inventory\rand adds its price to the user' balance.\rThis is the same as selling something.",
+                    "description": "Removes the item from user's inventory\rand adds its price to the user's balance.\rThis is the same as selling something.",
                     "params": [
                         {
                             "name": "itemID",
@@ -8041,6 +8574,19 @@
                                     ]
                                 ]
                             ]
+                        },
+                        {
+                            "name": "reason",
+                            "description": "The reason why the item was sold.",
+                            "optional": true,
+                            "default": "'sold the item from the inventory'",
+                            "type": [
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
                         }
                     ],
                     "returns": {
@@ -8054,7 +8600,79 @@
                         "description": "The price the item was sold for."
                     },
                     "meta": {
-                        "line": 356,
+                        "line": 358,
+                        "file": "InventoryManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "sell",
+                    "description": "Removes the item from user's inventory\rand adds its price to the user's balance.\rThis is the same as selling something.\r\rThis method is an alias for 'InventoryManager.sellItem()' method.",
+                    "params": [
+                        {
+                            "name": "itemID",
+                            "description": "Item ID or name.",
+                            "type": [
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "Number"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "memberID",
+                            "description": "Member ID.",
+                            "type": [
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "guildID",
+                            "description": "Guild ID.",
+                            "type": [
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "reason",
+                            "description": "The reason why the item was sold.",
+                            "optional": true,
+                            "default": "'sold the item from the inventory'",
+                            "type": [
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Number"
+                                ]
+                            ]
+                        ],
+                        "description": "The price the item was sold for."
+                    },
+                    "meta": {
+                        "line": 396,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -8826,58 +9444,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 43,
-                        "file": "ShopManager.js",
-                        "path": "src/managers"
-                    }
-                },
-                {
-                    "name": "_inventory",
-                    "description": "Inventory manager methods object.",
-                    "access": "private",
-                    "type": [
-                        [
-                            [
-                                "InventoryManager"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 50,
-                        "file": "ShopManager.js",
-                        "path": "src/managers"
-                    }
-                },
-                {
-                    "name": "_history",
-                    "description": "History manager methods object.",
-                    "access": "private",
-                    "type": [
-                        [
-                            [
-                                "HistoryManager"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 57,
-                        "file": "ShopManager.js",
-                        "path": "src/managers"
-                    }
-                },
-                {
-                    "name": "fetcher",
-                    "description": "Inventory manager methods object.",
-                    "access": "private",
-                    "type": [
-                        [
-                            [
-                                "FetchManager"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 64,
+                        "line": 39,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -8894,24 +9461,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 71,
-                        "file": "ShopManager.js",
-                        "path": "src/managers"
-                    }
-                },
-                {
-                    "name": "balance",
-                    "description": "Balance manager methods object.",
-                    "access": "private",
-                    "type": [
-                        [
-                            [
-                                "BalanceManager"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 78,
+                        "line": 46,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -8956,7 +9506,7 @@
                         "description": "Item info."
                     },
                     "meta": {
-                        "line": 87,
+                        "line": 55,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -8999,7 +9549,7 @@
                         "description": "Item info."
                     },
                     "meta": {
-                        "line": 144,
+                        "line": 115,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -9089,7 +9639,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 158,
+                        "line": 129,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -9190,7 +9740,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 240,
+                        "line": 212,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -9238,7 +9788,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 250,
+                        "line": 222,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -9270,7 +9820,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 288,
+                        "line": 260,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -9314,7 +9864,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 321,
+                        "line": 293,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -9351,7 +9901,7 @@
                         "description": "The shop array."
                     },
                     "meta": {
-                        "line": 352,
+                        "line": 324,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -9388,7 +9938,7 @@
                         "description": "The shop array."
                     },
                     "meta": {
-                        "line": 368,
+                        "line": 340,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -9436,7 +9986,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 378,
+                        "line": 350,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -9484,7 +10034,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 406,
+                        "line": 378,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -9544,7 +10094,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 426,
+                        "line": 398,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -9620,7 +10170,7 @@
                         "description": "If item bought successfully: true; if item not found, false will be returned; \rif user reached the item's max amount: 'max' string."
                     },
                     "meta": {
-                        "line": 469,
+                        "line": 441,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -9695,7 +10245,7 @@
                         "description": "If item bought successfully: true; if item not found, false will be returned; \rif user reached the item's max amount: 'max' string."
                     },
                     "meta": {
-                        "line": 529,
+                        "line": 535,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -9744,7 +10294,7 @@
                         "description": "User's inventory array."
                     },
                     "meta": {
-                        "line": 548,
+                        "line": 554,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -9820,7 +10370,7 @@
                         "description": "Item message or null if item not found."
                     },
                     "meta": {
-                        "line": 588,
+                        "line": 594,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -9869,7 +10419,7 @@
                         "description": "User's purchase history."
                     },
                     "meta": {
-                        "line": 666,
+                        "line": 672,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -9913,7 +10463,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 708,
+                        "line": 714,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -9958,7 +10508,7 @@
                         "description": "Economy Emitter."
                     },
                     "meta": {
-                        "line": 21,
+                        "line": 23,
                         "file": "Emitter.js",
                         "path": "src/classes/util"
                     }
@@ -10003,7 +10553,7 @@
                         "description": "Economy Emitter."
                     },
                     "meta": {
-                        "line": 31,
+                        "line": 33,
                         "file": "Emitter.js",
                         "path": "src/classes/util"
                     }
@@ -10048,14 +10598,14 @@
                         "description": "If emitted: true; else: false."
                     },
                     "meta": {
-                        "line": 41,
+                        "line": 43,
                         "file": "Emitter.js",
                         "path": "src/classes/util"
                     }
                 }
             ],
             "meta": {
-                "line": 17,
+                "line": 13,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -11943,7 +12493,7 @@
                 "description": "Item info."
             },
             "meta": {
-                "line": 734,
+                "line": 740,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -12049,7 +12599,7 @@
                 }
             ],
             "meta": {
-                "line": 758,
+                "line": 764,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -12144,7 +12694,7 @@
                 }
             ],
             "meta": {
-                "line": 518,
+                "line": 793,
                 "file": "EconomyUser.js",
                 "path": "src/classes"
             }
@@ -12228,7 +12778,7 @@
                 },
                 {
                     "name": "date",
-                    "description": "Date when the item was bought.",
+                    "description": "Date when the item was bought by a user.",
                     "type": [
                         [
                             [
@@ -12239,7 +12789,7 @@
                 }
             ],
             "meta": {
-                "line": 771,
+                "line": 777,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -12312,7 +12862,7 @@
                 },
                 {
                     "name": "date",
-                    "description": "Date when the item was bought.",
+                    "description": "Date when the item was bought by a user.",
                     "type": [
                         [
                             [
@@ -12345,7 +12895,7 @@
                 }
             ],
             "meta": {
-                "line": 745,
+                "line": 751,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -12433,7 +12983,7 @@
                 ]
             ],
             "meta": {
-                "line": 52,
+                "line": 54,
                 "file": "Emitter.js",
                 "path": "src/classes/util"
             }
