@@ -6,6 +6,8 @@ const emitter = new EventEmitter()
  * @private
  */
 class Emitter {
+
+
     /**
     * Simple Economy event emitter with only important emitter methods.
     * @private

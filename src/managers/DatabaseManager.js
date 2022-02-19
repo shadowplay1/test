@@ -137,7 +137,7 @@ class DatabaseManager {
     /**
      * Fetches the data from the storage file.
      * @param {String} key The key in database.
-     * @returns {any | boolean} Value from the specified key or 'false' if failed to read or 'null' if nothing found.
+     * @returns {any} Value from the specified key or 'false' if failed to read or 'null' if nothing found.
      */
     fetch(key) {
         if (!key) return false
@@ -146,6 +146,17 @@ class DatabaseManager {
         }
 
         return this.parser.parse(key)
+    }
+
+    /**
+     * Fetches the data from the storage file.
+     * 
+     * This method is an alias for 'DatabaseManager.fetch()' method.
+     * @param {String} key The key in database.
+     * @returns {any} Value from the specified key or 'false' if failed to read or 'null' if nothing found.
+     */
+    get(key) {
+        return this.fetch(key)
     }
 
     /**

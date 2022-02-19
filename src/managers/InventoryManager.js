@@ -79,7 +79,7 @@ class InventoryManager extends Emitter {
 
     /**
      * Searches for the item in the inventory.
-     * @param {Number | String} itemID Item ID or name.
+     * @param {String | Number} itemID Item ID or name.
      * @param {String} memberID Member ID.
      * @param {String} guildID Guild ID.
      * @returns {InventoryData} If item not found: null; else: item info object.
@@ -158,8 +158,8 @@ class InventoryManager extends Emitter {
      * @param {Number | String} itemID Item ID or name.
      * @param {String} memberID Member ID.
      * @param {String} guildID Guild ID.
-     * @param {Client} [client] Discord Client [Specify if the role will be given in a server].
-     * @returns {String} Item message or null if item not found.
+     * @param {Client} [client] Discord Client [Specify if the role will be given in a discord server].
+     * @returns {String} Item message.
      */
     useItem(itemID, memberID, guildID, client) {
 
@@ -253,8 +253,8 @@ class InventoryManager extends Emitter {
      * @param {Number | String} itemID Item ID or name.
      * @param {String} memberID Member ID.
      * @param {String} guildID Guild ID.
-     * @param {Client} [client] The Discord Client. [Optional]
-     * @returns {String} Item message or null if item not found.
+     * @param {Client} [client] The Discord Client. [Specify if the role will be given in a discord server].
+     * @returns {String} Item message.
      */
     use(itemID, memberID, guildID, client) {
         return this.useItem(itemID, memberID, guildID, client)
@@ -280,6 +280,7 @@ class InventoryManager extends Emitter {
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
             throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
         }
+
         if (typeof memberID !== 'string') {
             throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
         }
@@ -346,11 +347,12 @@ class InventoryManager extends Emitter {
 
     /**
      * Removes the item from user's inventory
-     * and adds its price to the user' balance.
+     * and adds its price to the user's balance.
      * This is the same as selling something.
      * @param {String | Number} itemID Item ID or name.
      * @param {String} memberID Member ID.
      * @param {String} guildID Guild ID.
+     * @param {String} [reason='sold the item from the inventory'] The reason why the item was sold.
      * @returns {Number} The price the item was sold for.
      */
     sellItem(itemID, memberID, guildID, reason = 'sold the item from the inventory') {
@@ -378,6 +380,22 @@ class InventoryManager extends Emitter {
         this.removeItem(itemID, memberID, guildID)
         return sellingPrice
     }
+
+    /**
+     * Removes the item from user's inventory
+     * and adds its price to the user's balance.
+     * This is the same as selling something.
+     * 
+     * This method is an alias for 'InventoryManager.sellItem()' method.
+     * @param {String | Number} itemID Item ID or name.
+     * @param {String} memberID Member ID.
+     * @param {String} guildID Guild ID.
+     * @param {String} [reason='sold the item from the inventory'] The reason why the item was sold.
+     * @returns {Number} The price the item was sold for.
+     */
+    sell(itemID, memberID, guildID, reason = 'sold the item from the inventory') {
+        return this.sellItem(itemID, memberID, guildID, reason)
+    }
 }
 
 /**
@@ -399,7 +417,7 @@ class InventoryManager extends Emitter {
  * @property {Number} price Item price.
  * @property {String} message The message that will be returned on item use.
  * @property {String} role ID of Discord Role that will be given to user on item use.
- * @property {String} date Date when the item was bought.
+ * @property {String} date Date when the item was bought by a user.
  * @property {String} memberID Member ID.
  * @property {String} guildID Guild ID.
  */
@@ -426,7 +444,7 @@ class InventoryManager extends Emitter {
  * @property {String} message The message that will be returned on item use.
  * @property {String} role ID of Discord Role that will be given to user on item use.
  * @property {Number} maxAmount Max amount of the item that user can hold in his inventory.
- * @property {String} date Date when the item was bought.
+ * @property {String} date Date when the item was bought by a user.
  */
 
 /**

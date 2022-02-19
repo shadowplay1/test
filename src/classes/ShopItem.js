@@ -1,6 +1,5 @@
-const UtilsManager = require('../managers/UtilsManager')
-const ShopManager = require('../managers/ShopManager')
-const UserManager = require('../managers/UserManager')
+const errors = require('../structures/errors')
+const EconomyError = require('./util/EconomyError')
 
 /**
 * Shop item class.
@@ -11,15 +10,9 @@ class ShopItem {
      * Shop item class.
      * @param {String} guildID Guild ID.
      * @param {EconomyOptions} ecoOptions Economy options object.
-     * @param {ItemData} itemObject Economy guild object.
+     * @param {ItemData} itemObject Shop item object.
      */
     constructor(guildID, ecoOptions, itemObject) {
-
-        /**
-         * Guild User Manager.
-         * @type {UserManager}
-         */
-        this.users = new UserManager(ecoOptions)
 
         /**
          * Guild ID.
@@ -75,24 +68,9 @@ class ShopItem {
          */
         this.date = itemObject.date
 
-        /**
-         * Utils Manager.
-         * @type {UtilsManager}
-         * @private
-         */
-        this.utils = new UtilsManager({ storagePath: ecoOptions.storagePath })
-
-        /**
-         * Shop Manager.
-         * @type {ShopManager}
-         * @private
-         */
-        this._shop = new ShopManager(ecoOptions)
-
-        for (const [key, value] of Object.entries(guildObject || {})) {
+        for (const [key, value] of Object.entries(itemObject || {})) {
             this[key] = value
         }
-
     }
 
 
@@ -107,7 +85,65 @@ class ShopItem {
      * @returns {Boolean} If edited successfully: true, else: false.
      */
     edit(itemProperty, value) {
-        return this._shop.edit(this.id, this.guildID, itemProperty, value)
+        const itemProperties = ['description', 'price', 'itemName', 'message', 'maxAmount', 'role']
+
+        if (!itemProperties.includes(itemProperty)) {
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + itemProperty)
+        }
+
+        if (value == undefined) {
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + value)
+        }
+
+        const edit = (itemProperty, value) => {
+
+            /**
+             * @type {ItemData[]}
+             */
+            const shop = this.all()
+
+            const itemIndex = shop.findIndex(item => item.id == this.id || item.itemName == this.id)
+            const item = shop[itemIndex]
+
+            if (!item) return false
+
+            item[itemProperty] = value
+
+            this.database.changeElement(`${this.guildID}.shop`, itemIndex, item)
+
+            this.emit('shopEditItem', {
+                itemID: this.id,
+                guildID: this.guildID,
+                changed: itemProperty,
+                oldValue: item[itemProperty],
+                newValue: value
+            })
+
+            return true
+        }
+
+        switch (itemProperty) {
+            case itemProperties[0]:
+                return edit(itemProperties[0], value)
+
+            case itemProperties[1]:
+                return edit(itemProperties[1], value)
+
+            case itemProperties[2]:
+                return edit(itemProperties[2], value)
+
+            case itemProperties[3]:
+                return edit(itemProperties[3], value)
+
+            case itemProperties[4]:
+                return edit(itemProperties[4], value)
+
+            case itemProperties[5]:
+                return edit(itemProperties[5], value)
+
+            default:
+                return null
+        }
     }
 
     /**
@@ -133,7 +169,7 @@ class ShopItem {
      * @returns {Boolean} If removed: true, else: false.
      */
     delete() {
-        return this._shop.removeItem(this.id, this.guildID)
+        return this.remove()
     }
 
     /**
@@ -141,10 +177,25 @@ class ShopItem {
      * @returns {Boolean} If removed: true, else: false.
      */
     remove() {
-        return this._shop.removeItem(this.id, this.guildID)
+        const shop = this.database.fetch(`${this.guildID}.shop`) || []
+        const itemIndex = shop.findIndex(item => item.id == this.id || item.itemName == this.id)
+        const item = shop[itemIndex]
+
+        this.database.removeElement(`${guildID}.shop`, itemIndex)
+
+        this.emit('shopRemoveItem', {
+            id: item.id,
+            itemName: item.itemName,
+            price: item.price,
+            message: item.message,
+            description: item.description,
+            maxAmount: item.maxAmount,
+            role: item.role || null,
+            date: item.date
+        })
+
+        return true
     }
-
-
 }
 
 

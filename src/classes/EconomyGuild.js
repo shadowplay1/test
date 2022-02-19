@@ -1,14 +1,12 @@
 const UtilsManager = require('../managers/UtilsManager')
 const DatabaseManager = require('../managers/DatabaseManager')
 
-const HistoryManager = require('../managers/HistoryManager')
-const ShopManager = require('../managers/ShopManager')
-const InventoryManager = require('../managers/InventoryManager')
-
-const BalanceManager = require('../managers/BalanceManager')
-const BankManager = require('../managers/BankManager')
 const UserManager = require('../managers/UserManager')
 const BaseManager = require('../managers/BaseManager')
+
+const EconomyError = require('./util/EconomyError')
+const errors = require('../structures/errors')
+const ShopItem = require('./ShopItem')
 
 /**
 * Economy guild class.
@@ -36,13 +34,6 @@ class EconomyGuild {
         this.id = id
 
         /**
-         * Full path to a JSON file. Default: './storage.json'
-         * @type {String}
-         * @private
-         */
-        this.storagePath = ecoOptions.storagePath
-
-        /**
          * Database Manager.
          * @type {DatabaseManager}
          * @private
@@ -57,18 +48,13 @@ class EconomyGuild {
         this.utils = new UtilsManager({ storagePath: ecoOptions.storagePath })
 
         /**
-         * Shop Manager.
-         * @type {ShopManager}
-         * @private
-         */
-        this._shop = new ShopManager(ecoOptions)
-
-        /**
          * Shop class.
          * @type {Shop}
          */
-        this.shop = new Shop(id)
+        this.shop = new Shop(id, ecoOptions)
 
+
+        delete guildObject.shop
 
         for (const [key, value] of Object.entries(guildObject || {})) {
             this[key] = value
@@ -97,7 +83,8 @@ class EconomyGuild {
 }
 
 class Shop extends BaseManager {
-    constructor(guildID, storagePath) {
+    constructor(guildID, options) {
+        super(options)
 
         /**
          * Guild ID.
@@ -105,20 +92,6 @@ class Shop extends BaseManager {
          * @private
          */
         this.guildID = guildID
-
-        /**
-         * Full path to a JSON file. Default: './storage.json'.
-         * @type {String}
-         * @private
-         */
-        this.storagePath = storagePath
-
-        /**
-         * Shop Manager.
-         * @type {ShopManager}
-         * @private
-         */
-        this.shop = new ShopManager({ storagePath: this.storagePath })
     }
 
     /**
@@ -127,17 +100,25 @@ class Shop extends BaseManager {
     * @returns {ItemData} Shop item.
     */
     get(itemID) {
-        return this.shop
-            .fetch(this.guildID)
-            .find(x => x.id == itemID)
+        const shop = this.all()
+        const item = shop.find(item => item.id == itemID || item.itemName == itemID)
+
+        if (typeof itemID !== 'number' && typeof itemID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
+        }
+
+        if (!item) return null
+        return new ShopItem(this.guildID, this.options, item)
     }
 
     /**
      * Gets all the items in the shop.
+     * 
+     * This method is an alias for the`EconomyGuild.shop.fetch()` method.
      * @returns {ItemData[]} Guild array.
      */
     all() {
-        return this.shop.fetch(this.guildID)
+        return this.fetch()
     }
 
     /**
@@ -146,7 +127,51 @@ class Shop extends BaseManager {
      * @returns {ItemData} Item info.
      */
     addItem(options = {}) {
-        return this.shop.addItem(this.guildID, options)
+        const {
+            itemName, price, message,
+            description, maxAmount, role
+        } = options
+
+        const date = new Date().toLocaleString(this.options.dateLocale || 'en')
+        const shop = this.database.fetch(`${this.guildID}.shop`)
+
+        if (typeof itemName !== 'string') {
+            throw new EconomyError(errors.invalidTypes.addItemOptions.itemName + typeof itemName)
+        }
+
+        if (isNaN(price)) {
+            throw new EconomyError(errors.invalidTypes.addItemOptions.price + typeof price)
+        }
+
+        if (message && typeof message !== 'string') {
+            throw new EconomyError(errors.invalidTypes.addItemOptions.message + typeof message)
+        }
+
+        if (description && typeof description !== 'string') {
+            throw new EconomyError(errors.invalidTypes.addItemOptions.description + typeof description)
+        }
+
+        if (maxAmount !== undefined && isNaN(maxAmount)) {
+            throw new EconomyError(errors.invalidTypes.addItemOptions.maxAmount + typeof maxAmount)
+        }
+
+        if (role && typeof role !== 'string') {
+            throw new EconomyError(errors.invalidTypes.addItemOptions.role + typeof role)
+        }
+
+        const itemInfo = {
+            id: shop.length ? shop[shop.length - 1].id + 1 : 1,
+            itemName,
+            price,
+            message: message || 'You have used this item!',
+            description: description || 'Very mysterious item.',
+            maxAmount: maxAmount == undefined ? null : Number(maxAmount),
+            role: role || null,
+            date
+        }
+
+        this.database.push(`${this.guildID}.shop`, itemInfo)
+        return new ShopItem(this.guildID, this.options, itemInfo)
     }
 
     /**
@@ -167,10 +192,73 @@ class Shop extends BaseManager {
      * This argument means what thing in item you want to edit (item property). 
      * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.
      * 
+     * @param {any} value Any value to set.
      * @returns {Boolean} If edited successfully: true, else: false.
      */
     editItem(itemID, itemProperty, value) {
-        return this.shop.editItem(itemID, this.guildID, itemProperty, value)
+        const itemProperties = ['description', 'price', 'itemName', 'message', 'maxAmount', 'role']
+
+        if (typeof itemID !== 'number' && typeof itemID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
+        }
+
+        if (!itemProperties.includes(itemProperty)) {
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + itemProperty)
+        }
+
+        if (value == undefined) {
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + value)
+        }
+
+        const edit = (itemProperty, value) => {
+
+            /**
+             * @type {ItemData[]}
+             */
+            const shop = this.all()
+
+            const itemIndex = shop.findIndex(item => item.id == itemID || item.itemName == itemID)
+            const item = shop[itemIndex]
+
+            if (!item) return false
+
+            item[itemProperty] = value
+
+            this.database.changeElement(`${this.guildID}.shop`, itemIndex, item)
+
+            this.emit('shopEditItem', {
+                itemID,
+                guildID: this.guildID,
+                changed: itemProperty,
+                oldValue: item[itemProperty],
+                newValue: value
+            })
+
+            return true
+        }
+
+        switch (itemProperty) {
+            case itemProperties[0]:
+                return edit(itemProperties[0], value)
+
+            case itemProperties[1]:
+                return edit(itemProperties[1], value)
+
+            case itemProperties[2]:
+                return edit(itemProperties[2], value)
+
+            case itemProperties[3]:
+                return edit(itemProperties[3], value)
+
+            case itemProperties[4]:
+                return edit(itemProperties[4], value)
+
+            case itemProperties[5]:
+                return edit(itemProperties[5], value)
+
+            default:
+                return null
+        }
     }
 
     /**
@@ -193,45 +281,37 @@ class Shop extends BaseManager {
      * @returns {Boolean} If cleared: true, else: false.
      */
     clear() {
-        return this.shop.clear(this.guildID)
+        const shop = this.all(this.guildID)
+
+        if (!shop && !shop?.length) {
+            this.emit('shopClear', false)
+            return false
+        }
+
+        this.database.remove(`${this.guildID}.shop`)
+        this.emit('shopClear', true)
+
+        return true
     }
 
     /**
      * Shows all items in the shop.
-     * @returns {ItemData[]} The shop array.
-     */
-    list() {
-        return this.shop.list(this.guildID)
-    }
-
-    /**
-     * Shows all items in the shop.
-     * 
-     * This method is an alias for the `EconomyGuild.shop.list()` method.
      * @returns {ItemData[]} The shop array.
      */
     fetch() {
-        return this.list()
-    }
-
-    /**
-     * Searches for the item in the shop.
-     * @param {Number | String} itemID Item ID or name.
-     * @returns {ItemData} If item not found: null; else: item info object.
-     */
-    searchItem(itemID) {
-        return this.shop.searchItem(itemID, this.guildID)
+        const shop = this.database.fetch(`${this.guildID}.shop`) || []
+        return shop.map(item => new ShopItem(this.guildID, this.options, item))
     }
 
     /**
      * Searches for the item in the shop.
      * 
-     * This method is an alias for the `EconomyGuild.shop.searchItem()` method.
+     * This method is an alias for the `EconomyGuild.shop.get()` method.
      * @param {Number | String} itemID Item ID or name.
      * @returns {ItemData} If item not found: null; else: item info object.
      */
     findItem(itemID) {
-        return this.searchItem(itemID)
+        return this.get(itemID)
     }
 }
 

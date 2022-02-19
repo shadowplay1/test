@@ -176,6 +176,12 @@ class Economy extends Emitter {
         */
         this.settings = null
 
+        /**
+         * Economy class.
+         * @type {Economy}
+         */
+        this.economy = this
+
         this.init().then(status => {
             if (status) {
                 this.ready = true
@@ -217,6 +223,8 @@ class Economy extends Emitter {
 
         this.users = null
         this.guilds = null
+
+        this.economy = this
 
         this.emit('destroy')
         return this
@@ -469,6 +477,7 @@ class Economy extends Emitter {
         this.guilds = new GuildManager(this.options)
 
         this.settings = new SettingsManager(this.options)
+        this.economy = this
 
         return true
     }

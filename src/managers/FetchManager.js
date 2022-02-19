@@ -2,7 +2,10 @@ const { readFileSync, writeFileSync, existsSync } = require('fs')
 
 const errors = require('../structures/errors')
 const EconomyError = require('../classes/util/EconomyError')
+
 const ShopItem = require('../classes/ShopItem')
+const InventoryItem = require('../classes/InventoryItem')
+const HistoryItem = require('../classes/HistoryItem')
 
 /**
 * Fetch manager methods class.
@@ -64,6 +67,9 @@ class FetchManager {
         const guildData = data[guildID]
         const memberData = guildData?.[memberID]
 
+        /**
+         * @type {Number}
+         */
         const money = memberData?.money || 0
 
         return money
@@ -84,6 +90,9 @@ class FetchManager {
         const guildData = data[guildID]
         const memberData = guildData?.[memberID]
 
+        /**
+         * @type {Number}
+         */
         const bankMoney = memberData?.bank || 0
 
         return bankMoney
@@ -93,7 +102,7 @@ class FetchManager {
      * Fetches the user's inventory.
      * @param {String} memberID Member ID
      * @param {String} guildID Guild ID
-     * @returns {InventoryData[]} User's inventory.
+     * @returns {InventoryItem[]} User's inventory.
      */
     fetchInventory(memberID, guildID) {
         const data = this.fetchAll()
@@ -104,16 +113,19 @@ class FetchManager {
         const guildData = data[guildID]
         const memberData = guildData?.[memberID]
 
+        /**
+         * @type {InventoryData[]}
+         */
         const inventory = memberData?.inventory || []
 
-        return inventory
+        return inventory.map(item => new InventoryItem(guildID, memberID, this.options, item))
     }
 
     /**
      * Fetches the user's purchases history.
      * @param {String} memberID Member ID
      * @param {String} guildID Guild ID
-     * @returns {HistoryData[]} User's purchases history.
+     * @returns {HistoryItem[]} User's purchases history.
      */
     fetchHistory(memberID, guildID) {
         const data = this.fetchAll()
@@ -124,9 +136,12 @@ class FetchManager {
         const guildData = data[guildID]
         const memberData = guildData?.[memberID]
 
+        /**
+         * @type {HistoryData[]}
+         */
         const history = memberData?.history || []
 
-        return history
+        return history.map(item => new HistoryItem(guildID, this.options, item))
     }
 
     /**
@@ -186,7 +201,7 @@ class FetchManager {
  * @property {Number} price Item price.
  * @property {String} message The message that will be returned on item use.
  * @property {String} role ID of Discord Role that will be given to user on item use.
- * @property {String} date Date when the item was bought.
+ * @property {String} date Date when the item was bought by a user.
  * @property {String} memberID Member ID.
  * @property {String} guildID Guild ID.
  */
@@ -199,7 +214,7 @@ class FetchManager {
  * @property {String} message The message that will be returned on item use.
  * @property {String} role ID of Discord Role that will be given to user on item use.
  * @property {Number} maxAmount Max amount of the item that user can hold in his inventory.
- * @property {String} date Date when the item was bought.
+ * @property {String} date Date when the item was bought by a user.
  */
 
 /**

@@ -1,8 +1,8 @@
-const FetchManager = require('./FetchManager')
 const DatabaseManager = require('./DatabaseManager')
 
 const EconomyError = require('../classes/util/EconomyError')
 const errors = require('../structures/errors')
+const HistoryItem = require('../classes/HistoryItem')
 
 
 class HistoryManager {
@@ -34,13 +34,6 @@ class HistoryManager {
         this.storagePath = options.storagePath || './storage.json'
 
         /**
-         * Fetch Manager.
-         * @type {FetchManager}
-         * @private
-         */
-        this.fetcher = new FetchManager(options)
-
-        /**
         * Database Manager.
         * @type {DatabaseManager}
         * @private
@@ -52,10 +45,10 @@ class HistoryManager {
      * Shows the user's purchases history.
      * @param {String} memberID Member ID
      * @param {String} guildID Guild ID
-     * @returns {HistoryData[]} User's purchases history.
+     * @returns {HistoryItem[]} User's purchases history.
      */
     fetch(memberID, guildID) {
-        const history = this.fetcher.fetchHistory(memberID, guildID)
+        const history = this.database.fetch(`${guildID}.${memberID}.history`)
 
         if (!this.options.savePurchasesHistory) {
             throw new EconomyError(errors.savingHistoryDisabled)
@@ -69,7 +62,7 @@ class HistoryManager {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
         }
 
-        return history
+        return new HistoryItem(guildID, this.options, history)
     }
 
     /**
@@ -78,7 +71,7 @@ class HistoryManager {
     * This method is an alias for `HistoryManager.fetch()` method.
     * @param {String} memberID Member ID
     * @param {String} guildID Guild ID
-    * @returns {HistoryData[]} User's purchases history.
+    * @returns {HistoryItem[]} User's purchases history.
     */
     list(memberID, guildID) {
         return this.fetch(memberID, guildID)
@@ -113,8 +106,8 @@ class HistoryManager {
      * @returns {Boolean} If added: true, else: false.
      */
     add(itemID, memberID, guildID) {
-        const shop = this.fetcher.fetchShop(guildID)
-        const history = this.fetcher.fetchHistory(memberID, guildID)
+        const shop = this.database.fetch(`${guildID}.shop`)
+        const history = this.database.fetch(`${guildID}.${memberID}.history`)
 
         const item = shop.find(item => item.id == itemID || item.itemName == itemID)
 
@@ -181,7 +174,7 @@ class HistoryManager {
      * @param {String | Number} id History item ID.
      * @param {String} memberID Member ID.
      * @param {String} guildID Guild ID.
-     * @returns {HistoryData} Purchases history item.
+     * @returns {HistoryItem} Purchases history item.
      */
     find(id, memberID, guildID) {
         const history = this.fetch(memberID, guildID)
@@ -200,7 +193,7 @@ class HistoryManager {
 
 
         const historyItem = history.find(historyItem => historyItem.id == id)
-        return historyItem || null
+        return new HistoryItem(guildID, this.options, historyItem) || null
     }
 
     /**
@@ -213,21 +206,7 @@ class HistoryManager {
      * @returns {HistoryData} Purchases history item.
      */
     search(id, memberID, guildID) {
-        if (typeof id !== 'number' && typeof id !== 'string') {
-            throw new EconomyError(errors.invalidTypes.id + typeof id)
-        }
-
-        if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
-        }
-
-        if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
-        }
-
-
-        const historyItem = this.find(id, memberID, guildID)
-        return historyItem
+        return this.find(id, memberID, guildID)
     }
 }
 
@@ -239,7 +218,7 @@ class HistoryManager {
  * @property {Number} price Item price.
  * @property {String} message The message that will be returned on item use.
  * @property {String} role ID of Discord Role that will be given to user on item use.
- * @property {String} date Date when the item was bought.
+ * @property {String} date Date when the item was bought by a user.
  * @property {String} memberID Member ID.
  * @property {String} guildID Guild ID.
  */
@@ -266,7 +245,7 @@ class HistoryManager {
  * @property {String} message The message that will be returned on item use.
  * @property {String} role ID of Discord Role that will be given to user on item use.
  * @property {Number} maxAmount Max amount of the item that user can hold in his inventory.
- * @property {String} date Date when the item was bought.
+ * @property {String} date Date when the item was bought by a user.
  */
 
 /**
