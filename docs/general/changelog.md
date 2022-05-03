@@ -82,7 +82,7 @@
 <li><b>Added an additional 'Economy.ready' and 'Economy.errored' properties to check the module state.</b></li>
 <li><b>Now you can add a role to users on your Discord server. Click <a href="https://des-docs.tk/#/docs/main/1.4.1/class/ShopManager">here</a> for more info.</b></li>
 <li><b>Added a new 'shopItemBuy' and 'shopItemUse' events.</b></li>
-<li><b>Now if user try to buy an item when he reached the max amount of item in his inventory, the method will return a 'max' string.</b></li>
+<li><b>Now if user try to buy an item when he reached the max amount of item in their inventory, the method will return a 'max' string.</b></li>
 <li><b>Now this module has a Support Server. Click <b><a href = "https://discord.gg/4pWKq8vUnb">here</a></b> to join!</b></li>
 </ul>
 

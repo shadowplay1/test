@@ -8,6 +8,13 @@
 ## 🙋‍♂️ | Welcome!
 Welcome to the `discord-economy-super v1.6.0-dev` documentation.
 
+This is a development version with very latest feautures but not uploaded 
+to let everyone test them before the release of this big version. 
+
+In this type of versions anything can change in a moment.
+
+Feel free to submit an idea or bug as it would be easier to change eveything before the stable version!
+
 ## 📂 | Installation
 <b>Note:<b>
 </br>
