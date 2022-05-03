@@ -122,6 +122,7 @@ class HistoryItem {
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update Checker options object.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error Handler options object.
  * @property {CheckerOptions} [optionsChecker=CheckerOptions] Options object for an 'Economy.utils.checkOptions' method.
+ * @property {Boolean} [debug=false] Enables or disables the debug mode.
  */
 
 /**

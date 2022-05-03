@@ -41,6 +41,7 @@ class RewardManager {
      */
     constructor(options) {
 
+
         /**
          * Economy options object.
          * @type {EconomyOptions}

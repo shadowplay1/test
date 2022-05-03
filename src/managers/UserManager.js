@@ -1,7 +1,9 @@
 const EconomyUser = require('../classes/EconomyUser')
+
 const BaseManager = require('./BaseManager')
 const DatabaseManager = require('./DatabaseManager')
 const UtilsManager = require('./UtilsManager')
+
 
 /**
  * User manager methods class.
@@ -14,7 +16,7 @@ class UserManager extends BaseManager {
      * @param {EconomyOptions} options Economy options object.
      */
     constructor(options) {
-        super(options)
+        super(options, EconomyUser)
 
         /**
          * Economy options object.
@@ -45,21 +47,22 @@ class UserManager extends BaseManager {
      * @returns {EconomyUser} User object.
      */
     get(userID, guildID) {
-        const user = this.all().find(user => user.id == userID && user.guildID == guildID)
+        const user = this.all()
+            .find(user => user.id == userID && user.guildID == guildID)
 
         return user
     }
 
     /**
      * Creates an economy user object in database.
-     * @param {String} userID The user ID to set.
+     * @param {String} memberID The user ID to set.
      * @param {String} guildID Guild ID.
      * @returns {EconomyUser} Economy user object.
      */
-    create(userID, guildID) {
-        this.utils.reset(userID, guildID)
+    create(memberID, guildID) {
+        this.utils.reset(memberID, guildID)
 
-        return this.all().find(user => user.guildID == guildID && user.id == userID)
+        return this.all().find(user => user.guildID == guildID && user.id == memberID)
     }
 
     /**
@@ -146,6 +149,7 @@ class UserManager extends BaseManager {
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update Checker options object.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error Handler options object.
  * @property {CheckerOptions} [optionsChecker=CheckerOptions] Options object for an 'Economy.utils.checkOptions' method.
+ * @property {Boolean} [debug=false] Enables or disables the debug mode.
  */
 
 /**

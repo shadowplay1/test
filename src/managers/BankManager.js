@@ -23,6 +23,7 @@ class BankManager extends Emitter {
     constructor(options = {}) {
         super(options)
 
+
         /**
          * Economy constructor options object.
          * @type {EconomyOptions}
@@ -199,7 +200,7 @@ class BankManager extends Emitter {
             money: Number(ranks[rank])
         })
 
-        return lb.sort((a, b) => (a.money > b.money) ? -1 : ((b.money > a.money) ? 1 : 0))
+        return lb.sort((a, b) => b.money - a.money)
     }
 }
 

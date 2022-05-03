@@ -4,6 +4,7 @@ const DefaultOptions = require('../structures/DefaultOptions')
 const errors = require('../structures/errors')
 
 const EconomyError = require('../classes/util/EconomyError')
+const Logger = require('../classes/util/Logger')
 
 /**
  * Database manager methods class.
@@ -22,11 +23,24 @@ class DatabaseManager {
         const DotParser = require('../classes/util/DotParser')
 
         /**
+         * Economy Logger.
+         * @type {Logger}
+         * @private
+         */
+        this._logger = new Logger(options)
+
+        /**
          * Fetch manager methods object.
          * @type {FetchManager}
          * @private
          */
         this.fetcher = new FetchManager(options)
+
+        /**
+         * Is the debug mode enabled.
+         * @type {Boolean}
+         */
+        this.debug = options.debug
 
         /**
          * Full path to a JSON file.
@@ -74,6 +88,8 @@ class DatabaseManager {
         if (typeof key !== 'string') {
             throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data)
         }
+
+        this._logger.debug(`Performed set operation on key "${key}".`)
 
         return this.parser.set(key, value)
     }

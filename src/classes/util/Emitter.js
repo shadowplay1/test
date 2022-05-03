@@ -1,5 +1,7 @@
 const { EventEmitter } = require('events')
-const emitter = new EventEmitter()
+const emitter = new EventEmitter({
+    captureRejections: true
+})
 
 /**
  * Simple Economy event emitter with only important emitter methods.
@@ -54,7 +56,7 @@ module.exports = Emitter
 /**
  * @typedef {'balanceSet' | 'balanceAdd' | 'balanceSubtract' |
  * 'bankSet' | 'bankAdd' | 'bankSubtract' |
- * 'shopAddItem' | 'shopEditItem' | 'shopItemBuy' |
+ * 'shopItemAdd' | 'shopItemEdit' | 'shopItemBuy' |
  * 'shopItemUse' | 'shopClear' |
  * 'ready' | 'destroy'} ShopEvents
  */

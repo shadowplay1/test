@@ -1,17 +1,28 @@
+const Emitter = require('../classes/util/Emitter')
 const EconomyUser = require('../classes/EconomyUser')
+
 const DatabaseManager = require('./DatabaseManager')
 const UtilsManager = require('./UtilsManager')
 
 /**
  * The default manager with its default methods.
+ * 
+ * [!] This manager cannot be used directly.
+ * [!] When extending this manager, make sure to have an `all()` method in your child class.
+ * 
+ * [!] Make sure to specify your main item class (EconomyUser, ShopItem, etc.) 
+ * in a second argument in super() for a manager to work with.
+ * @extends {Emitter}
  */
-class BaseManager {
+class BaseManager extends Emitter {
 
     /**
      * Base Manager.
      * @param {EconomyOptions} options Economy options object.
+     * @param {any} constructor A constructor (EconomyUser, ShopItem, etc.) to work with.
      */
-    constructor(options) {
+    constructor(options, constructor) {
+        super()
 
         /**
          * Economy options object.
@@ -35,6 +46,12 @@ class BaseManager {
         this.utils = new UtilsManager(options)
 
         /**
+         * A constructor (EconomyUser, ShopItem, etc.) to work with.
+         * @type {any}
+         */
+        this.baseConstructor = constructor
+
+        /**
          * Amount of elements in database.
          * @type {Number}
          */
@@ -49,7 +66,8 @@ class BaseManager {
     first(guildID) {
         const array = this.all()
 
-        return new EconomyUser(memberID, guildID, this.options, array[0])
+        return new this.baseConstructor(memberID, guildID, this.options, array[0])
+        //new EconomyUser(memberID, guildID, this.options, array[0])
     }
 
     /**
@@ -60,7 +78,8 @@ class BaseManager {
     last(guildID) {
         const array = this.all()
 
-        return new EconomyUser(memberID, guildID, this.options, array[array.length - 1])
+        return new this.baseConstructor(memberID, guildID, this.options, array[array.length - 1])
+        // new EconomyUser(memberID, guildID, this.options, array[array.length - 1])
     }
 
     /**
@@ -71,7 +90,10 @@ class BaseManager {
     toArray(guildID) {
         const array = this.all()
 
-        return array.map(user => new EconomyUser(user.id, guildID, this.options, user))
+        return array.map(user => {
+            return new this.baseConstructor(user.id, guildID, this.options, user)
+            // new EconomyUser(user.id, guildID, this.options, user)
+        })
     }
 
     /**
@@ -303,6 +325,7 @@ class BaseManager {
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update Checker options object.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error Handler options object.
  * @property {CheckerOptions} [optionsChecker=CheckerOptions] Options object for an 'Economy.utils.checkOptions' method.
+ * @property {Boolean} [debug=false] Enables or disables the debug mode.
  */
 
 /**

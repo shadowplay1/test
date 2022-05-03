@@ -29,7 +29,8 @@ const EconomyOptions = {
         showProblems: true,
         sendLog: true,
         sendSuccessLog: false
-    }
+    },
+    debug: false
 }
 
 /**

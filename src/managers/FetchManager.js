@@ -1,6 +1,7 @@
 const { readFileSync, writeFileSync, existsSync } = require('fs')
 
 const errors = require('../structures/errors')
+
 const EconomyError = require('../classes/util/EconomyError')
 
 const ShopItem = require('../classes/ShopItem')
@@ -213,7 +214,7 @@ class FetchManager {
  * @property {Number} price Item price.
  * @property {String} message The message that will be returned on item use.
  * @property {String} role ID of Discord Role that will be given to user on item use.
- * @property {Number} maxAmount Max amount of the item that user can hold in his inventory.
+ * @property {Number} maxAmount Max amount of the item that user can hold in their inventory.
  * @property {String} date Date when the item was bought by a user.
  */
 
@@ -226,7 +227,7 @@ class FetchManager {
  * @property {String} message The message that will be returned on item use.
  * @property {String} description Item description.
  * @property {String} role ID of Discord Role that will be given to Wuser on item use.
- * @property {Number} maxAmount Max amount of the item that user can hold in his inventory.
+ * @property {Number} maxAmount Max amount of the item that user can hold in their inventory.
  * @property {String} date Date when the item was added in the shop.
  */
 

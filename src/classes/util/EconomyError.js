@@ -1,6 +1,3 @@
-/* eslint-disable no-this-before-super */
-/* eslint-disable constructor-super */
-
 /**
  * EconomyError class.
  */

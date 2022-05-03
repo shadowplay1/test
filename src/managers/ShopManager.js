@@ -161,7 +161,7 @@ class ShopManager extends Emitter {
 
             this.database.changeElement(`${guildID}.shop`, itemIndex, item)
 
-            this.emit('shopEditItem', {
+            this.emit('shopItemEdit', {
                 itemID,
                 guildID,
                 changed: itemProperty,
@@ -743,7 +743,7 @@ class ShopManager extends Emitter {
  * @property {String | Number} price Item price.
  * @property {String} [message='You have used this item!'] Item message that will be returned on use.
  * @property {String} [description='Very mysterious item.'] Item description.
- * @property {String | Number} [maxAmount=null] Max amount of the item that user can hold in his inventory.
+ * @property {String | Number} [maxAmount=null] Max amount of the item that user can hold in their inventory.
  * @property {String} [role=null] Role ID from your Discord server.
  * @returns {ItemData} Item info.
  */
@@ -770,7 +770,7 @@ class ShopManager extends Emitter {
  * @property {String} message The message that will be returned on item use.
  * @property {String} description Item description.
  * @property {String} role ID of Discord Role that will be given to Wuser on item use.
- * @property {Number} maxAmount Max amount of the item that user can hold in his inventory.
+ * @property {Number} maxAmount Max amount of the item that user can hold in their inventory.
  * @property {String} date Date when the item was added in the shop.
  */
 
@@ -782,7 +782,7 @@ class ShopManager extends Emitter {
  * @property {Number} price Item price.
  * @property {String} message The message that will be returned on item use.
  * @property {String} role ID of Discord Role that will be given to user on item use.
- * @property {Number} maxAmount Max amount of the item that user can hold in his inventory.
+ * @property {Number} maxAmount Max amount of the item that user can hold in their inventory.
  * @property {String} date Date when the item was bought by a user.
  */
 
@@ -816,6 +816,7 @@ class ShopManager extends Emitter {
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update Checker options object.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error Handler options object.
  * @property {CheckerOptions} [optionsChecker=CheckerOptions] Options object for an 'Economy.utils.checkOptions' method.
+ * @property {Boolean} [debug=false] Enables or disables the debug mode.
  */
 
 /**

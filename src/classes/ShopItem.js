@@ -1,5 +1,8 @@
+const DatabaseManager = require('../managers/DatabaseManager')
+
 const errors = require('../structures/errors')
 const EconomyError = require('./util/EconomyError')
+
 
 /**
 * Shop item class.
@@ -9,10 +12,10 @@ class ShopItem {
     /**
      * Shop item class.
      * @param {String} guildID Guild ID.
-     * @param {EconomyOptions} ecoOptions Economy options object.
+     * @param {DatabaseManager} database Database Manager.
      * @param {ItemData} itemObject Shop item object.
      */
-    constructor(guildID, ecoOptions, itemObject) {
+    constructor(guildID, database, itemObject) {
 
         /**
          * Guild ID.
@@ -25,6 +28,12 @@ class ShopItem {
          * @type {Number}
          */
         this.id = itemObject.id
+
+        /**
+         * Database Manager.
+         * @type {DatabaseManager}
+         */
+        this.database = database
 
         /**
          * Item name.
@@ -57,7 +66,7 @@ class ShopItem {
         this.role = itemObject.role
 
         /**
-         * Max amount of the item that user can hold in his inventory.
+         * Max amount of the item that user can hold in their inventory.
          * @type {Number}
          */
         this.maxAmount = itemObject.maxAmount
@@ -73,6 +82,28 @@ class ShopItem {
         }
     }
 
+
+    /**
+     * Checks for is the specified user has enough money to buy the item.
+     * @param {String} userID User ID.
+     * @returns {Boolean} Is the user has enough money to buy the item.
+     */
+    isEnoughMoneyFor(userID) {
+        const user = this.database.fetch(`${this.guildID}.${userID}`)
+
+        return user.money >= this.price
+    }
+
+    /**
+     * Checks for is the specified user has the item in their inventory.
+     * @param {String} userID User ID.
+     * @returns {Boolean} Is the user has the item in their inventory.
+     */
+    isInInventory(userID) {
+        const user = this.database.fetch(`${this.guildID}.${userID}`)
+
+        return !!user.inventory.find(item => item.id == this.id)
+    }
 
     /**
      * Edits the item in the shop.
@@ -111,7 +142,7 @@ class ShopItem {
 
             this.database.changeElement(`${this.guildID}.shop`, itemIndex, item)
 
-            this.emit('shopEditItem', {
+            this.emit('shopItemEdit', {
                 itemID: this.id,
                 guildID: this.guildID,
                 changed: itemProperty,
@@ -208,7 +239,7 @@ class ShopItem {
  * @property {String} message The message that will be returned on item use.
  * @property {String} description Item description.
  * @property {String} role ID of Discord Role that will be given to Wuser on item use.
- * @property {Number} maxAmount Max amount of the item that user can hold in his inventory.
+ * @property {Number} maxAmount Max amount of the item that user can hold in their inventory.
  * @property {String} date Date when the item was added in the shop.
  */
 
@@ -242,6 +273,7 @@ class ShopItem {
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update Checker options object.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error Handler options object.
  * @property {CheckerOptions} [optionsChecker=CheckerOptions] Options object for an 'Economy.utils.checkOptions' method.
+ * @property {Boolean} [debug=false] Enables or disables the debug mode.
  */
 
 /**

@@ -27,12 +27,14 @@ function checkValueType(key, value) {
             if (typeof value !== 'number') {
                 throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value))
             }
+
             break
 
         case 'dailyCooldown':
             if (typeof value !== 'number') {
                 throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value))
             }
+
             break
 
 
@@ -40,12 +42,14 @@ function checkValueType(key, value) {
             if (typeof value !== 'number') {
                 throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value))
             }
+
             break
 
         case 'workCooldown':
             if (typeof value !== 'number') {
                 throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value))
             }
+
             break
 
 
@@ -53,12 +57,14 @@ function checkValueType(key, value) {
             if (typeof value !== 'number') {
                 throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value))
             }
+
             break
 
         case 'weeklyCooldown':
             if (typeof value !== 'number') {
                 throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value))
             }
+
             break
 
 
@@ -66,18 +72,21 @@ function checkValueType(key, value) {
             if (typeof value !== 'string') {
                 throw new EconomyError(errors.settingsManager.invalidType(key, 'string', typeof value))
             }
+
             break
 
         case 'subtractOnBuy':
             if (typeof value !== 'boolean') {
                 throw new EconomyError(errors.settingsManager.invalidType(key, 'boolean', typeof value))
             }
+
             break
 
         case 'sellingItemPercent':
             if (typeof value !== 'number') {
                 throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value))
             }
+
             break
     }
 
@@ -94,6 +103,7 @@ class SettingsManager {
      * @param {EconomyOptions} options Economy options object.
      */
     constructor(options) {
+
 
         /**
         * Economy options object.
@@ -289,6 +299,7 @@ class SettingsManager {
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update Checker options object.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error Handler options object.
  * @property {CheckerOptions} [optionsChecker=CheckerOptions] Options object for an 'Economy.utils.checkOptions' method.
+ * @property {Boolean} [debug=false] Enables or disables the debug mode.
  */
 
 /**

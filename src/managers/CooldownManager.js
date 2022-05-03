@@ -4,6 +4,7 @@ const DatabaseManager = require('./DatabaseManager')
 
 const errors = require('../structures/errors')
 
+
 /**
 * Cooldown manager methods class.
 */
@@ -27,6 +28,7 @@ class CooldownManager {
      */
     constructor(options) {
 
+
         /**
          * Economy options object.
          * @type {EconomyOptions}
@@ -43,7 +45,7 @@ class CooldownManager {
     }
 
     /**
-     * Gets a user's daily cooldown
+     * Gets a user's daily cooldown.
      * @param {String} memberID Member ID
      * @param {String} guildID Guild ID
      * @returns {Number} Cooldown end timestamp
@@ -63,7 +65,7 @@ class CooldownManager {
     }
 
     /**
-     * Gets a user's work cooldown
+     * Gets a user's work cooldown.
      * @param {String} memberID Member ID
      * @param {String} guildID Guild ID
      * @returns {Number} Cooldown end timestamp
@@ -83,7 +85,7 @@ class CooldownManager {
     }
 
     /**
-     * Gets a user's daily cooldown
+     * Gets a user's daily cooldown.
      * @param {String} memberID Member ID
      * @param {String} guildID Guild ID
      * @returns {Number} Cooldown end timestamp
@@ -103,7 +105,7 @@ class CooldownManager {
     }
 
     /**
-     * Clears user's daily cooldown
+     * Clears user's daily cooldown.
      * @param {String} memberID Member ID
      * @param {String} guildID Guild ID
      * @returns {Boolean} If cleared: true; else: false
@@ -121,7 +123,7 @@ class CooldownManager {
     }
 
     /**
-     * Clears user's work cooldown
+     * Clears user's work cooldown.
      * @param {String} memberID Member ID
      * @param {String} guildID Guild ID
      * @returns {Boolean} If cleared: true; else: false
@@ -139,7 +141,7 @@ class CooldownManager {
     }
 
     /**
-     * Clears user's weekly cooldown
+     * Clears user's weekly cooldown.
      * @param {String} memberID Member ID
      * @param {String} guildID Guild ID
      * @returns {Boolean} If cleared: true; else: false
