@@ -6,12 +6,12 @@ class Logger {
 
     /**
      * Logger constructor.
-     * @param {LoggerOptions} options Logger options object.
+     * @param {LoggerOptions} options Logger configuration.
     */
     constructor(options) {
 
         /**
-         * Logger options object.
+         * Logger configuration.
          * @type {LoggerOptions}
          */
         this.options = options

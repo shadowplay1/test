@@ -76,7 +76,7 @@ class Economy extends Emitter {
          * Economy configuration.
          * @type {?EconomyOptions}
          */
-        this.options = this.utils.checkOptions(options.optionsChecker, options)
+        this.options = this.utils.checkOptions(options?.optionsChecker, options)
 
         /**
          * The Logger class.
@@ -257,7 +257,7 @@ class Economy extends Emitter {
             }).catch(err => resolve(err))
         })
 
-        this._logger.debug('Checking the Node.js version...')
+	this._logger.debug('Checking the Node.js version...')
 
         return this.options.errorHandler.handleErrors ? this._init().catch(async err => {
             if (!(err instanceof EconomyError)) this.errored = true
@@ -266,8 +266,8 @@ class Economy extends Emitter {
             console.log(err)
 
             if (err.message.includes('This module is only supporting Node.js v14 or newer.')) {
-                process.exit(1)
-            } else console.log(`${this.colors.magenta}Retrying in ${retryingTime} seconds...${this.colors.reset}`)
+		process.exit(1)
+	    } else console.log(`${this.colors.magenta}Retrying in ${retryingTime} seconds...${this.colors.reset}`)
 
             while (attempt < attempts && attempt !== -1) {
                 await sleep(time)
@@ -382,7 +382,7 @@ class Economy extends Emitter {
 
                         this._logger.debug('Checking the data in a storage file...')
 
-                        const data = readFileSync(this.options.storagePath)
+                        const data = readFileSync(this.options?.storagePath)
                         JSON.parse(data.toString())
 
                     } catch (err) {
@@ -393,10 +393,10 @@ class Economy extends Emitter {
                         else return reject(err)
                     }
 
-                    this._logger.debug(
-                        `Using storage file: ${this.options.storagePath}` +
-                        `${this.options.checkStorage ? `, checking every ${updateCountdown}ms.` : '.'}`, 'cyan'
-                    )
+		    this._logger.debug(
+			    `Using storage file: ${this.options.storagePath}` + 
+			    `${this.options.checkStorage ? `, checking every ${updateCountdown}ms` : ''}`
+		    )
                 }
 
                 if (this.options.checkStorage == undefined ? true : this.options.checkStorage) {
@@ -454,13 +454,13 @@ class Economy extends Emitter {
                     this.interval = interval
                 }
 
-                this._logger.debug('Starting the managers...', 'lightyellow')
+                this._logger.debug('Starting the managers...')
                 this.start()
 
                 return resolve(true)
 
             } catch (err) {
-                this._logger.debug('Failed to start.', 'red')
+		this._logger.debug('Failed to start.', 'red')
 
                 this.errored = true
                 reject(err)

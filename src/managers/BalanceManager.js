@@ -17,9 +17,7 @@ class BalanceManager extends Emitter {
     /**
      * Balance Manager.
      * 
-     * @param {Object} options Economy constructor options object.
-     * There's only needed options object properties for this manager to work properly.
-     * 
+     * @param {Object} options Economy configuration.
      * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
      */
     constructor(options = {}) {
@@ -27,7 +25,7 @@ class BalanceManager extends Emitter {
 
 
         /**
-         * Economy constructor options object.
+         * Economy configuration.
          * @type {EconomyOptions}
          * @private
          */

@@ -1,6 +1,9 @@
 const DatabaseManager = require('../managers/DatabaseManager')
+const SettingsManager = require('../managers/SettingsManager')
+
 const errors = require('../structures/errors')
 const EconomyError = require('./util/EconomyError')
+
 
 /**
 * Inventory item class.
@@ -11,10 +14,16 @@ class InventoryItem {
      * Inventory item class.
      * @param {String} guildID Guild ID.
      * @param {String} memberID Member ID.
-     * @param {EconomyOptions} ecoOptions Economy options object.
+     * @param {EconomyOptions} ecoOptions Economy configuration.
      * @param {InventoryData} itemObject Economy guild object.
      */
     constructor(guildID, memberID, ecoOptions, itemObject) {
+
+        /**
+         * Economy configuration.
+         * @type {EconomyOptions}
+         */
+        this.options = ecoOptions
 
         /**
          * Guild ID.
@@ -39,7 +48,7 @@ class InventoryItem {
          * Item name.
          * @type {String}
          */
-        this.itemName = itemObject.itemName
+        this.name = itemObject.name
 
         /**
          * Item price.
@@ -71,9 +80,17 @@ class InventoryItem {
          */
         this.date = itemObject.date
 
+
         for (const [key, value] of Object.entries(guildObject || {})) {
             this[key] = value
         }
+
+        /**
+         * Settings manager methods object.
+         * @type {SettingsManager}
+         * @private
+         */
+        this.settings = new SettingsManager(options)
 
         /**
          * Database Manager.
@@ -195,11 +212,13 @@ class InventoryItem {
     sell() {
         const item = this.searchItem(this.id, this.memberID, this.guildID)
 
-        const percent = this.options.sellingItemPercent
+        const percent = this.settings.get('sellingItemPercent', guildID)
+            || this.options.sellingItemPercent
+
         const sellingPrice = Math.floor((item?.price / 100) * percent)
 
-        if (!item) return null
 
+        if (!item) return null
         this.database.add(`${this.guildID}.${this.memberID}.money`, sellingPrice)
 
         this.removeItem(this.id, this.memberID, this.guildID)
@@ -213,7 +232,7 @@ class InventoryItem {
  * Inventory data object.
  * @typedef {Object} InventoryData
  * @property {Number} id Item ID in your inventory.
- * @property {String} itemName Item name.
+ * @property {String} name Item name.
  * @property {Number} price Item price.
  * @property {String} message The message that will be returned on item use.
  * @property {String} role ID of Discord Role that will be given to user on item use.
@@ -222,16 +241,16 @@ class InventoryItem {
  */
 
 /**
- * @typedef {Object} EconomyOptions Default Economy options object.
+ * @typedef {Object} EconomyOptions Default Economy configuration.
  * @property {String} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
  * @property {Boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
  * @property {Number} [dailyCooldown=86400000] 
- * Cooldown for Daily Command (in ms). Default: 24 Hours (60000 * 60 * 24) ms
+ * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  * 
- * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 Hour (60000 * 60) ms
+ * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
  * @property {Number | Number[]} [dailyAmount=100] Amount of money for Daily Command. Default: 100.
  * @property {Number} [weeklyCooldown=604800000] 
- * Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms
+ * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
  * 
  * @property {Number | Number[]} [weeklyAmount=100] Amount of money for Weekly Command. Default: 1000.
  * @property {Number | Number[]} [workAmount=[10, 50]] Amount of money for Work Command. Default: [10, 50].
@@ -248,9 +267,9 @@ class InventoryItem {
  * 
  * @property {Number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
  * @property {String} [dateLocale='en'] The region (example: 'ru'; 'en') to format the date and time. Default: 'en'.
- * @property {UpdaterOptions} [updater=UpdaterOptions] Update Checker options object.
- * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error Handler options object.
- * @property {CheckerOptions} [optionsChecker=CheckerOptions] Options object for an 'Economy.utils.checkOptions' method.
+ * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
+ * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.
+ * @property {CheckerOptions} [optionsChecker=CheckerOptions] Configuration for an 'Economy.utils.checkOptions' method.
  * @property {Boolean} [debug=false] Enables or disables the debug mode.
  */
 

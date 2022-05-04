@@ -1,6 +1,6 @@
 const FetchManager = require('./FetchManager')
 
-const DefaultOptions = require('../structures/DefaultOptions')
+const DefaultOptions = require('../structures/DefaultConfiguration')
 const errors = require('../structures/errors')
 
 const EconomyError = require('../classes/util/EconomyError')
@@ -14,9 +14,7 @@ class DatabaseManager {
     /**
      * Database Manager.
      * 
-     * @param {Object} options Economy constructor options object.
-     * There's only needed options object properties for this manager to work properly.
-     * 
+     * @param {Object} options Economy configuration.
      * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
      */
     constructor(options = {}) {

@@ -37,7 +37,7 @@ module.exports = {
         id: 'id must be a string or a number. Received type: ',
 
         addItemOptions: {
-            itemName: 'options.itemName must be a string. Received type: ',
+            name: 'options.name must be a string. Received type: ',
             price: 'options.price must be a number. Received type: ',
             message: 'options.message must be a string. Received type: ',
             description: 'options.description must be a string. Received type: ',
@@ -48,7 +48,7 @@ module.exports = {
         editItemArgs: {
             itemID: 'itemID is not a string or a number. Received type: ',
             itemProperty: '\'itemProperty\' parameter must be one of these values: ' +
-                ['description', 'price', 'itemName', 'message', 'maxAmount', 'role'].map(x => `'${x}'`).join(', ') +
+                ['description', 'price', 'name', 'message', 'maxAmount', 'role'].map(x => `'${x}'`).join(', ') +
                 '. Received: ',
             noValue: 'no value specified. Received: '
         },

@@ -15,16 +15,13 @@ class FetchManager {
 
     /**
      * Fetch Manager.
-     * 
-     * @param {Object} options Economy constructor options object.
-     * There's only needed options object properties for this manager to work properly.
-     * 
+     * @param {Object} options Economy configuration.
      * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
      */
     constructor(options = {}) {
 
         /**
-         * Economy constructor options object.
+         * Economy configuration.
          * @type {EconomyOptions}
          * @private
          */
@@ -198,7 +195,7 @@ class FetchManager {
 /**
  * @typedef {Object} HistoryData History data object.
  * @property {Number} id Item ID in history.
- * @property {String} itemName Item name.
+ * @property {String} name Item name.
  * @property {Number} price Item price.
  * @property {String} message The message that will be returned on item use.
  * @property {String} role ID of Discord Role that will be given to user on item use.
@@ -210,7 +207,7 @@ class FetchManager {
 /**
  * @typedef {Object} InventoryData Inventory data object.
  * @property {Number} id Item ID in your inventory.
- * @property {String} itemName Item name.
+ * @property {String} name Item name.
  * @property {Number} price Item price.
  * @property {String} message The message that will be returned on item use.
  * @property {String} role ID of Discord Role that will be given to user on item use.
@@ -222,7 +219,7 @@ class FetchManager {
  * Item data object.
  * @typedef {Object} ItemData
  * @property {Number} id Item ID.
- * @property {String} itemName Item name.
+ * @property {String} name Item name.
  * @property {Number} price Item price.
  * @property {String} message The message that will be returned on item use.
  * @property {String} description Item description.

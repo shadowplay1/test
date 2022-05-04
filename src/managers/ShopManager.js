@@ -2,6 +2,7 @@ const Emitter = require('../classes/util/Emitter')
 const EconomyError = require('../classes/util/EconomyError')
 
 const DatabaseManager = require('./DatabaseManager')
+const SettingsManager = require('./SettingsManager')
 
 const errors = require('../structures/errors')
 const ShopItem = require('../classes/ShopItem')
@@ -14,10 +15,7 @@ class ShopManager extends Emitter {
 
     /**
       * Shop Manager.
-      * 
-      * @param {Object} options Economy constructor options object.
-      * There's only needed options object properties for this manager to work properly.
-      * 
+      * @param {Object} options Economy configuration.
       * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
       * @param {String} options.dateLocale The region (example: 'ru' or 'en') to format date and time. Default: 'en'.
       * @param {Boolean} options.subtractOnBuy
@@ -32,7 +30,7 @@ class ShopManager extends Emitter {
         super()
 
         /**
-         * Economy constructor options object.
+         * Economy configuration.
          * @type {?EconomyOptions}
          * @private
          */
@@ -44,29 +42,40 @@ class ShopManager extends Emitter {
          * @private
          */
         this.database = new DatabaseManager(options)
+
+        /**
+         * Database manager methods object.
+         * @type {SettingsManager}
+         * @private
+         */
+        this.settings = new SettingsManager(options)
     }
 
     /**
      * Creates an item in shop.
      * @param {String} guildID Guild ID.
-     * @param {AddItemOptions} options Options object with item info.
+     * @param {AddItemOptions} options Configuration with item info.
      * @returns {ShopItem} Item info.
      */
     addItem(guildID, options = {}) {
         const {
-            itemName, price, message,
+            name, price, message,
             description, maxAmount, role
         } = options
 
-        const date = new Date().toLocaleString(this.options.dateLocale || 'en')
+
+        const dateLocale = this.settings.get('dateLocale', guildID)
+            || this.options.dateLocale
+
+        const date = new Date().toLocaleString(dateLocale)
         const shop = this.database.fetch(`${guildID}.shop`)
 
         if (typeof guildID !== 'string') {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
         }
 
-        if (typeof itemName !== 'string') {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.itemName + typeof itemName)
+        if (typeof name !== 'string') {
+            throw new EconomyError(errors.invalidTypes.addItemOptions.name + typeof name)
         }
 
         if (isNaN(price)) {
@@ -90,8 +99,8 @@ class ShopManager extends Emitter {
         }
 
         const itemInfo = {
-            id: shop.length ? shop[shop.length - 1].id + 1 : 1,
-            itemName,
+            id: shop?.length ? shop[shop.length - 1].id + 1 : 1,
+            name,
             price,
             message: message || 'You have used this item!',
             description: description || 'Very mysterious item.',
@@ -109,7 +118,7 @@ class ShopManager extends Emitter {
      * 
      * This method is an alias for the `ShopManager.addItem()` method.
      * @param {String} guildID Guild ID.
-     * @param {AddItemOptions} options Options object with item info.
+     * @param {AddItemOptions} options Configuration with item info.
      * @returns {ShopItem} Item info.
      */
     add(guildID, options = {}) {
@@ -120,14 +129,14 @@ class ShopManager extends Emitter {
      * Edits the item in the shop.
      * @param {Number | String} itemID Item ID or name.
      * @param {String} guildID Guild ID
-     * @param {'description' | 'price' | 'itemName' | 'message' | 'maxAmount' | 'role'} itemProperty 
+     * @param {'description' | 'price' | 'name' | 'message' | 'maxAmount' | 'role'} itemProperty 
      * This argument means what thing in item you want to edit (item property). 
      * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.
      * 
      * @returns {Boolean} If edited successfully: true, else: false.
      */
     editItem(itemID, guildID, itemProperty, value) {
-        const itemProperties = ['description', 'price', 'itemName', 'message', 'maxAmount', 'role']
+        const itemProperties = ['description', 'price', 'name', 'message', 'maxAmount', 'role']
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
             throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
@@ -152,7 +161,7 @@ class ShopManager extends Emitter {
              */
             const shop = this.list(guildID)
 
-            const itemIndex = shop.findIndex(item => item.id == itemID || item.itemName == itemID)
+            const itemIndex = shop.findIndex(item => item.id == itemID || item.name == itemID)
             const item = shop[itemIndex]
 
             if (!item) return false
@@ -202,7 +211,7 @@ class ShopManager extends Emitter {
      * This method is an alias for the `ShopManager.editItem()` method.
      * @param {Number | String} itemID Item ID or name.
      * @param {String} guildID Guild ID
-     * @param {'description' | 'price' | 'itemName' | 'message' | 'maxAmount' | 'role'} itemProperty 
+     * @param {'description' | 'price' | 'name' | 'message' | 'maxAmount' | 'role'} itemProperty 
      * This argument means what thing in item you want to edit (item property). 
      * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.
      * @param {any} value Any value to set.
@@ -225,7 +234,7 @@ class ShopManager extends Emitter {
         * @type {ItemData[]}
         */
         const shop = this.list(guildID)
-        const itemIndex = shop.findIndex(item => item.id == itemID || item.itemName == itemID)
+        const itemIndex = shop.findIndex(item => item.id == itemID || item.name == itemID)
         const item = shop[itemIndex]
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
@@ -240,7 +249,7 @@ class ShopManager extends Emitter {
 
         this.emit('shopRemoveItem', {
             id: item.id,
-            itemName: item.itemName,
+            name: item.name,
             price: item.price,
             message: item.message,
             description: item.description,
@@ -353,7 +362,7 @@ class ShopManager extends Emitter {
         * @type {ItemData[]}
         */
         const shop = this.list(guildID)
-        const item = shop.find(item => item.id == itemID || item.itemName == itemID)
+        const item = shop.find(item => item.id == itemID || item.name == itemID)
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
             throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
@@ -409,7 +418,7 @@ class ShopManager extends Emitter {
         * @type {InventoryData[]}
         */
         const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`)
-        const item = inventory.find(item => item.id == itemID || item.itemName == itemID)
+        const item = inventory.find(item => item.id == itemID || item.name == itemID)
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
             throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
@@ -442,10 +451,21 @@ class ShopManager extends Emitter {
         const balance = this.database.fetch(`${guildID}.${memberID}.money`)
 
         const shop = this.list(guildID)
-        const item = shop.find(item => item.id == itemID || item.itemName == itemID)
+        const item = shop.find(item => item.id == itemID || item.name == itemID)
 
         const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`)
-        const inventoryItems = inventory.filter(invItem => invItem.itemName == item.itemName)
+        const inventoryItems = inventory.filter(invItem => invItem.name == item.name)
+
+
+        const dateLocale = this.settings.get('dateLocale', guildID)
+            || this.options.dateLocale
+
+        const subtractOnBuy = this.settings.get('subtractOnBuy', guildID)
+            || this.options.subtractOnBuy
+
+        const savePurchasesHistory = this.settings.get('savePurchasesHistory', guildID)
+            || this.options.savePurchasesHistory
+
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
             throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
@@ -464,16 +484,16 @@ class ShopManager extends Emitter {
 
         const itemData = {
             id: inventory.length ? inventory[inventory.length - 1].id + 1 : 1,
-            itemName: item.itemName,
+            name: item.name,
             price: item.price,
             message: item.message,
             description: item.description,
             role: item.role || null,
             maxAmount: item.maxAmount,
-            date: new Date().toLocaleString(this.options.dateLocale || 'en')
+            date: new Date().toLocaleString(dateLocale)
         }
 
-        if (this.options.subtractOnBuy) {
+        if (subtractOnBuy) {
             this.database.subtract(`${guildID}.${memberID}.money`, item.price)
 
             this.emit('balanceSubtract', {
@@ -488,30 +508,30 @@ class ShopManager extends Emitter {
 
         this.database.push(`${guildID}.${memberID}.inventory`, {
             id: inventory.length ? inventory[inventory.length - 1].id + 1 : 1,
-            itemName: item.itemName,
+            name: item.name,
             price: item.price,
             message: item.message,
             description: item.description,
             role: item.role || null,
             maxAmount: item.maxAmount,
-            date: new Date().toLocaleString(this.options.dateLocale || 'en')
+            date: new Date().toLocaleString(dateLocale)
         })
 
-        if (this.options.savePurchasesHistory) {
+        if (savePurchasesHistory) {
             const shop = this.database.fetch(`${guildID}.shop`)
             const history = this.database.fetch(`${guildID}.${memberID}.history`)
 
-            const item = shop.find(item => item.id == itemID || item.itemName == itemID)
+            const item = shop.find(item => item.id == itemID || item.name == itemID)
 
             this.database.push(`${guildID}.${memberID}.history`, {
                 id: history.length ? history[history.length - 1].id + 1 : 1,
                 memberID,
                 guildID,
-                itemName: item.itemName,
+                name: item.name,
                 price: item.price,
                 role: item.role || null,
                 maxAmount: item.maxAmount,
-                date: new Date().toLocaleString(this.options.dateLocale || 'en')
+                date: new Date().toLocaleString(dateLocale)
             })
         }
 
@@ -605,7 +625,7 @@ class ShopManager extends Emitter {
          * @type {InventoryData[]}
          */
         const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`)
-        const itemIndex = inventory.findIndex(invItem => invItem.id == itemID || invItem.itemName == itemID)
+        const itemIndex = inventory.findIndex(invItem => invItem.id == itemID || invItem.name == itemID)
         const item = inventory[itemIndex]
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
@@ -738,8 +758,8 @@ class ShopManager extends Emitter {
 }
 
 /**
- * @typedef {Object} AddItemOptions Options object with item info for 'Economy.shop.addItem' method.
- * @property {String} itemName Item name.
+ * @typedef {Object} AddItemOptions Configuration with item info for 'Economy.shop.addItem' method.
+ * @property {String} name Item name.
  * @property {String | Number} price Item price.
  * @property {String} [message='You have used this item!'] Item message that will be returned on use.
  * @property {String} [description='Very mysterious item.'] Item description.
@@ -752,7 +772,7 @@ class ShopManager extends Emitter {
  * History data object.
  * @typedef {Object} HistoryData
  * @property {Number} id Item ID in history.
- * @property {String} itemName Item name.
+ * @property {String} name Item name.
  * @property {Number} price Item price.
  * @property {String} message The message that will be returned on item use.
  * @property {String} role ID of Discord Role that will be given to user on item use.
@@ -765,7 +785,7 @@ class ShopManager extends Emitter {
  * Item data object.
  * @typedef {Object} ItemData
  * @property {Number} id Item ID.
- * @property {String} itemName Item name.
+ * @property {String} name Item name.
  * @property {Number} price Item price.
  * @property {String} message The message that will be returned on item use.
  * @property {String} description Item description.
@@ -778,7 +798,7 @@ class ShopManager extends Emitter {
  * Inventory data object.
  * @typedef {Object} InventoryData
  * @property {Number} id Item ID in your inventory.
- * @property {String} itemName Item name.
+ * @property {String} name Item name.
  * @property {Number} price Item price.
  * @property {String} message The message that will be returned on item use.
  * @property {String} role ID of Discord Role that will be given to user on item use.
@@ -787,16 +807,16 @@ class ShopManager extends Emitter {
  */
 
 /**
- * @typedef {Object} EconomyOptions Default Economy options object.
+ * @typedef {Object} EconomyOptions Default Economy configuration.
  * @property {String} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
  * @property {Boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
  * @property {Number} [dailyCooldown=86400000]
- * Cooldown for Daily Command (in ms). Default: 24 Hours (60000 * 60 * 24) ms
+ * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  *
- * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 Hour (60000 * 60) ms
+ * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
  * @property {Number | Number[]} [dailyAmount=100] Amount of money for Daily Command. Default: 100.
  * @property {Number} [weeklyCooldown=604800000]
- * Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms
+ * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
  *
  * @property {Boolean} [deprecationWarnings=true]
  * If true, the deprecation warnings will be sent in the console. Default: true.
@@ -813,9 +833,9 @@ class ShopManager extends Emitter {
  *
  * @property {Number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
  * @property {String} [dateLocale='en'] The region (example: 'ru' or 'en') to format the date and time. Default: 'en'.
- * @property {UpdaterOptions} [updater=UpdaterOptions] Update Checker options object.
- * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error Handler options object.
- * @property {CheckerOptions} [optionsChecker=CheckerOptions] Options object for an 'Economy.utils.checkOptions' method.
+ * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
+ * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.
+ * @property {CheckerOptions} [optionsChecker=CheckerOptions] Configuration for an 'Economy.utils.checkOptions' method.
  * @property {Boolean} [debug=false] Enables or disables the debug mode.
  */
 

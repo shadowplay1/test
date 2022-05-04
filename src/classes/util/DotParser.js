@@ -1,7 +1,7 @@
 const { writeFileSync } = require('fs')
 
 const FetchManager = require('../../managers/FetchManager')
-const DefaultOptions = require('../../structures/DefaultOptions')
+const DefaultOptions = require('../../structures/DefaultConfiguration')
 
 /**
  * Dot parser class.
@@ -10,16 +10,14 @@ const DefaultOptions = require('../../structures/DefaultOptions')
 class DotParser {
 
     /**
-     * Economy constructor options object. 
-     * There's only needed options object properties for this manager to work properly.
-     * @param {Object} options Economy constructor options object.
-    * There's only needed options object properties for this manager to work properly.
+     * Economy configuration. 
+     * @param {Object} options Economy configuration.
      * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
      */
     constructor(options = {}) {
 
         /**
-         * Economy constructor options object.
+         * Economy configuration.
          * @private
          * @type {EconomyOptions}
          */

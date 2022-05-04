@@ -4,6 +4,7 @@ const Emitter = require('../classes/util/Emitter')
 const FetchManager = require('./FetchManager')
 const DatabaseManager = require('./DatabaseManager')
 const BalanceManager = require('./BalanceManager')
+const SettingsManager = require('./SettingsManager')
 
 const errors = require('../structures/errors')
 
@@ -14,10 +15,7 @@ class InventoryManager extends Emitter {
 
     /**
       * Inventory Manager.
-      * 
-      * @param {Object} options Economy constructor options object.
-      * There's only needed options object properties for this manager to work properly.
-      * 
+      * @param {Object} options Economy configuration.
       * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
       * @param {String} options.dateLocale The region (example: 'ru' or 'en') to format date and time. Default: 'en'.
       * @param {Boolean} options.subtractOnBuy 
@@ -28,7 +26,7 @@ class InventoryManager extends Emitter {
 
 
         /**
-         * Economy constructor options object.
+         * Economy configuration.
          * @private
          * @type {?EconomyOptions}
          */
@@ -40,6 +38,13 @@ class InventoryManager extends Emitter {
          * @private
          */
         this.database = new DatabaseManager(options)
+
+        /**
+         * Settings manager methods object.
+         * @type {SettingsManager}
+         * @private
+         */
+        this.settings = new SettingsManager(options)
 
         /**
          * Balance manager methods object.
@@ -91,7 +96,7 @@ class InventoryManager extends Emitter {
         * @type {InventoryData[]}
         */
         const inventory = this.fetch(memberID, guildID)
-        const item = inventory.find(item => item.id == itemID || item.itemName == itemID)
+        const item = inventory.find(item => item.id == itemID || item.name == itemID)
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
             throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
@@ -309,13 +314,13 @@ class InventoryManager extends Emitter {
         * @type {ItemData[]}
         */
         const shop = this.fetcher.fetchShop(guildID)
-        const item = shop.find(shopItem => shopItem.id == itemID || shopItem.itemName == itemID)
+        const item = shop.find(shopItem => shopItem.id == itemID || shopItem.name == itemID)
 
         /**
         * @type {InventoryData[]}
         */
         const inventory = this.fetcher.fetchInventory(memberID, guildID)
-        const inventoryItems = inventory.filter(invItem => invItem.itemName == item.itemName)
+        const inventoryItems = inventory.filter(invItem => invItem.name == item.name)
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
             throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
@@ -334,7 +339,7 @@ class InventoryManager extends Emitter {
 
         const itemData = {
             id: inventory.length ? inventory[inventory.length - 1].id + 1 : 1,
-            itemName: item.itemName,
+            name: item.name,
             price: item.price,
             message: item.message,
             description: item.description,
@@ -359,8 +364,11 @@ class InventoryManager extends Emitter {
     sellItem(itemID, memberID, guildID, reason = 'sold the item from the inventory') {
         const item = this.searchItem(itemID, memberID, guildID)
 
-        const percent = this.options.sellingItemPercent
+        const percent = this.settings.get('sellingItemPercent', guildID)
+            || this.options.sellingItemPercent
+
         const sellingPrice = Math.floor((item?.price / 100) * percent)
+
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
             throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
@@ -400,8 +408,8 @@ class InventoryManager extends Emitter {
 }
 
 /**
- * @typedef {Object} AddItemOptions Options object with item info for 'Economy.shop.addItem' method.
- * @property {String} itemName Item name.
+ * @typedef {Object} AddItemOptions Configuration with item info for 'Economy.shop.addItem' method.
+ * @property {String} name Item name.
  * @property {Number} price Item price.
  * @property {String} [message='You have used this item!'] Item message that will be returned on use.
  * @property {String} [description='Very mysterious item.'] Item description.
@@ -414,7 +422,7 @@ class InventoryManager extends Emitter {
  * History data object.
  * @typedef {Object} HistoryData
  * @property {Number} id Item ID in history.
- * @property {String} itemName Item name.
+ * @property {String} name Item name.
  * @property {Number} price Item price.
  * @property {String} message The message that will be returned on item use.
  * @property {String} role ID of Discord Role that will be given to user on item use.
@@ -427,7 +435,7 @@ class InventoryManager extends Emitter {
  * Item data object.
  * @typedef {Object} ItemData
  * @property {Number} id Item ID.
- * @property {String} itemName Item name.
+ * @property {String} name Item name.
  * @property {Number} price Item price.
  * @property {String} message The message that will be returned on item use.
  * @property {String} description Item description.
@@ -440,7 +448,7 @@ class InventoryManager extends Emitter {
  * Inventory data object.
  * @typedef {Object} InventoryData
  * @property {Number} id Item ID in your inventory.
- * @property {String} itemName Item name.
+ * @property {String} name Item name.
  * @property {Number} price Item price.
  * @property {String} message The message that will be returned on item use.
  * @property {String} role ID of Discord Role that will be given to user on item use.
@@ -449,16 +457,16 @@ class InventoryManager extends Emitter {
  */
 
 /**
- * @typedef {Object} EconomyOptions Default Economy options object.
+ * @typedef {Object} EconomyOptions Default Economy configuration.
  * @property {String} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
  * @property {Boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
  * @property {Number} [dailyCooldown=86400000] 
- * Cooldown for Daily Command (in ms). Default: 24 Hours (60000 * 60 * 24) ms
+ * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  * 
- * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 Hour (60000 * 60) ms
+ * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
  * @property {Number | Number[]} [dailyAmount=100] Amount of money for Daily Command. Default: 100.
  * @property {Number} [weeklyCooldown=604800000] 
- * Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms
+ * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
  *
  * @property {Number} [sellingItemPercent=75]
  * Percent of the item's price it will be sold for. Default: 75.
@@ -475,9 +483,9 @@ class InventoryManager extends Emitter {
  * 
  * @property {Number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
  * @property {String} [dateLocale='en'] The region (example: 'ru' or 'en') to format the date and time. Default: 'en'.
- * @property {UpdaterOptions} [updater=UpdaterOptions] Update Checker options object.
- * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error Handler options object.
- * @property {CheckerOptions} [optionsChecker=CheckerOptions] Options object for an 'Economy.utils.checkOptions' method.
+ * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
+ * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.
+ * @property {CheckerOptions} [optionsChecker=CheckerOptions] Configuration for an 'Economy.utils.checkOptions' method.
  * @property {Boolean} [debug=false] Enables or disables the debug mode.
  */
 

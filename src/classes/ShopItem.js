@@ -39,7 +39,7 @@ class ShopItem {
          * Item name.
          * @type {String}
          */
-        this.itemName = itemObject.itemName
+        this.name = itemObject.name
 
         /**
          * Item price.
@@ -108,7 +108,7 @@ class ShopItem {
     /**
      * Edits the item in the shop.
      * 
-     * @param {"description" | "price" | "itemName" | "message" | "maxAmount" | "role"} itemProperty
+     * @param {"description" | "price" | "name" | "message" | "maxAmount" | "role"} itemProperty
      * This argument means what thing in item you want to edit (item property). 
      * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.
      * 
@@ -116,7 +116,7 @@ class ShopItem {
      * @returns {Boolean} If edited successfully: true, else: false.
      */
     edit(itemProperty, value) {
-        const itemProperties = ['description', 'price', 'itemName', 'message', 'maxAmount', 'role']
+        const itemProperties = ['description', 'price', 'name', 'message', 'maxAmount', 'role']
 
         if (!itemProperties.includes(itemProperty)) {
             throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + itemProperty)
@@ -133,7 +133,7 @@ class ShopItem {
              */
             const shop = this.all()
 
-            const itemIndex = shop.findIndex(item => item.id == this.id || item.itemName == this.id)
+            const itemIndex = shop.findIndex(item => item.id == this.id || item.name == this.id)
             const item = shop[itemIndex]
 
             if (!item) return false
@@ -182,7 +182,7 @@ class ShopItem {
      * 
      * This method is an alias for 'ShopItem.edit()' method.
      * 
-     * @param {"description" | "price" | "itemName" | "message" | "maxAmount" | "role"} itemProperty
+     * @param {"description" | "price" | "name" | "message" | "maxAmount" | "role"} itemProperty
      * This argument means what thing in item you want to edit (item property). 
      * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.
      * 
@@ -209,14 +209,14 @@ class ShopItem {
      */
     remove() {
         const shop = this.database.fetch(`${this.guildID}.shop`) || []
-        const itemIndex = shop.findIndex(item => item.id == this.id || item.itemName == this.id)
+        const itemIndex = shop.findIndex(item => item.id == this.id || item.name == this.id)
         const item = shop[itemIndex]
 
         this.database.removeElement(`${guildID}.shop`, itemIndex)
 
         this.emit('shopRemoveItem', {
             id: item.id,
-            itemName: item.itemName,
+            name: item.name,
             price: item.price,
             message: item.message,
             description: item.description,
@@ -234,7 +234,7 @@ class ShopItem {
  * Item data object.
  * @typedef {Object} ItemData
  * @property {Number} id Item ID.
- * @property {String} itemName Item name.
+ * @property {String} name Item name.
  * @property {Number} price Item price.
  * @property {String} message The message that will be returned on item use.
  * @property {String} description Item description.
@@ -244,16 +244,16 @@ class ShopItem {
  */
 
 /**
- * @typedef {Object} EconomyOptions Default Economy options object.
+ * @typedef {Object} EconomyOptions Default Economy configuration.
  * @property {String} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
  * @property {Boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
  * @property {Number} [dailyCooldown=86400000] 
- * Cooldown for Daily Command (in ms). Default: 24 Hours (60000 * 60 * 24) ms
+ * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  * 
- * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 Hour (60000 * 60) ms
+ * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
  * @property {Number | Number[]} [dailyAmount=100] Amount of money for Daily Command. Default: 100.
  * @property {Number} [weeklyCooldown=604800000] 
- * Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms
+ * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
  * 
  * @property {Number | Number[]} [weeklyAmount=100] Amount of money for Weekly Command. Default: 1000.
  * @property {Number | Number[]} [workAmount=[10, 50]] Amount of money for Work Command. Default: [10, 50].
@@ -270,9 +270,9 @@ class ShopItem {
  * 
  * @property {Number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
  * @property {String} [dateLocale='en'] The region (example: 'ru'; 'en') to format the date and time. Default: 'en'.
- * @property {UpdaterOptions} [updater=UpdaterOptions] Update Checker options object.
- * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error Handler options object.
- * @property {CheckerOptions} [optionsChecker=CheckerOptions] Options object for an 'Economy.utils.checkOptions' method.
+ * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
+ * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.
+ * @property {CheckerOptions} [optionsChecker=CheckerOptions] Configuration for an 'Economy.utils.checkOptions' method.
  * @property {Boolean} [debug=false] Enables or disables the debug mode.
  */
 

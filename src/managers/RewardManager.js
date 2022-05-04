@@ -27,15 +27,13 @@ class RewardManager {
     /**
       * Reward Manager.
       * 
-      * @param {Object} options Economy constructor options object.
-      * There's only needed options object properties for this manager to work properly.
-      * 
+      * @param {Object} options Economy configuration.
       * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
-      * @param {Number} options.dailyCooldown Cooldown for Daily Command (in ms). Default: 24 Hours (60000 * 60 * 24) ms
-      * @param {Number} options.workCooldown Cooldown for Work Command (in ms). Default: 1 Hour (60000 * 60) ms
+      * @param {Number} options.dailyCooldown Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
+      * @param {Number} options.workCooldown Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
       * @param {Number} options.dailyAmount Amount of money for Daily Command. Default: 100.
       * @param {Number} options.weeklyCooldown
-      * Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms
+      * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
       * @param {Number} options.weeklyAmount Amount of money for Weekly Command. Default: 1000.
       * @param {Number | Array} options.workAmount Amount of money for Work Command. Default: [10, 50].
      */
@@ -43,7 +41,7 @@ class RewardManager {
 
 
         /**
-         * Economy options object.
+         * Economy configuration.
          * @type {EconomyOptions}
          * @private
          */
@@ -96,19 +94,19 @@ class RewardManager {
         if (typeof memberID !== 'string') throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
         if (typeof guildID !== 'string') throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
 
-        const cooldown = this.settings.all(guildID).dailyCooldown || this.options.dailyCooldown
-        const dailyReward = this.settings.all(guildID).dailyAmount || this.options.dailyAmount
+        const cooldown = this.settings.get('dailyCooldown', guildID) || this.options.dailyCooldown
+        const defaultDailyReward = this.settings.get('dailyAmount', guildID) || this.options.dailyAmount
         let reward
 
-        if (Array.isArray(dailyReward)) {
-            const min = dailyReward[0]
-            const max = dailyReward[1]
+        if (Array.isArray(defaultDailyReward)) {
+            const min = defaultDailyReward[0]
+            const max = defaultDailyReward[1]
 
-            if (dailyReward.length == 1) reward = dailyReward[0]
+            if (defaultDailyReward.length == 1) reward = defaultDailyReward[0]
             else reward = Math.floor(Math.random() * (Number(min) - Number(max)) + Number(max))
         }
 
-        else reward = dailyReward
+        else reward = defaultDailyReward
 
         const userCooldown = this.cooldowns.daily(memberID, guildID)
         const cooldownEnd = cooldown - (Date.now() - userCooldown)
@@ -117,7 +115,7 @@ class RewardManager {
             status: false,
             value: parse(cooldownEnd),
             pretty: ms(cooldownEnd),
-            reward: dailyReward
+            reward: defaultDailyReward
         }
 
         this.balance.add(reward, memberID, guildID, reason)
@@ -125,9 +123,12 @@ class RewardManager {
 
         return {
             status: true,
-            value: reward,
-            pretty: reward,
-            reward: dailyReward
+            cooldown: {
+                time: null,
+                pretty: null
+            },
+            reward,
+            defaultReward: defaultDailyReward
         }
     }
 
@@ -142,28 +143,32 @@ class RewardManager {
         if (typeof memberID !== 'string') throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
         if (typeof guildID !== 'string') throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
 
-        const cooldown = this.settings.all(guildID).workCooldown || this.options.workCooldown
-        const workReward = this.settings.all(guildID).workAmount || this.options.workAmount
+        const cooldown = this.settings.get('workCooldown', guildID) || this.options.workCooldown
+        const defaultWorkReward = this.settings.get('workAmount', guildID) || this.options.workAmount
+
         let reward
 
-        if (Array.isArray(workReward)) {
-            const min = workReward[0]
-            const max = workReward[1]
+        if (Array.isArray(defaultWorkReward)) {
+            const min = defaultWorkReward[0]
+            const max = defaultWorkReward[1]
 
-            if (workReward.length == 1) reward = workReward[0]
+            if (defaultWorkReward.length == 1) reward = defaultWorkReward[0]
             else reward = Math.floor(Math.random() * (Number(min) - Number(max)) + Number(max))
         }
 
-        else reward = workReward
+        else reward = defaultWorkReward
 
         const userCooldown = this.cooldowns.work(memberID, guildID)
         const cooldownEnd = cooldown - (Date.now() - userCooldown)
 
         if (userCooldown !== null && cooldownEnd > 0) return {
             status: false,
-            value: parse(cooldownEnd),
-            pretty: ms(cooldownEnd),
-            reward: workReward
+            cooldown: {
+                time: parse(cooldownEnd),
+                pretty: ms(cooldownEnd),
+            },
+            reward: null,
+            defaultReward: defaultWorkReward
         }
 
         this.balance.add(reward, memberID, guildID, reason)
@@ -171,9 +176,12 @@ class RewardManager {
 
         return {
             status: true,
-            value: reward,
-            pretty: reward,
-            reward: workReward
+            cooldown: {
+                time: null,
+                pretty: null
+            },
+            reward,
+            defaultReward: defaultWorkReward
         }
     }
 
@@ -188,28 +196,31 @@ class RewardManager {
         if (typeof memberID !== 'string') throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
         if (typeof guildID !== 'string') throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
 
-        const cooldown = this.settings.all(guildID).weeklyCooldown || this.options.weeklyCooldown
-        const weeklyReward = this.settings.all(guildID).weeklyAmount || this.options.weeklyAmount
+        const cooldown = this.settings.get('weeklyCooldown', guildID) || this.options.weeklyCooldown
+        const defaultWeeklyReward = this.settings.get('weeklyAmount', guildID) || this.options.weeklyAmount
         let reward
 
-        if (Array.isArray(weeklyReward)) {
-            const min = weeklyReward[0]
-            const max = weeklyReward[1]
+        if (Array.isArray(defaultWeeklyReward)) {
+            const min = defaultWeeklyReward[0]
+            const max = defaultWeeklyReward[1]
 
-            if (weeklyReward.length == 1) reward = weeklyReward[0]
+            if (defaultWeeklyReward.length == 1) reward = defaultWeeklyReward[0]
             else reward = Math.floor(Math.random() * (Number(min) - Number(max)) + Number(max))
         }
 
-        else reward = weeklyReward
+        else reward = defaultWeeklyReward
 
         const userCooldown = this.cooldowns.weekly(memberID, guildID)
         const cooldownEnd = cooldown - (Date.now() - userCooldown)
 
         if (userCooldown !== null && cooldownEnd > 0) return {
             status: false,
-            value: parse(cooldownEnd),
-            pretty: ms(cooldownEnd),
-            reward: weeklyReward
+            cooldown: {
+                time: parse(cooldownEnd),
+                pretty: ms(cooldownEnd),
+            },
+            reward: null,
+            defaultReward: defaultWeeklyReward
         }
 
         this.balance.add(reward, memberID, guildID, reason)
@@ -217,9 +228,12 @@ class RewardManager {
 
         return {
             status: true,
-            value: reward,
-            pretty: reward,
-            reward: weeklyReward
+            cooldown: {
+                time: null,
+                pretty: null
+            },
+            reward,
+            defaultReward: defaultWeeklyReward
         }
     }
 }
@@ -227,18 +241,24 @@ class RewardManager {
 /**
  * @typedef {Object} RewardData
  * @property {Boolean} status The status of operation.
- * @property {CooldownData} value Reward or cooldown time object.
- * @property {String | Number} pretty Reward or formatted cooldown time object.
- * @property {Number | Number[]} reward Amount of money for the reward from constructor options.
+ * @property {CooldownData} cooldown Cooldown object.
+ * @property {Number} reward Amount of money that the user received.
+ * @property {Number} defaultReward Reward that was specified in a module configuration.
  */
 
 /**
- * @typedef {Object} CooldownData
+ * @typedef {Object} TimeData
  * @property {Number} days Amount of days until the cooldown ends.
  * @property {Number} hours Amount of hours until the cooldown ends.
  * @property {Number} minutes Amount of minutes until the cooldown ends.
  * @property {Number} seconds Amount of seconds until the cooldown ends.
  * @property {Number} milliseconds Amount of milliseconds until the cooldown ends.
+ */
+
+/**
+ * @typedef {Object} CooldownData
+ * @property {TimeData} time A time object with the remaining time until the cooldown ends.
+ * @property {String} pretty A formatted string with the remaining time until the cooldown ends.
  */
 
 /**

@@ -25,7 +25,7 @@ class Shop extends BaseManager {
     */
     get(itemID) {
         const shop = this.all()
-        const item = shop.find(item => item.id == itemID || item.itemName == itemID)
+        const item = shop.find(item => item.id == itemID || item.name == itemID)
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
             throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
@@ -47,21 +47,20 @@ class Shop extends BaseManager {
 
     /**
      * Creates an item in shop.
-     * @param {AddItemOptions} options Options object with item info.
+     * @param {AddItemOptions} options Configuration with item info.
      * @returns {ItemData} Item info.
      */
     addItem(options = {}) {
         const {
-            itemName, price, message,
+            name, price, message,
             description, maxAmount, role
         } = options
 
         const date = new Date().toLocaleString(this.options.dateLocale || 'en')
         const shop = this.database.fetch(`${this.guildID}.shop`)
 
-        // console.log(options)
-        if (typeof itemName !== 'string') {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.itemName + typeof itemName)
+        if (typeof name !== 'string') {
+            throw new EconomyError(errors.invalidTypes.addItemOptions.name + typeof name)
         }
 
         if (isNaN(price)) {
@@ -86,7 +85,7 @@ class Shop extends BaseManager {
 
         const itemInfo = {
             id: shop.length ? shop[shop.length - 1].id + 1 : 1,
-            itemName,
+            name,
             price,
             message: message || 'You have used this item!',
             description: description || 'Very mysterious item.',
@@ -106,7 +105,7 @@ class Shop extends BaseManager {
      * Creates an item in shop.
      * 
      * This method is an alias for the `EconomyGuild.shop.addItem()` method.
-     * @param {AddItemOptions} options Options object with item info.
+     * @param {AddItemOptions} options Configuration with item info.
      * @returns {ItemData} Item info.
      */
     add(options = {}) {
@@ -116,7 +115,7 @@ class Shop extends BaseManager {
     /**
      * Edits the item in the shop.
      * @param {Number | String} itemID Item ID or name.
-     * @param {'description' | 'price' | 'itemName' | 'message' | 'maxAmount' | 'role'} itemProperty 
+     * @param {'description' | 'price' | 'name' | 'message' | 'maxAmount' | 'role'} itemProperty 
      * This argument means what thing in item you want to edit (item property). 
      * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.
      * 
@@ -124,7 +123,7 @@ class Shop extends BaseManager {
      * @returns {Boolean} If edited successfully: true, else: false.
      */
     editItem(itemID, itemProperty, value) {
-        const itemProperties = ['description', 'price', 'itemName', 'message', 'maxAmount', 'role']
+        const itemProperties = ['description', 'price', 'name', 'message', 'maxAmount', 'role']
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
             throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
@@ -145,7 +144,7 @@ class Shop extends BaseManager {
              */
             const shop = this.all()
 
-            const itemIndex = shop.findIndex(item => item.id == itemID || item.itemName == itemID)
+            const itemIndex = shop.findIndex(item => item.id == itemID || item.name == itemID)
             const item = shop[itemIndex]
 
             if (!item) return false
@@ -194,7 +193,7 @@ class Shop extends BaseManager {
      * 
      * This method is an alias for the `EconomyGuild.shop.editItem()` method.
      * @param {Number | String} itemID Item ID or name.
-     * @param {'description' | 'price' | 'itemName' | 'message' | 'maxAmount' | 'role'} itemProperty 
+     * @param {'description' | 'price' | 'name' | 'message' | 'maxAmount' | 'role'} itemProperty 
      * This argument means what thing in item you want to edit (item property). 
      * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.
      * 
@@ -253,7 +252,7 @@ module.exports = Shop
  * Item data object.
  * @typedef {Object} ItemData
  * @property {Number} id Item ID.
- * @property {String} itemName Item name.
+ * @property {String} name Item name.
  * @property {Number} price Item price.
  * @property {String} message The message that will be returned on item use.
  * @property {String} description Item description.
@@ -263,8 +262,8 @@ module.exports = Shop
  */
 
 /**
- * @typedef {Object} AddItemOptions Options object with item info for 'Economy.shop.addItem' method.
- * @property {String} itemName Item name.
+ * @typedef {Object} AddItemOptions Configuration with item info for 'Economy.shop.addItem' method.
+ * @property {String} name Item name.
  * @property {String | Number} price Item price.
  * @property {String} [message='You have used this item!'] Item message that will be returned on use.
  * @property {String} [description='Very mysterious item.'] Item description.
@@ -274,16 +273,16 @@ module.exports = Shop
  */
 
 /**
- * @typedef {Object} EconomyOptions Default Economy options object.
+ * @typedef {Object} EconomyOptions Default Economy configuration.
  * @property {String} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
  * @property {Boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
  * @property {Number} [dailyCooldown=86400000] 
- * Cooldown for Daily Command (in ms). Default: 24 Hours (60000 * 60 * 24) ms
+ * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  * 
- * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 Hour (60000 * 60) ms
+ * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
  * @property {Number | Number[]} [dailyAmount=100] Amount of money for Daily Command. Default: 100.
  * @property {Number} [weeklyCooldown=604800000] 
- * Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms
+ * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
  * 
  * @property {Number | Number[]} [weeklyAmount=100] Amount of money for Weekly Command. Default: 1000.
  * @property {Number | Number[]} [workAmount=[10, 50]] Amount of money for Work Command. Default: [10, 50].
@@ -300,8 +299,8 @@ module.exports = Shop
  * 
  * @property {Number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
  * @property {String} [dateLocale='en'] The region (example: 'ru'; 'en') to format the date and time. Default: 'en'.
- * @property {UpdaterOptions} [updater=UpdaterOptions] Update Checker options object.
- * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error Handler options object.
- * @property {CheckerOptions} [optionsChecker=CheckerOptions] Options object for an 'Economy.utils.checkOptions' method.
+ * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
+ * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.
+ * @property {CheckerOptions} [optionsChecker=CheckerOptions] Configuration for an 'Economy.utils.checkOptions' method.
  * @property {Boolean} [debug=false] Enables or disables the debug mode.
  */

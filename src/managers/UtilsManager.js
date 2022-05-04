@@ -1,13 +1,16 @@
-const { readFileSync, writeFileSync } = require('fs')
+const { readFileSync, writeFileSync, existsSync } = require('fs')
 
 const fetch = require('node-fetch')
+const { dirname } = require('path')
 
 const FetchManager = require('./FetchManager')
 const DatabaseManager = require('./DatabaseManager')
 
-const DefaultOptions = require('../structures/DefaultOptions')
+const DefaultOptions = require('../structures/DefaultConfiguration')
 const errors = require('../structures/errors')
 const defaultObject = require('../structures/DefaultUserObject')
+
+const Logger = require('../classes/util/Logger')
 
 
 function unset(object, key) {
@@ -35,6 +38,7 @@ function unset(object, key) {
     }
 }
 
+
 /**
 * Utils manager methods class.
 */
@@ -43,25 +47,30 @@ class UtilsManager {
     /**
      * Utils Manager.
      * 
-     * @param {Object} options Economy constructor options object.
-     * There's only needed options object properties for this manager to work properly.
-     * 
+     * @param {Object} options Economy configuration.
      * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
      */
     constructor(options = {}) {
 
         /**
-         * Economy constructor options object.
+         * Economy configuration.
          * @type {?EconomyOptions}
          * @private
          */
         this.options = options
 
         /**
-         * Full path to a JSON file.
+         * Economy Logger.
+         * @type {Logger}
          * @private
-         * @type {String}
-        */
+         */
+        this._logger = new Logger(options)
+
+        /**
+             * Full path to a JSON file.
+             * @private
+             * @type {String}
+            */
         this.storagePath = options.storagePath || './storage.json'
 
         /**
@@ -98,6 +107,7 @@ class UtilsManager {
             packageVersion: packageData['dist-tags'].latest
         }
     }
+
     /**
     * Fetches the entire database.
     * @returns {Object} Database contents
@@ -192,14 +202,41 @@ class UtilsManager {
     }
 
     /**
-     * Checks the Economy options object, fixes the problems in it and returns the fixed options object.
+     * Checks the Economy configuration, fixes the problems and returns it.
      * @param {CheckerOptions} options Option checker options.
-     * @param {EconomyOptions} ecoOptions Economy options object to check.
-     * @returns {EconomyOptions} Fixed economy options object.
+     * @param {EconomyOptions} ecoOptions Economy configuration to check.
+     * @returns {EconomyOptions} Fixed Economy configuration.
      */
     checkOptions(options = {}, ecoOptions) {
+        this._logger.debug('Debug mode is enabled.', 'lightcyan')
+        this._logger.debug('Checking the configuration...')
+
+        const optionsFileExists = existsSync('./economy.config.js')
+        const dirName = dirname(require.main.filename) // process.env.PWD
+
+        // console.log(dirName)
+
+        if (optionsFileExists) {
+            // const fileLanguage = __filename.endsWith('js') ? 'js' : 'ts'
+            this._logger.debug(`Using configuration file at ${dirName}/economy.config.js...`, 'cyan')
+
+            try {
+                const optionsObject = require(`${dirName}/economy.config.js`)
+
+                options = optionsObject.optionsChecker
+                ecoOptions = optionsObject
+
+                // console.log('file:', optionsFile)
+            } catch (err) {
+                this._logger.error(`Failed to open the configuration file: ${err.stack}`)
+                this._logger.debug('Using the configuration specified in a constructor...', 'cyan')
+            }
+        } else this._logger.debug('Using the configuration specified in a constructor...', 'cyan')
+
         const problems = []
-        let output = {}
+        const output = {}
+
+        // console.log('options:', options, ecoOptions)
 
         const keys = Object.keys(DefaultOptions)
         const optionKeys = Object.keys(ecoOptions || {})
@@ -339,16 +376,16 @@ class UtilsManager {
 */
 
 /**
- * @typedef {Object} EconomyOptions Default Economy options object.
+ * @typedef {Object} EconomyOptions Default Economy configuration.
  * @property {String} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
  * @property {Boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
  * @property {Number} [dailyCooldown=86400000] 
- * Cooldown for Daily Command (in ms). Default: 24 Hours (60000 * 60 * 24) ms
+ * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  * 
- * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 Hour (60000 * 60) ms
+ * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
  * @property {Number | Number[]} [dailyAmount=100] Amount of money for Daily Command. Default: 100.
  * @property {Number} [weeklyCooldown=604800000] 
- * Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms
+ * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
  * 
  * @property {Number | Number[]} [weeklyAmount=100] Amount of money for Weekly Command. Default: 1000.
  * @property {Number | Number[]} [workAmount=[10, 50]] Amount of money for Work Command. Default: [10, 50].
@@ -365,14 +402,14 @@ class UtilsManager {
  * 
  * @property {Number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
  * @property {String} [dateLocale='en'] The region (example: 'ru'; 'en') to format the date and time. Default: 'en'.
- * @property {UpdaterOptions} [updater=UpdaterOptions] Update Checker options object.
- * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error Handler options object.
- * @property {CheckerOptions} [optionsChecker=CheckerOptions] Options object for an 'Economy.utils.checkOptions' method.
+ * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
+ * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.
+ * @property {CheckerOptions} [optionsChecker=CheckerOptions] Configuration for an 'Economy.utils.checkOptions' method.
  * @property {Boolean} [debug=false] Enables or disables the debug mode.
  */
 
 /**
- * @typedef {Object} UpdaterOptions Updatee options object.
+ * @typedef {Object} UpdaterOptions Update checker configuration.
  * @property {Boolean} [checkUpdates=true] Sends the update state message in console on start. Default: true.
  * @property {Boolean} [upToDateMessage=true] 
  * Sends the message in console on start if module is up to date. Default: true.
@@ -386,7 +423,7 @@ class UtilsManager {
  */
 
 /**
- * @typedef {Object} CheckerOptions Options object for an 'Economy.utils.checkOptions' method.
+ * @typedef {Object} CheckerOptions Configuration for an 'Economy.utils.checkOptions' method.
  * @property {Boolean} [ignoreInvalidTypes=false] 
  * Allows the method to ignore the options with invalid types. Default: false.
  * 
