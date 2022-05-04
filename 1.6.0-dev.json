@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.10.0",
         "format": 20,
-        "date": 1651611636073
+        "date": 1651707532928
     },
     "custom": {
         "general": {
@@ -17,13 +17,13 @@
                 "faq": {
                     "name": "FAQ",
                     "type": "md",
-                    "content": "# Discord Economy Super\r\n\r\n[![Downloads](https://img.shields.io/npm/dt/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)\r\n[![Stable Version](https://img.shields.io/npm/v/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)\r\n\r\n<b>Discord Economy Super</b> - Easy and customizable economy framework for your [Discord Bot](https://discord.js.org/#/).\r\n\r\n## ❓ | Frequently Asked Questions\r\n\r\n### Q: Will the module support MongoDB?\r\n#### A: No. At the moment, we cant do support for MongoDB in the module. Sorry about that.\r\n<br>\r\n\r\n### Q: Why do I get a \"Cannot read property '(any manager property or method)' of null\"?\r\n#### A: Because the module is not started and not ready yet. Use this code to fix this problem:\r\n```js\r\nconst Economy = require('discord-economy-super')\r\nconst economy = new Economy(options)\r\n\r\neconomy.on('ready', () => {\r\n    <client>.economy = economy\r\n})\r\n```\r\nIt will add the module in your bot client's property and you could use it in any command without any errors. For example: `<client>.economy.balance.fetch(...)` will return you a user's balance number.\r\n<br>\r\n\r\n### Q: Why do I get a \"SyntaxError: Unexpected token '.' \"?\r\n#### A: Because the module is supporting only Node.js v14.0.0 or above. Earlier versions are not supporting the \"?.\" operator. You need to update Node.js to make the module work.\r\n<br>\r\n\r\n### Q: Can I use the module globally?\r\n#### A: Yes! Just use '123' as guild ID or any other value in all methods, and the module will work with only one guild. For example: guild '111' and '222' will take the 333's balance info from guild '123' in database.\r\n\r\n```js\r\n// example eco database\r\n{\r\n    \"123\": {\r\n\t    \"333\": {\r\n\t\t    \"money\": 1150,\r\n\t\t    \"dailyCooldown\": 1638034751398,\r\n\t\t    \"weeklyCooldown\": 1636811771994,\r\n\t\t    \"workCooldown\": 1636817161065,\r\n\t\t    \"inventory\": [],\r\n\t\t    \"history\": []\r\n\t    }\r\n    }\r\n}\r\n\r\n\r\nconst userID = '333'\r\n\r\n// eco.balance.fetch(guildID, userID)\r\neco.balance.fetch('123', userID) // 1150; can be used anywhere and it will be the same\r\neco.balance.fetch('123', userID) // 1150; still the same\r\n\r\neco.balance.fetch('1234', userID) // null; now it WON'T be the same!\r\n```\r\n\r\n<br>\r\n\r\n### Q: Why are examples not working?\r\n#### A: Examples provided in documentation and in GitHub are for one-file bot. See the questions above to get more info. If it's a bug, see the question below.\r\n<br>\r\n\r\n### Q: I found a bug or have an idea. Where I could submit it?\r\n#### A: On our [Support Server](https://discord.gg/4pWKq8vUnb). We appreciate that!\r\n<br>\r\n\r\n### Q: Can I send a random messages on using the item?\r\n#### A: Of course! The version 1.5.0 allows you do do that!\r\nRandom string syntax: `[random=\"item1\", \"item2\", \"etc...\"]`\r\nExample usage:\r\n```js\r\neco.shop.addItem('guildID', {\r\n  itemName: 'good-day',\r\n  price: 100,\r\n  message: 'What a [random=\"wonderful\", \"great\", \"sunny\"] day!'\r\n})\r\n\r\neco.shop.buy(1, 'memberID', 'guildID')\r\neco.shop.buy(1, 'memberID', 'guildID')\r\neco.shop.buy(1, 'memberID', 'guildID') // buying the item 3 times\r\n\r\neco.inventory.useItem(1, 'memberID', 'guildID') // What a wonderful day!\r\neco.inventory.useItem(1, 'memberID', 'guildID') // What a great day!\r\neco.inventory.useItem(1, 'memberID', 'guildID') // What a sunny day!\r\n\r\n// In a returning string, [random=\"wonderful\", \"great\", \"sunny\"]\r\n// will be replaced with the any of \r\n// the words \"wonderful\", \"great\" or \"sunny\".\r\n```\r\n<br>\r\n\r\n## ❗ | Useful Links\r\n<ul>\r\n<li><b><a href = \"https://www.npmjs.com/package/discord-economy-super\">NPM</a></b></li>\r\n<li><b><a href = \"https://github.com/shadowplay1/discord-economy-super\">GitHub</a></b></li>\r\n<li><b><a href = \"https://github.com/shadowplay1/discord-economy-super/tree/main/examples\">Bot Examples</a></b></li>\r\n<li><b><a href = \"https://discord.gg/4pWKq8vUnb\">Discord Server</a></b></li>\r\n</ul>\r\n<b>If you found a bug, have any questions or need help, join the <a href = \"https://discord.gg/4pWKq8vUnb\">Support Server</a>.</b>\r\n<br>\r\n<b>Module Created by ShadowPlay.</b>\r\n\r\n# ❤️ Thanks for using Discord Economy Super ❤️",
+                    "content": "# Discord Economy Super\r\n\r\n[![Downloads](https://img.shields.io/npm/dt/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)\r\n[![Stable Version](https://img.shields.io/npm/v/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)\r\n\r\n<b>Discord Economy Super</b> - Easy and customizable economy framework for your [Discord Bot](https://discord.js.org/#/).\r\n\r\n## ❓ | Frequently Asked Questions\r\n\r\n### Q: Will the module support MongoDB?\r\n#### A: No. At the moment, we cant do support for MongoDB in the module. Sorry about that.\r\n<br>\r\n\r\n### Q: Why do I get a \"Cannot read property '(any manager property or method)' of null\"?\r\n#### A: Because the module is not started and not ready yet. Use this code to fix this problem:\r\n```js\r\nconst Economy = require('discord-economy-super')\r\nconst economy = new Economy(options)\r\n\r\neconomy.on('ready', () => {\r\n    <client>.economy = economy\r\n})\r\n```\r\nIt will add the module in your bot client's property and you could use it in any command without any errors. For example: `<client>.economy.balance.fetch(...)` will return you a user's balance number.\r\n<br>\r\n\r\n### Q: Why do I get a \"SyntaxError: Unexpected token '.' \"?\r\n#### A: Because the module is supporting only Node.js v14.0.0 or above. Earlier versions are not supporting the \"?.\" operator. You need to update Node.js to make the module work.\r\n<br>\r\n\r\n### Q: Can I use the module globally?\r\n#### A: Yes! Just use '123' as guild ID or any other value in all methods, and the module will work with only one guild. For example: guild '111' and '222' will take the 333's balance info from guild '123' in database.\r\n\r\n```js\r\n// example eco database\r\n{\r\n    \"123\": {\r\n\t    \"333\": {\r\n\t\t    \"money\": 1150,\r\n\t\t    \"dailyCooldown\": 1638034751398,\r\n\t\t    \"weeklyCooldown\": 1636811771994,\r\n\t\t    \"workCooldown\": 1636817161065,\r\n\t\t    \"inventory\": [],\r\n\t\t    \"history\": []\r\n\t    }\r\n    }\r\n}\r\n\r\n\r\nconst userID = '333'\r\n\r\n// eco.balance.fetch(guildID, userID)\r\neco.balance.fetch('123', userID) // 1150; can be used anywhere and it will be the same\r\neco.balance.fetch('123', userID) // 1150; still the same\r\n\r\neco.balance.fetch('1234', userID) // null; now it WON'T be the same!\r\n```\r\n\r\n<br>\r\n\r\n### Q: Why are examples not working?\r\n#### A: Examples provided in documentation and in GitHub are for one-file bot. See the questions above to get more info. If it's a bug, see the question below.\r\n<br>\r\n\r\n### Q: I found a bug or have an idea. Where I could submit it?\r\n#### A: On our [Support Server](https://discord.gg/4pWKq8vUnb). We appreciate that!\r\n<br>\r\n\r\n### Q: Can I send a random messages on using the item?\r\n#### A: Of course! The version 1.5.0 allows you do do that!\r\nRandom string syntax: `[random=\"item1\", \"item2\", \"etc...\"]`\r\nExample usage:\r\n```js\r\neco.shop.addItem('guildID', {\r\n  name: 'good-day',\r\n  price: 100,\r\n  message: 'What a [random=\"wonderful\", \"great\", \"sunny\"] day!'\r\n})\r\n\r\neco.shop.buy(1, 'memberID', 'guildID')\r\neco.shop.buy(1, 'memberID', 'guildID')\r\neco.shop.buy(1, 'memberID', 'guildID') // buying the item 3 times\r\n\r\neco.inventory.useItem(1, 'memberID', 'guildID') // What a wonderful day!\r\neco.inventory.useItem(1, 'memberID', 'guildID') // What a great day!\r\neco.inventory.useItem(1, 'memberID', 'guildID') // What a sunny day!\r\n\r\n// In a returning string, [random=\"wonderful\", \"great\", \"sunny\"]\r\n// will be replaced with the any of \r\n// the words \"wonderful\", \"great\" or \"sunny\".\r\n```\r\n<br>\r\n\r\n## ❗ | Useful Links\r\n<ul>\r\n<li><b><a href = \"https://www.npmjs.com/package/discord-economy-super\">NPM</a></b></li>\r\n<li><b><a href = \"https://github.com/shadowplay1/discord-economy-super\">GitHub</a></b></li>\r\n<li><b><a href = \"https://github.com/shadowplay1/discord-economy-super/tree/main/examples\">Bot Examples</a></b></li>\r\n<li><b><a href = \"https://discord.gg/4pWKq8vUnb\">Discord Server</a></b></li>\r\n</ul>\r\n<b>If you found a bug, have any questions or need help, join the <a href = \"https://discord.gg/4pWKq8vUnb\">Support Server</a>.</b>\r\n<br>\r\n<b>Module Created by ShadowPlay.</b>\r\n\r\n# ❤️ Thanks for using Discord Economy Super ❤️",
                     "path": "docs/general/faq.md"
                 },
                 "examples": {
                     "name": "Examples",
                     "type": "md",
-                    "content": "# Discord Economy Super\n\n[![Downloads](https://img.shields.io/npm/dt/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)\n[![Stable Version](https://img.shields.io/npm/v/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)\n\n<b>Discord Economy Super</b> - Easy and customizable economy framework for your [Discord Bot](https://discord.js.org/#/).\n\n## Simple Example\n```js\nconst { Client } = require('discord.js')\nconst client = new Client({\n    partials: ['CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION', 'USER'],\n    intents: [\n        'GUILDS', 'GUILD_BANS', 'GUILD_EMOJIS_AND_STICKERS', 'GUILD_INTEGRATIONS',\n        'GUILD_INVITES', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS',\n        'GUILD_MESSAGE_TYPING', 'GUILD_PRESENCES', 'GUILD_VOICE_STATES', 'GUILD_WEBHOOKS',\n        'DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'DIRECT_MESSAGE_TYPING'\n    ]\n});\n\nconst Economy = require('discord-economy-super');\nconst eco = new Economy();\n\nclient.on('ready', () => {\n  console.log(`${client.user.tag} is ready!`);\n});\n\nclient.login('token')\n```\n\n## Options Example\n```js\nconst Economy = require('discord-economy-super');\nnew Economy({\n  storagePath: './storage.json', // Full path to a JSON File. Default: './storage.json'.\n  checkStorage: true, // Checks the if database file exists and if it has errors. Default: true.\n  dailyCooldown: 60000 * 60 * 24, // Daily Cooldown, ms (24 Hours = 1 Day). Default: 24 Hours (60000 * 60 * 24) ms.\n  workCooldown: 60000 * 60, // Work Cooldown, ms (1 Hour). Default: 1 Hour (60000 * 60) ms.\n  weeklyCooldown: 60000 * 60 * 24 * 7, // Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms\n  dailyAmount: 100, // Daily Amount. Default: 100.\n  workAmount: [10, 50], // Work Amount: first element is min value, second is max value (It also can be a Number). Default: [10, 50].\n  weeklyAmount: 1000, // Amount of money for Weekly Command. Default: 1000.\n  updateCountdown: 1000, // Checks for if storage file exists in specified time (in ms). Default: 1000.\n  dateLocale: 'ru', // The region (example: ru; en) to format date and time. Default: 'ru'.\n  updater: {\n        checkUpdates: true, // Sends the update state message in console on start. Default: true.\n        upToDateMessage: true // Sends the message in console on start if module is up to date. Default: true.\n    },\n    errorHandler: {\n        handleErrors: true, // Handles all errors on start. Default: true.\n        attempts: 5, // Amount of attempts to load the module. Use 'null' for infinity attempts. Default: 5.\n        time: 3000 // Time between every attempt to start the module. Default: 3000.\n    },\n    optionsChecker: {\n        ignoreInvalidTypes: false, // Allows the method to ignore the options with invalid types. Default: false.\n        ignoreUnspecifiedOptions: false, // Allows the method to ignore the unspecified options. Default: false.\n        ignoreInvalidOptions: false, // Allows the method to ignore the unexisting options. Default: false.\n        showProblems: false, // Allows the method to show all the problems in the console. Default: false.\n        sendLog: false, // Allows the method to send the result in the console. Default: false.\n        sendSuccessLog: false // Allows the method to send the result if no problems were found. Default: false.\n    }\n});\n```\n\n## Events Example\n```js\n// balance events\neco.on('balanceSet', balance => {\n    console.log(`Someone's just set ${balance.amount} coins for balance for member ${balance.memberID} on guild ${balance.guildID}. their bank balance is ${balance.balance} coins now.\\nReason: ${balance.reason}\\nOperation type: '${balance.type}'`)\n})\neco.on('balanceAdd', balance => {\n    console.log(`Someone's just added ${balance.amount} coins for balance for member ${balance.memberID} on guild ${balance.guildID}. their bank balance is ${balance.balance} coins now.\\nReason: ${balance.reason}\\nOperation type: '${balance.type}'`)\n})\neco.on('balanceSubtract', balance => {\n    console.log(`Someone's just subtracted ${balance.amount} coins from balance for member ${balance.memberID} on guild ${balance.guildID}. their balance is ${balance.balance} coins now.\\nReason: ${balance.reason}\\nOperation type: '${balance.type}'.`)\n})\n\n\n// bank balance events\neco.on('bankSet', balance => {\n    console.log(`Someone's just set ${balance.amount} coins in bank for member ${balance.memberID} on guild ${balance.guildID}. their bank balance is ${balance.balance} coins now.\\nReason: ${balance.reason}\\nOperation type: '${balance.type}'`)\n})\neco.on('bankAdd', balance => {\n    console.log(`Someone's just added ${balance.amount} coins in bank for member ${balance.memberID} on guild ${balance.guildID}. their bank balance is ${balance.balance} coins now.\\nReason: ${balance.reason}\\nOperation type: '${balance.type}'`)\n})\neco.on('bankSubtract', balance => {\n    console.log(`Someone's just subtracted ${balance.amount} coins from bank for member ${balance.memberID} on guild ${balance.guildID}. their bank balance is ${balance.balance} coins now.\\nReason: ${balance.reason}\\nOperation type: '${balance.type}'`)\n})\n\n// shop events\neco.on('shopItemAdd', item => {\n    console.log(`Someone's just added an item in the shop!\\nItem data:\\nID: ${item.id}\\nName: ${item.itemName}\\nPrice: ${item.price}\\nDescription: ${item.description}\\nMessage on use: ${item.message}\\nMax amount of item in inventory: ${item.maxAmount}\\nRole ID: ${item.role || 'Not specified'}`)\n})\neco.on('shopRemoveItem', item => {\n    console.log(`Someone's just removed an item from the shop!\\nItem data:\\nID: ${item.id}\\nName: ${item.itemName}\\nPrice: ${item.price}\\nDescription: ${item.description}\\nMessage on use: ${item.message}\\nMax amount of item in inventory: ${item.maxAmount}\\nRole ID: ${item.role || 'Not specified'}`)\n})\neco.on('shopItemEdit', item => {\n    console.log(`Someone's just edited an item in the shop!\\nID: ${item.id}\\Guild ID: ${item.guildID}\\nWhat changed: ${item.changed}\\nBefore: ${item.oldValue}\\nAfter: ${item.newValue}`)\n})\neco.on('shopItemBuy', item => {\n    console.log(`Someone's just bought an item from the shop!\\nItem data:\\nID: ${item.id}\\nName: ${item.itemName}\\nPrice: ${item.price}\\nDescription: ${item.description || 'Not specified'}\\nMessage on use: ${item.message || 'Not specified'}\\nMax amount of item in inventory: ${item.maxAmount || 'Any'}\\nRole ID: ${item.role || 'Not specified'}`)\n})\neco.on('shopItemUse', item => {\n    console.log(`Someone's just used an item!\\nItem data:\\nID: ${item.id}\\nName: ${item.itemName}\\nPrice: ${item.price}\\nDescription: ${item.description || 'Not specified'}\\nMessage on use: ${item.message || 'Not specified'}\\nMax amount of item in inventory: ${item.maxAmount || 'Any'}\\nRole ID: ${item.role || 'Not specified'}`)\n})\neco.on('shopClear', cleared => {\n  if (cleared) console.log('The shop was cleared successfully!')\n  else console.log('Cannot clear the shop!')\n})\n\n\n// core events\neco.on('ready', () => {\n    console.log('Economy is ready!')\n})\neco.on('destroy', () => {\n    console.log('Economy was destroyed.')\n})\n```\n## Balance Command\n```js\nif (message.content.startsWith('+balance')) {\n    const member = message.guild.members.cache.get(message.mentions.members.first()?.id || message.author.id)\n        \n    const balance = eco.balance.fetch(member.id, message.guild.id)\n    const bank = eco.bank.fetch(member.user.id, message.guild.id)\n        \n    message.channel.send(`**${member.user.username}**'s Balance:\\nCash: **${balance}** coins.\\nBank: **${bank}** coins.`)\n}\n```\n\n## Daily & Work Commands\n```js\nif (message.content.startsWith('+daily')) {\n    const daily = eco.rewards.daily(message.author.id, message.guild.id)\n    if (!daily.status) return message.channel.send(`You have already claimed your daily reward! Time left until next claim: **${daily.value.days}** days, **${daily.value.hours}** hours, **${daily.value.minutes}** minutes and **${daily.value.seconds}** seconds.`)\n    message.channel.send(`You have received **${daily.reward}** daily coins!`)\n}\n\nif (message.content.startsWith('+work')) {\n    const work = eco.rewards.work(message.author.id, message.guild.id)\n    if (!work.status) return message.channel.send(`You have already worked! Time left until next work: **${work.value.days}** days, **${work.value.hours}** hours, **${work.value.minutes}** minutes and **${work.value.seconds}** seconds.`)\n    message.channel.send(`You worked hard and earned **${work.pretty}** coins!`)\n}\n```\n\n## Cash & Deposit Commands\n```js\nconst args = message.content.slice(1).trim().split(' ').slice(1)\nif (message.content.startsWith('+cash')) {\n    const amount = args[0]\n    const balance = eco.bank.fetch(message.author.id, message.guild.id)\n\n    if (!amount) return message.channel.send('Specify an amount.')\n    if (isNaN(amount)) return message.channel.send('Amount must be a number.')\n    if (amount > balance) return message.channel.send(`You don\\'t have enough money in your bank to send **${amount}** coins on your balance.`)\n        \n    eco.balance.add(amount, message.author.id, message.guild.id)\n    eco.bank.subtract(amount, message.author.id, message.guild.id)\n        \n    message.channel.send(`Successfully sent **${amount}** on your balance!`)\n}\n\nif (message.content.startsWith('+deposit') || message.content.startsWith('+dep')) {\n    const amount = args[0]\n    const balance = eco.balance.fetch(message.author.id, message.guild.id)\n\n    if (!amount) return message.channel.send('Specify an amount.')\n    if (isNaN(amount)) return message.channel.send('Amount must be a number.')\n    if (amount > balance) return message.channel.send(`You don\\'t have enough money on your balance to deposit **${amount}** coins.`)\n        \n    eco.balance.subtract(amount, message.author.id, message.guild.id)\n    eco.bank.add(amount, message.author.id, message.guild.id)\n \n    message.channel.send(`Successfully deposited **${amount}** coins!`)\n}\n```\n\n## ❗ | Useful Links\n<ul>\n<li><b><a href = \"https://www.npmjs.com/package/discord-economy-super\">NPM</a></b></li>\n<li><b><a href = \"https://github.com/shadowplay1/discord-economy-super\">GitHub</a></b></li>\n<li><b><a href = \"https://github.com/shadowplay1/discord-economy-super/tree/main/examples\">Bot Examples</a></b></li>\n<li><b><a href = \"https://discord.gg/4pWKq8vUnb\">Discord Server</a></b></li>\n</ul>\n<b>If you found a bug, have any questions or need help, join the <a href = \"https://discord.gg/4pWKq8vUnb\">Support Server</a>.</b>\n<br>\n<b>Module Created by ShadowPlay.</b>\n\n# ❤️ Thanks for using Discord Economy Super ❤️",
+                    "content": "# Discord Economy Super\n\n[![Downloads](https://img.shields.io/npm/dt/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)\n[![Stable Version](https://img.shields.io/npm/v/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)\n\n<b>Discord Economy Super</b> - Easy and customizable economy framework for your [Discord Bot](https://discord.js.org/#/).\n\n## Simple Example\n```js\nconst { Client } = require('discord.js')\nconst client = new Client({\n    partials: ['CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION', 'USER'],\n    intents: [\n        'GUILDS', 'GUILD_BANS', 'GUILD_EMOJIS_AND_STICKERS', 'GUILD_INTEGRATIONS',\n        'GUILD_INVITES', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS',\n        'GUILD_MESSAGE_TYPING', 'GUILD_PRESENCES', 'GUILD_VOICE_STATES', 'GUILD_WEBHOOKS',\n        'DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'DIRECT_MESSAGE_TYPING'\n    ]\n});\n\nconst Economy = require('discord-economy-super');\nconst eco = new Economy();\n\nclient.on('ready', () => {\n  console.log(`${client.user.tag} is ready!`);\n});\n\nclient.login('token')\n```\n\n## Options Example\n```js\nconst Economy = require('discord-economy-super');\nnew Economy({\n  storagePath: './storage.json', // Full path to a JSON File. Default: './storage.json'.\n  checkStorage: true, // Checks the if database file exists and if it has errors. Default: true.\n  dailyCooldown: 60000 * 60 * 24, // Daily Cooldown, ms (24 Hours = 1 Day). Default: 24 hours (60000 * 60 * 24 ms).\n  workCooldown: 60000 * 60, // Work Cooldown, ms (1 Hour). Default: 1 hour (60000 * 60 ms).\n  weeklyCooldown: 60000 * 60 * 24 * 7, // Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)\n  dailyAmount: 100, // Daily Amount. Default: 100.\n  workAmount: [10, 50], // Work Amount: first element is min value, second is max value (It also can be a Number). Default: [10, 50].\n  weeklyAmount: 1000, // Amount of money for Weekly Command. Default: 1000.\n  updateCountdown: 1000, // Checks for if storage file exists in specified time (in ms). Default: 1000.\n  dateLocale: 'ru', // The region (example: ru; en) to format date and time. Default: 'ru'.\n  updater: {\n        checkUpdates: true, // Sends the update state message in console on start. Default: true.\n        upToDateMessage: true // Sends the message in console on start if module is up to date. Default: true.\n    },\n    errorHandler: {\n        handleErrors: true, // Handles all errors on start. Default: true.\n        attempts: 5, // Amount of attempts to load the module. Use 'null' for infinity attempts. Default: 5.\n        time: 3000 // Time between every attempt to start the module. Default: 3000.\n    },\n    optionsChecker: {\n        ignoreInvalidTypes: false, // Allows the method to ignore the options with invalid types. Default: false.\n        ignoreUnspecifiedOptions: false, // Allows the method to ignore the unspecified options. Default: false.\n        ignoreInvalidOptions: false, // Allows the method to ignore the unexisting options. Default: false.\n        showProblems: false, // Allows the method to show all the problems in the console. Default: false.\n        sendLog: false, // Allows the method to send the result in the console. Default: false.\n        sendSuccessLog: false // Allows the method to send the result if no problems were found. Default: false.\n    }\n});\n```\n\n## Events Example\n```js\n// balance events\neco.on('balanceSet', balance => {\n    console.log(`Someone's just set ${balance.amount} coins for balance for member ${balance.memberID} on guild ${balance.guildID}. their bank balance is ${balance.balance} coins now.\\nReason: ${balance.reason}\\nOperation type: '${balance.type}'`)\n})\neco.on('balanceAdd', balance => {\n    console.log(`Someone's just added ${balance.amount} coins for balance for member ${balance.memberID} on guild ${balance.guildID}. their bank balance is ${balance.balance} coins now.\\nReason: ${balance.reason}\\nOperation type: '${balance.type}'`)\n})\neco.on('balanceSubtract', balance => {\n    console.log(`Someone's just subtracted ${balance.amount} coins from balance for member ${balance.memberID} on guild ${balance.guildID}. their balance is ${balance.balance} coins now.\\nReason: ${balance.reason}\\nOperation type: '${balance.type}'.`)\n})\n\n\n// bank balance events\neco.on('bankSet', balance => {\n    console.log(`Someone's just set ${balance.amount} coins in bank for member ${balance.memberID} on guild ${balance.guildID}. their bank balance is ${balance.balance} coins now.\\nReason: ${balance.reason}\\nOperation type: '${balance.type}'`)\n})\neco.on('bankAdd', balance => {\n    console.log(`Someone's just added ${balance.amount} coins in bank for member ${balance.memberID} on guild ${balance.guildID}. their bank balance is ${balance.balance} coins now.\\nReason: ${balance.reason}\\nOperation type: '${balance.type}'`)\n})\neco.on('bankSubtract', balance => {\n    console.log(`Someone's just subtracted ${balance.amount} coins from bank for member ${balance.memberID} on guild ${balance.guildID}. their bank balance is ${balance.balance} coins now.\\nReason: ${balance.reason}\\nOperation type: '${balance.type}'`)\n})\n\n// shop events\neco.on('shopItemAdd', item => {\n    console.log(`Someone's just added an item in the shop!\\nItem data:\\nID: ${item.id}\\nName: ${item.name}\\nPrice: ${item.price}\\nDescription: ${item.description}\\nMessage on use: ${item.message}\\nMax amount of item in inventory: ${item.maxAmount}\\nRole ID: ${item.role || 'Not specified'}`)\n})\neco.on('shopRemoveItem', item => {\n    console.log(`Someone's just removed an item from the shop!\\nItem data:\\nID: ${item.id}\\nName: ${item.name}\\nPrice: ${item.price}\\nDescription: ${item.description}\\nMessage on use: ${item.message}\\nMax amount of item in inventory: ${item.maxAmount}\\nRole ID: ${item.role || 'Not specified'}`)\n})\neco.on('shopItemEdit', item => {\n    console.log(`Someone's just edited an item in the shop!\\nID: ${item.id}\\Guild ID: ${item.guildID}\\nWhat changed: ${item.changed}\\nBefore: ${item.oldValue}\\nAfter: ${item.newValue}`)\n})\neco.on('shopItemBuy', item => {\n    console.log(`Someone's just bought an item from the shop!\\nItem data:\\nID: ${item.id}\\nName: ${item.name}\\nPrice: ${item.price}\\nDescription: ${item.description || 'Not specified'}\\nMessage on use: ${item.message || 'Not specified'}\\nMax amount of item in inventory: ${item.maxAmount || 'Any'}\\nRole ID: ${item.role || 'Not specified'}`)\n})\neco.on('shopItemUse', item => {\n    console.log(`Someone's just used an item!\\nItem data:\\nID: ${item.id}\\nName: ${item.name}\\nPrice: ${item.price}\\nDescription: ${item.description || 'Not specified'}\\nMessage on use: ${item.message || 'Not specified'}\\nMax amount of item in inventory: ${item.maxAmount || 'Any'}\\nRole ID: ${item.role || 'Not specified'}`)\n})\neco.on('shopClear', cleared => {\n  if (cleared) console.log('The shop was cleared successfully!')\n  else console.log('Cannot clear the shop!')\n})\n\n\n// core events\neco.on('ready', () => {\n    console.log('Economy is ready!')\n})\neco.on('destroy', () => {\n    console.log('Economy was destroyed.')\n})\n```\n## Balance Command\n```js\nif (message.content.startsWith('+balance')) {\n    const member = message.guild.members.cache.get(message.mentions.members.first()?.id || message.author.id)\n        \n    const balance = eco.balance.fetch(member.id, message.guild.id)\n    const bank = eco.bank.fetch(member.user.id, message.guild.id)\n        \n    message.channel.send(`**${member.user.username}**'s Balance:\\nCash: **${balance}** coins.\\nBank: **${bank}** coins.`)\n}\n```\n\n## Daily & Work Commands\n```js\nif (message.content.startsWith('+daily')) {\n    const daily = eco.rewards.daily(message.author.id, message.guild.id)\n    if (!daily.status) return message.channel.send(`You have already claimed your daily reward! Time left until next claim: **${daily.value.days}** days, **${daily.value.hours}** hours, **${daily.value.minutes}** minutes and **${daily.value.seconds}** seconds.`)\n    message.channel.send(`You have received **${daily.reward}** daily coins!`)\n}\n\nif (message.content.startsWith('+work')) {\n    const work = eco.rewards.work(message.author.id, message.guild.id)\n    if (!work.status) return message.channel.send(`You have already worked! Time left until next work: **${work.value.days}** days, **${work.value.hours}** hours, **${work.value.minutes}** minutes and **${work.value.seconds}** seconds.`)\n    message.channel.send(`You worked hard and earned **${work.pretty}** coins!`)\n}\n```\n\n## Cash & Deposit Commands\n```js\nconst args = message.content.slice(1).trim().split(' ').slice(1)\nif (message.content.startsWith('+cash')) {\n    const amount = args[0]\n    const balance = eco.bank.fetch(message.author.id, message.guild.id)\n\n    if (!amount) return message.channel.send('Specify an amount.')\n    if (isNaN(amount)) return message.channel.send('Amount must be a number.')\n    if (amount > balance) return message.channel.send(`You don\\'t have enough money in your bank to send **${amount}** coins on your balance.`)\n        \n    eco.balance.add(amount, message.author.id, message.guild.id)\n    eco.bank.subtract(amount, message.author.id, message.guild.id)\n        \n    message.channel.send(`Successfully sent **${amount}** on your balance!`)\n}\n\nif (message.content.startsWith('+deposit') || message.content.startsWith('+dep')) {\n    const amount = args[0]\n    const balance = eco.balance.fetch(message.author.id, message.guild.id)\n\n    if (!amount) return message.channel.send('Specify an amount.')\n    if (isNaN(amount)) return message.channel.send('Amount must be a number.')\n    if (amount > balance) return message.channel.send(`You don\\'t have enough money on your balance to deposit **${amount}** coins.`)\n        \n    eco.balance.subtract(amount, message.author.id, message.guild.id)\n    eco.bank.add(amount, message.author.id, message.guild.id)\n \n    message.channel.send(`Successfully deposited **${amount}** coins!`)\n}\n```\n\n## ❗ | Useful Links\n<ul>\n<li><b><a href = \"https://www.npmjs.com/package/discord-economy-super\">NPM</a></b></li>\n<li><b><a href = \"https://github.com/shadowplay1/discord-economy-super\">GitHub</a></b></li>\n<li><b><a href = \"https://github.com/shadowplay1/discord-economy-super/tree/main/examples\">Bot Examples</a></b></li>\n<li><b><a href = \"https://discord.gg/4pWKq8vUnb\">Discord Server</a></b></li>\n</ul>\n<b>If you found a bug, have any questions or need help, join the <a href = \"https://discord.gg/4pWKq8vUnb\">Support Server</a>.</b>\n<br>\n<b>Module Created by ShadowPlay.</b>\n\n# ❤️ Thanks for using Discord Economy Super ❤️",
                     "path": "docs/general/examples.md"
                 },
                 "updating": {
@@ -35,7 +35,7 @@
                 "changelog": {
                     "name": "Changelog",
                     "type": "md",
-                    "content": "# Discord Economy Super\r\n\r\n[![Downloads](https://img.shields.io/npm/dt/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)\r\n[![Stable Version](https://img.shields.io/npm/v/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)\r\n\r\n<b>Discord Economy Super</b> - Easy and customizable economy framework for your [Discord Bot](https://discord.js.org/#/).\r\n\r\n## ⏰ | Changelog\r\n<b>1.0.1</b>\r\n<ul>\r\n  <li><b>The first version of the module: added a basic methods: 'Economy.fetch()', 'Economy.set()', 'Economy.add()', 'Economy.subtract()', 'Economy.daily()', 'Economy.work()', 'Economy.getDailyCooldown()', 'Economy.getWorkCooldown()', 'Economy.all()' and 'Economy.leaderboard()'. Also added an EconomyError class, but you couldn't use it yourself.</b></li>\r\n</ul>\r\n\r\n<b>1.0.2</b>\r\n<ul>\r\n  <li><b>Edited README.md</b></li>\r\n</ul>\r\n\r\n<b>1.0.3</b>\r\n<ul>\r\n  <li><b>Fixed bugs.</b></li>\r\n</ul>\r\n\r\n<b>1.0.4</b>\r\n<ul>\r\n  <li><b>Fixed bugs.</b></li>\r\n</ul>\r\n\r\n<b>1.0.5</b>\r\n<ul>\r\n  <li><b>Fixed bugs.</b></li>\r\n</ul>\r\n\r\n<b>1.0.6</b>\r\n<ul>\r\n  <li><b>Edited README.md</b></li>\r\n  <li><b>Fixed bugs.</b></li>\r\n  <li><b>Code optimization</b></li>\r\n  <li><b>Now you can create a shop on your Discord server using Economy.shop methods. They are listed above.</b></li>\r\n  <li><b>Added an 'EconomyError' class property.</b></li>\r\n  <li><b>Added a 'dateLocale' property for options object.</b></li>\r\n</ul>\r\n\r\n<b>1.0.7</b>\r\n<ul>\r\n  <li><b>Fixed bugs</b></li>\r\n</ul>\r\n\r\n<b>1.0.8</b>\r\n<ul>\r\n<li><b>Edted README.md</b></li>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Now this module is including Events. They are listed above.</b></li>\r\n</ul>\r\n\r\n<b>1.1.4</b>\r\n<ul>\r\n<li><b>Edted README.md</b></li>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Added an update checking system for this module.</b></li>\r\n<li><b>Added a 'checkUpdates' property for options object.</b></li>\r\n</ul>\r\n\r\n<b>1.1.5</b>\r\n<ul>\r\n<li><b>Edted README.md</b></li>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Updated the examples.</b></li>\r\n<li><b>Fixed the types.</b></li>\r\n<li><b>Added a Table of Contents in README.md</b></li>\r\n<li><b>If you have an earlier Node.js version than v14, you will receive an error.</b></li>\r\n<li><b>Now you can configure the update checking system settings using 'options.updater' properties in constructor options. The 'options.checkUpdates' property was removed in favor of 'options.updater' configuration object. Use 'options.updater.checkUpdates' instead.</b></li>\r\n<li><b>Added an error handler that will work on startup. You can configure it using 'options.errorHandler' properties in constructor options.</b></li>\r\n<li><b>Option properties 'description, 'mesasge' and 'maxAmount', in 'Economy.shop.addItem' method are optional now.</b></li>\r\n<li><b>Now everyone will have a Bank Balance. This is another type of money, you can use it whatever you want. :) | The methods are almost the same: 'Economy.bankFetch()', 'Economy.bankSet()', 'Economy.bankAdd()', 'Economy.bankSubtract()' and 'Economy.bankLeaderboard()'.</b></li>\r\n<li><b>Added a new events for Bank Balance: 'bankSet', 'bankAdd' and 'bankSubtract'.</b></li>\r\n<li><b>Now every balance and bank-balance event object is including 'type' and 'balance' properties. The first property is type of the operation ('set', 'add', 'subtract', 'bankSet', 'bankAdd', 'bankSubtract') and the second is user's new balance after the operation was completed successfully.</b></li>\r\n<li><b>Now you can manually check the module updates using the new 'Economy.checkUpdates()' method.</b></li>\r\n<li><b>Added an additional 'Economy.ready' and 'Economy.errored' properties to check the module state.</b></li>\r\n<li><b>Now you can add a role to users on your Discord server. Click <a href=\"https://des-docs.tk/#/docs/main/1.4.1/class/ShopManager\">here</a> for more info.</b></li>\r\n<li><b>Added a new 'shopItemBuy' and 'shopItemUse' events.</b></li>\r\n<li><b>Now if user try to buy an item when he reached the max amount of item in their inventory, the method will return a 'max' string.</b></li>\r\n<li><b>Now this module has a Support Server. Click <b><a href = \"https://discord.gg/4pWKq8vUnb\">here</a></b> to join!</b></li>\r\n</ul>\r\n\r\n<b>1.1.6</b>\r\n<ul>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Fixed bug with \"The module is not ready to work\" error on startup.</b></li>\r\n<li><b>Removed an accidentaly added \"discord.js\" module from dependencies.</b></li>\r\n</ul>\r\n\r\n<b>1.1.7</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>TypeScript support is finally here! Created a type defenitions for this module.</b></li>\r\n</ul>\r\n\r\n<b>1.1.8</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Now you can disable checking a storage file using the 'options.checkStorage' option.</b></li>\r\n<li><b>Now you can kill the Economy instance using the 'Economy.kill()' method.</b></li>\r\n<li><b>'Economy.init()' method is not private anymore due to 'Economy.kill()' method.</b></li>\r\n<li><b>Added an 'interval' property that displays the database checking interval.</b></li>\r\n<li><b>Now you can clear the entire database using the 'Economy.clearStorage()' method.</b></li>\r\n<li><b>Now this module is using errors that in 'Economy.errors' property and in './src/errors.js' file.</b></li>\r\n<li><b>Now you can clear any cooldown using the 'Economy.clearDailyCooldown', 'Economy.clearWorkCooldown' and ''Economy.clearWeeklyCooldown' methods.</b></li>\r\n<li><b>Added a test for basic Economy methods. You can run it by using these commands:\r\n\r\n```console\r\ncd node_modules/discord-economy-super\r\nnpm test\r\n```\r\nThe test will look like this:\r\n\r\n![Test](https://cdn.discordapp.com/attachments/764192017542283325/838226957166313472/Screenshot_4.png)\r\n</b></li>\r\n</ul>\r\n\r\n<b>1.1.9</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed type defenitions.</b></li>\r\n</ul>\r\n\r\n<b>1.2.0</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Fixed typos.</b></li>\r\n<li><b>'Economy.shop.clearInventory()' method is working fine now.</b></li>\r\n</ul>\r\n\r\n<b>1.2.1</b>\r\n<ul>\r\n<li><b>Fixed minor bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Now 'Economy.work()' method is not taking a daily cooldown as work reward anymore.</b></li>\r\n<li><b>Added an 'Economy.removeGuild()' method to fully remove the guild from database.</b></li>\r\n<li><b>Added an 'Economy.removeUser()' method to to remove the user from database.</b></li>\r\n</ul>\r\n\r\n<b>1.2.2</b>\r\n<ul>\r\n<li><b>Fixed minor bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Fixed another issues with 'Economy.work()' method...</b></li>\r\n</ul>\r\n\r\n<b>1.2.3</b>\r\n<ul>\r\n<li><b>Fixed minor bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>'Economy.leaderboard()' method will return an empty array if the leaderboard is empty.</b></li>\r\n<li><b>Updated examples.</b></li>\r\n<li><b>Fixed typos</b></li>\r\n</ul>\r\n\r\n<b>1.2.4</b>\r\n<ul>\r\n<li><b>Fixed minor bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>'Economy.daily()', '.work()' and '.weekly()' methods will return an object** instead of Number | String.</b></li>\r\n<li><b>Updated examples.</b></li>\r\n</ul>\r\n\r\n** The object structure will look like this:\r\n\r\n```js\r\n{\r\n    status: Boolean,\r\n    value: { // object returns if reward is already claimed; else - number\r\n        days: Number,\r\n        hours: Number,\r\n        minutes: Number,\r\n        seconds: Number,\r\n        milliseconds: Number\r\n    },\r\n    pretty: String | Number,\r\n    reward: Number | Number[] // array returns if work reward is array\r\n}\r\n```\r\n\r\n<b>1.2.5</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Fixed typos.</b></li>\r\n<li><b>Updated typings.</b></li>\r\n<li><b>Updated examples.</b></li>\r\n<li><b>discord.js is no longer imported in the module.</b></li>\r\n<li><b>Added a 'ready' and 'destroy' events. <a href = \"https://www.npmjs.com/package/discord-economy-super#module-events\">Learn more</a>.</b></li>\r\n<li><b>All balance and bank methods were moved to objects. <a href = \"https://www.npmjs.com/package/discord-economy-super#balance-methods\">Learn more</a>.</b></li>\r\n<b>Here is the difference between v1.2.4 and v1.2.5.</b>\r\n\r\n```diff\r\n- eco.fetch('123', '123')\r\n- eco.set(10, '123', '123')\r\n- eco.add(10, '123', '123')\r\n- eco.subtract(10, '123', '123')\r\n- eco.leaderboard('123')\r\n\r\n+ eco.balance.fetch('123', '123')\r\n+ eco.balance.set(10, '123', '123')\r\n+ eco.balance.add(10, '123', '123')\r\n+ eco.balance.subtract(10, '123', '123')\r\n+ eco.balance.leaderboard('123')\r\n\r\n- eco.bankFetch('123', '123')\r\n- eco.bankSet(10, '123', '123')\r\n- eco.bankAdd(10, '123', '123')\r\n- eco.bankSubtract(10, '123', '123')\r\n- eco.bankLeaderboard('123')\r\n\r\n+ eco.bank.fetch('123', '123')\r\n+ eco.bank.set(10, '123', '123')\r\n+ eco.bank.add(10, '123', '123')\r\n+ eco.bank.subtract(10, '123', '123')\r\n+ eco.bank.leaderboard('123')\r\n```\r\n<li><b>'Economy.balance.leaderboard()' and 'Economy.bank.leaderboard()' methods arrays are now have an 'index' property in object.</b></li>\r\n</ul>\r\n\r\n<b>1.2.6</b>\r\n<ul>\r\n<li><b>Fixed typos.</b></li>\r\n<li><b>Updated README.md.</b></li>\r\n<li><b>Now 'ready' and 'destroy' events will return nothing (Void) instead of Boolean.</b></li>\r\n</ul>\r\n\r\n<b>1.2.8</b>\r\n<ul>\r\n<li><b>Fixed typos.</b></li>\r\n<li><b>Fixed minor bugs.</b></li>\r\n<li><b>Item IDs in shop and inventory are now synced with the last element of array. It fixes the bug with similar item IDs in the shop and inventory.</b></li>\r\n</ul>\r\n\r\n<b>1.3.0</b>\r\n<ul>\r\n<li><b>Fixed typos.</b></li>\r\n<li><b>Fixed minor bugs.</b></li>\r\n<li><b>Updated README.md.</b></li>\r\n<li><b>Now this module has a <a href=\"https://des-docs.tk\">documentation website</a>!</b></li>\r\n<li><b>Added an 'Economy.docs' property that contains a link to the documentation website.</b></li>\r\n</ul>\r\n\r\n<b>1.3.2</b>\r\n<ul>\r\n<li><b>Fixed typos.</b></li>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed the expired link to the <a href = \"https://discord.gg/4pWKq8vUnb\">Support Server</a>.</b></li>\r\n<li><b>Updated README.md.</b></li>\r\n<li><b>Updated documentation.</b></li>\r\n<li><b>Added a bank example in module files.</b></li>\r\n<li><b>Added more examples on <a href=\"https://des-docs.tk\">documentation website</a>.</b></li>\r\n<li><b>The entire module structure was rewritten on Managers.</b></li>\r\n<li><b>Added a new Database Manager that allows you to interact with module's storage file.</b></li>\r\n</ul>\r\n\r\n<b>1.3.3</b>\r\n<ul>\r\n<li><b>Fixed minor bugs.</b></li>\r\n<li><b>Fixed bugs with Database Manager.</b></li>\r\n</ul>\r\n\r\n<b>1.3.4</b>\r\n<ul>\r\n<li><b>Full code rewrite.</b></li>\r\n<li><b>Lots of bugfixes.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Fixed typos.</b></li>\r\n<li><b>Added a new Fetch Manager that allows you to fetch data from database.</b></li>\r\n<li><b>Added an 'add()', 'subtract()', 'push()' and 'removeElement()' methods in Database Manager.</b></li>\r\n<li><b>Added a 'checkOptions()' and 'reset()' methods in Utils Manager.</b></li>\r\n<li><b>Added an 'optionsChecker' object property in constructor options.</b></li>\r\n<li><b>Added a 'subtractOnBuy' property in constructor options.</b></li>\r\n<li><b>All typings were separated into files.</b></li>\r\n<li><b><a href=\"https://des-docs.tk\">Documentation</a> update: now you can view the docs for a multiple module versions.</b></li>\r\n<li><b><a href=\"https://des-docs.tk\">Documentation</a> update: now you can view the weekly downloads of the module on it's main page.</b></li>\r\n<li><b>... and more!</li>\r\n</ul>\r\n\r\n<b>1.3.5</b>\r\n<ul>\r\n<li><b>Fixed the 'Cannot find module `structures/Errors`' error.</b></li>\r\n<li><b>Fixed bugs in typings.</b></li>\r\n</ul>\r\n\r\n<b>1.3.6</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed typos.</b></li>\r\n<li><b>Fixed typings.</b></li>\r\n<li><b>Fixed the economy options resetting to default.</b></li>\r\n</ul>\r\n\r\n<b>1.3.7</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed the hard crash if options object is not specified.</b></li>\r\n</ul>\r\n\r\n<b>1.3.8</b>\r\n<ul>\r\n<li><b>Fixed typings.</b></li>\r\n<li><b>Fixed a hard crash with 'Economy.rewards.work()' method.</b></li>\r\n</ul>\r\n\r\n<b>1.3.9</b>\r\n<ul>\r\n<li><b>Fixed typings.</b></li>\r\n</ul>\r\n\r\n<b>1.4.0</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed typings.</b></li>\r\n<li><b>Now you can put an array with 2 numbers in 'dailyAmount' and 'weeklyAmount' options.</b></li>\r\n<li><b>Now you can setup the module on different guilds using the brand new Settings Manager.</b></li>\r\n<li><b>Removed 'lodash' from the dependencies.</b></li>\r\n<li><b>Made a function that checks the Node.js version on the start.</b></li>\r\n</ul>\r\n\r\n<b>1.4.1</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n</ul>\r\n\r\n<b>1.4.2</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Fixed typings.</b></li>\r\n</ul>\r\n\r\n<b>1.4.3</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n</ul>\r\n\r\n<b>1.4.4</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n</ul>\r\n\r\n<b>1.4.5</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed typos in a README.md.</b></li>\r\n<li><b>Improved the FAQ.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Improved the quality of the code.</b></li>\r\n<li><b>Added a new 'Economy.shop.searchInventoryItem()' method that searches for the item in user's inventory.</b></li>\r\n<li><b>Improved the typings: fixed wrong types and typos and replaced the \"any\" types with method's generic type parameters.</b></li>\r\n<li><b>TypeScript Examples!</b></li>\r\n</ul>\r\n\r\n<b>1.4.6</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Removed \"discord.js\" module from dependencies that was accidentally added.</b></li>\r\n<li><b>Fixed typings.</b></li>\r\n</ul>\r\n\r\n<b>1.4.7</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed typings.</b></li>\r\n<li><b>Fixed typos.</b></li>\r\n<li><b>Fixed startup issues.</b></li>\r\n<li><b>Fixed TypeScript examples.</b></li>\r\n<li><b>Default date locale was changed to 'en' instead of 'ru'.</b></li>\r\n<li><b>Now you can import all the managers directly from the module. Example:</b></li>\r\n\r\n```js\r\nconst { BalanceManager, ShopManager } = require('discord-economy-super')\r\n// or\r\nimport { BalanceManager, ShopManager } from 'discord-economy-super'\r\n```\r\n<li><b>Added a new InventoryManager that includes all inventory related methods.</b></li>\r\n<li><b>Added a 'removeItem' and 'sellItem' methods to the InventoryManager.</b></li>\r\n<li><b>Added a new 'sellingItemPercent' option that configures the price that<br>\r\nthe item will be sold for. (It was made for InventoryManager.sellItem method)</b></li>\r\n\r\n<li><b>Important:<br>\r\nInventory related methods in ShopManager are now deprecated, but they won't be deleted.<br>\r\nIf you want to use the newest inventory features and get all the bugfixes,<br>\r\nplease switch to the new InventoryManager.<br>\r\n[!!!] No help and support will be provided for deprecated methods.</b></li>\r\n<br>\r\n\r\n```diff\r\n- ShopManager:\r\n\r\n- ShopManager.inventory(memberID, guildID) [deprecated]\r\n- ShopManager.clearInventory(memberID, guildID) [deprecated]\r\n- ShopManager.useItem(itemID, memberID, guildID, client?) [deprecated]\r\n- ShopManager.searchInventoryItem(itemID, memberID, guildID) [deprecated]\r\n\r\n\r\n+ InventoryManager:\r\n\r\n+ InventoryManager.fetch(memberID, guildID)\r\n+ InventoryManager.clear(memberID, guildID)\r\n+ InventoryManager.searchItem(itemID, memberID, guildID)\r\n+ InventoryManager.useItem(itemID, memberID, guildID, client?)\r\n+ InventoryManager.removeItem(itemID, memberID, guildID)\r\n+ InventoryManager.sellItem(itemID, memberID, guildID, reason?)\r\n```\r\n\r\n<li><b>Usage of the deprecated methods will now send a deprecation warning in the console.<br>\r\nYou can disable it by setting the `deprecationWarnings` constructor option to `false`.</b></li>\r\n</ul>\r\n\r\n<b>1.4.8</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed typings.</b></li>\r\n<li><b>Added a 'ShopManager.findItem()' method as alias for 'ShopManager.searchItem()' method.</b></li>\r\n<li><b>Added a 'ShopManager.buyItem()' method as alias for 'ShopManager.buy()' method.</b></li>\r\n<li><b>Added a 'ShopManager.fetch()' method as alias for 'ShopManager.list()' method.</b></li>\r\n<li><b>Added a 'InventoryManager.list()' method as alias for 'InventoryManager.fetch()' method.</b></li>\r\n<li><b>Added a 'InventoryManager.findItem()' method as alias for 'InventoryManager.searchItem()' method.</b></li>\r\n<li><b>Added an 'InventoryManager.addItem()' method that adds the specified item to the user's inventory from the shop.</b></li>\r\n</ul>\r\n\r\n<b>1.4.9</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed typings.</b></li>\r\n<li><b>Added a 'savePurchasesHistory' constructor option that will indicate will the module save the purchases history or not.</b></li>\r\n<li><b>The module will now send a message in console on startup if there's a problem with user's options object.</b></li>\r\n</ul>\r\n\r\n<b>1.5.0</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed typings.</b></li>\r\n<li><b>Fixed typos.</b></li>\r\n<li><b>Fixed issues with 'ShopManager.editItem()' method.</b></li>\r\n<li><b>Added a new 'changeElement' for the Database manager that will change the element's value in the array.</b></li>\r\n<li><b>Added a 'InventoryManager.use()' method as alias for 'InventoryManager.useItem()' method.</b></li>\r\n<li><b>Added a 'ShopManager.edit()' method as alias for 'ShopManager.editItem()' method.</b></li>\r\n\r\n<li><b>Important:<br>\r\nHistory related methods in ShopManager are now deprecated, but they won't be deleted.<br>\r\nIf you want to use the newest history features and get all the bugfixes,<br>\r\nplease switch to the new HistoryManager.<br>\r\n[!!!] No help and support will be provided for deprecated methods.</b></li>\r\n<br>\r\n\r\n```diff\r\n- ShopManager:\r\n\r\n- ShopManager.history(memberID, guildID) [deprecated]\r\n- ShopManager.clearHistory(memberID, guildID) [deprecated]\r\n\r\n\r\n+ HistoryManager:\r\n\r\n+ HistoryManager.fetch(memberID, guildID)\r\n+ HistoryManager.clear(memberID, guildID)\r\n+ HistoryManager.add(itemID, memberID, guildID)  // the 'itemID' parameter is item ID from the shop \\\\\r\n+ HistoryManager.remove(memberID, guildID)\r\n+ HistoryManager.find(id, memberID, guildID)  // the 'id' parameter is the ID of the history object \\\\\r\n+ HistoryManager.search(id, memberID, guildID)  // an alias for the method above ^ \\\\\r\n```\r\n</ul>\r\n<li><b>Now you can use the random strings in a item message!</b></li>\r\n\r\nSyntax: `[random=\"item1\", \"item2\", \"etc...\"]`\r\n\r\nExample usage:\r\n```js\r\neco.shop.addItem('guildID', {\r\n  itemName: 'good-day',\r\n  price: 100,\r\n  message: 'What a [random=\"wonderful\", \"great\", \"sunny\"] day!'\r\n})\r\n\r\neco.shop.buy(1, 'memberID', 'guildID')\r\neco.shop.buy(1, 'memberID', 'guildID')\r\neco.shop.buy(1, 'memberID', 'guildID') // buying the item 3 times\r\n\r\neco.inventory.useItem(1, 'memberID', 'guildID') // What a wonderful day!\r\neco.inventory.useItem(1, 'memberID', 'guildID') // What a great day!\r\neco.inventory.useItem(1, 'memberID', 'guildID') // What a sunny day!\r\n\r\n// In a returning string, [random=\"wonderful\", \"great\", \"sunny\"]\r\n// will be replaced with the any of \r\n// the words \"wonderful\", \"great\" or \"sunny\".\r\n```\r\n\r\n<b>1.5.1</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed issues with InventoryManager.</b></li>\r\n</ul>\r\n\r\n<b>1.5.2</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Added a 'ShopManager.add()' method as alias for 'InventoryManager.addItem()' method.</b></li>\r\n</ul>\r\n\r\n## ❗ | Useful Links\r\n<ul>\r\n<li><b><a href = \"https://www.npmjs.com/package/discord-economy-super\">NPM</a></b></li>\r\n<li><b><a href = \"https://github.com/shadowplay1/discord-economy-super\">GitHub</a></b></li>\r\n<li><b><a href = \"https://github.com/shadowplay1/discord-economy-super/tree/main/examples\">Examples</a></b></li>\r\n<li><b><a href = \"https://discord.gg/4pWKq8vUnb\">Discord Server</a></b></li>\r\n</ul>\r\n\r\n<br>\r\n<b>If you found a bug, have any questions or need help, join the <a href = \"https://discord.gg/4pWKq8vUnb\">Support Server</a>.</b>\r\n<br>\r\n<b>Module Created by ShadowPlay.</b>\r\n\r\n# ❤️ Thanks for using Discord Economy Super ❤️",
+                    "content": "# Discord Economy Super\r\n\r\n[![Downloads](https://img.shields.io/npm/dt/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)\r\n[![Stable Version](https://img.shields.io/npm/v/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)\r\n\r\n<b>Discord Economy Super</b> - Easy and customizable economy framework for your [Discord Bot](https://discord.js.org/#/).\r\n\r\n## ⏰ | Changelog\r\n<b>1.0.1</b>\r\n<ul>\r\n  <li><b>The first version of the module: added a basic methods: 'Economy.fetch()', 'Economy.set()', 'Economy.add()', 'Economy.subtract()', 'Economy.daily()', 'Economy.work()', 'Economy.getDailyCooldown()', 'Economy.getWorkCooldown()', 'Economy.all()' and 'Economy.leaderboard()'. Also added an EconomyError class, but you couldn't use it yourself.</b></li>\r\n</ul>\r\n\r\n<b>1.0.2</b>\r\n<ul>\r\n  <li><b>Edited README.md</b></li>\r\n</ul>\r\n\r\n<b>1.0.3</b>\r\n<ul>\r\n  <li><b>Fixed bugs.</b></li>\r\n</ul>\r\n\r\n<b>1.0.4</b>\r\n<ul>\r\n  <li><b>Fixed bugs.</b></li>\r\n</ul>\r\n\r\n<b>1.0.5</b>\r\n<ul>\r\n  <li><b>Fixed bugs.</b></li>\r\n</ul>\r\n\r\n<b>1.0.6</b>\r\n<ul>\r\n  <li><b>Edited README.md</b></li>\r\n  <li><b>Fixed bugs.</b></li>\r\n  <li><b>Code optimization</b></li>\r\n  <li><b>Now you can create a shop on your Discord server using Economy.shop methods. They are listed above.</b></li>\r\n  <li><b>Added an 'EconomyError' class property.</b></li>\r\n  <li><b>Added a 'dateLocale' property for economy configuration.</b></li>\r\n</ul>\r\n\r\n<b>1.0.7</b>\r\n<ul>\r\n  <li><b>Fixed bugs</b></li>\r\n</ul>\r\n\r\n<b>1.0.8</b>\r\n<ul>\r\n<li><b>Edted README.md</b></li>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Now this module is including Events. They are listed above.</b></li>\r\n</ul>\r\n\r\n<b>1.1.4</b>\r\n<ul>\r\n<li><b>Edted README.md</b></li>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Added an update checking system for this module.</b></li>\r\n<li><b>Added a 'checkUpdates' property for economy configuration.</b></li>\r\n</ul>\r\n\r\n<b>1.1.5</b>\r\n<ul>\r\n<li><b>Edted README.md</b></li>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Updated the examples.</b></li>\r\n<li><b>Fixed the types.</b></li>\r\n<li><b>Added a Table of Contents in README.md</b></li>\r\n<li><b>If you have an earlier Node.js version than v14, you will receive an error.</b></li>\r\n<li><b>Now you can configure the update checking system settings using 'options.updater' properties in constructor options. The 'options.checkUpdates' property was removed in favor of 'options.updater' configuration object. Use 'options.updater.checkUpdates' instead.</b></li>\r\n<li><b>Added an error handler that will work on startup. You can configure it using 'options.errorHandler' properties in constructor options.</b></li>\r\n<li><b>Option properties 'description, 'mesasge' and 'maxAmount', in 'Economy.shop.addItem' method are optional now.</b></li>\r\n<li><b>Now everyone will have a Bank Balance. This is another type of money, you can use it whatever you want. :) | The methods are almost the same: 'Economy.bankFetch()', 'Economy.bankSet()', 'Economy.bankAdd()', 'Economy.bankSubtract()' and 'Economy.bankLeaderboard()'.</b></li>\r\n<li><b>Added a new events for Bank Balance: 'bankSet', 'bankAdd' and 'bankSubtract'.</b></li>\r\n<li><b>Now every balance and bank-balance event object is including 'type' and 'balance' properties. The first property is type of the operation ('set', 'add', 'subtract', 'bankSet', 'bankAdd', 'bankSubtract') and the second is user's new balance after the operation was completed successfully.</b></li>\r\n<li><b>Now you can manually check the module updates using the new 'Economy.checkUpdates()' method.</b></li>\r\n<li><b>Added an additional 'Economy.ready' and 'Economy.errored' properties to check the module state.</b></li>\r\n<li><b>Now you can add a role to users on your Discord server. Click <a href=\"https://des-docs.tk/#/docs/main/1.4.1/class/ShopManager\">here</a> for more info.</b></li>\r\n<li><b>Added a new 'shopItemBuy' and 'shopItemUse' events.</b></li>\r\n<li><b>Now if user try to buy an item when he reached the max amount of item in their inventory, the method will return a 'max' string.</b></li>\r\n<li><b>Now this module has a Support Server. Click <b><a href = \"https://discord.gg/4pWKq8vUnb\">here</a></b> to join!</b></li>\r\n</ul>\r\n\r\n<b>1.1.6</b>\r\n<ul>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Fixed bug with \"The module is not ready to work\" error on startup.</b></li>\r\n<li><b>Removed an accidentaly added \"discord.js\" module from dependencies.</b></li>\r\n</ul>\r\n\r\n<b>1.1.7</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>TypeScript support is finally here! Created a type defenitions for this module.</b></li>\r\n</ul>\r\n\r\n<b>1.1.8</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Now you can disable checking a storage file using the 'options.checkStorage' option.</b></li>\r\n<li><b>Now you can kill the Economy instance using the 'Economy.kill()' method.</b></li>\r\n<li><b>'Economy.init()' method is not private anymore due to 'Economy.kill()' method.</b></li>\r\n<li><b>Added an 'interval' property that displays the database checking interval.</b></li>\r\n<li><b>Now you can clear the entire database using the 'Economy.clearStorage()' method.</b></li>\r\n<li><b>Now this module is using errors that in 'Economy.errors' property and in './src/errors.js' file.</b></li>\r\n<li><b>Now you can clear any cooldown using the 'Economy.clearDailyCooldown', 'Economy.clearWorkCooldown' and ''Economy.clearWeeklyCooldown' methods.</b></li>\r\n<li><b>Added a test for basic Economy methods. You can run it by using these commands:\r\n\r\n```console\r\ncd node_modules/discord-economy-super\r\nnpm test\r\n```\r\nThe test will look like this:\r\n\r\n![Test](https://cdn.discordapp.com/attachments/764192017542283325/838226957166313472/Screenshot_4.png)\r\n</b></li>\r\n</ul>\r\n\r\n<b>1.1.9</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed type defenitions.</b></li>\r\n</ul>\r\n\r\n<b>1.2.0</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Fixed typos.</b></li>\r\n<li><b>'Economy.shop.clearInventory()' method is working fine now.</b></li>\r\n</ul>\r\n\r\n<b>1.2.1</b>\r\n<ul>\r\n<li><b>Fixed minor bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Now 'Economy.work()' method is not taking a daily cooldown as work reward anymore.</b></li>\r\n<li><b>Added an 'Economy.removeGuild()' method to fully remove the guild from database.</b></li>\r\n<li><b>Added an 'Economy.removeUser()' method to to remove the user from database.</b></li>\r\n</ul>\r\n\r\n<b>1.2.2</b>\r\n<ul>\r\n<li><b>Fixed minor bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Fixed another issues with 'Economy.work()' method...</b></li>\r\n</ul>\r\n\r\n<b>1.2.3</b>\r\n<ul>\r\n<li><b>Fixed minor bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>'Economy.leaderboard()' method will return an empty array if the leaderboard is empty.</b></li>\r\n<li><b>Updated examples.</b></li>\r\n<li><b>Fixed typos</b></li>\r\n</ul>\r\n\r\n<b>1.2.4</b>\r\n<ul>\r\n<li><b>Fixed minor bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>'Economy.daily()', '.work()' and '.weekly()' methods will return an object** instead of Number | String.</b></li>\r\n<li><b>Updated examples.</b></li>\r\n</ul>\r\n\r\n** The object structure will look like this:\r\n\r\n```js\r\n{\r\n    status: Boolean,\r\n    value: { // object returns if reward is already claimed; else - number\r\n        days: Number,\r\n        hours: Number,\r\n        minutes: Number,\r\n        seconds: Number,\r\n        milliseconds: Number\r\n    },\r\n    pretty: String | Number,\r\n    reward: Number | Number[] // array returns if work reward is array\r\n}\r\n```\r\n\r\n<b>1.2.5</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Fixed typos.</b></li>\r\n<li><b>Updated typings.</b></li>\r\n<li><b>Updated examples.</b></li>\r\n<li><b>discord.js is no longer imported in the module.</b></li>\r\n<li><b>Added a 'ready' and 'destroy' events. <a href = \"https://www.npmjs.com/package/discord-economy-super#module-events\">Learn more</a>.</b></li>\r\n<li><b>All balance and bank methods were moved to objects. <a href = \"https://www.npmjs.com/package/discord-economy-super#balance-methods\">Learn more</a>.</b></li>\r\n<b>Here is the difference between v1.2.4 and v1.2.5.</b>\r\n\r\n```diff\r\n- eco.fetch('123', '123')\r\n- eco.set(10, '123', '123')\r\n- eco.add(10, '123', '123')\r\n- eco.subtract(10, '123', '123')\r\n- eco.leaderboard('123')\r\n\r\n+ eco.balance.fetch('123', '123')\r\n+ eco.balance.set(10, '123', '123')\r\n+ eco.balance.add(10, '123', '123')\r\n+ eco.balance.subtract(10, '123', '123')\r\n+ eco.balance.leaderboard('123')\r\n\r\n- eco.bankFetch('123', '123')\r\n- eco.bankSet(10, '123', '123')\r\n- eco.bankAdd(10, '123', '123')\r\n- eco.bankSubtract(10, '123', '123')\r\n- eco.bankLeaderboard('123')\r\n\r\n+ eco.bank.fetch('123', '123')\r\n+ eco.bank.set(10, '123', '123')\r\n+ eco.bank.add(10, '123', '123')\r\n+ eco.bank.subtract(10, '123', '123')\r\n+ eco.bank.leaderboard('123')\r\n```\r\n<li><b>'Economy.balance.leaderboard()' and 'Economy.bank.leaderboard()' methods arrays are now have an 'index' property in object.</b></li>\r\n</ul>\r\n\r\n<b>1.2.6</b>\r\n<ul>\r\n<li><b>Fixed typos.</b></li>\r\n<li><b>Updated README.md.</b></li>\r\n<li><b>Now 'ready' and 'destroy' events will return nothing (Void) instead of Boolean.</b></li>\r\n</ul>\r\n\r\n<b>1.2.8</b>\r\n<ul>\r\n<li><b>Fixed typos.</b></li>\r\n<li><b>Fixed minor bugs.</b></li>\r\n<li><b>Item IDs in shop and inventory are now synced with the last element of array. It fixes the bug with similar item IDs in the shop and inventory.</b></li>\r\n</ul>\r\n\r\n<b>1.3.0</b>\r\n<ul>\r\n<li><b>Fixed typos.</b></li>\r\n<li><b>Fixed minor bugs.</b></li>\r\n<li><b>Updated README.md.</b></li>\r\n<li><b>Now this module has a <a href=\"https://des-docs.tk\">documentation website</a>!</b></li>\r\n<li><b>Added an 'Economy.docs' property that contains a link to the documentation website.</b></li>\r\n</ul>\r\n\r\n<b>1.3.2</b>\r\n<ul>\r\n<li><b>Fixed typos.</b></li>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed the expired link to the <a href = \"https://discord.gg/4pWKq8vUnb\">Support Server</a>.</b></li>\r\n<li><b>Updated README.md.</b></li>\r\n<li><b>Updated documentation.</b></li>\r\n<li><b>Added a bank example in module files.</b></li>\r\n<li><b>Added more examples on <a href=\"https://des-docs.tk\">documentation website</a>.</b></li>\r\n<li><b>The entire module structure was rewritten on Managers.</b></li>\r\n<li><b>Added a new Database Manager that allows you to interact with module's storage file.</b></li>\r\n</ul>\r\n\r\n<b>1.3.3</b>\r\n<ul>\r\n<li><b>Fixed minor bugs.</b></li>\r\n<li><b>Fixed bugs with Database Manager.</b></li>\r\n</ul>\r\n\r\n<b>1.3.4</b>\r\n<ul>\r\n<li><b>Full code rewrite.</b></li>\r\n<li><b>Lots of bugfixes.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Fixed typos.</b></li>\r\n<li><b>Added a new Fetch Manager that allows you to fetch data from database.</b></li>\r\n<li><b>Added an 'add()', 'subtract()', 'push()' and 'removeElement()' methods in Database Manager.</b></li>\r\n<li><b>Added a 'checkOptions()' and 'reset()' methods in Utils Manager.</b></li>\r\n<li><b>Added an 'optionsChecker' object property in constructor options.</b></li>\r\n<li><b>Added a 'subtractOnBuy' property in constructor options.</b></li>\r\n<li><b>All typings were separated into files.</b></li>\r\n<li><b><a href=\"https://des-docs.tk\">Documentation</a> update: now you can view the docs for a multiple module versions.</b></li>\r\n<li><b><a href=\"https://des-docs.tk\">Documentation</a> update: now you can view the weekly downloads of the module on it's main page.</b></li>\r\n<li><b>... and more!</li>\r\n</ul>\r\n\r\n<b>1.3.5</b>\r\n<ul>\r\n<li><b>Fixed the 'Cannot find module `structures/Errors`' error.</b></li>\r\n<li><b>Fixed bugs in typings.</b></li>\r\n</ul>\r\n\r\n<b>1.3.6</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed typos.</b></li>\r\n<li><b>Fixed typings.</b></li>\r\n<li><b>Fixed the economy options resetting to default.</b></li>\r\n</ul>\r\n\r\n<b>1.3.7</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed the hard crash if economy configuration is not specified.</b></li>\r\n</ul>\r\n\r\n<b>1.3.8</b>\r\n<ul>\r\n<li><b>Fixed typings.</b></li>\r\n<li><b>Fixed a hard crash with 'Economy.rewards.work()' method.</b></li>\r\n</ul>\r\n\r\n<b>1.3.9</b>\r\n<ul>\r\n<li><b>Fixed typings.</b></li>\r\n</ul>\r\n\r\n<b>1.4.0</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed typings.</b></li>\r\n<li><b>Now you can put an array with 2 numbers in 'dailyAmount' and 'weeklyAmount' options.</b></li>\r\n<li><b>Now you can setup the module on different guilds using the brand new Settings Manager.</b></li>\r\n<li><b>Removed 'lodash' from the dependencies.</b></li>\r\n<li><b>Made a function that checks the Node.js version on the start.</b></li>\r\n</ul>\r\n\r\n<b>1.4.1</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n</ul>\r\n\r\n<b>1.4.2</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Fixed typings.</b></li>\r\n</ul>\r\n\r\n<b>1.4.3</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n</ul>\r\n\r\n<b>1.4.4</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n</ul>\r\n\r\n<b>1.4.5</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed typos in a README.md.</b></li>\r\n<li><b>Improved the FAQ.</b></li>\r\n<li><b>Code optimization.</b></li>\r\n<li><b>Improved the quality of the code.</b></li>\r\n<li><b>Added a new 'Economy.shop.searchInventoryItem()' method that searches for the item in user's inventory.</b></li>\r\n<li><b>Improved the typings: fixed wrong types and typos and replaced the \"any\" types with method's generic type parameters.</b></li>\r\n<li><b>TypeScript Examples!</b></li>\r\n</ul>\r\n\r\n<b>1.4.6</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Removed \"discord.js\" module from dependencies that was accidentally added.</b></li>\r\n<li><b>Fixed typings.</b></li>\r\n</ul>\r\n\r\n<b>1.4.7</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed typings.</b></li>\r\n<li><b>Fixed typos.</b></li>\r\n<li><b>Fixed startup issues.</b></li>\r\n<li><b>Fixed TypeScript examples.</b></li>\r\n<li><b>Default date locale was changed to 'en' instead of 'ru'.</b></li>\r\n<li><b>Now you can import all the managers directly from the module. Example:</b></li>\r\n\r\n```js\r\nconst { BalanceManager, ShopManager } = require('discord-economy-super')\r\n// or\r\nimport { BalanceManager, ShopManager } from 'discord-economy-super'\r\n```\r\n<li><b>Added a new InventoryManager that includes all inventory related methods.</b></li>\r\n<li><b>Added a 'removeItem' and 'sellItem' methods to the InventoryManager.</b></li>\r\n<li><b>Added a new 'sellingItemPercent' option that configures the price that<br>\r\nthe item will be sold for. (It was made for InventoryManager.sellItem method)</b></li>\r\n\r\n<li><b>Important:<br>\r\nInventory related methods in ShopManager are now deprecated, but they won't be deleted.<br>\r\nIf you want to use the newest inventory features and get all the bugfixes,<br>\r\nplease switch to the new InventoryManager.<br>\r\n[!!!] No help and support will be provided for deprecated methods.</b></li>\r\n<br>\r\n\r\n```diff\r\n- ShopManager:\r\n\r\n- ShopManager.inventory(memberID, guildID) [deprecated]\r\n- ShopManager.clearInventory(memberID, guildID) [deprecated]\r\n- ShopManager.useItem(itemID, memberID, guildID, client?) [deprecated]\r\n- ShopManager.searchInventoryItem(itemID, memberID, guildID) [deprecated]\r\n\r\n\r\n+ InventoryManager:\r\n\r\n+ InventoryManager.fetch(memberID, guildID)\r\n+ InventoryManager.clear(memberID, guildID)\r\n+ InventoryManager.searchItem(itemID, memberID, guildID)\r\n+ InventoryManager.useItem(itemID, memberID, guildID, client?)\r\n+ InventoryManager.removeItem(itemID, memberID, guildID)\r\n+ InventoryManager.sellItem(itemID, memberID, guildID, reason?)\r\n```\r\n\r\n<li><b>Usage of the deprecated methods will now send a deprecation warning in the console.<br>\r\nYou can disable it by setting the `deprecationWarnings` constructor option to `false`.</b></li>\r\n</ul>\r\n\r\n<b>1.4.8</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed typings.</b></li>\r\n<li><b>Added a 'ShopManager.findItem()' method as alias for 'ShopManager.searchItem()' method.</b></li>\r\n<li><b>Added a 'ShopManager.buyItem()' method as alias for 'ShopManager.buy()' method.</b></li>\r\n<li><b>Added a 'ShopManager.fetch()' method as alias for 'ShopManager.list()' method.</b></li>\r\n<li><b>Added a 'InventoryManager.list()' method as alias for 'InventoryManager.fetch()' method.</b></li>\r\n<li><b>Added a 'InventoryManager.findItem()' method as alias for 'InventoryManager.searchItem()' method.</b></li>\r\n<li><b>Added an 'InventoryManager.addItem()' method that adds the specified item to the user's inventory from the shop.</b></li>\r\n</ul>\r\n\r\n<b>1.4.9</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed typings.</b></li>\r\n<li><b>Added a 'savePurchasesHistory' constructor option that will indicate will the module save the purchases history or not.</b></li>\r\n<li><b>The module will now send a message in console on startup if there's a problem with user's economy configuration.</b></li>\r\n</ul>\r\n\r\n<b>1.5.0</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed typings.</b></li>\r\n<li><b>Fixed typos.</b></li>\r\n<li><b>Fixed issues with 'ShopManager.editItem()' method.</b></li>\r\n<li><b>Added a new 'changeElement' for the Database manager that will change the element's value in the array.</b></li>\r\n<li><b>Added a 'InventoryManager.use()' method as alias for 'InventoryManager.useItem()' method.</b></li>\r\n<li><b>Added a 'ShopManager.edit()' method as alias for 'ShopManager.editItem()' method.</b></li>\r\n\r\n<li><b>Important:<br>\r\nHistory related methods in ShopManager are now deprecated, but they won't be deleted.<br>\r\nIf you want to use the newest history features and get all the bugfixes,<br>\r\nplease switch to the new HistoryManager.<br>\r\n[!!!] No help and support will be provided for deprecated methods.</b></li>\r\n<br>\r\n\r\n```diff\r\n- ShopManager:\r\n\r\n- ShopManager.history(memberID, guildID) [deprecated]\r\n- ShopManager.clearHistory(memberID, guildID) [deprecated]\r\n\r\n\r\n+ HistoryManager:\r\n\r\n+ HistoryManager.fetch(memberID, guildID)\r\n+ HistoryManager.clear(memberID, guildID)\r\n+ HistoryManager.add(itemID, memberID, guildID)  // the 'itemID' parameter is item ID from the shop \\\\\r\n+ HistoryManager.remove(memberID, guildID)\r\n+ HistoryManager.find(id, memberID, guildID)  // the 'id' parameter is the ID of the history object \\\\\r\n+ HistoryManager.search(id, memberID, guildID)  // an alias for the method above ^ \\\\\r\n```\r\n</ul>\r\n<li><b>Now you can use the random strings in a item message!</b></li>\r\n\r\nSyntax: `[random=\"item1\", \"item2\", \"etc...\"]`\r\n\r\nExample usage:\r\n```js\r\neco.shop.addItem('guildID', {\r\n  name: 'good-day',\r\n  price: 100,\r\n  message: 'What a [random=\"wonderful\", \"great\", \"sunny\"] day!'\r\n})\r\n\r\neco.shop.buy(1, 'memberID', 'guildID')\r\neco.shop.buy(1, 'memberID', 'guildID')\r\neco.shop.buy(1, 'memberID', 'guildID') // buying the item 3 times\r\n\r\neco.inventory.useItem(1, 'memberID', 'guildID') // What a wonderful day!\r\neco.inventory.useItem(1, 'memberID', 'guildID') // What a great day!\r\neco.inventory.useItem(1, 'memberID', 'guildID') // What a sunny day!\r\n\r\n// In a returning string, [random=\"wonderful\", \"great\", \"sunny\"]\r\n// will be replaced with the any of \r\n// the words \"wonderful\", \"great\" or \"sunny\".\r\n```\r\n\r\n<b>1.5.1</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Fixed issues with InventoryManager.</b></li>\r\n</ul>\r\n\r\n<b>1.5.2</b>\r\n<ul>\r\n<li><b>Fixed bugs.</b></li>\r\n<li><b>Added a 'ShopManager.add()' method as alias for 'InventoryManager.addItem()' method.</b></li>\r\n</ul>\r\n\r\n## ❗ | Useful Links\r\n<ul>\r\n<li><b><a href = \"https://www.npmjs.com/package/discord-economy-super\">NPM</a></b></li>\r\n<li><b><a href = \"https://github.com/shadowplay1/discord-economy-super\">GitHub</a></b></li>\r\n<li><b><a href = \"https://github.com/shadowplay1/discord-economy-super/tree/main/examples\">Examples</a></b></li>\r\n<li><b><a href = \"https://discord.gg/4pWKq8vUnb\">Discord Server</a></b></li>\r\n</ul>\r\n\r\n<br>\r\n<b>If you found a bug, have any questions or need help, join the <a href = \"https://discord.gg/4pWKq8vUnb\">Support Server</a>.</b>\r\n<br>\r\n<b>Module Created by ShadowPlay.</b>\r\n\r\n# ❤️ Thanks for using Discord Economy Super ❤️",
                     "path": "docs/general/changelog.md"
                 }
             }
@@ -51,7 +51,7 @@
                 "params": [
                     {
                         "name": "options",
-                        "description": "Economy options object.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -147,7 +147,7 @@
                 },
                 {
                     "name": "options",
-                    "description": "Constructor options object.",
+                    "description": "Economy configuration.",
                     "nullable": true,
                     "type": [
                         [
@@ -538,7 +538,7 @@
                         "description": "If started successfully: true; else: Error instance."
                     },
                     "meta": {
-                        "line": 304,
+                        "line": 307,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -558,7 +558,7 @@
                         "description": "If successfully started: true."
                     },
                     "meta": {
-                        "line": 465,
+                        "line": 476,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -648,7 +648,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 556,
+                        "line": 568,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -736,7 +736,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 568,
+                        "line": 580,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -824,7 +824,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 580,
+                        "line": 592,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -912,7 +912,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 592,
+                        "line": 604,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1000,7 +1000,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 604,
+                        "line": 616,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1088,7 +1088,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 616,
+                        "line": 628,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1187,7 +1187,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 628,
+                        "line": 640,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1286,7 +1286,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 641,
+                        "line": 653,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1385,7 +1385,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 654,
+                        "line": 666,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1451,7 +1451,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 667,
+                        "line": 679,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1473,7 +1473,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 677,
+                        "line": 689,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1495,7 +1495,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 683,
+                        "line": 695,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1527,7 +1527,7 @@
                     },
                     {
                         "name": "ecoOptions",
-                        "description": "Economy options object.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -1710,7 +1710,7 @@
                     },
                     {
                         "name": "ecoOptions",
-                        "description": "Economy options object.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -1831,7 +1831,7 @@
                 },
                 {
                     "name": "options",
-                    "description": "Economy options object.",
+                    "description": "Economy configuration.",
                     "access": "private",
                     "type": [
                         [
@@ -2048,7 +2048,7 @@
                     },
                     {
                         "name": "ecoOptions",
-                        "description": "Economy options object.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -2104,7 +2104,7 @@
                     }
                 },
                 {
-                    "name": "itemName",
+                    "name": "name",
                     "description": "Item name.",
                     "type": [
                         [
@@ -2261,7 +2261,7 @@
                     },
                     {
                         "name": "ecoOptions",
-                        "description": "Economy options object.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -2285,6 +2285,22 @@
             },
             "props": [
                 {
+                    "name": "options",
+                    "description": "Economy configuration.",
+                    "type": [
+                        [
+                            [
+                                "EconomyOptions"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 26,
+                        "file": "InventoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
                     "name": "guildID",
                     "description": "Guild ID.",
                     "type": [
@@ -2295,7 +2311,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 23,
+                        "line": 32,
                         "file": "InventoryItem.js",
                         "path": "src/classes"
                     }
@@ -2311,7 +2327,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 29,
+                        "line": 38,
                         "file": "InventoryItem.js",
                         "path": "src/classes"
                     }
@@ -2327,13 +2343,13 @@
                         ]
                     ],
                     "meta": {
-                        "line": 36,
+                        "line": 45,
                         "file": "InventoryItem.js",
                         "path": "src/classes"
                     }
                 },
                 {
-                    "name": "itemName",
+                    "name": "name",
                     "description": "Item name.",
                     "type": [
                         [
@@ -2343,7 +2359,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 42,
+                        "line": 51,
                         "file": "InventoryItem.js",
                         "path": "src/classes"
                     }
@@ -2359,7 +2375,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 48,
+                        "line": 57,
                         "file": "InventoryItem.js",
                         "path": "src/classes"
                     }
@@ -2375,7 +2391,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 54,
+                        "line": 63,
                         "file": "InventoryItem.js",
                         "path": "src/classes"
                     }
@@ -2391,7 +2407,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 60,
+                        "line": 69,
                         "file": "InventoryItem.js",
                         "path": "src/classes"
                     }
@@ -2407,7 +2423,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 66,
+                        "line": 75,
                         "file": "InventoryItem.js",
                         "path": "src/classes"
                     }
@@ -2423,7 +2439,24 @@
                         ]
                     ],
                     "meta": {
-                        "line": 72,
+                        "line": 81,
+                        "file": "InventoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "settings",
+                    "description": "Settings manager methods object.",
+                    "access": "private",
+                    "type": [
+                        [
+                            [
+                                "SettingsManager"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 93,
                         "file": "InventoryItem.js",
                         "path": "src/classes"
                     }
@@ -2440,7 +2473,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 83,
+                        "line": 100,
                         "file": "InventoryItem.js",
                         "path": "src/classes"
                     }
@@ -2461,7 +2494,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 92,
+                        "line": 109,
                         "file": "InventoryItem.js",
                         "path": "src/classes"
                     }
@@ -2480,7 +2513,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 100,
+                        "line": 117,
                         "file": "InventoryItem.js",
                         "path": "src/classes"
                     }
@@ -2551,7 +2584,7 @@
                         "description": "Item message."
                     },
                     "meta": {
-                        "line": 119,
+                        "line": 136,
                         "file": "InventoryItem.js",
                         "path": "src/classes"
                     }
@@ -2570,14 +2603,14 @@
                         "description": "The price the item was sold for."
                     },
                     "meta": {
-                        "line": 195,
+                        "line": 212,
                         "file": "InventoryItem.js",
                         "path": "src/classes"
                     }
                 }
             ],
             "meta": {
-                "line": 8,
+                "line": 11,
                 "file": "InventoryItem.js",
                 "path": "src/classes"
             }
@@ -2674,7 +2707,7 @@
                     }
                 },
                 {
-                    "name": "itemName",
+                    "name": "name",
                     "description": "Item name.",
                     "type": [
                         [
@@ -2873,7 +2906,7 @@
                                 ],
                                 [
                                     [
-                                        "itemName",
+                                        "name",
                                         "\""
                                     ]
                                 ],
@@ -2947,7 +2980,7 @@
                                 ],
                                 [
                                     [
-                                        "itemName",
+                                        "name",
                                         "\""
                                     ]
                                 ],
@@ -4324,11 +4357,11 @@
             "access": "private",
             "construct": {
                 "name": "DotParser",
-                "description": "Economy constructor options object. \rThere's only needed options object properties for this manager to work properly.",
+                "description": "Economy configuration.",
                 "params": [
                     {
                         "name": "options",
-                        "description": "Economy constructor options object.\rThere's only needed options object properties for this manager to work properly.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -4353,7 +4386,7 @@
             "props": [
                 {
                     "name": "options",
-                    "description": "Economy constructor options object.",
+                    "description": "Economy configuration.",
                     "access": "private",
                     "type": [
                         [
@@ -4363,7 +4396,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 26,
+                        "line": 24,
                         "file": "DotParser.js",
                         "path": "src/classes/util"
                     }
@@ -4380,7 +4413,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 33,
+                        "line": 31,
                         "file": "DotParser.js",
                         "path": "src/classes/util"
                     }
@@ -4419,7 +4452,7 @@
                         "description": "The data from database or 'false' if failed to parse or 'null' if nothing found."
                     },
                     "meta": {
-                        "line": 43,
+                        "line": 41,
                         "file": "DotParser.js",
                         "path": "src/classes/util"
                     }
@@ -4462,7 +4495,7 @@
                         "description": "If set successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 69,
+                        "line": 67,
                         "file": "DotParser.js",
                         "path": "src/classes/util"
                     }
@@ -4494,7 +4527,7 @@
                         "description": "If removed successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 105,
+                        "line": 103,
                         "file": "DotParser.js",
                         "path": "src/classes/util"
                     }
@@ -4526,7 +4559,7 @@
                         "description": "Is the item object or not."
                     },
                     "meta": {
-                        "line": 139,
+                        "line": 137,
                         "file": "DotParser.js",
                         "path": "src/classes/util"
                     }
@@ -4742,7 +4775,7 @@
                 "params": [
                     {
                         "name": "options",
-                        "description": "Logger options object.",
+                        "description": "Logger configuration.",
                         "type": [
                             [
                                 [
@@ -4756,7 +4789,7 @@
             "props": [
                 {
                     "name": "options",
-                    "description": "Logger options object.",
+                    "description": "Logger configuration.",
                     "type": [
                         [
                             [
@@ -4916,7 +4949,7 @@
                 "params": [
                     {
                         "name": "options",
-                        "description": "Economy constructor options object.\rThere's only needed options object properties for this manager to work properly.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -4941,7 +4974,7 @@
             "props": [
                 {
                     "name": "options",
-                    "description": "Economy constructor options object.",
+                    "description": "Economy configuration.",
                     "access": "private",
                     "type": [
                         [
@@ -4951,7 +4984,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 34,
+                        "line": 32,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -4968,7 +5001,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 41,
+                        "line": 39,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -4985,7 +5018,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 48,
+                        "line": 46,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -5030,7 +5063,7 @@
                         "description": "User's balance"
                     },
                     "meta": {
-                        "line": 57,
+                        "line": 55,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -5096,7 +5129,7 @@
                         "description": "Money amount."
                     },
                     "meta": {
-                        "line": 77,
+                        "line": 75,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -5162,7 +5195,7 @@
                         "description": "Money amount."
                     },
                     "meta": {
-                        "line": 114,
+                        "line": 112,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -5228,7 +5261,7 @@
                         "description": "Money amount."
                     },
                     "meta": {
-                        "line": 151,
+                        "line": 149,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -5265,7 +5298,7 @@
                         "description": "Sorted leaderboard array"
                     },
                     "meta": {
-                        "line": 185,
+                        "line": 183,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -5308,7 +5341,7 @@
                         "description": "How much money was sent."
                     },
                     "meta": {
-                        "line": 214,
+                        "line": 212,
                         "file": "BalanceManager.js",
                         "path": "src/managers"
                     }
@@ -5471,7 +5504,7 @@
                 "params": [
                     {
                         "name": "options",
-                        "description": "Economy constructor options object.\rThere's only needed options object properties for this manager to work properly.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -5496,7 +5529,7 @@
             "props": [
                 {
                     "name": "options",
-                    "description": "Economy constructor options object.",
+                    "description": "Economy configuration.",
                     "access": "private",
                     "type": [
                         [
@@ -5506,7 +5539,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 32,
+                        "line": 30,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -5523,7 +5556,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 39,
+                        "line": 37,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -5540,7 +5573,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 46,
+                        "line": 44,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -5585,7 +5618,7 @@
                         "description": "User's bank balance"
                     },
                     "meta": {
-                        "line": 55,
+                        "line": 53,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -5651,7 +5684,7 @@
                         "description": "Money amount."
                     },
                     "meta": {
-                        "line": 75,
+                        "line": 73,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -5717,7 +5750,7 @@
                         "description": "Money amount."
                     },
                     "meta": {
-                        "line": 112,
+                        "line": 110,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -5783,7 +5816,7 @@
                         "description": "Money amount."
                     },
                     "meta": {
-                        "line": 149,
+                        "line": 147,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -5820,7 +5853,7 @@
                         "description": "Sorted leaderboard array"
                     },
                     "meta": {
-                        "line": 183,
+                        "line": 181,
                         "file": "BankManager.js",
                         "path": "src/managers"
                     }
@@ -5983,7 +6016,7 @@
                 "params": [
                     {
                         "name": "options",
-                        "description": "Economy options object.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -6008,7 +6041,7 @@
             "props": [
                 {
                     "name": "options",
-                    "description": "Economy options object.",
+                    "description": "Economy configuration.",
                     "access": "private",
                     "type": [
                         [
@@ -6884,7 +6917,7 @@
                 "params": [
                     {
                         "name": "options",
-                        "description": "Economy constructor options object.\rThere's only needed options object properties for this manager to work properly.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -6906,7 +6939,7 @@
                     },
                     {
                         "name": "options.dailyCooldown",
-                        "description": "Cooldown for Daily Command (in ms). Default: 24 Hours (60000 * 60 * 24) ms",
+                        "description": "Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)",
                         "type": [
                             [
                                 [
@@ -6917,7 +6950,7 @@
                     },
                     {
                         "name": "options.workCooldown",
-                        "description": "Cooldown for Work Command (in ms). Default: 1 Hour (60000 * 60) ms",
+                        "description": "Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)",
                         "type": [
                             [
                                 [
@@ -6939,7 +6972,7 @@
                     },
                     {
                         "name": "options.weeklyCooldown",
-                        "description": "Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms",
+                        "description": "Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)",
                         "type": [
                             [
                                 [
@@ -6980,7 +7013,7 @@
             "props": [
                 {
                     "name": "options",
-                    "description": "Economy options object.",
+                    "description": "Economy configuration.",
                     "access": "private",
                     "type": [
                         [
@@ -6990,7 +7023,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 37,
+                        "line": 34,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -7007,7 +7040,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 44,
+                        "line": 41,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -7052,7 +7085,7 @@
                         "description": "Cooldown end timestamp"
                     },
                     "meta": {
-                        "line": 53,
+                        "line": 50,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -7095,7 +7128,7 @@
                         "description": "Cooldown end timestamp"
                     },
                     "meta": {
-                        "line": 73,
+                        "line": 70,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -7138,7 +7171,7 @@
                         "description": "Cooldown end timestamp"
                     },
                     "meta": {
-                        "line": 93,
+                        "line": 90,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -7181,7 +7214,7 @@
                         "description": "If cleared: true; else: false"
                     },
                     "meta": {
-                        "line": 113,
+                        "line": 110,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -7224,7 +7257,7 @@
                         "description": "If cleared: true; else: false"
                     },
                     "meta": {
-                        "line": 131,
+                        "line": 128,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -7267,7 +7300,7 @@
                         "description": "If cleared: true; else: false"
                     },
                     "meta": {
-                        "line": 149,
+                        "line": 146,
                         "file": "CooldownManager.js",
                         "path": "src/managers"
                     }
@@ -7288,7 +7321,7 @@
                 "params": [
                     {
                         "name": "options",
-                        "description": "Economy constructor options object.\rThere's only needed options object properties for this manager to work properly.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -7323,7 +7356,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 30,
+                        "line": 28,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7340,7 +7373,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 37,
+                        "line": 35,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7356,7 +7389,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 43,
+                        "line": 41,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7373,7 +7406,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 50,
+                        "line": 48,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7390,7 +7423,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 57,
+                        "line": 55,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7429,7 +7462,7 @@
                         "description": "An array with all keys in database or 'null' if nothing found."
                     },
                     "meta": {
-                        "line": 67,
+                        "line": 65,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7472,7 +7505,7 @@
                         "description": "If set successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 84,
+                        "line": 82,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7515,7 +7548,7 @@
                         "description": "If added successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 103,
+                        "line": 101,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7558,7 +7591,7 @@
                         "description": "If set successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 131,
+                        "line": 129,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7590,7 +7623,7 @@
                         "description": "Value from the specified key or 'false' if failed to read or 'null' if nothing found."
                     },
                     "meta": {
-                        "line": 158,
+                        "line": 156,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7622,7 +7655,7 @@
                         "description": "Value from the specified key or 'false' if failed to read or 'null' if nothing found."
                     },
                     "meta": {
-                        "line": 174,
+                        "line": 172,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7659,7 +7692,7 @@
                         "description": "Value from the specified key or 'false' if failed to read or 'null' if nothing found."
                     },
                     "meta": {
-                        "line": 185,
+                        "line": 183,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7691,7 +7724,7 @@
                         "description": "If cleared: true; else: false."
                     },
                     "meta": {
-                        "line": 194,
+                        "line": 192,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7723,7 +7756,7 @@
                         "description": "If cleared: true; else: false."
                     },
                     "meta": {
-                        "line": 210,
+                        "line": 208,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7766,7 +7799,7 @@
                         "description": "If cleared: true; else: false."
                     },
                     "meta": {
-                        "line": 220,
+                        "line": 218,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7809,7 +7842,7 @@
                         "description": "If cleared: true; else: false."
                     },
                     "meta": {
-                        "line": 243,
+                        "line": 241,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7863,7 +7896,7 @@
                         "description": "If cleared: true; else: false."
                     },
                     "meta": {
-                        "line": 266,
+                        "line": 264,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7882,7 +7915,7 @@
                         "description": "Database contents"
                     },
                     "meta": {
-                        "line": 294,
+                        "line": 292,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7903,7 +7936,7 @@
                 "params": [
                     {
                         "name": "options",
-                        "description": "Economy constructor options object.\rThere's only needed options object properties for this manager to work properly.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -7928,7 +7961,7 @@
             "props": [
                 {
                     "name": "options",
-                    "description": "Economy constructor options object.",
+                    "description": "Economy configuration.",
                     "access": "private",
                     "type": [
                         [
@@ -7938,7 +7971,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 31,
+                        "line": 28,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -7955,7 +7988,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 38,
+                        "line": 35,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -7976,7 +8009,7 @@
                         "description": "Database contents"
                     },
                     "meta": {
-                        "line": 45,
+                        "line": 42,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -8019,7 +8052,7 @@
                         "description": "User's balance."
                     },
                     "meta": {
-                        "line": 62,
+                        "line": 59,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -8062,7 +8095,7 @@
                         "description": "User's bank balance."
                     },
                     "meta": {
-                        "line": 85,
+                        "line": 82,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -8110,7 +8143,7 @@
                         "description": "User's inventory."
                     },
                     "meta": {
-                        "line": 108,
+                        "line": 105,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -8158,7 +8191,7 @@
                         "description": "User's purchases history."
                     },
                     "meta": {
-                        "line": 131,
+                        "line": 128,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -8201,7 +8234,7 @@
                         "description": "User's cooldowns object."
                     },
                     "meta": {
-                        "line": 154,
+                        "line": 151,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -8238,7 +8271,7 @@
                         "description": "The shop array."
                     },
                     "meta": {
-                        "line": 179,
+                        "line": 176,
                         "file": "FetchManager.js",
                         "path": "src/managers"
                     }
@@ -8266,7 +8299,7 @@
                 "params": [
                     {
                         "name": "options",
-                        "description": "Economy options object.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -8280,7 +8313,7 @@
             "props": [
                 {
                     "name": "options",
-                    "description": "Economy options object.",
+                    "description": "Economy configuration.",
                     "access": "private",
                     "type": [
                         [
@@ -9323,7 +9356,7 @@
                 "params": [
                     {
                         "name": "options",
-                        "description": "Economy constructor options object.\rThere's only needed options object properties for this manager to work properly.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -9370,7 +9403,7 @@
             "props": [
                 {
                     "name": "options",
-                    "description": "Economy constructor options object.",
+                    "description": "Economy configuration.",
                     "access": "private",
                     "type": [
                         [
@@ -9380,7 +9413,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 30,
+                        "line": 27,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -9397,7 +9430,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 37,
+                        "line": 34,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -9414,7 +9447,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 44,
+                        "line": 41,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -9464,7 +9497,7 @@
                         "description": "User's purchases history."
                     },
                     "meta": {
-                        "line": 53,
+                        "line": 50,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -9512,7 +9545,7 @@
                         "description": "User's purchases history."
                     },
                     "meta": {
-                        "line": 79,
+                        "line": 76,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -9555,7 +9588,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 89,
+                        "line": 86,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -9614,7 +9647,7 @@
                         "description": "If added: true, else: false."
                     },
                     "meta": {
-                        "line": 111,
+                        "line": 108,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -9673,7 +9706,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 151,
+                        "line": 148,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -9732,7 +9765,7 @@
                         "description": "Purchases history item."
                     },
                     "meta": {
-                        "line": 182,
+                        "line": 179,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -9791,14 +9824,14 @@
                         "description": "Purchases history item."
                     },
                     "meta": {
-                        "line": 211,
+                        "line": 208,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
                 }
             ],
             "meta": {
-                "line": 22,
+                "line": 19,
                 "file": "HistoryManager.js",
                 "path": "src/managers"
             }
@@ -9812,7 +9845,7 @@
                 "params": [
                     {
                         "name": "options",
-                        "description": "Economy constructor options object.\rThere's only needed options object properties for this manager to work properly.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -9859,7 +9892,7 @@
             "props": [
                 {
                     "name": "options",
-                    "description": "Economy constructor options object.",
+                    "description": "Economy configuration.",
                     "access": "private",
                     "nullable": true,
                     "type": [
@@ -9870,7 +9903,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 35,
+                        "line": 33,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -9887,7 +9920,24 @@
                         ]
                     ],
                     "meta": {
-                        "line": 42,
+                        "line": 40,
+                        "file": "InventoryManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "settings",
+                    "description": "Settings manager methods object.",
+                    "access": "private",
+                    "type": [
+                        [
+                            [
+                                "SettingsManager"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 47,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -9904,7 +9954,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 49,
+                        "line": 54,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -9921,7 +9971,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 56,
+                        "line": 61,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -9966,7 +10016,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 65,
+                        "line": 70,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -10025,7 +10075,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 88,
+                        "line": 93,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -10084,7 +10134,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 121,
+                        "line": 126,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -10132,7 +10182,7 @@
                         "description": "User's inventory array."
                     },
                     "meta": {
-                        "line": 131,
+                        "line": 136,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -10180,7 +10230,7 @@
                         "description": "User's inventory array."
                     },
                     "meta": {
-                        "line": 153,
+                        "line": 158,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -10251,7 +10301,7 @@
                         "description": "Item message."
                     },
                     "meta": {
-                        "line": 165,
+                        "line": 170,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -10322,7 +10372,7 @@
                         "description": "Item message."
                     },
                     "meta": {
-                        "line": 260,
+                        "line": 265,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -10381,7 +10431,7 @@
                         "description": "If removed successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 271,
+                        "line": 276,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -10440,7 +10490,7 @@
                         "description": "If added successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 306,
+                        "line": 311,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -10512,7 +10562,7 @@
                         "description": "The price the item was sold for."
                     },
                     "meta": {
-                        "line": 359,
+                        "line": 364,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -10584,14 +10634,14 @@
                         "description": "The price the item was sold for."
                     },
                     "meta": {
-                        "line": 397,
+                        "line": 405,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
                 }
             ],
             "meta": {
-                "line": 13,
+                "line": 14,
                 "file": "InventoryManager.js",
                 "path": "src/managers"
             }
@@ -10605,7 +10655,7 @@
                 "params": [
                     {
                         "name": "options",
-                        "description": "Economy constructor options object.\rThere's only needed options object properties for this manager to work properly.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -10627,7 +10677,7 @@
                     },
                     {
                         "name": "options.dailyCooldown",
-                        "description": "Cooldown for Daily Command (in ms). Default: 24 Hours (60000 * 60 * 24) ms",
+                        "description": "Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)",
                         "type": [
                             [
                                 [
@@ -10638,7 +10688,7 @@
                     },
                     {
                         "name": "options.workCooldown",
-                        "description": "Cooldown for Work Command (in ms). Default: 1 Hour (60000 * 60) ms",
+                        "description": "Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)",
                         "type": [
                             [
                                 [
@@ -10660,7 +10710,7 @@
                     },
                     {
                         "name": "options.weeklyCooldown",
-                        "description": "Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms",
+                        "description": "Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)",
                         "type": [
                             [
                                 [
@@ -10701,7 +10751,7 @@
             "props": [
                 {
                     "name": "options",
-                    "description": "Economy options object.",
+                    "description": "Economy configuration.",
                     "access": "private",
                     "type": [
                         [
@@ -10711,7 +10761,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 50,
+                        "line": 48,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -10728,7 +10778,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 57,
+                        "line": 55,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -10745,7 +10795,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 64,
+                        "line": 62,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -10762,7 +10812,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 71,
+                        "line": 69,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -10779,7 +10829,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 78,
+                        "line": 76,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -10796,7 +10846,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 85,
+                        "line": 83,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -10853,7 +10903,7 @@
                         "description": "Daily reward object."
                     },
                     "meta": {
-                        "line": 95,
+                        "line": 93,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -10908,7 +10958,7 @@
                         "description": "Work reward object."
                     },
                     "meta": {
-                        "line": 141,
+                        "line": 142,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -10963,7 +11013,7 @@
                         "description": "Weekly reward object."
                     },
                     "meta": {
-                        "line": 187,
+                        "line": 195,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -10984,7 +11034,7 @@
                 "params": [
                     {
                         "name": "options",
-                        "description": "Economy options object.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -10998,7 +11048,7 @@
             "props": [
                 {
                     "name": "options",
-                    "description": "Economy options object.",
+                    "description": "Economy configuration.",
                     "access": "private",
                     "type": [
                         [
@@ -11008,7 +11058,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 113,
+                        "line": 121,
                         "file": "SettingsManager.js",
                         "path": "src/managers"
                     }
@@ -11025,7 +11075,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 121,
+                        "line": 129,
                         "file": "SettingsManager.js",
                         "path": "src/managers"
                     }
@@ -11042,7 +11092,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 128,
+                        "line": 136,
                         "file": "SettingsManager.js",
                         "path": "src/managers"
                     }
@@ -11051,7 +11101,7 @@
             "methods": [
                 {
                     "name": "get",
-                    "description": "Gets the specified setting from the database.\r\rNote: If the server don't have any setting specified,\rthe module will take the values from the\roptions object or default options object.",
+                    "description": "Gets the specified setting from the database.\r\rNote: If the server don't have any setting specified,\rthe module will take the values from the\rconfiguration or default configuration.",
                     "params": [
                         {
                             "name": "key",
@@ -11087,14 +11137,14 @@
                         "description": "The setting from the database."
                     },
                     "meta": {
-                        "line": 142,
+                        "line": 150,
                         "file": "SettingsManager.js",
                         "path": "src/managers"
                     }
                 },
                 {
                     "name": "set",
-                    "description": "Changes the specified setting.\r\rNote: If the server don't have any setting specified, \rthe module will take the values from the \roptions object or default options object.",
+                    "description": "Changes the specified setting.\r\rNote: If the server don't have any setting specified, \rthe module will take the values from the \rspecified configuration or default configuration.",
                     "params": [
                         {
                             "name": "key",
@@ -11141,14 +11191,14 @@
                         "description": "The server settings object."
                     },
                     "meta": {
-                        "line": 164,
+                        "line": 172,
                         "file": "SettingsManager.js",
                         "path": "src/managers"
                     }
                 },
                 {
                     "name": "remove",
-                    "description": "Removes the specified setting.\r\rNote: If the server don't have any setting specified, \rthe module will take the values from the \roptions object or default options object.",
+                    "description": "Removes the specified setting.\r\rNote: If the server don't have any setting specified, \rthe module will take the values from the \rspecified configuration or default configuration.",
                     "params": [
                         {
                             "name": "key",
@@ -11184,7 +11234,7 @@
                         "description": "The server settings object."
                     },
                     "meta": {
-                        "line": 188,
+                        "line": 196,
                         "file": "SettingsManager.js",
                         "path": "src/managers"
                     }
@@ -11216,14 +11266,14 @@
                         "description": "The server settings object."
                     },
                     "meta": {
-                        "line": 203,
+                        "line": 211,
                         "file": "SettingsManager.js",
                         "path": "src/managers"
                     }
                 },
                 {
                     "name": "reset",
-                    "description": "Resets all the settings to setting that are in options object.",
+                    "description": "Resets all the settings to setting that are in configuration.",
                     "params": [
                         {
                             "name": "guildID",
@@ -11248,14 +11298,14 @@
                         "description": "The server settings object."
                     },
                     "meta": {
-                        "line": 229,
+                        "line": 238,
                         "file": "SettingsManager.js",
                         "path": "src/managers"
                     }
                 }
             ],
             "meta": {
-                "line": 99,
+                "line": 107,
                 "file": "SettingsManager.js",
                 "path": "src/managers"
             }
@@ -11276,7 +11326,7 @@
                 "params": [
                     {
                         "name": "options",
-                        "description": "Economy constructor options object.\rThere's only needed options object properties for this manager to work properly.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -11345,7 +11395,7 @@
             "props": [
                 {
                     "name": "options",
-                    "description": "Economy constructor options object.",
+                    "description": "Economy configuration.",
                     "access": "private",
                     "nullable": true,
                     "type": [
@@ -11356,7 +11406,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 39,
+                        "line": 37,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11373,7 +11423,24 @@
                         ]
                     ],
                     "meta": {
-                        "line": 46,
+                        "line": 44,
+                        "file": "ShopManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "settings",
+                    "description": "Database manager methods object.",
+                    "access": "private",
+                    "type": [
+                        [
+                            [
+                                "SettingsManager"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 51,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11397,7 +11464,7 @@
                         },
                         {
                             "name": "options",
-                            "description": "Options object with item info.",
+                            "description": "Configuration with item info.",
                             "type": [
                                 [
                                     [
@@ -11418,7 +11485,7 @@
                         "description": "Item info."
                     },
                     "meta": {
-                        "line": 55,
+                        "line": 60,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11440,7 +11507,7 @@
                         },
                         {
                             "name": "options",
-                            "description": "Options object with item info.",
+                            "description": "Configuration with item info.",
                             "type": [
                                 [
                                     [
@@ -11461,7 +11528,7 @@
                         "description": "Item info."
                     },
                     "meta": {
-                        "line": 115,
+                        "line": 124,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11515,7 +11582,7 @@
                                 ],
                                 [
                                     [
-                                        "itemName",
+                                        "name",
                                         "'"
                                     ]
                                 ],
@@ -11551,7 +11618,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 129,
+                        "line": 138,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11605,7 +11672,7 @@
                                 ],
                                 [
                                     [
-                                        "itemName",
+                                        "name",
                                         "'"
                                     ]
                                 ],
@@ -11652,7 +11719,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 212,
+                        "line": 221,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11700,7 +11767,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 222,
+                        "line": 231,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11732,7 +11799,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 260,
+                        "line": 269,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11776,7 +11843,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 293,
+                        "line": 302,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11813,7 +11880,7 @@
                         "description": "The shop array."
                     },
                     "meta": {
-                        "line": 324,
+                        "line": 333,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11850,7 +11917,7 @@
                         "description": "The shop array."
                     },
                     "meta": {
-                        "line": 340,
+                        "line": 349,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11898,7 +11965,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 350,
+                        "line": 359,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11946,7 +12013,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 378,
+                        "line": 387,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -12006,7 +12073,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 398,
+                        "line": 407,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -12082,7 +12149,7 @@
                         "description": "If item bought successfully: true; if item not found, false will be returned; \rif user reached the item's max amount: 'max' string."
                     },
                     "meta": {
-                        "line": 441,
+                        "line": 450,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -12157,7 +12224,7 @@
                         "description": "If item bought successfully: true; if item not found, false will be returned; \rif user reached the item's max amount: 'max' string."
                     },
                     "meta": {
-                        "line": 535,
+                        "line": 555,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -12206,7 +12273,7 @@
                         "description": "User's inventory array."
                     },
                     "meta": {
-                        "line": 554,
+                        "line": 574,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -12282,7 +12349,7 @@
                         "description": "Item message or null if item not found."
                     },
                     "meta": {
-                        "line": 594,
+                        "line": 614,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -12331,7 +12398,7 @@
                         "description": "User's purchase history."
                     },
                     "meta": {
-                        "line": 672,
+                        "line": 692,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -12375,7 +12442,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 714,
+                        "line": 734,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -12517,7 +12584,7 @@
                 }
             ],
             "meta": {
-                "line": 13,
+                "line": 14,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -12538,7 +12605,7 @@
                 "params": [
                     {
                         "name": "options",
-                        "description": "Economy options object.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -12552,7 +12619,7 @@
             "props": [
                 {
                     "name": "options",
-                    "description": "Economy options object.",
+                    "description": "Economy configuration.",
                     "access": "private",
                     "type": [
                         [
@@ -13613,7 +13680,7 @@
                 "params": [
                     {
                         "name": "options",
-                        "description": "Economy constructor options object.\rThere's only needed options object properties for this manager to work properly.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -13638,7 +13705,7 @@
             "props": [
                 {
                     "name": "options",
-                    "description": "Economy constructor options object.",
+                    "description": "Economy configuration.",
                     "access": "private",
                     "nullable": true,
                     "type": [
@@ -13649,7 +13716,24 @@
                         ]
                     ],
                     "meta": {
-                        "line": 58,
+                        "line": 60,
+                        "file": "UtilsManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "_logger",
+                    "description": "Economy Logger.",
+                    "access": "private",
+                    "type": [
+                        [
+                            [
+                                "Logger"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 67,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -13666,7 +13750,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 65,
+                        "line": 74,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -13683,7 +13767,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 72,
+                        "line": 81,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -13700,7 +13784,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 79,
+                        "line": 88,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -13727,7 +13811,7 @@
                         "description": "This method will show is the module updated, latest version and installed version."
                     },
                     "meta": {
-                        "line": 87,
+                        "line": 96,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -13746,7 +13830,7 @@
                         "description": "Database contents"
                     },
                     "meta": {
-                        "line": 105,
+                        "line": 115,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -13789,7 +13873,7 @@
                         "description": "If successfully written: true; else: false."
                     },
                     "meta": {
-                        "line": 115,
+                        "line": 125,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -13808,7 +13892,7 @@
                         "description": "If cleared successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 130,
+                        "line": 140,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -13840,7 +13924,7 @@
                         "description": "If cleared successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 145,
+                        "line": 155,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -13883,7 +13967,7 @@
                         "description": "If cleared successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 162,
+                        "line": 172,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -13926,14 +14010,14 @@
                         "description": "If reset successfully: true; else: false."
                     },
                     "meta": {
-                        "line": 182,
+                        "line": 192,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
                 },
                 {
                     "name": "checkOptions",
-                    "description": "Checks the Economy options object, fixes the problems in it and returns the fixed options object.",
+                    "description": "Checks the Economy configuration, fixes the problems and returns it.",
                     "params": [
                         {
                             "name": "options",
@@ -13948,7 +14032,7 @@
                         },
                         {
                             "name": "ecoOptions",
-                            "description": "Economy options object to check.",
+                            "description": "Economy configuration to check.",
                             "type": [
                                 [
                                     [
@@ -13966,17 +14050,17 @@
                                 ]
                             ]
                         ],
-                        "description": "Fixed economy options object."
+                        "description": "Fixed Economy configuration."
                     },
                     "meta": {
-                        "line": 200,
+                        "line": 210,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
                 }
             ],
             "meta": {
-                "line": 41,
+                "line": 45,
                 "file": "UtilsManager.js",
                 "path": "src/managers"
             }
@@ -13986,7 +14070,7 @@
     "typedefs": [
         {
             "name": "EconomyOptions",
-            "description": "Default Economy options object.",
+            "description": "Default Economy configuration.",
             "type": [
                 [
                     [
@@ -14023,7 +14107,7 @@
                 },
                 {
                     "name": "dailyCooldown",
-                    "description": "Cooldown for Daily Command (in ms). Default: 24 Hours (60000 * 60 * 24) ms",
+                    "description": "Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)",
                     "optional": true,
                     "default": 86400000,
                     "type": [
@@ -14036,7 +14120,7 @@
                 },
                 {
                     "name": "workCooldown",
-                    "description": "Cooldown for Work Command (in ms). Default: 1 Hour (60000 * 60) ms",
+                    "description": "Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)",
                     "optional": true,
                     "default": 3600000,
                     "type": [
@@ -14072,7 +14156,7 @@
                 },
                 {
                     "name": "weeklyCooldown",
-                    "description": "Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms",
+                    "description": "Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)",
                     "optional": true,
                     "default": 604800000,
                     "type": [
@@ -14209,7 +14293,7 @@
                 },
                 {
                     "name": "updater",
-                    "description": "Update Checker options object.",
+                    "description": "Update checker configuration.",
                     "optional": true,
                     "default": "UpdaterOptions",
                     "type": [
@@ -14222,7 +14306,7 @@
                 },
                 {
                     "name": "errorHandler",
-                    "description": "Error Handler options object.",
+                    "description": "Error handler configuration.",
                     "optional": true,
                     "default": "ErrorHandlerOptions",
                     "type": [
@@ -14235,7 +14319,7 @@
                 },
                 {
                     "name": "optionsChecker",
-                    "description": "Options object for an 'Economy.utils.checkOptions' method.",
+                    "description": "Configuration for an 'Economy.utils.checkOptions' method.",
                     "optional": true,
                     "default": "CheckerOptions",
                     "type": [
@@ -14261,14 +14345,14 @@
                 }
             ],
             "meta": {
-                "line": 341,
+                "line": 378,
                 "file": "UtilsManager.js",
                 "path": "src/managers"
             }
         },
         {
             "name": "UpdaterOptions",
-            "description": "Updatee options object.",
+            "description": "Update checker configuration.",
             "type": [
                 [
                     [
@@ -14305,7 +14389,7 @@
                 }
             ],
             "meta": {
-                "line": 374,
+                "line": 411,
                 "file": "UtilsManager.js",
                 "path": "src/managers"
             }
@@ -14361,14 +14445,14 @@
                 }
             ],
             "meta": {
-                "line": 381,
+                "line": 418,
                 "file": "UtilsManager.js",
                 "path": "src/managers"
             }
         },
         {
             "name": "CheckerOptions",
-            "description": "Options object for an 'Economy.utils.checkOptions' method.",
+            "description": "Configuration for an 'Economy.utils.checkOptions' method.",
             "type": [
                 [
                     [
@@ -14457,7 +14541,7 @@
                 }
             ],
             "meta": {
-                "line": 388,
+                "line": 425,
                 "file": "UtilsManager.js",
                 "path": "src/managers"
             }
@@ -14700,14 +14784,14 @@
                 }
             ],
             "meta": {
-                "line": 755,
+                "line": 767,
                 "file": "index.js",
                 "path": "src"
             }
         },
         {
             "name": "AddItemOptions",
-            "description": "Options object with item info for 'Economy.shop.addItem' method.",
+            "description": "Configuration with item info for 'Economy.shop.addItem' method.",
             "type": [
                 [
                     [
@@ -14717,7 +14801,7 @@
             ],
             "props": [
                 {
-                    "name": "itemName",
+                    "name": "name",
                     "description": "Item name.",
                     "type": [
                         [
@@ -14812,7 +14896,7 @@
                 "description": "Item info."
             },
             "meta": {
-                "line": 740,
+                "line": 760,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -14840,7 +14924,7 @@
                     ]
                 },
                 {
-                    "name": "itemName",
+                    "name": "name",
                     "description": "Item name.",
                     "type": [
                         [
@@ -14918,7 +15002,7 @@
                 }
             ],
             "meta": {
-                "line": 764,
+                "line": 784,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -15041,7 +15125,7 @@
                     ]
                 },
                 {
-                    "name": "itemName",
+                    "name": "name",
                     "description": "Item name.",
                     "type": [
                         [
@@ -15108,7 +15192,7 @@
                 }
             ],
             "meta": {
-                "line": 777,
+                "line": 797,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -15136,7 +15220,7 @@
                     ]
                 },
                 {
-                    "name": "itemName",
+                    "name": "name",
                     "description": "Item name.",
                     "type": [
                         [
@@ -15214,7 +15298,7 @@
                 }
             ],
             "meta": {
-                "line": 751,
+                "line": 771,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -15407,7 +15491,7 @@
                 }
             ],
             "meta": {
-                "line": 244,
+                "line": 242,
                 "file": "BalanceManager.js",
                 "path": "src/managers"
             }
@@ -15458,7 +15542,7 @@
                 }
             ],
             "meta": {
-                "line": 207,
+                "line": 205,
                 "file": "BankManager.js",
                 "path": "src/managers"
             }
@@ -15577,6 +15661,106 @@
             ],
             "props": [
                 {
+                    "name": "time",
+                    "description": "A time object with the remaining time until the cooldown ends.",
+                    "type": [
+                        [
+                            [
+                                "TimeData"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "pretty",
+                    "description": "A formatted string with the remaining time until the cooldown ends.",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ]
+                }
+            ],
+            "meta": {
+                "line": 258,
+                "file": "RewardManager.js",
+                "path": "src/managers"
+            }
+        },
+        {
+            "name": "RewardData",
+            "type": [
+                [
+                    [
+                        "Object"
+                    ]
+                ]
+            ],
+            "props": [
+                {
+                    "name": "status",
+                    "description": "The status of operation.",
+                    "type": [
+                        [
+                            [
+                                "Boolean"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "cooldown",
+                    "description": "Cooldown object.",
+                    "type": [
+                        [
+                            [
+                                "CooldownData"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "reward",
+                    "description": "Amount of money that the user received.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "defaultReward",
+                    "description": "Reward that was specified in a module configuration.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ]
+                }
+            ],
+            "meta": {
+                "line": 241,
+                "file": "RewardManager.js",
+                "path": "src/managers"
+            }
+        },
+        {
+            "name": "TimeData",
+            "type": [
+                [
+                    [
+                        "Object"
+                    ]
+                ]
+            ],
+            "props": [
+                {
                     "name": "days",
                     "description": "Amount of days until the cooldown ends.",
                     "type": [
@@ -15633,83 +15817,7 @@
                 }
             ],
             "meta": {
-                "line": 235,
-                "file": "RewardManager.js",
-                "path": "src/managers"
-            }
-        },
-        {
-            "name": "RewardData",
-            "type": [
-                [
-                    [
-                        "Object"
-                    ]
-                ]
-            ],
-            "props": [
-                {
-                    "name": "status",
-                    "description": "The status of operation.",
-                    "type": [
-                        [
-                            [
-                                "Boolean"
-                            ]
-                        ]
-                    ]
-                },
-                {
-                    "name": "value",
-                    "description": "Reward or cooldown time object.",
-                    "type": [
-                        [
-                            [
-                                "CooldownData"
-                            ]
-                        ]
-                    ]
-                },
-                {
-                    "name": "pretty",
-                    "description": "Reward or formatted cooldown time object.",
-                    "type": [
-                        [
-                            [
-                                "String"
-                            ]
-                        ],
-                        [
-                            [
-                                "Number"
-                            ]
-                        ]
-                    ]
-                },
-                {
-                    "name": "reward",
-                    "description": "Amount of money for the reward from constructor options.",
-                    "type": [
-                        [
-                            [
-                                "Number"
-                            ]
-                        ],
-                        [
-                            [
-                                "Array",
-                                "<"
-                            ],
-                            [
-                                "Number",
-                                ">"
-                            ]
-                        ]
-                    ]
-                }
-            ],
-            "meta": {
-                "line": 227,
+                "line": 249,
                 "file": "RewardManager.js",
                 "path": "src/managers"
             }
@@ -15748,7 +15856,7 @@
                 },
                 {
                     "name": "dailyCooldown",
-                    "description": "Cooldown for Daily Command (in ms). Default: 24 Hours (60000 * 60 * 24) ms",
+                    "description": "Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)",
                     "type": [
                         [
                             [
@@ -15780,7 +15888,7 @@
                 },
                 {
                     "name": "workCooldown",
-                    "description": "Cooldown for Work Command (in ms). Default: 1 Hour (60000 * 60) ms",
+                    "description": "Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)",
                     "type": [
                         [
                             [
@@ -15812,7 +15920,7 @@
                 },
                 {
                     "name": "weeklyCooldown",
-                    "description": "Cooldown for Weekly Command (in ms). Default: 7 Days (60000 * 60 * 24 * 7) ms",
+                    "description": "Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)",
                     "type": [
                         [
                             [
@@ -15856,7 +15964,7 @@
                 }
             ],
             "meta": {
-                "line": 254,
+                "line": 263,
                 "file": "SettingsManager.js",
                 "path": "src/managers"
             }
@@ -15917,10 +16025,16 @@
                         "sellingItemPercent",
                         "'"
                     ]
+                ],
+                [
+                    [
+                        "savePurchasesHistory",
+                        "'"
+                    ]
                 ]
             ],
             "meta": {
-                "line": 338,
+                "line": 347,
                 "file": "SettingsManager.js",
                 "path": "src/managers"
             }
@@ -15971,7 +16085,7 @@
                 }
             ],
             "meta": {
-                "line": 333,
+                "line": 370,
                 "file": "UtilsManager.js",
                 "path": "src/managers"
             }
