@@ -38,7 +38,7 @@
   <li><b>Code optimization</b></li>
   <li><b>Now you can create a shop on your Discord server using Economy.shop methods. They are listed above.</b></li>
   <li><b>Added an 'EconomyError' class property.</b></li>
-  <li><b>Added a 'dateLocale' property for options object.</b></li>
+  <li><b>Added a 'dateLocale' property for economy configuration.</b></li>
 </ul>
 
 <b>1.0.7</b>
@@ -60,7 +60,7 @@
 <li><b>Fixed bugs.</b></li>
 <li><b>Code optimization.</b></li>
 <li><b>Added an update checking system for this module.</b></li>
-<li><b>Added a 'checkUpdates' property for options object.</b></li>
+<li><b>Added a 'checkUpdates' property for economy configuration.</b></li>
 </ul>
 
 <b>1.1.5</b>
@@ -305,7 +305,7 @@ The test will look like this:
 <b>1.3.7</b>
 <ul>
 <li><b>Fixed bugs.</b></li>
-<li><b>Fixed the hard crash if options object is not specified.</b></li>
+<li><b>Fixed the hard crash if economy configuration is not specified.</b></li>
 </ul>
 
 <b>1.3.8</b>
@@ -438,7 +438,7 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>Fixed bugs.</b></li>
 <li><b>Fixed typings.</b></li>
 <li><b>Added a 'savePurchasesHistory' constructor option that will indicate will the module save the purchases history or not.</b></li>
-<li><b>The module will now send a message in console on startup if there's a problem with user's options object.</b></li>
+<li><b>The module will now send a message in console on startup if there's a problem with user's economy configuration.</b></li>
 </ul>
 
 <b>1.5.0</b>
@@ -482,7 +482,7 @@ Syntax: `[random="item1", "item2", "etc..."]`
 Example usage:
 ```js
 eco.shop.addItem('guildID', {
-  itemName: 'good-day',
+  name: 'good-day',
   price: 100,
   message: 'What a [random="wonderful", "great", "sunny"] day!'
 })

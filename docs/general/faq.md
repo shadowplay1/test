@@ -72,7 +72,7 @@ Random string syntax: `[random="item1", "item2", "etc..."]`
 Example usage:
 ```js
 eco.shop.addItem('guildID', {
-  itemName: 'good-day',
+  name: 'good-day',
   price: 100,
   message: 'What a [random="wonderful", "great", "sunny"] day!'
 })
