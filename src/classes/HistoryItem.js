@@ -1,3 +1,5 @@
+const HistoryManager = require('../managers/HistoryManager')
+
 /**
 * History item class.
 */
@@ -9,13 +11,25 @@ class HistoryItem {
      * @param {EconomyOptions} ecoOptions Economy configuration.
      * @param {HistoryData} itemObject User purchases history item object.
      */
-    constructor(guildID, ecoOptions, itemObject) {
+    constructor(guildID, memberID, ecoOptions, itemObject) {
 
         /**
          * Guild ID.
          * @type {String}
          */
         this.guildID = guildID
+
+        /**
+         * Member ID.
+         * @type {String}
+         */
+        this.memberID = memberID
+
+        /**
+         * Economy configuration.
+         * @type {EconomyOptions}
+         */
+        this.options = ecoOptions
 
         /**
          * Item ID in history.
@@ -53,13 +67,19 @@ class HistoryItem {
          */
         this.role = itemObject.role
 
+        /**
+         * Inventory Manager.
+         * @type {HistoryManager}
+         */
+        this._history = new HistoryManager(this.options)
+
         for (const [key, value] of Object.entries(itemObject || {})) {
             this[key] = value
         }
     }
 
     /**
-     * Removes an item from the shop.
+     * Removes the item from the history.
      * 
      * This method is an alias for 'HistoryItem.remove()' method.
      * @returns {Boolean} If removed: true, else: false.
@@ -69,11 +89,11 @@ class HistoryItem {
     }
 
     /**
-     * Removes an item from the shop.
+     * Removes the item from the history.
      * @returns {Boolean} If removed: true, else: false.
      */
     remove() {
-        // return this._inventory.removeItem(this.id, this.guildID)
+        return this._history.remove(this.id, this.memberID, this.guildID)
     }
 }
 

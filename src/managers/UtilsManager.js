@@ -50,8 +50,9 @@ class UtilsManager {
      * @param {Object} options Economy configuration.
      * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
      */
-    constructor(options = {}) {
+    constructor(options = {}, database, fetcher) {
 
+        //console.log('fetch + database managers:', FetchManager, DatabaseManager)
         /**
          * Economy configuration.
          * @type {?EconomyOptions}
@@ -67,10 +68,10 @@ class UtilsManager {
         this._logger = new Logger(options)
 
         /**
-             * Full path to a JSON file.
-             * @private
-             * @type {String}
-            */
+        * Full path to a JSON file.
+        * @private
+        * @type {String}
+        */
         this.storagePath = options.storagePath || './storage.json'
 
         /**
@@ -78,14 +79,14 @@ class UtilsManager {
          * @type {FetchManager}
          * @private
          */
-        this.fetcher = new FetchManager(options)
+         this.fetcher = fetcher//new FetchManager(options)
 
         /**
          * Database manager methods object.
          * @type {DatabaseManager}
          * @private
          */
-        this.database = new DatabaseManager(options)
+        this.database = database //new DatabaseManager(options)
     }
 
     /**
@@ -113,7 +114,7 @@ class UtilsManager {
     * @returns {Object} Database contents
     */
     all() {
-        return this.fetcher.fetchAll()
+        return this.database.all()
     }
 
     /**
@@ -218,7 +219,12 @@ class UtilsManager {
 
         if (optionsFileExists) {
             // const fileLanguage = __filename.endsWith('js') ? 'js' : 'ts'
-            this._logger.debug(`Using configuration file at ${dirName}/economy.config.js...`, 'cyan')
+
+            // const file = require.main.filename
+            // console.log(file)
+
+            const slash = dirName.includes('\\') ? '\\' : '/'
+            this._logger.debug(`Using configuration file at ${dirName}${slash}economy.config.js...`, 'cyan')
 
             try {
                 const optionsObject = require(`${dirName}/economy.config.js`)
@@ -228,7 +234,7 @@ class UtilsManager {
 
                 // console.log('file:', optionsFile)
             } catch (err) {
-                this._logger.error(`Failed to open the configuration file: ${err.stack}`)
+                this._logger.error(`Failed to open the configuration file:\n${err.stack}`)
                 this._logger.debug('Using the configuration specified in a constructor...', 'cyan')
             }
         } else this._logger.debug('Using the configuration specified in a constructor...', 'cyan')

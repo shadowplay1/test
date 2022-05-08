@@ -6,6 +6,8 @@ const Bank = require('./user/Bank')
 
 const History = require('./user/History')
 const Inventory = require('./user/Inventory')
+const Cooldowns = require('./user/Cooldowns')
+const Rewards = require('./user/Rewards')
 
 
 /**
@@ -18,7 +20,7 @@ class EconomyUser {
      * @param {String} id User's ID.
      * @param {String} guildID Guild ID.
      * @param {EconomyOptions} ecoOptions Economy configuration.
-     * @param {EconomyUserData} userObject Economy user object.
+     * @param {RawEconomyUser} userObject Economy user object.
      */
     constructor(id, guildID, ecoOptions, userObject) {
 
@@ -33,26 +35,6 @@ class EconomyUser {
          * @type {String}
          */
         this.guildID = guildID
-
-
-        /**
-         * User's daily cooldown.
-         * @type {Number}
-         */
-        this.dailyCooldown = userObject.dailyCooldown
-
-        /**
-         * User's work cooldown.
-         * @type {Number}
-         */
-        this.workCooldown = userObject.workCooldown
-
-        /**
-         * User's weekly cooldown.
-         * @type {Number}
-         */
-        this.weeklyCooldown = userObject.weeklyCooldown
-
 
         /**
          * User's balance.
@@ -83,28 +65,40 @@ class EconomyUser {
         this._shop = new ShopManager(this.options)
 
         /**
-         * History class.
+         * User's cooldowns info.
+         * @type {Cooldowns}
+         */
+        this.cooldowns = new Cooldowns(userObject, ecoOptions)
+
+        /**
+         * User's history info.
          * @type {History}
          */
-        this.history = new History(this.id, guildID, ecoOptions)
+        this.history = new History(id, guildID, ecoOptions)
 
         /**
-         * Inventory class.
+         * User's inventory info.
          * @type {Inventory}
          */
-        this.inventory = new Inventory(this.id, guildID, ecoOptions)
+        this.inventory = new Inventory(id, guildID, ecoOptions)
 
         /**
-         * Balance class.
+         * User's balance info.
          * @type {Balance}
          */
-        this.balance = new Balance(this.id, guildID, ecoOptions)
+        this.balance = new Balance(id, guildID, ecoOptions)
 
         /**
-         * Bank balance class.
+         * User's bank balance info.
          * @type {Bank}
          */
-        this.bank = new Bank(this.id, guildID, this.storagePath)
+        this.bank = new Bank(id, guildID, this.storagePath)
+
+        /**
+         * User's rewards info.
+         * @type {Rewards}
+         */
+        this.rewards = new Rewards(id, guildID, this.storagePath)
 
         for (const [key, value] of Object.entries(userObject || {})) {
             this[key] = value
@@ -142,7 +136,7 @@ class EconomyUser {
 }
 
 /**
- * @typedef {Object} EconomyUserData Economy user object.
+ * @typedef {Object} RawEconomyUser Raw economy user object from database.
  * @property {number} dailyCooldown User's daily cooldown.
  * @property {number} workCooldown User's work cooldown.
  * @property {number} weeklyCooldown User's weekly cooldown.

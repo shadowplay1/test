@@ -1,7 +1,6 @@
 const { existsSync, readFileSync, writeFileSync } = require('fs')
 const { promisify } = require('util')
 
-
 const DatabaseManager = require('./managers/DatabaseManager')
 const FetchManager = require('./managers/FetchManager')
 
@@ -61,6 +60,17 @@ class Economy extends Emitter {
         this.version = require('../package.json').version
 
         /**
+         * The Logger class.
+         * @type {Logger}
+         * @private
+         */
+        this._logger = new Logger(options)
+
+        if (options.debug) {
+            this._logger.debug('Economy version: ' + this.version, 'lightcyan')
+        }
+
+        /**
          * Link to the module's documentation website.
          * @type {String}
          */
@@ -70,20 +80,13 @@ class Economy extends Emitter {
         * Utils manager methods object.
         * @type {UtilsManager}
         */
-        this.utils = new UtilsManager(options)
+        this.utils = new UtilsManager(options, new DatabaseManager(options), new FetchManager(options))
 
         /**
          * Economy configuration.
          * @type {?EconomyOptions}
          */
         this.options = this.utils.checkOptions(options.optionsChecker, options)
-
-        /**
-         * The Logger class.
-         * @type {Logger}
-         * @private
-         */
-        this._logger = new Logger(this.options)
 
         /**
          * Econoomy managers list. Made for optimization purposes.
@@ -323,6 +326,10 @@ class Economy extends Emitter {
                 if (this.errored) return
                 if (this.ready) return
 
+                if (Number(process.version.split('.')[0].slice(1)) < 14) {
+                    return reject(new EconomyError('This module is only supporting Node.js v14 or newer.'))
+                }
+
                 this._logger.debug('Checking for updates...')
 
                 /* eslint-disable max-len */
@@ -362,7 +369,7 @@ class Economy extends Emitter {
 
                         }
                     }
-                } else this._logger.debug('Skipped the updates checking.')
+                } else this._logger.debug('Skipped the updates checking...')
 
                 if (this.options.checkStorage == undefined ? true : this.options.checkStorage) {
                     this._logger.debug('Checking for reserved words in a storage file path...')
@@ -548,7 +555,7 @@ class Economy extends Emitter {
 
 
         for (const manager of managers) {
-            this[manager.name] = new manager.manager(this.options)
+            this[manager.name] = new manager.manager(this.options, new DatabaseManager(this.options))
             this._logger.debug(`${manager.manager.name} is started.`)
         }
 
@@ -681,7 +688,7 @@ class Economy extends Emitter {
 * @event Economy#shopItemEdit
 * @param {Number} id Item ID.
 * @param {String} data.guildID Guild ID.
-* @param {String} data.changed hat was changed in item data.
+* @param {String} data.changedProperty The item property that was changed.
 * @param {String} data.oldValue Value before edit.
 * @param {String} data.newValue Value after edit.
 */
@@ -769,6 +776,7 @@ class Economy extends Emitter {
  * @property {String} name The manager's short name.
  * @property {Function} manager The manager class.
  */
+
 
 /**
  * The Economy class.

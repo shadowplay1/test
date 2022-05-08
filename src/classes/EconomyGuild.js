@@ -45,7 +45,7 @@ class EconomyGuild {
         this.utils = new UtilsManager({ storagePath: ecoOptions.storagePath })
 
         /**
-         * Shop class.
+         * Guild shop info.
          * @type {Shop}
          */
         this.shop = new Shop(id, ecoOptions)

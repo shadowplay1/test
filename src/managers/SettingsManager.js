@@ -110,7 +110,7 @@ class SettingsManager {
      * Settings Manager.
      * @param {EconomyOptions} options Economy configuration.
      */
-    constructor(options) {
+    constructor(options, database) {
 
 
         /**
@@ -126,7 +126,7 @@ class SettingsManager {
         * @type {DatabaseManager}
         * @private
         */
-        this.database = new DatabaseManager(options)
+        this.database = database // new DatabaseManager(options)
 
         /**
         * Utils manager methods object.

@@ -4,7 +4,6 @@ const Emitter = require('../classes/util/Emitter')
 const FetchManager = require('./FetchManager')
 const DatabaseManager = require('./DatabaseManager')
 const BalanceManager = require('./BalanceManager')
-const SettingsManager = require('./SettingsManager')
 
 const errors = require('../structures/errors')
 
@@ -38,13 +37,6 @@ class InventoryManager extends Emitter {
          * @private
          */
         this.database = new DatabaseManager(options)
-
-        /**
-         * Settings manager methods object.
-         * @type {SettingsManager}
-         * @private
-         */
-        this.settings = new SettingsManager(options)
 
         /**
          * Balance manager methods object.
@@ -155,7 +147,7 @@ class InventoryManager extends Emitter {
      * @param {String} guildID Guild ID.
      * @returns {InventoryData[]} User's inventory array.
      */
-    list(memberID, guildID) {
+    get(memberID, guildID) {
         return this.fetch(memberID, guildID)
     }
 
@@ -364,7 +356,7 @@ class InventoryManager extends Emitter {
     sellItem(itemID, memberID, guildID, reason = 'sold the item from the inventory') {
         const item = this.searchItem(itemID, memberID, guildID)
 
-        const percent = this.settings.get('sellingItemPercent', guildID)
+        const percent = this.database.fetch(`${guildID}.settings.sellingItemPercent`)
             || this.options.sellingItemPercent
 
         const sellingPrice = Math.floor((item?.price / 100) * percent)

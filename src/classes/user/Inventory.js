@@ -11,6 +11,13 @@ const InventoryItem = require('../InventoryItem')
  * User inventory class.
  */
 class Inventory extends BaseManager {
+
+    /**
+     * Inventory constructor.
+     * @param {String} memberID Member ID.
+     * @param {String} guildID Guild ID.
+     * @param {EconomyOptions} options Economy configuration.
+     */
     constructor(memberID, guildID, options) {
         super(options, InventoryItem)
 
@@ -27,7 +34,7 @@ class Inventory extends BaseManager {
         this.guildID = guildID
 
         /**
-         * Economy options.
+         * Economy configuration.
          * @type {EconomyOptions}
          * @private
          */
@@ -216,7 +223,14 @@ class Inventory extends BaseManager {
      * @returns {InventoryItem[]} User's inventory array.
      */
     fetch() {
-        return this.database.fetch(`${this.guildID}.${this.memberID}.inventory`) || []
+        const inventory = this.database.fetch(`${this.guildID}.${this.memberID}.inventory`) || []
+
+        return inventory.map(
+            inventoryItem => new InventoryItem(
+                this.guildID, this.memberID,
+                this.options, inventoryItem
+            )
+        )
     }
 
     /**

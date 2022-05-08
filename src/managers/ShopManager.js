@@ -2,7 +2,6 @@ const Emitter = require('../classes/util/Emitter')
 const EconomyError = require('../classes/util/EconomyError')
 
 const DatabaseManager = require('./DatabaseManager')
-const SettingsManager = require('./SettingsManager')
 
 const errors = require('../structures/errors')
 const ShopItem = require('../classes/ShopItem')
@@ -42,13 +41,6 @@ class ShopManager extends Emitter {
          * @private
          */
         this.database = new DatabaseManager(options)
-
-        /**
-         * Database manager methods object.
-         * @type {SettingsManager}
-         * @private
-         */
-        this.settings = new SettingsManager(options)
     }
 
     /**
@@ -58,17 +50,32 @@ class ShopManager extends Emitter {
      * @returns {ShopItem} Item info.
      */
     addItem(guildID, options = {}) {
-        const {
-            name, price, message,
+        let {
+            // eslint-disable-next-line prefer-const
+            name, itemName, price, message,
+            // eslint-disable-next-line prefer-const
             description, maxAmount, role
         } = options
 
 
-        const dateLocale = this.settings.get('dateLocale', guildID)
+        const dateLocale = this.database.fetch(`${guildID}.settings.dateLocale`)
             || this.options.dateLocale
 
         const date = new Date().toLocaleString(dateLocale)
         const shop = this.database.fetch(`${guildID}.shop`)
+
+        if (!name && itemName) {
+            name = itemName
+
+            console.log(
+                errors.propertyDeprecationWarning('ShopManager', 'itemName', 'name', {
+                    method: 'addItem',
+                    argumentName: 'options',
+                    argumentsList: ['guildID', 'options'],
+                    example: 'banana'
+                })
+            )
+        }
 
         if (typeof guildID !== 'string') {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
@@ -304,7 +311,9 @@ class ShopManager extends Emitter {
             console.log(
                 errors.deprecationWarning(
                     'ShopManager', 'clearInventory',
-                    'InventoryManager', 'clear'
+                    'InventoryManager', 'clear',
+                    ['memberID', 'guildID'],
+                    ['memberID', 'guildID']
                 )
             )
         }
@@ -409,7 +418,9 @@ class ShopManager extends Emitter {
             console.log(
                 errors.deprecationWarning(
                     'ShopManager', 'searchInventoryItem',
-                    'InventoryManager', 'searchItem'
+                    'InventoryManager', 'searchItem',
+                    ['itemID', 'memberID', 'guildID'],
+                    ['itemID', 'memberID', 'guildID']
                 )
             )
         }
@@ -457,13 +468,13 @@ class ShopManager extends Emitter {
         const inventoryItems = inventory.filter(invItem => invItem.name == item.name)
 
 
-        const dateLocale = this.settings.get('dateLocale', guildID)
+        const dateLocale = this.database.fetch(`${guildID}.settings.dateLocale`)
             || this.options.dateLocale
 
-        const subtractOnBuy = this.settings.get('subtractOnBuy', guildID)
+        const subtractOnBuy = this.database.fetch(`${guildID}.settings.subtractOnBuy`)
             || this.options.subtractOnBuy
 
-        const savePurchasesHistory = this.settings.get('savePurchasesHistory', guildID)
+        const savePurchasesHistory = this.database.fetch(`${guildID}.settings.savePurchasesHistory`)
             || this.options.savePurchasesHistory
 
 
@@ -576,7 +587,9 @@ class ShopManager extends Emitter {
             console.log(
                 errors.deprecationWarning(
                     'ShopManager', 'inventory',
-                    'InventoryManager', 'fetch'
+                    'InventoryManager', 'get',
+                    ['memberID', 'guildID'],
+                    ['memberID', 'guildID']
                 )
             )
         }
@@ -616,7 +629,9 @@ class ShopManager extends Emitter {
             console.log(
                 errors.deprecationWarning(
                     'ShopManager', 'useItem',
-                    'InventoryManager', 'useItem'
+                    'InventoryManager', 'useItem',
+                    ['itemID', 'memberID', 'guildID', '[client]'],
+                    ['itemID', 'memberID', 'guildID', '[client]']
                 )
             )
         }
@@ -694,7 +709,9 @@ class ShopManager extends Emitter {
             console.log(
                 errors.deprecationWarning(
                     'ShopManager', 'history',
-                    'HistoryManager', 'fetch'
+                    'HistoryManager', 'fetch',
+                    ['memberID', 'guildID'],
+                    ['memberID', 'guildID']
                 )
             )
         }
@@ -736,7 +753,9 @@ class ShopManager extends Emitter {
             console.log(
                 errors.deprecationWarning(
                     'ShopManager', 'clearHistory',
-                    'HistoryManager', 'clear'
+                    'HistoryManager', 'clear',
+                    ['memberID', 'guildID'],
+                    ['memberID', 'guildID']
                 )
             )
         }

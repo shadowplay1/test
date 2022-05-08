@@ -22,7 +22,7 @@ var y = d * 365.25
  * @api public
  */
 
-module.exports = function (val, options) {
+module.exports = function (val, options = { long: true }) {
     options = options || {}
     var type = typeof val
     if (type === 'string' && val.length > 0) {
@@ -30,10 +30,8 @@ module.exports = function (val, options) {
     } else if (type === 'number' && isFinite(val)) {
         return options.long ? fmtLong(val) : fmtShort(val)
     }
-    throw new Error(
-        'val is not a non-empty string or a valid number. val=' +
-        JSON.stringify(val)
-    )
+
+    return null
 }
 
 /**

@@ -107,11 +107,49 @@ module.exports = {
      * @param {String} oldMethod 
      * @param {String} newManager 
      * @param {String} newMethod
+     * @param {String[]} argumentsList
      * @returns {String} Deprecation warning message.
      */
-    deprecationWarning(oldManager, oldMethod, newManager, newMethod) {
-        return `${colors.magenta}[Economy] ${colors.red}"${oldManager}.${oldMethod}()"${colors.cyan} is ` +
-            `${colors.yellow}deprecated${colors.cyan}. ` +
-            `Use ${colors.green}"${newManager}.${newMethod}()"${colors.cyan} instead.${colors.reset}`
+    deprecationWarning(oldManager, oldMethod, newManager, newMethod, argumentsList = [], newArgumentsList = []) {
+        return `${colors.magenta}[Economy - Deprecation Warning] ${colors.red}"${oldManager}.${oldMethod}` +
+            `(${argumentsList.join(', ')})"${colors.cyan} is ${colors.yellow}deprecated${colors.cyan}. ` +
+            `Use ${colors.green}"${newManager}.${newMethod}(${newArgumentsList.join(', ')})"` +
+            `${colors.cyan} instead.${colors.reset}`
+    },
+
+    /**
+     * Sends a property deprecation warning in a console.
+     * @param {string} manager The manager where the method is using a deprecated property.
+     * @param {string} oldProperty The option that is deprecated.
+     * @param {string} newProperty The new option that should be used instead of the deprecated one.
+     * 
+     * @param {ProperyDeprecationOptions} [objectPropertyOptions] 
+     * Can be used if the deprecated property is an object property.
+     * 
+     * @returns {string} A message to be sent to the console.
+     */
+    propertyDeprecationWarning(manager, oldProperty, newProperty, objectPropertyOptions = null) {
+        if (objectPropertyOptions) {
+            const { method, argumentName, argumentsList, example } = objectPropertyOptions
+
+            return `${colors.magenta}[Economy - Deprecation Warning] ${colors.cyan}In ${colors.yellow}` +
+                `"${manager}.${method}(${argumentsList.join(', ')})"${colors.cyan} method in ` +
+                `${colors.red}"${argumentName}"${colors.cyan} object, property ${colors.red}"${oldProperty}"` +
+                `${colors.cyan} is ${colors.yellow}deprecated${colors.cyan}. ` +
+                `Use ${colors.green}"${manager}.${method}({ ${newProperty}: '${example}' })"` +
+                `${colors.cyan} instead.${colors.reset}`
+        } else {
+            return `${colors.magenta}[Economy - Deprecation Warning] ${colors.red}"${manager}.${oldProperty}"` +
+                `${colors.cyan} property is ${colors.yellow}deprecated${colors.cyan}. ` +
+                `Use ${colors.green}"${manager}.${newProperty}"${colors.cyan} instead.${colors.reset}`
+        }
     }
 }
+
+/**
+ * @typedef {Object} ProperyDeprecationOptions
+ * @property {string} method The method that includes an options object with deprecated property.
+ * @property {string} argumentName The name of the argument where the options object has a deprecated property.
+ * @property {string[]} argumentsList The list of arguments of the method.
+ * @property {string} example Example of the usage of the new property. 
+ */

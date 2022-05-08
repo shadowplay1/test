@@ -6,6 +6,7 @@ const errors = require('../structures/errors')
 const EconomyError = require('../classes/util/EconomyError')
 const Logger = require('../classes/util/Logger')
 
+
 /**
  * Database manager methods class.
  */
@@ -13,7 +14,6 @@ class DatabaseManager {
 
     /**
      * Database Manager.
-     * 
      * @param {Object} options Economy configuration.
      * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
      */
@@ -33,12 +33,6 @@ class DatabaseManager {
          * @private
          */
         this.fetcher = new FetchManager(options)
-
-        /**
-         * Is the debug mode enabled.
-         * @type {Boolean}
-         */
-        this.debug = options.debug
 
         /**
          * Full path to a JSON file.
@@ -63,7 +57,7 @@ class DatabaseManager {
      * @returns {String[]} An array with all keys in database or 'null' if nothing found.
      */
     keyList(key) {
-        const storageData = this.fetcher.fetchAll()
+        const storageData = this.all()
         const data = this.fetch(key)
 
         if (!key || typeof key !== 'string') return Object.keys(storageData).filter(key => storageData[key])
@@ -77,9 +71,10 @@ class DatabaseManager {
      * Sets data in a property in database.
      * @param {String} key The key in database.
      * @param {any} value Any data to set in property.
+     * @param {Boolean} [debug=false] If true, debug log will be sent.
      * @returns {Boolean} If set successfully: true; else: false
      */
-    set(key, value) {
+    set(key, value, debug) {
         if (!key) return false
         if (value == undefined) return false
 
@@ -87,7 +82,7 @@ class DatabaseManager {
             throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data)
         }
 
-        this._logger.debug(`Performed set operation on key "${key}".`)
+        if (debug) this._logger.debug(`Performed "set" operation on key "${key}".`)
 
         return this.parser.set(key, value)
     }
@@ -117,7 +112,8 @@ class DatabaseManager {
         const numData = Number(data)
         const numValue = Number(value)
 
-        return this.set(key, numData + numValue)
+        this._logger.debug(`Performed "add" operation on key "${key}".`)
+        return this.set(key, numData + numValue, false)
     }
 
     /**
@@ -145,7 +141,8 @@ class DatabaseManager {
         const numData = Number(data)
         const numValue = Number(value)
 
-        return this.set(key, numData - numValue)
+        this._logger.debug(`Performed "subtract" operation on key "${key}".`)
+        return this.set(key, numData - numValue, false)
     }
 
     /**
@@ -191,10 +188,12 @@ class DatabaseManager {
      */
     remove(key) {
         if (!key) return false
+
         if (typeof key !== 'string') {
             throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data)
         }
 
+        this._logger.debug(`Performed "delete" operation on key "${key}".`)
         return this.parser.remove(key)
     }
 
@@ -228,8 +227,10 @@ class DatabaseManager {
             throw new EconomyError(errors.databaseManager.invalidTypes.target.array + typeof data)
         }
 
+        this._logger.debug(`Performed "push" operation on key "${key}".`)
+
         data.push(value)
-        return this.set(key, data)
+        return this.set(key, data, false)
     }
 
     /**
@@ -250,8 +251,10 @@ class DatabaseManager {
             throw new EconomyError(errors.databaseManager.invalidTypes.target.array + typeof data)
         }
 
+        this._logger.debug(`Performed "removeElement" operation on key "${key}".`)
+
         data.splice(index, 1)
-        return this.set(key, data)
+        return this.set(key, data, false)
     }
 
     /**
@@ -281,8 +284,10 @@ class DatabaseManager {
             throw new EconomyError(errors.databaseManager.invalidTypes.value.newValue + typeof newValue)
         }
 
+        this._logger.debug(`Performed "changeElement" operation on key "${key}".`)
+
         data.splice(index, 1, newValue)
-        return this.set(key, data)
+        return this.set(key, data, false)
     }
 
     /**

@@ -1,5 +1,4 @@
 const DatabaseManager = require('./DatabaseManager')
-
 const EconomyError = require('../classes/util/EconomyError')
 
 const errors = require('../structures/errors')
@@ -16,7 +15,7 @@ class HistoryManager {
     * @param {String} options.dateLocale The region (example: 'ru' or 'en') to format date and time. Default: 'en'.
     * @param {Boolean} options.savePurchasesHistory If true, the module will save all the purchases history.
     */
-    constructor(options = {}) {
+    constructor(options = {}, database) {
 
 
         /**
@@ -38,7 +37,7 @@ class HistoryManager {
         * @type {DatabaseManager}
         * @private
         */
-        this.database = new DatabaseManager(options)
+        this.database = database
     }
 
     /**
@@ -73,7 +72,7 @@ class HistoryManager {
     * @param {String} guildID Guild ID
     * @returns {HistoryItem[]} User's purchases history.
     */
-    list(memberID, guildID) {
+    get(memberID, guildID) {
         return this.fetch(memberID, guildID)
     }
 

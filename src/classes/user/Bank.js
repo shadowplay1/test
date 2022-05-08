@@ -9,7 +9,14 @@ const DatabaseManager = require('../../managers/DatabaseManager')
  * User bank class.
  */
 class Bank extends Emitter {
-    constructor(memberID, guildID, storagePath) {
+
+    /**
+     * User balance class.
+     * @param {String} memberID Member ID.
+     * @param {String} guildID Guild ID.
+     * @param {EconomyOptions} ecoOptions Economy configuration.
+     */
+    constructor(memberID, guildID, options) {
         super()
 
         /**
@@ -25,11 +32,17 @@ class Bank extends Emitter {
         this.guildID = guildID
 
         /**
+         * Economy configuration.
+         * @type {EconomyOptions}
+         */
+        this.options = options
+
+        /**
          * Databaase Manager.
          * @type {DatabaseManager}
          * @private
          */
-        this.database = new DatabaseManager({ storagePath })
+        this.database = new DatabaseManager(options)
     }
 
     /**

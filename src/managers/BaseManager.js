@@ -8,11 +8,32 @@ const UtilsManager = require('./UtilsManager')
  * The default manager with its default methods.
  * 
  * [!] This manager cannot be used directly.
+ * 
  * [!] When extending this manager, make sure to have an `all()` method in your child class.
  * 
  * [!] Make sure to specify your main item class (EconomyUser, ShopItem, etc.) 
  * in a second argument in super() for a manager to work with.
  * @extends {Emitter}
+ * 
+ * @example
+ * const BaseManager = require('./BaseManager')
+ * 
+ * const DatabaseManager = require('./DatabaseManager')
+ * const ShopItem = require('./ShopItem') // must be a class
+ * 
+ * class ShopManager extends BaseManager {
+ *    constructor(options) {
+ *       super(options, ShopItem)
+ * 
+ *       this.database = new DatabaseManager(options)
+ *       this.options = options
+ *   }
+ *  
+ *  all() {
+ *      const shop = this.database.fetch(`${this.guildID}.shop`) || []
+        return shop.map(item => new ShopItem(this.guildID, this.options, item))
+ *  }
+ * }
  */
 class BaseManager extends Emitter {
 

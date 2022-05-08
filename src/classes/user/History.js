@@ -13,6 +13,13 @@ const HistoryItem = require('../HistoryItem')
  * User purchases history class.
  */
 class History extends BaseManager {
+
+    /**
+     * History constructor.
+     * @param {String} memberID Member ID.
+     * @param {String} guildID Guild ID.
+     * @param {EconomyOptions} options Economy configuration.
+     */
     constructor(memberID, guildID, options) {
         super(options, HistoryItem)
 
@@ -58,12 +65,12 @@ class History extends BaseManager {
      */
     all() {
         const results = this.database.fetch(`${this.guildID}.${this.memberID}.history`) || []
-        return results
+        return results.map(historyItem => new HistoryItem(guildID, this.options, historyItem))
     }
 
     /**
      * Adds the item from the shop to the purchases history.
-     * @param {String | Number} id Shop item ID.
+     * @param {String | Number} itemID Shop item ID.
      * @returns {Boolean} If added: true, else: false.
      */
     add(itemID) {

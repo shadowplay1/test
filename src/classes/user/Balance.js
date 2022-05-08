@@ -14,7 +14,7 @@ class Balance extends Emitter {
      * User balance class.
      * @param {String} memberID Member ID.
      * @param {String} guildID Guild ID.
-     * @param {EconomyOptions} ecoOptions Economy options.
+     * @param {EconomyOptions} ecoOptions Economy configuration.
      */
     constructor(memberID, guildID, ecoOptions) {
         super()
