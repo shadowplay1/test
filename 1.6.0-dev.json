@@ -1,8 +1,8 @@
 {
     "meta": {
-        "generator": "0.10.0",
+        "generator": "0.11.1",
         "format": 20,
-        "date": 1651707532928
+        "date": 1652052360834
     },
     "custom": {
         "general": {
@@ -75,7 +75,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 49,
+                        "line": 48,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -92,7 +92,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 55,
+                        "line": 54,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -108,56 +108,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 61,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "docs",
-                    "description": "Link to the module's documentation website.",
-                    "type": [
-                        [
-                            [
-                                "String"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 67,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "utils",
-                    "description": "Utils manager methods object.",
-                    "type": [
-                        [
-                            [
-                                "UtilsManager"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 73,
-                        "file": "index.js",
-                        "path": "src"
-                    }
-                },
-                {
-                    "name": "options",
-                    "description": "Economy configuration.",
-                    "nullable": true,
-                    "type": [
-                        [
-                            [
-                                "EconomyOptions"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 79,
+                        "line": 60,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -174,7 +125,56 @@
                         ]
                     ],
                     "meta": {
-                        "line": 86,
+                        "line": 67,
+                        "file": "index.js",
+                        "path": "src"
+                    }
+                },
+                {
+                    "name": "docs",
+                    "description": "Link to the module's documentation website.",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 77,
+                        "file": "index.js",
+                        "path": "src"
+                    }
+                },
+                {
+                    "name": "utils",
+                    "description": "Utils manager methods object.",
+                    "type": [
+                        [
+                            [
+                                "UtilsManager"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 83,
+                        "file": "index.js",
+                        "path": "src"
+                    }
+                },
+                {
+                    "name": "options",
+                    "description": "Economy configuration.",
+                    "nullable": true,
+                    "type": [
+                        [
+                            [
+                                "EconomyOptions"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 89,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -195,7 +195,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 92,
+                        "line": 95,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -211,7 +211,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 98,
+                        "line": 101,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -228,7 +228,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 104,
+                        "line": 107,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -244,7 +244,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 110,
+                        "line": 113,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -260,7 +260,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 116,
+                        "line": 119,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -276,7 +276,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 122,
+                        "line": 125,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -292,7 +292,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 128,
+                        "line": 131,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -308,7 +308,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 134,
+                        "line": 137,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -324,7 +324,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 140,
+                        "line": 143,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -340,7 +340,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 146,
+                        "line": 149,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -356,7 +356,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 152,
+                        "line": 155,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -372,7 +372,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 158,
+                        "line": 161,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -388,7 +388,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 164,
+                        "line": 167,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -404,7 +404,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 170,
+                        "line": 173,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -420,7 +420,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 176,
+                        "line": 179,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -436,7 +436,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 182,
+                        "line": 185,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -452,7 +452,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 188,
+                        "line": 191,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -468,7 +468,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 194,
+                        "line": 197,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -489,7 +489,7 @@
                         "description": "Economy instance."
                     },
                     "meta": {
-                        "line": 212,
+                        "line": 215,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -513,7 +513,7 @@
                         "description": "If started successfully: true; else: Error instance."
                     },
                     "meta": {
-                        "line": 234,
+                        "line": 237,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -538,7 +538,7 @@
                         "description": "If started successfully: true; else: Error instance."
                     },
                     "meta": {
-                        "line": 307,
+                        "line": 310,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -558,7 +558,7 @@
                         "description": "If successfully started: true."
                     },
                     "meta": {
-                        "line": 476,
+                        "line": 483,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -648,7 +648,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 568,
+                        "line": 575,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -736,7 +736,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 580,
+                        "line": 587,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -824,7 +824,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 592,
+                        "line": 599,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -912,7 +912,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 604,
+                        "line": 611,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1000,7 +1000,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 616,
+                        "line": 623,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1088,7 +1088,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 628,
+                        "line": 635,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1187,7 +1187,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 640,
+                        "line": 647,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1286,7 +1286,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 653,
+                        "line": 660,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1385,7 +1385,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 666,
+                        "line": 673,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1417,8 +1417,8 @@
                             ]
                         },
                         {
-                            "name": "data.changed",
-                            "description": "hat was changed in item data.",
+                            "name": "data.changedProperty",
+                            "description": "The item property that was changed.",
                             "type": [
                                 [
                                     [
@@ -1451,7 +1451,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 679,
+                        "line": 686,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1473,7 +1473,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 689,
+                        "line": 696,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1495,14 +1495,14 @@
                         }
                     ],
                     "meta": {
-                        "line": 695,
+                        "line": 702,
                         "file": "index.js",
                         "path": "src"
                     }
                 }
             ],
             "meta": {
-                "line": 36,
+                "line": 35,
                 "file": "index.js",
                 "path": "src"
             }
@@ -1618,7 +1618,7 @@
                 },
                 {
                     "name": "shop",
-                    "description": "Shop class.",
+                    "description": "Guild shop info.",
                     "type": [
                         [
                             [
@@ -1725,7 +1725,7 @@
                         "type": [
                             [
                                 [
-                                    "EconomyUserData"
+                                    "RawEconomyUser"
                                 ]
                             ]
                         ]
@@ -1744,7 +1744,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 29,
+                        "line": 31,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1760,55 +1760,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 35,
-                        "file": "EconomyUser.js",
-                        "path": "src/classes"
-                    }
-                },
-                {
-                    "name": "dailyCooldown",
-                    "description": "User's daily cooldown.",
-                    "type": [
-                        [
-                            [
-                                "Number"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 42,
-                        "file": "EconomyUser.js",
-                        "path": "src/classes"
-                    }
-                },
-                {
-                    "name": "workCooldown",
-                    "description": "User's work cooldown.",
-                    "type": [
-                        [
-                            [
-                                "Number"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 48,
-                        "file": "EconomyUser.js",
-                        "path": "src/classes"
-                    }
-                },
-                {
-                    "name": "weeklyCooldown",
-                    "description": "User's weekly cooldown.",
-                    "type": [
-                        [
-                            [
-                                "Number"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 54,
+                        "line": 37,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1824,7 +1776,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 61,
+                        "line": 43,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1841,7 +1793,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 69,
+                        "line": 51,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1858,7 +1810,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 76,
+                        "line": 58,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1875,18 +1827,66 @@
                         ]
                     ],
                     "meta": {
-                        "line": 83,
+                        "line": 65,
+                        "file": "EconomyUser.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "cooldowns",
+                    "description": "User's cooldowns info.",
+                    "type": [
+                        [
+                            [
+                                "Cooldowns"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 71,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
                 },
                 {
                     "name": "history",
-                    "description": "History class.",
+                    "description": "User's history info.",
                     "type": [
                         [
                             [
                                 "History"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 77,
+                        "file": "EconomyUser.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "inventory",
+                    "description": "User's inventory info.",
+                    "type": [
+                        [
+                            [
+                                "Inventory"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 83,
+                        "file": "EconomyUser.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "balance",
+                    "description": "User's balance info.",
+                    "type": [
+                        [
+                            [
+                                "Balance"
                             ]
                         ]
                     ],
@@ -1897,12 +1897,12 @@
                     }
                 },
                 {
-                    "name": "inventory",
-                    "description": "Inventory class.",
+                    "name": "bank",
+                    "description": "User's bank balance info.",
                     "type": [
                         [
                             [
-                                "Inventory"
+                                "Bank"
                             ]
                         ]
                     ],
@@ -1913,33 +1913,17 @@
                     }
                 },
                 {
-                    "name": "balance",
-                    "description": "Balance class.",
+                    "name": "rewards",
+                    "description": "User's rewards info.",
                     "type": [
                         [
                             [
-                                "Balance"
+                                "Rewards"
                             ]
                         ]
                     ],
                     "meta": {
                         "line": 101,
-                        "file": "EconomyUser.js",
-                        "path": "src/classes"
-                    }
-                },
-                {
-                    "name": "bank",
-                    "description": "Bank balance class.",
-                    "type": [
-                        [
-                            [
-                                "Bank"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 107,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1960,7 +1944,7 @@
                         "description": "Deleted user object."
                     },
                     "meta": {
-                        "line": 118,
+                        "line": 112,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1979,7 +1963,7 @@
                         "description": "If reset successfully: true; else: false."
                     },
                     "meta": {
-                        "line": 127,
+                        "line": 121,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -2016,14 +2000,14 @@
                         "description": "If item bought successfully: true; if item not found, false will be returned; \rif user reached the item's max amount: 'max' string."
                     },
                     "meta": {
-                        "line": 139,
+                        "line": 133,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
                 }
             ],
             "meta": {
-                "line": 14,
+                "line": 16,
                 "file": "EconomyUser.js",
                 "path": "src/classes"
             }
@@ -2082,7 +2066,39 @@
                         ]
                     ],
                     "meta": {
-                        "line": 18,
+                        "line": 20,
+                        "file": "HistoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "memberID",
+                    "description": "Member ID.",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 26,
+                        "file": "HistoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "options",
+                    "description": "Economy configuration.",
+                    "type": [
+                        [
+                            [
+                                "EconomyOptions"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 32,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
@@ -2098,7 +2114,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 24,
+                        "line": 38,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
@@ -2114,7 +2130,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 30,
+                        "line": 44,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
@@ -2130,7 +2146,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 36,
+                        "line": 50,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
@@ -2146,7 +2162,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 42,
+                        "line": 56,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
@@ -2162,7 +2178,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 48,
+                        "line": 62,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
@@ -2178,7 +2194,23 @@
                         ]
                     ],
                     "meta": {
-                        "line": 54,
+                        "line": 68,
+                        "file": "HistoryItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "_history",
+                    "description": "Inventory Manager.",
+                    "type": [
+                        [
+                            [
+                                "HistoryManager"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 74,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
@@ -2187,7 +2219,7 @@
             "methods": [
                 {
                     "name": "delete",
-                    "description": "Removes an item from the shop.\r\rThis method is an alias for 'HistoryItem.remove()' method.",
+                    "description": "Removes the item from the history.\r\rThis method is an alias for 'HistoryItem.remove()' method.",
                     "returns": {
                         "types": [
                             [
@@ -2199,14 +2231,14 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 67,
+                        "line": 87,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
                 },
                 {
                     "name": "remove",
-                    "description": "Removes an item from the shop.",
+                    "description": "Removes the item from the history.",
                     "returns": {
                         "types": [
                             [
@@ -2218,14 +2250,14 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 75,
+                        "line": 95,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
                 }
             ],
             "meta": {
-                "line": 4,
+                "line": 6,
                 "file": "HistoryItem.js",
                 "path": "src/classes"
             }
@@ -3108,7 +3140,7 @@
                     },
                     {
                         "name": "ecoOptions",
-                        "description": "Economy options.",
+                        "description": "Economy configuration.",
                         "type": [
                             [
                                 [
@@ -3416,6 +3448,45 @@
         {
             "name": "Bank",
             "description": "User bank class.",
+            "construct": {
+                "name": "Bank",
+                "description": "User balance class.",
+                "params": [
+                    {
+                        "name": "memberID",
+                        "description": "Member ID.",
+                        "type": [
+                            [
+                                [
+                                    "String"
+                                ]
+                            ]
+                        ]
+                    },
+                    {
+                        "name": "guildID",
+                        "description": "Guild ID.",
+                        "type": [
+                            [
+                                [
+                                    "String"
+                                ]
+                            ]
+                        ]
+                    },
+                    {
+                        "name": "ecoOptions",
+                        "description": "Economy configuration.",
+                        "type": [
+                            [
+                                [
+                                    "EconomyOptions"
+                                ]
+                            ]
+                        ]
+                    }
+                ]
+            },
             "props": [
                 {
                     "name": "memberID",
@@ -3428,7 +3499,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 19,
+                        "line": 26,
                         "file": "Bank.js",
                         "path": "src/classes/user"
                     }
@@ -3444,7 +3515,23 @@
                         ]
                     ],
                     "meta": {
-                        "line": 25,
+                        "line": 32,
+                        "file": "Bank.js",
+                        "path": "src/classes/user"
+                    }
+                },
+                {
+                    "name": "options",
+                    "description": "Economy configuration.",
+                    "type": [
+                        [
+                            [
+                                "EconomyOptions"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 38,
                         "file": "Bank.js",
                         "path": "src/classes/user"
                     }
@@ -3461,7 +3548,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 32,
+                        "line": 45,
                         "file": "Bank.js",
                         "path": "src/classes/user"
                     }
@@ -3507,7 +3594,7 @@
                         "description": "Money amount"
                     },
                     "meta": {
-                        "line": 41,
+                        "line": 54,
                         "file": "Bank.js",
                         "path": "src/classes/user"
                     }
@@ -3551,7 +3638,7 @@
                         "description": "Money amount."
                     },
                     "meta": {
-                        "line": 68,
+                        "line": 81,
                         "file": "Bank.js",
                         "path": "src/classes/user"
                     }
@@ -3595,7 +3682,7 @@
                         "description": "Money amount."
                     },
                     "meta": {
-                        "line": 95,
+                        "line": 108,
                         "file": "Bank.js",
                         "path": "src/classes/user"
                     }
@@ -3614,7 +3701,7 @@
                         "description": "User's bank balance."
                     },
                     "meta": {
-                        "line": 120,
+                        "line": 133,
                         "file": "Bank.js",
                         "path": "src/classes/user"
                     }
@@ -3633,7 +3720,7 @@
                         "description": "User's bank balance."
                     },
                     "meta": {
-                        "line": 130,
+                        "line": 143,
                         "file": "Bank.js",
                         "path": "src/classes/user"
                     }
@@ -3646,8 +3733,291 @@
             }
         },
         {
+            "name": "Cooldowns",
+            "construct": {
+                "name": "Cooldowns",
+                "description": "Cooldowns class.",
+                "params": [
+                    {
+                        "name": "userObject",
+                        "description": "User object from database.",
+                        "type": [
+                            [
+                                [
+                                    "RawEconomyUser"
+                                ]
+                            ]
+                        ]
+                    },
+                    {
+                        "name": "options",
+                        "description": "Economy configuration.",
+                        "type": [
+                            [
+                                [
+                                    "EconomyOptions"
+                                ]
+                            ]
+                        ]
+                    }
+                ]
+            },
+            "props": [
+                {
+                    "name": "options",
+                    "description": "Economy configuration.",
+                    "type": [
+                        [
+                            [
+                                "EconomyOptions"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 26,
+                        "file": "Cooldowns.js",
+                        "path": "src/classes/user"
+                    }
+                },
+                {
+                    "name": "_database",
+                    "description": "Database Manager.",
+                    "access": "private",
+                    "type": [
+                        [
+                            [
+                                "DatabaseManager"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 33,
+                        "file": "Cooldowns.js",
+                        "path": "src/classes/user"
+                    }
+                },
+                {
+                    "name": "_cooldowns",
+                    "description": "Cooldowns object.",
+                    "access": "private",
+                    "type": [
+                        [
+                            [
+                                "CooldownsObject"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 40,
+                        "file": "Cooldowns.js",
+                        "path": "src/classes/user"
+                    }
+                },
+                {
+                    "name": "_rawUser",
+                    "description": "Raw user object.",
+                    "access": "private",
+                    "type": [
+                        [
+                            [
+                                "RawEconomyUser"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 51,
+                        "file": "Cooldowns.js",
+                        "path": "src/classes/user"
+                    }
+                },
+                {
+                    "name": "_rewardCooldowns",
+                    "description": "Cooldowns configuration object.",
+                    "type": [
+                        [
+                            [
+                                "Cooldown"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 57,
+                        "file": "Cooldowns.js",
+                        "path": "src/classes/user"
+                    }
+                }
+            ],
+            "methods": [
+                {
+                    "name": "getCooldown",
+                    "description": "Returns the cooldown of the specified type.",
+                    "params": [
+                        {
+                            "name": "type",
+                            "description": "Cooldown type.",
+                            "type": [
+                                [
+                                    [
+                                        "daily",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "work",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "weekly",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "CooldownData"
+                                ]
+                            ]
+                        ],
+                        "description": "Cooldown object."
+                    },
+                    "meta": {
+                        "line": 74,
+                        "file": "Cooldowns.js",
+                        "path": "src/classes/user"
+                    }
+                },
+                {
+                    "name": "getDaily",
+                    "description": "Gets a user's daily cooldown.",
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "CooldownData"
+                                ]
+                            ]
+                        ],
+                        "description": "User's daily cooldown."
+                    },
+                    "meta": {
+                        "line": 84,
+                        "file": "Cooldowns.js",
+                        "path": "src/classes/user"
+                    }
+                },
+                {
+                    "name": "getWork",
+                    "description": "Gets a user's work cooldown.",
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "CooldownData"
+                                ]
+                            ]
+                        ],
+                        "description": "User's work cooldown."
+                    },
+                    "meta": {
+                        "line": 94,
+                        "file": "Cooldowns.js",
+                        "path": "src/classes/user"
+                    }
+                },
+                {
+                    "name": "getWeekly",
+                    "description": "Gets a user's weekly cooldown.",
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "CooldownData"
+                                ]
+                            ]
+                        ],
+                        "description": "User's weekly cooldown."
+                    },
+                    "meta": {
+                        "line": 104,
+                        "file": "Cooldowns.js",
+                        "path": "src/classes/user"
+                    }
+                },
+                {
+                    "name": "getAll",
+                    "description": "Gets all user's cooldowns",
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "CooldownsTimeObject"
+                                ]
+                            ]
+                        ],
+                        "description": "User's cooldowns object."
+                    },
+                    "meta": {
+                        "line": 114,
+                        "file": "Cooldowns.js",
+                        "path": "src/classes/user"
+                    }
+                }
+            ],
+            "meta": {
+                "line": 20,
+                "file": "Cooldowns.js",
+                "path": "src/classes/user"
+            }
+        },
+        {
             "name": "History",
             "description": "User purchases history class.",
+            "construct": {
+                "name": "History",
+                "description": "History constructor.",
+                "params": [
+                    {
+                        "name": "memberID",
+                        "description": "Member ID.",
+                        "type": [
+                            [
+                                [
+                                    "String"
+                                ]
+                            ]
+                        ]
+                    },
+                    {
+                        "name": "guildID",
+                        "description": "Guild ID.",
+                        "type": [
+                            [
+                                [
+                                    "String"
+                                ]
+                            ]
+                        ]
+                    },
+                    {
+                        "name": "options",
+                        "description": "Economy configuration.",
+                        "type": [
+                            [
+                                [
+                                    "EconomyOptions"
+                                ]
+                            ]
+                        ]
+                    }
+                ]
+            },
             "props": [
                 {
                     "name": "memberID",
@@ -3660,7 +4030,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 23,
+                        "line": 30,
                         "file": "History.js",
                         "path": "src/classes/user"
                     }
@@ -3676,7 +4046,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 29,
+                        "line": 36,
                         "file": "History.js",
                         "path": "src/classes/user"
                     }
@@ -3693,7 +4063,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 36,
+                        "line": 43,
                         "file": "History.js",
                         "path": "src/classes/user"
                     }
@@ -3710,7 +4080,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 43,
+                        "line": 50,
                         "file": "History.js",
                         "path": "src/classes/user"
                     }
@@ -3749,7 +4119,7 @@
                         "description": "User's purchases history."
                     },
                     "meta": {
-                        "line": 51,
+                        "line": 58,
                         "file": "History.js",
                         "path": "src/classes/user"
                     }
@@ -3773,7 +4143,7 @@
                         "description": "User's purchases history."
                     },
                     "meta": {
-                        "line": 59,
+                        "line": 66,
                         "file": "History.js",
                         "path": "src/classes/user"
                     }
@@ -3783,7 +4153,7 @@
                     "description": "Adds the item from the shop to the purchases history.",
                     "params": [
                         {
-                            "name": "id",
+                            "name": "itemID",
                             "description": "Shop item ID.",
                             "type": [
                                 [
@@ -3810,7 +4180,7 @@
                         "description": "If added: true, else: false."
                     },
                     "meta": {
-                        "line": 69,
+                        "line": 76,
                         "file": "History.js",
                         "path": "src/classes/user"
                     }
@@ -3847,7 +4217,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 99,
+                        "line": 106,
                         "file": "History.js",
                         "path": "src/classes/user"
                     }
@@ -3884,7 +4254,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 122,
+                        "line": 129,
                         "file": "History.js",
                         "path": "src/classes/user"
                     }
@@ -3903,7 +4273,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 130,
+                        "line": 137,
                         "file": "History.js",
                         "path": "src/classes/user"
                     }
@@ -3940,7 +4310,7 @@
                         "description": "Purchases history item."
                     },
                     "meta": {
-                        "line": 150,
+                        "line": 157,
                         "file": "History.js",
                         "path": "src/classes/user"
                     }
@@ -3977,7 +4347,7 @@
                         "description": "Purchases history item."
                     },
                     "meta": {
-                        "line": 161,
+                        "line": 168,
                         "file": "History.js",
                         "path": "src/classes/user"
                     }
@@ -3996,7 +4366,7 @@
                         "description": "User's purchase history."
                     },
                     "meta": {
-                        "line": 171,
+                        "line": 178,
                         "file": "History.js",
                         "path": "src/classes/user"
                     }
@@ -4011,6 +4381,45 @@
         {
             "name": "Inventory",
             "description": "User inventory class.",
+            "construct": {
+                "name": "Inventory",
+                "description": "Inventory constructor.",
+                "params": [
+                    {
+                        "name": "memberID",
+                        "description": "Member ID.",
+                        "type": [
+                            [
+                                [
+                                    "String"
+                                ]
+                            ]
+                        ]
+                    },
+                    {
+                        "name": "guildID",
+                        "description": "Guild ID.",
+                        "type": [
+                            [
+                                [
+                                    "String"
+                                ]
+                            ]
+                        ]
+                    },
+                    {
+                        "name": "options",
+                        "description": "Economy configuration.",
+                        "type": [
+                            [
+                                [
+                                    "EconomyOptions"
+                                ]
+                            ]
+                        ]
+                    }
+                ]
+            },
             "props": [
                 {
                     "name": "memberID",
@@ -4023,7 +4432,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 21,
+                        "line": 28,
                         "file": "Inventory.js",
                         "path": "src/classes/user"
                     }
@@ -4039,14 +4448,14 @@
                         ]
                     ],
                     "meta": {
-                        "line": 27,
+                        "line": 34,
                         "file": "Inventory.js",
                         "path": "src/classes/user"
                     }
                 },
                 {
                     "name": "options",
-                    "description": "Economy options.",
+                    "description": "Economy configuration.",
                     "access": "private",
                     "type": [
                         [
@@ -4056,7 +4465,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 34,
+                        "line": 41,
                         "file": "Inventory.js",
                         "path": "src/classes/user"
                     }
@@ -4073,7 +4482,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 41,
+                        "line": 48,
                         "file": "Inventory.js",
                         "path": "src/classes/user"
                     }
@@ -4112,7 +4521,7 @@
                         "description": "User's inventory item."
                     },
                     "meta": {
-                        "line": 49,
+                        "line": 56,
                         "file": "Inventory.js",
                         "path": "src/classes/user"
                     }
@@ -4136,7 +4545,7 @@
                         "description": "User's inventory array."
                     },
                     "meta": {
-                        "line": 59,
+                        "line": 66,
                         "file": "Inventory.js",
                         "path": "src/classes/user"
                     }
@@ -4185,7 +4594,7 @@
                         "description": "Item message or null if item not found."
                     },
                     "meta": {
-                        "line": 69,
+                        "line": 76,
                         "file": "Inventory.js",
                         "path": "src/classes/user"
                     }
@@ -4222,7 +4631,7 @@
                         "description": "If added successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 149,
+                        "line": 156,
                         "file": "Inventory.js",
                         "path": "src/classes/user"
                     }
@@ -4259,7 +4668,7 @@
                         "description": "If removed successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 189,
+                        "line": 196,
                         "file": "Inventory.js",
                         "path": "src/classes/user"
                     }
@@ -4278,7 +4687,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 207,
+                        "line": 214,
                         "file": "Inventory.js",
                         "path": "src/classes/user"
                     }
@@ -4302,7 +4711,7 @@
                         "description": "User's inventory array."
                     },
                     "meta": {
-                        "line": 218,
+                        "line": 225,
                         "file": "Inventory.js",
                         "path": "src/classes/user"
                     }
@@ -4339,7 +4748,7 @@
                         "description": "User's inventory item."
                     },
                     "meta": {
-                        "line": 229,
+                        "line": 243,
                         "file": "Inventory.js",
                         "path": "src/classes/user"
                     }
@@ -4348,6 +4757,225 @@
             "meta": {
                 "line": 13,
                 "file": "Inventory.js",
+                "path": "src/classes/user"
+            }
+        },
+        {
+            "name": "Rewards",
+            "description": "User rewards.",
+            "construct": {
+                "name": "Rewards",
+                "description": "Rewards constructor.",
+                "params": [
+                    {
+                        "name": "memberID",
+                        "description": "Member ID.",
+                        "type": [
+                            [
+                                [
+                                    "String"
+                                ]
+                            ]
+                        ]
+                    },
+                    {
+                        "name": "guildID",
+                        "description": "Guild ID.",
+                        "type": [
+                            [
+                                [
+                                    "String"
+                                ]
+                            ]
+                        ]
+                    },
+                    {
+                        "name": "options",
+                        "description": "Economy configuration.",
+                        "type": [
+                            [
+                                [
+                                    "EconomyOptions"
+                                ]
+                            ]
+                        ]
+                    }
+                ]
+            },
+            "props": [
+                {
+                    "name": "memberID",
+                    "description": "Member ID.",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 20,
+                        "file": "Rewards.js",
+                        "path": "src/classes/user"
+                    }
+                },
+                {
+                    "name": "guildID",
+                    "description": "Guild ID.",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 26,
+                        "file": "Rewards.js",
+                        "path": "src/classes/user"
+                    }
+                },
+                {
+                    "name": "options",
+                    "description": "Economy configuration.",
+                    "type": [
+                        [
+                            [
+                                "EconomyOptions"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 32,
+                        "file": "Rewards.js",
+                        "path": "src/classes/user"
+                    }
+                },
+                {
+                    "name": "_rewards",
+                    "description": "Rewards Manager.",
+                    "access": "private",
+                    "type": [
+                        [
+                            [
+                                "RewardManager"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 39,
+                        "file": "Rewards.js",
+                        "path": "src/classes/user"
+                    }
+                }
+            ],
+            "methods": [
+                {
+                    "name": "daily",
+                    "description": "Adds a daily reward on user's balance.",
+                    "params": [
+                        {
+                            "name": "reason",
+                            "description": "The reason why the money was added. Default: 'claimed the daily reward'",
+                            "optional": true,
+                            "default": "'claimed the daily reward'",
+                            "type": [
+                                [
+                                    [
+                                        "string"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "RewardData"
+                                ]
+                            ]
+                        ],
+                        "description": "Reward object information."
+                    },
+                    "meta": {
+                        "line": 49,
+                        "file": "Rewards.js",
+                        "path": "src/classes/user"
+                    }
+                },
+                {
+                    "name": "work",
+                    "description": "Adds a work reward on user's balance.",
+                    "params": [
+                        {
+                            "name": "reason",
+                            "description": "The reason why the money was added. Default: 'claimed the work reward'",
+                            "optional": true,
+                            "default": "'claimed the work reward'",
+                            "type": [
+                                [
+                                    [
+                                        "string"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "RewardData"
+                                ]
+                            ]
+                        ],
+                        "description": "Reward object information."
+                    },
+                    "meta": {
+                        "line": 60,
+                        "file": "Rewards.js",
+                        "path": "src/classes/user"
+                    }
+                },
+                {
+                    "name": "weekly",
+                    "description": "Adds a weekly reward on user's balance.",
+                    "params": [
+                        {
+                            "name": "reason",
+                            "description": "The reason why the money was added. Default: 'claimed the weekly reward'",
+                            "optional": true,
+                            "default": "'claimed the weekly reward'",
+                            "type": [
+                                [
+                                    [
+                                        "string"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "RewardData"
+                                ]
+                            ]
+                        ],
+                        "description": "Reward object information."
+                    },
+                    "meta": {
+                        "line": 71,
+                        "file": "Rewards.js",
+                        "path": "src/classes/user"
+                    }
+                }
+            ],
+            "meta": {
+                "line": 6,
+                "file": "Rewards.js",
                 "path": "src/classes/user"
             }
         },
@@ -6002,7 +6630,7 @@
         },
         {
             "name": "BaseManager",
-            "description": "The default manager with its default methods.\r\r[!] This manager cannot be used directly.\r[!] When extending this manager, make sure to have an `all()` method in your child class.\r\r[!] Make sure to specify your main item class (EconomyUser, ShopItem, etc.) \rin a second argument in super() for a manager to work with.",
+            "description": "The default manager with its default methods.\r\r[!] This manager cannot be used directly.\r\r[!] When extending this manager, make sure to have an `all()` method in your child class.\r\r[!] Make sure to specify your main item class (EconomyUser, ShopItem, etc.) \rin a second argument in super() for a manager to work with.",
             "extends": [
                 [
                     [
@@ -6051,7 +6679,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 32,
+                        "line": 53,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6068,7 +6696,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 39,
+                        "line": 60,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6085,7 +6713,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 46,
+                        "line": 67,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6101,7 +6729,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 52,
+                        "line": 73,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6117,7 +6745,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 58,
+                        "line": 79,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6151,7 +6779,7 @@
                         "description": "User object."
                     },
                     "meta": {
-                        "line": 66,
+                        "line": 87,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6183,7 +6811,7 @@
                         "description": "User object."
                     },
                     "meta": {
-                        "line": 78,
+                        "line": 99,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6220,7 +6848,7 @@
                         "description": "Array of elements in specified guild."
                     },
                     "meta": {
-                        "line": 90,
+                        "line": 111,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6264,7 +6892,7 @@
                         "description": "Economy user object."
                     },
                     "meta": {
-                        "line": 111,
+                        "line": 132,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6308,7 +6936,7 @@
                         "description": "Element index."
                     },
                     "meta": {
-                        "line": 129,
+                        "line": 150,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6352,7 +6980,7 @@
                         "description": "Is the specified element included or not."
                     },
                     "meta": {
-                        "line": 141,
+                        "line": 162,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6396,7 +7024,7 @@
                         "description": "Is the specified element included or not."
                     },
                     "meta": {
-                        "line": 157,
+                        "line": 178,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6440,7 +7068,7 @@
                         "description": "Element index in the array."
                     },
                     "meta": {
-                        "line": 170,
+                        "line": 191,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6484,7 +7112,7 @@
                         "description": "Element index in the array."
                     },
                     "meta": {
-                        "line": 183,
+                        "line": 204,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6508,7 +7136,7 @@
                         "description": "Reversed elements array."
                     },
                     "meta": {
-                        "line": 193,
+                        "line": 214,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6546,7 +7174,7 @@
                         "description": "Sorted elements array."
                     },
                     "meta": {
-                        "line": 208,
+                        "line": 229,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6592,7 +7220,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 224,
+                        "line": 245,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6633,7 +7261,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 241,
+                        "line": 262,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6674,7 +7302,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 258,
+                        "line": 279,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6718,7 +7346,7 @@
                         "description": "Is any of the elements returns true or not."
                     },
                     "meta": {
-                        "line": 276,
+                        "line": 297,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6742,7 +7370,7 @@
                         "description": "An iterable of values in the array."
                     },
                     "meta": {
-                        "line": 284,
+                        "line": 305,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6761,7 +7389,7 @@
                         "description": "String representation of an array."
                     },
                     "meta": {
-                        "line": 292,
+                        "line": 313,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -6903,7 +7531,7 @@
                 }
             ],
             "meta": {
-                "line": 17,
+                "line": 38,
                 "file": "BaseManager.js",
                 "path": "src/managers"
             }
@@ -7379,22 +8007,6 @@
                     }
                 },
                 {
-                    "name": "debug",
-                    "description": "Is the debug mode enabled.",
-                    "type": [
-                        [
-                            [
-                                "Boolean"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 41,
-                        "file": "DatabaseManager.js",
-                        "path": "src/managers"
-                    }
-                },
-                {
                     "name": "storagePath",
                     "description": "Full path to a JSON file.",
                     "access": "private",
@@ -7406,7 +8018,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 48,
+                        "line": 42,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7423,7 +8035,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 55,
+                        "line": 49,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7462,7 +8074,7 @@
                         "description": "An array with all keys in database or 'null' if nothing found."
                     },
                     "meta": {
-                        "line": 65,
+                        "line": 59,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7492,6 +8104,19 @@
                                     ]
                                 ]
                             ]
+                        },
+                        {
+                            "name": "debug",
+                            "description": "If true, debug log will be sent.",
+                            "optional": true,
+                            "default": false,
+                            "type": [
+                                [
+                                    [
+                                        "Boolean"
+                                    ]
+                                ]
+                            ]
                         }
                     ],
                     "returns": {
@@ -7505,7 +8130,7 @@
                         "description": "If set successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 82,
+                        "line": 77,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7548,7 +8173,7 @@
                         "description": "If added successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 101,
+                        "line": 96,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7591,7 +8216,7 @@
                         "description": "If set successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 129,
+                        "line": 125,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7623,7 +8248,7 @@
                         "description": "Value from the specified key or 'false' if failed to read or 'null' if nothing found."
                     },
                     "meta": {
-                        "line": 156,
+                        "line": 153,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7655,7 +8280,7 @@
                         "description": "Value from the specified key or 'false' if failed to read or 'null' if nothing found."
                     },
                     "meta": {
-                        "line": 172,
+                        "line": 169,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7692,7 +8317,7 @@
                         "description": "Value from the specified key or 'false' if failed to read or 'null' if nothing found."
                     },
                     "meta": {
-                        "line": 183,
+                        "line": 180,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7724,7 +8349,7 @@
                         "description": "If cleared: true; else: false."
                     },
                     "meta": {
-                        "line": 192,
+                        "line": 189,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7756,7 +8381,7 @@
                         "description": "If cleared: true; else: false."
                     },
                     "meta": {
-                        "line": 208,
+                        "line": 207,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7799,7 +8424,7 @@
                         "description": "If cleared: true; else: false."
                     },
                     "meta": {
-                        "line": 218,
+                        "line": 217,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7842,7 +8467,7 @@
                         "description": "If cleared: true; else: false."
                     },
                     "meta": {
-                        "line": 241,
+                        "line": 242,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7896,7 +8521,7 @@
                         "description": "If cleared: true; else: false."
                     },
                     "meta": {
-                        "line": 264,
+                        "line": 267,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -7915,14 +8540,14 @@
                         "description": "Database contents"
                     },
                     "meta": {
-                        "line": 292,
+                        "line": 297,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
                 }
             ],
             "meta": {
-                "line": 12,
+                "line": 13,
                 "file": "DatabaseManager.js",
                 "path": "src/managers"
             }
@@ -8390,7 +9015,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 52,
+                        "line": 73,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -8406,7 +9031,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 58,
+                        "line": 79,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -8559,7 +9184,7 @@
                         "description": "User object."
                     },
                     "meta": {
-                        "line": 66,
+                        "line": 87,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -8593,7 +9218,7 @@
                         "description": "User object."
                     },
                     "meta": {
-                        "line": 78,
+                        "line": 99,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -8632,7 +9257,7 @@
                         "description": "Array of elements in specified guild."
                     },
                     "meta": {
-                        "line": 90,
+                        "line": 111,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -8678,7 +9303,7 @@
                         "description": "Economy user object."
                     },
                     "meta": {
-                        "line": 111,
+                        "line": 132,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -8724,7 +9349,7 @@
                         "description": "Element index."
                     },
                     "meta": {
-                        "line": 129,
+                        "line": 150,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -8770,7 +9395,7 @@
                         "description": "Is the specified element included or not."
                     },
                     "meta": {
-                        "line": 141,
+                        "line": 162,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -8816,7 +9441,7 @@
                         "description": "Is the specified element included or not."
                     },
                     "meta": {
-                        "line": 157,
+                        "line": 178,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -8862,7 +9487,7 @@
                         "description": "Element index in the array."
                     },
                     "meta": {
-                        "line": 170,
+                        "line": 191,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -8908,7 +9533,7 @@
                         "description": "Element index in the array."
                     },
                     "meta": {
-                        "line": 183,
+                        "line": 204,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -8934,7 +9559,7 @@
                         "description": "Reversed elements array."
                     },
                     "meta": {
-                        "line": 193,
+                        "line": 214,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -8974,7 +9599,7 @@
                         "description": "Sorted elements array."
                     },
                     "meta": {
-                        "line": 208,
+                        "line": 229,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -9022,7 +9647,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 224,
+                        "line": 245,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -9065,7 +9690,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 241,
+                        "line": 262,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -9108,7 +9733,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 258,
+                        "line": 279,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -9154,7 +9779,7 @@
                         "description": "Is any of the elements returns true or not."
                     },
                     "meta": {
-                        "line": 276,
+                        "line": 297,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -9180,7 +9805,7 @@
                         "description": "An iterable of values in the array."
                     },
                     "meta": {
-                        "line": 284,
+                        "line": 305,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -9201,7 +9826,7 @@
                         "description": "String representation of an array."
                     },
                     "meta": {
-                        "line": 292,
+                        "line": 313,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -9413,7 +10038,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 27,
+                        "line": 26,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -9430,7 +10055,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 34,
+                        "line": 33,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -9447,7 +10072,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 41,
+                        "line": 40,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -9497,13 +10122,13 @@
                         "description": "User's purchases history."
                     },
                     "meta": {
-                        "line": 50,
+                        "line": 49,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
                 },
                 {
-                    "name": "list",
+                    "name": "get",
                     "description": "Shows the user's purchases history.\r\rThis method is an alias for `HistoryManager.fetch()` method.",
                     "params": [
                         {
@@ -9545,7 +10170,7 @@
                         "description": "User's purchases history."
                     },
                     "meta": {
-                        "line": 76,
+                        "line": 75,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -9588,7 +10213,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 86,
+                        "line": 85,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -9647,7 +10272,7 @@
                         "description": "If added: true, else: false."
                     },
                     "meta": {
-                        "line": 108,
+                        "line": 107,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -9706,7 +10331,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 148,
+                        "line": 147,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -9765,7 +10390,7 @@
                         "description": "Purchases history item."
                     },
                     "meta": {
-                        "line": 179,
+                        "line": 178,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -9824,14 +10449,14 @@
                         "description": "Purchases history item."
                     },
                     "meta": {
-                        "line": 208,
+                        "line": 207,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
                 }
             ],
             "meta": {
-                "line": 19,
+                "line": 18,
                 "file": "HistoryManager.js",
                 "path": "src/managers"
             }
@@ -9903,7 +10528,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 33,
+                        "line": 32,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -9920,24 +10545,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 40,
-                        "file": "InventoryManager.js",
-                        "path": "src/managers"
-                    }
-                },
-                {
-                    "name": "settings",
-                    "description": "Settings manager methods object.",
-                    "access": "private",
-                    "type": [
-                        [
-                            [
-                                "SettingsManager"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 47,
+                        "line": 39,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -9954,7 +10562,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 54,
+                        "line": 46,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -9971,7 +10579,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 61,
+                        "line": 53,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -10016,7 +10624,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 70,
+                        "line": 62,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -10075,7 +10683,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 93,
+                        "line": 85,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -10134,7 +10742,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 126,
+                        "line": 118,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -10182,13 +10790,13 @@
                         "description": "User's inventory array."
                     },
                     "meta": {
-                        "line": 136,
+                        "line": 128,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
                 },
                 {
-                    "name": "list",
+                    "name": "get",
                     "description": "Fetches the user's inventory.\r\rThis method is an alias for the `InventoryManager.fetch()` method.",
                     "params": [
                         {
@@ -10230,7 +10838,7 @@
                         "description": "User's inventory array."
                     },
                     "meta": {
-                        "line": 158,
+                        "line": 150,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -10301,7 +10909,7 @@
                         "description": "Item message."
                     },
                     "meta": {
-                        "line": 170,
+                        "line": 162,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -10372,7 +10980,7 @@
                         "description": "Item message."
                     },
                     "meta": {
-                        "line": 265,
+                        "line": 257,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -10431,7 +11039,7 @@
                         "description": "If removed successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 276,
+                        "line": 268,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -10490,7 +11098,7 @@
                         "description": "If added successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 311,
+                        "line": 303,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -10562,7 +11170,7 @@
                         "description": "The price the item was sold for."
                     },
                     "meta": {
-                        "line": 364,
+                        "line": 356,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -10634,14 +11242,14 @@
                         "description": "The price the item was sold for."
                     },
                     "meta": {
-                        "line": 405,
+                        "line": 397,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
                 }
             ],
             "meta": {
-                "line": 14,
+                "line": 13,
                 "file": "InventoryManager.js",
                 "path": "src/managers"
             }
@@ -10761,7 +11369,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 48,
+                        "line": 46,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -10778,7 +11386,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 55,
+                        "line": 53,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -10795,7 +11403,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 62,
+                        "line": 60,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -10812,7 +11420,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 69,
+                        "line": 67,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -10829,24 +11437,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 76,
-                        "file": "RewardManager.js",
-                        "path": "src/managers"
-                    }
-                },
-                {
-                    "name": "settings",
-                    "description": "Settings manager methods object.",
-                    "access": "private",
-                    "type": [
-                        [
-                            [
-                                "SettingsManager"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 83,
+                        "line": 74,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -10903,7 +11494,7 @@
                         "description": "Daily reward object."
                     },
                     "meta": {
-                        "line": 93,
+                        "line": 84,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
@@ -11013,14 +11604,14 @@
                         "description": "Weekly reward object."
                     },
                     "meta": {
-                        "line": 195,
+                        "line": 200,
                         "file": "RewardManager.js",
                         "path": "src/managers"
                     }
                 }
             ],
             "meta": {
-                "line": 25,
+                "line": 24,
                 "file": "RewardManager.js",
                 "path": "src/managers"
             }
@@ -11406,7 +11997,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 37,
+                        "line": 36,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11423,24 +12014,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 44,
-                        "file": "ShopManager.js",
-                        "path": "src/managers"
-                    }
-                },
-                {
-                    "name": "settings",
-                    "description": "Database manager methods object.",
-                    "access": "private",
-                    "type": [
-                        [
-                            [
-                                "SettingsManager"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 51,
+                        "line": 43,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11485,7 +12059,7 @@
                         "description": "Item info."
                     },
                     "meta": {
-                        "line": 60,
+                        "line": 52,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11528,7 +12102,7 @@
                         "description": "Item info."
                     },
                     "meta": {
-                        "line": 124,
+                        "line": 131,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11618,7 +12192,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 138,
+                        "line": 145,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11719,7 +12293,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 221,
+                        "line": 228,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11767,7 +12341,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 231,
+                        "line": 238,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11799,7 +12373,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 269,
+                        "line": 276,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11843,7 +12417,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 302,
+                        "line": 309,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11880,7 +12454,7 @@
                         "description": "The shop array."
                     },
                     "meta": {
-                        "line": 333,
+                        "line": 342,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11917,7 +12491,7 @@
                         "description": "The shop array."
                     },
                     "meta": {
-                        "line": 349,
+                        "line": 358,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -11965,7 +12539,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 359,
+                        "line": 368,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -12013,7 +12587,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 387,
+                        "line": 396,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -12073,7 +12647,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 407,
+                        "line": 416,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -12149,7 +12723,7 @@
                         "description": "If item bought successfully: true; if item not found, false will be returned; \rif user reached the item's max amount: 'max' string."
                     },
                     "meta": {
-                        "line": 450,
+                        "line": 461,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -12224,7 +12798,7 @@
                         "description": "If item bought successfully: true; if item not found, false will be returned; \rif user reached the item's max amount: 'max' string."
                     },
                     "meta": {
-                        "line": 555,
+                        "line": 566,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -12273,7 +12847,7 @@
                         "description": "User's inventory array."
                     },
                     "meta": {
-                        "line": 574,
+                        "line": 585,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -12349,7 +12923,7 @@
                         "description": "Item message or null if item not found."
                     },
                     "meta": {
-                        "line": 614,
+                        "line": 627,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -12398,7 +12972,7 @@
                         "description": "User's purchase history."
                     },
                     "meta": {
-                        "line": 692,
+                        "line": 707,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -12442,7 +13016,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 734,
+                        "line": 751,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -12584,7 +13158,7 @@
                 }
             ],
             "meta": {
-                "line": 14,
+                "line": 13,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -12679,7 +13253,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 52,
+                        "line": 73,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -12695,7 +13269,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 58,
+                        "line": 79,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -12882,7 +13456,7 @@
                         "description": "User object."
                     },
                     "meta": {
-                        "line": 66,
+                        "line": 87,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -12916,7 +13490,7 @@
                         "description": "User object."
                     },
                     "meta": {
-                        "line": 78,
+                        "line": 99,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -12955,7 +13529,7 @@
                         "description": "Array of elements in specified guild."
                     },
                     "meta": {
-                        "line": 90,
+                        "line": 111,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -13001,7 +13575,7 @@
                         "description": "Economy user object."
                     },
                     "meta": {
-                        "line": 111,
+                        "line": 132,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -13047,7 +13621,7 @@
                         "description": "Element index."
                     },
                     "meta": {
-                        "line": 129,
+                        "line": 150,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -13093,7 +13667,7 @@
                         "description": "Is the specified element included or not."
                     },
                     "meta": {
-                        "line": 141,
+                        "line": 162,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -13139,7 +13713,7 @@
                         "description": "Is the specified element included or not."
                     },
                     "meta": {
-                        "line": 157,
+                        "line": 178,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -13185,7 +13759,7 @@
                         "description": "Element index in the array."
                     },
                     "meta": {
-                        "line": 170,
+                        "line": 191,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -13231,7 +13805,7 @@
                         "description": "Element index in the array."
                     },
                     "meta": {
-                        "line": 183,
+                        "line": 204,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -13257,7 +13831,7 @@
                         "description": "Reversed elements array."
                     },
                     "meta": {
-                        "line": 193,
+                        "line": 214,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -13297,7 +13871,7 @@
                         "description": "Sorted elements array."
                     },
                     "meta": {
-                        "line": 208,
+                        "line": 229,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -13345,7 +13919,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 224,
+                        "line": 245,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -13388,7 +13962,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 241,
+                        "line": 262,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -13431,7 +14005,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 258,
+                        "line": 279,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -13477,7 +14051,7 @@
                         "description": "Is any of the elements returns true or not."
                     },
                     "meta": {
-                        "line": 276,
+                        "line": 297,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -13503,7 +14077,7 @@
                         "description": "An iterable of values in the array."
                     },
                     "meta": {
-                        "line": 284,
+                        "line": 305,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -13524,7 +14098,7 @@
                         "description": "String representation of an array."
                     },
                     "meta": {
-                        "line": 292,
+                        "line": 313,
                         "file": "BaseManager.js",
                         "path": "src/managers"
                     }
@@ -13716,7 +14290,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 60,
+                        "line": 61,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -13733,7 +14307,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 67,
+                        "line": 68,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -13750,7 +14324,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 74,
+                        "line": 75,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -13767,7 +14341,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 81,
+                        "line": 82,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -13784,7 +14358,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 88,
+                        "line": 89,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -13811,7 +14385,7 @@
                         "description": "This method will show is the module updated, latest version and installed version."
                     },
                     "meta": {
-                        "line": 96,
+                        "line": 97,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -13830,7 +14404,7 @@
                         "description": "Database contents"
                     },
                     "meta": {
-                        "line": 115,
+                        "line": 116,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -13873,7 +14447,7 @@
                         "description": "If successfully written: true; else: false."
                     },
                     "meta": {
-                        "line": 125,
+                        "line": 126,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -13892,7 +14466,7 @@
                         "description": "If cleared successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 140,
+                        "line": 141,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -13924,7 +14498,7 @@
                         "description": "If cleared successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 155,
+                        "line": 156,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -13967,7 +14541,7 @@
                         "description": "If cleared successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 172,
+                        "line": 173,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -14010,7 +14584,7 @@
                         "description": "If reset successfully: true; else: false."
                     },
                     "meta": {
-                        "line": 192,
+                        "line": 193,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -14053,7 +14627,7 @@
                         "description": "Fixed Economy configuration."
                     },
                     "meta": {
-                        "line": 210,
+                        "line": 211,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -14345,7 +14919,7 @@
                 }
             ],
             "meta": {
-                "line": 378,
+                "line": 384,
                 "file": "UtilsManager.js",
                 "path": "src/managers"
             }
@@ -14389,7 +14963,7 @@
                 }
             ],
             "meta": {
-                "line": 411,
+                "line": 417,
                 "file": "UtilsManager.js",
                 "path": "src/managers"
             }
@@ -14445,7 +15019,7 @@
                 }
             ],
             "meta": {
-                "line": 418,
+                "line": 424,
                 "file": "UtilsManager.js",
                 "path": "src/managers"
             }
@@ -14541,7 +15115,7 @@
                 }
             ],
             "meta": {
-                "line": 425,
+                "line": 431,
                 "file": "UtilsManager.js",
                 "path": "src/managers"
             }
@@ -14784,7 +15358,7 @@
                 }
             ],
             "meta": {
-                "line": 767,
+                "line": 774,
                 "file": "index.js",
                 "path": "src"
             }
@@ -14896,7 +15470,7 @@
                 "description": "Item info."
             },
             "meta": {
-                "line": 760,
+                "line": 779,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -15002,14 +15576,14 @@
                 }
             ],
             "meta": {
-                "line": 784,
+                "line": 803,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
         },
         {
-            "name": "EconomyUserData",
-            "description": "Economy user object.",
+            "name": "RawEconomyUser",
+            "description": "Raw economy user object from database.",
             "type": [
                 [
                     [
@@ -15094,12 +15668,34 @@
                             ]
                         ]
                     ]
+                },
+                {
+                    "name": "id",
+                    "description": "User's ID.",
+                    "type": [
+                        [
+                            [
+                                "string"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "guildID",
+                    "description": "Guild ID.",
+                    "type": [
+                        [
+                            [
+                                "string"
+                            ]
+                        ]
+                    ]
                 }
             ],
             "meta": {
-                "line": 144,
-                "file": "EconomyUser.js",
-                "path": "src/classes"
+                "line": 141,
+                "file": "Cooldowns.js",
+                "path": "src/classes/user"
             }
         },
         {
@@ -15192,7 +15788,7 @@
                 }
             ],
             "meta": {
-                "line": 797,
+                "line": 816,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -15298,8 +15894,304 @@
                 }
             ],
             "meta": {
-                "line": 771,
+                "line": 790,
                 "file": "ShopManager.js",
+                "path": "src/managers"
+            }
+        },
+        {
+            "name": "TimeData",
+            "type": [
+                [
+                    [
+                        "Object"
+                    ]
+                ]
+            ],
+            "props": [
+                {
+                    "name": "days",
+                    "description": "Amount of days until the cooldown ends.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "hours",
+                    "description": "Amount of hours until the cooldown ends.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "minutes",
+                    "description": "Amount of minutes until the cooldown ends.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "seconds",
+                    "description": "Amount of seconds until the cooldown ends.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "milliseconds",
+                    "description": "Amount of milliseconds until the cooldown ends.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ]
+                }
+            ],
+            "meta": {
+                "line": 261,
+                "file": "RewardManager.js",
+                "path": "src/managers"
+            }
+        },
+        {
+            "name": "CooldownData",
+            "type": [
+                [
+                    [
+                        "Object"
+                    ]
+                ]
+            ],
+            "props": [
+                {
+                    "name": "time",
+                    "description": "A time object with the remaining time until the cooldown ends.",
+                    "type": [
+                        [
+                            [
+                                "TimeData"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "pretty",
+                    "description": "A formatted string with the remaining time until the cooldown ends.",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ]
+                }
+            ],
+            "meta": {
+                "line": 270,
+                "file": "RewardManager.js",
+                "path": "src/managers"
+            }
+        },
+        {
+            "name": "CooldownsObject",
+            "type": [
+                [
+                    [
+                        "Object"
+                    ]
+                ]
+            ],
+            "props": [
+                {
+                    "name": "daily",
+                    "description": "Cooldown for Daily Command.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "work",
+                    "description": "Cooldown for Work Command.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "weekly",
+                    "description": "Cooldown for Weekly Command.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ]
+                }
+            ],
+            "meta": {
+                "line": 202,
+                "file": "Cooldowns.js",
+                "path": "src/classes/user"
+            }
+        },
+        {
+            "name": "CooldownsTimeObject",
+            "type": [
+                [
+                    [
+                        "Object"
+                    ]
+                ]
+            ],
+            "props": [
+                {
+                    "name": "daily",
+                    "description": "Cooldown for Daily Command.",
+                    "type": [
+                        [
+                            [
+                                "CooldownData"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "work",
+                    "description": "Cooldown for Work Command.",
+                    "type": [
+                        [
+                            [
+                                "CooldownData"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "weekly",
+                    "description": "Cooldown for Weekly Command.",
+                    "type": [
+                        [
+                            [
+                                "CooldownData"
+                            ]
+                        ]
+                    ]
+                }
+            ],
+            "meta": {
+                "line": 209,
+                "file": "Cooldowns.js",
+                "path": "src/classes/user"
+            }
+        },
+        {
+            "name": "RewardData",
+            "type": [
+                [
+                    [
+                        "Object"
+                    ]
+                ]
+            ],
+            "props": [
+                {
+                    "name": "type",
+                    "description": "Type of the operation.",
+                    "type": [
+                        [
+                            [
+                                "daily",
+                                "'"
+                            ]
+                        ],
+                        [
+                            [
+                                "work",
+                                "'"
+                            ]
+                        ],
+                        [
+                            [
+                                "weekly",
+                                "'"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "status",
+                    "description": "The status of operation.",
+                    "type": [
+                        [
+                            [
+                                "Boolean"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "cooldown",
+                    "description": "Cooldown object.",
+                    "type": [
+                        [
+                            [
+                                "CooldownData"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "reward",
+                    "description": "Amount of money that the user received.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "defaultReward",
+                    "description": "Reward that was specified in a module configuration.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ]
+                }
+            ],
+            "meta": {
+                "line": 252,
+                "file": "RewardManager.js",
                 "path": "src/managers"
             }
         },
@@ -15601,7 +16493,7 @@
                 ]
             ],
             "meta": {
-                "line": 331,
+                "line": 352,
                 "file": "BaseManager.js",
                 "path": "src/managers"
             }
@@ -15645,180 +16537,8 @@
                 ]
             ],
             "meta": {
-                "line": 339,
+                "line": 360,
                 "file": "BaseManager.js",
-                "path": "src/managers"
-            }
-        },
-        {
-            "name": "CooldownData",
-            "type": [
-                [
-                    [
-                        "Object"
-                    ]
-                ]
-            ],
-            "props": [
-                {
-                    "name": "time",
-                    "description": "A time object with the remaining time until the cooldown ends.",
-                    "type": [
-                        [
-                            [
-                                "TimeData"
-                            ]
-                        ]
-                    ]
-                },
-                {
-                    "name": "pretty",
-                    "description": "A formatted string with the remaining time until the cooldown ends.",
-                    "type": [
-                        [
-                            [
-                                "String"
-                            ]
-                        ]
-                    ]
-                }
-            ],
-            "meta": {
-                "line": 258,
-                "file": "RewardManager.js",
-                "path": "src/managers"
-            }
-        },
-        {
-            "name": "RewardData",
-            "type": [
-                [
-                    [
-                        "Object"
-                    ]
-                ]
-            ],
-            "props": [
-                {
-                    "name": "status",
-                    "description": "The status of operation.",
-                    "type": [
-                        [
-                            [
-                                "Boolean"
-                            ]
-                        ]
-                    ]
-                },
-                {
-                    "name": "cooldown",
-                    "description": "Cooldown object.",
-                    "type": [
-                        [
-                            [
-                                "CooldownData"
-                            ]
-                        ]
-                    ]
-                },
-                {
-                    "name": "reward",
-                    "description": "Amount of money that the user received.",
-                    "type": [
-                        [
-                            [
-                                "Number"
-                            ]
-                        ]
-                    ]
-                },
-                {
-                    "name": "defaultReward",
-                    "description": "Reward that was specified in a module configuration.",
-                    "type": [
-                        [
-                            [
-                                "Number"
-                            ]
-                        ]
-                    ]
-                }
-            ],
-            "meta": {
-                "line": 241,
-                "file": "RewardManager.js",
-                "path": "src/managers"
-            }
-        },
-        {
-            "name": "TimeData",
-            "type": [
-                [
-                    [
-                        "Object"
-                    ]
-                ]
-            ],
-            "props": [
-                {
-                    "name": "days",
-                    "description": "Amount of days until the cooldown ends.",
-                    "type": [
-                        [
-                            [
-                                "Number"
-                            ]
-                        ]
-                    ]
-                },
-                {
-                    "name": "hours",
-                    "description": "Amount of hours until the cooldown ends.",
-                    "type": [
-                        [
-                            [
-                                "Number"
-                            ]
-                        ]
-                    ]
-                },
-                {
-                    "name": "minutes",
-                    "description": "Amount of minutes until the cooldown ends.",
-                    "type": [
-                        [
-                            [
-                                "Number"
-                            ]
-                        ]
-                    ]
-                },
-                {
-                    "name": "seconds",
-                    "description": "Amount of seconds until the cooldown ends.",
-                    "type": [
-                        [
-                            [
-                                "Number"
-                            ]
-                        ]
-                    ]
-                },
-                {
-                    "name": "milliseconds",
-                    "description": "Amount of milliseconds until the cooldown ends.",
-                    "type": [
-                        [
-                            [
-                                "Number"
-                            ]
-                        ]
-                    ]
-                }
-            ],
-            "meta": {
-                "line": 249,
-                "file": "RewardManager.js",
                 "path": "src/managers"
             }
         },
@@ -16085,9 +16805,75 @@
                 }
             ],
             "meta": {
-                "line": 370,
+                "line": 376,
                 "file": "UtilsManager.js",
                 "path": "src/managers"
+            }
+        },
+        {
+            "name": "ProperyDeprecationOptions",
+            "type": [
+                [
+                    [
+                        "Object"
+                    ]
+                ]
+            ],
+            "props": [
+                {
+                    "name": "method",
+                    "description": "The method that includes an options object with deprecated property.",
+                    "type": [
+                        [
+                            [
+                                "string"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "argumentName",
+                    "description": "The name of the argument where the options object has a deprecated property.",
+                    "type": [
+                        [
+                            [
+                                "string"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "argumentsList",
+                    "description": "The list of arguments of the method.",
+                    "type": [
+                        [
+                            [
+                                "Array",
+                                "<"
+                            ],
+                            [
+                                "string",
+                                ">"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "example",
+                    "description": "Example of the usage of the new property.",
+                    "type": [
+                        [
+                            [
+                                "string"
+                            ]
+                        ]
+                    ]
+                }
+            ],
+            "meta": {
+                "line": 149,
+                "file": "errors.js",
+                "path": "src/structures"
             }
         }
     ],
