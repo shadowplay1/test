@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.11.1",
         "format": 20,
-        "date": 1652052360834
+        "date": 1652052851788
     },
     "custom": {
         "general": {
@@ -2010,6 +2010,1339 @@
                 "line": 16,
                 "file": "EconomyUser.js",
                 "path": "src/classes"
+            }
+        },
+        {
+            "name": "Shop",
+            "description": "Guild shop class.",
+            "extends": [
+                [
+                    [
+                        "BaseManager"
+                    ]
+                ]
+            ],
+            "construct": {
+                "name": "Shop",
+                "description": "Guild shop constructor.",
+                "params": [
+                    {
+                        "name": "guildID",
+                        "description": "Guild ID.",
+                        "type": [
+                            [
+                                [
+                                    "String"
+                                ]
+                            ]
+                        ]
+                    },
+                    {
+                        "name": "options",
+                        "description": "Economy configuration.",
+                        "type": [
+                            [
+                                [
+                                    "EconomyOptions"
+                                ]
+                            ]
+                        ]
+                    }
+                ]
+            },
+            "props": [
+                {
+                    "name": "guildID",
+                    "description": "Guild ID.",
+                    "access": "private",
+                    "type": [
+                        [
+                            [
+                                "String"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 27,
+                        "file": "Shop.js",
+                        "path": "src/classes/guild"
+                    }
+                },
+                {
+                    "name": "options",
+                    "description": "Economy configuration.",
+                    "access": "private",
+                    "type": [
+                        [
+                            [
+                                "EconomyOptions"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 53,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "database",
+                    "description": "Database Manager.",
+                    "access": "private",
+                    "type": [
+                        [
+                            [
+                                "DatabaseManager"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 60,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "utils",
+                    "description": "Utils Manager.",
+                    "access": "private",
+                    "type": [
+                        [
+                            [
+                                "UtilsManager"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 67,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "baseConstructor",
+                    "description": "A constructor (EconomyUser, ShopItem, etc.) to work with.",
+                    "type": [
+                        [
+                            [
+                                "any"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 73,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "length",
+                    "description": "Amount of elements in database.",
+                    "type": [
+                        [
+                            [
+                                "Number"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 79,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                }
+            ],
+            "methods": [
+                {
+                    "name": "get",
+                    "description": "Gets the item from the shop.",
+                    "params": [
+                        {
+                            "name": "itemID",
+                            "description": "Item ID.",
+                            "type": [
+                                [
+                                    [
+                                        "string"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "number"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "ItemData"
+                                ]
+                            ]
+                        ],
+                        "description": "Shop item."
+                    },
+                    "meta": {
+                        "line": 35,
+                        "file": "Shop.js",
+                        "path": "src/classes/guild"
+                    }
+                },
+                {
+                    "name": "all",
+                    "description": "Gets all the items in the shop.\r\rThis method is an alias for the`EconomyGuild.shop.fetch()` method.",
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Array",
+                                    "<"
+                                ],
+                                [
+                                    "ItemData",
+                                    ">"
+                                ]
+                            ]
+                        ],
+                        "description": "Guild array."
+                    },
+                    "meta": {
+                        "line": 53,
+                        "file": "Shop.js",
+                        "path": "src/classes/guild"
+                    }
+                },
+                {
+                    "name": "addItem",
+                    "description": "Creates an item in shop.",
+                    "params": [
+                        {
+                            "name": "options",
+                            "description": "Configuration with item info.",
+                            "type": [
+                                [
+                                    [
+                                        "AddItemOptions"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "ItemData"
+                                ]
+                            ]
+                        ],
+                        "description": "Item info."
+                    },
+                    "meta": {
+                        "line": 62,
+                        "file": "Shop.js",
+                        "path": "src/classes/guild"
+                    }
+                },
+                {
+                    "name": "add",
+                    "description": "Creates an item in shop.\r\rThis method is an alias for the `EconomyGuild.shop.addItem()` method.",
+                    "params": [
+                        {
+                            "name": "options",
+                            "description": "Configuration with item info.",
+                            "type": [
+                                [
+                                    [
+                                        "AddItemOptions"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "ItemData"
+                                ]
+                            ]
+                        ],
+                        "description": "Item info."
+                    },
+                    "meta": {
+                        "line": 120,
+                        "file": "Shop.js",
+                        "path": "src/classes/guild"
+                    }
+                },
+                {
+                    "name": "editItem",
+                    "description": "Edits the item in the shop.",
+                    "params": [
+                        {
+                            "name": "itemID",
+                            "description": "Item ID or name.",
+                            "type": [
+                                [
+                                    [
+                                        "Number"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "itemProperty",
+                            "description": "This argument means what thing in item you want to edit (item property). \rAvailable item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.",
+                            "type": [
+                                [
+                                    [
+                                        "description",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "price",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "name",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "message",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "maxAmount",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "role",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "value",
+                            "description": "Any value to set.",
+                            "type": [
+                                [
+                                    [
+                                        "any"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "If edited successfully: true, else: false."
+                    },
+                    "meta": {
+                        "line": 134,
+                        "file": "Shop.js",
+                        "path": "src/classes/guild"
+                    }
+                },
+                {
+                    "name": "edit",
+                    "description": "Edits the item in the shop.\r\rThis method is an alias for the `EconomyGuild.shop.editItem()` method.",
+                    "params": [
+                        {
+                            "name": "itemID",
+                            "description": "Item ID or name.",
+                            "type": [
+                                [
+                                    [
+                                        "Number"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "itemProperty",
+                            "description": "This argument means what thing in item you want to edit (item property). \rAvailable item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.",
+                            "type": [
+                                [
+                                    [
+                                        "description",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "price",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "name",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "message",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "maxAmount",
+                                        "'"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "role",
+                                        "'"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "If edited successfully: true, else: false."
+                    },
+                    "meta": {
+                        "line": 211,
+                        "file": "Shop.js",
+                        "path": "src/classes/guild"
+                    }
+                },
+                {
+                    "name": "clear",
+                    "description": "Clears the shop.",
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "If cleared: true, else: false."
+                    },
+                    "meta": {
+                        "line": 219,
+                        "file": "Shop.js",
+                        "path": "src/classes/guild"
+                    }
+                },
+                {
+                    "name": "fetch",
+                    "description": "Shows all items in the shop.",
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Array",
+                                    "<"
+                                ],
+                                [
+                                    "ItemData",
+                                    ">"
+                                ]
+                            ]
+                        ],
+                        "description": "The shop array."
+                    },
+                    "meta": {
+                        "line": 237,
+                        "file": "Shop.js",
+                        "path": "src/classes/guild"
+                    }
+                },
+                {
+                    "name": "findItem",
+                    "description": "Searches for the item in the shop.\r\rThis method is an alias for the `EconomyGuild.shop.get()` method.",
+                    "params": [
+                        {
+                            "name": "itemID",
+                            "description": "Item ID or name.",
+                            "type": [
+                                [
+                                    [
+                                        "Number"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "ItemData"
+                                ]
+                            ]
+                        ],
+                        "description": "If item not found: null; else: item info object."
+                    },
+                    "meta": {
+                        "line": 249,
+                        "file": "Shop.js",
+                        "path": "src/classes/guild"
+                    }
+                },
+                {
+                    "name": "first",
+                    "description": "Gets the first user in specified guild.",
+                    "inherits": "BaseManager#first",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "guildID",
+                            "description": "Guild ID.",
+                            "type": [
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "EconomyUser"
+                                ]
+                            ]
+                        ],
+                        "description": "User object."
+                    },
+                    "meta": {
+                        "line": 87,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "last",
+                    "description": "Gets the last user in specified guild.",
+                    "inherits": "BaseManager#last",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "guildID",
+                            "description": "Guild ID.",
+                            "type": [
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "EconomyUser"
+                                ]
+                            ]
+                        ],
+                        "description": "User object."
+                    },
+                    "meta": {
+                        "line": 99,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "toArray",
+                    "description": "Returns an array of elements in specified guild.",
+                    "inherits": "BaseManager#toArray",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "guildID",
+                            "description": "Guild ID.",
+                            "type": [
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Array",
+                                    "<"
+                                ],
+                                [
+                                    "EconomyUser",
+                                    ">"
+                                ]
+                            ]
+                        ],
+                        "description": "Array of elements in specified guild."
+                    },
+                    "meta": {
+                        "line": 111,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "find",
+                    "description": "This method is the same as `Array.find()`.\r\rFinds the element in array and returns it.",
+                    "inherits": "BaseManager#find",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "predicate",
+                            "description": "A function that accepts up to three arguments. \rThe filter method calls the predicate function one time for each element in the array.",
+                            "type": [
+                                [
+                                    [
+                                        "PredicateFunction"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "thisArg",
+                            "description": "An object to which the this keyword can refer in the callbackfn function. \rIf thisArg is omitted, undefined is used as the this value.",
+                            "optional": true,
+                            "type": [
+                                [
+                                    [
+                                        "any"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "EconomyUser"
+                                ]
+                            ]
+                        ],
+                        "description": "Economy user object."
+                    },
+                    "meta": {
+                        "line": 132,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "findIndex",
+                    "description": "This method is the same as `Array.findIndex()`. \r\rFinds the element's index in array and returns it.",
+                    "inherits": "BaseManager#findIndex",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "predicate",
+                            "description": "Find calls predicate once for each element of the array, in ascending order, \runtil it finds one where predicate returns true. \rIf such an element is found, findIndex immediately returns that element index. \rOtherwise, findIndex returns -1.",
+                            "type": [
+                                [
+                                    [
+                                        "PredicateFunction"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "thisArg",
+                            "description": "An object to which the this keyword can refer in the callbackfn function. \rIf thisArg is omitted, undefined is used as the this value.",
+                            "optional": true,
+                            "type": [
+                                [
+                                    [
+                                        "any"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Number"
+                                ]
+                            ]
+                        ],
+                        "description": "Element index."
+                    },
+                    "meta": {
+                        "line": 150,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "includes",
+                    "description": "This method is the same as `Array.includes()`. \r\rDetermines whether an array includes a certain element, returning true or false as appropriate.",
+                    "inherits": "BaseManager#includes",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "searchElement",
+                            "description": "The element to search for.",
+                            "type": [
+                                [
+                                    [
+                                        "EconomyUser"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "fromIndex",
+                            "description": "The position in this array at which to begin searching for searchElement.",
+                            "optional": true,
+                            "type": [
+                                [
+                                    [
+                                        "Number"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "Is the specified element included or not."
+                    },
+                    "meta": {
+                        "line": 162,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "has",
+                    "description": "This method is the same as `Array.includes()`.\r\rThis method is an alias for `UserManager.includes()` method.\r\rDetermines whether an array includes a certain element, returning true or false as appropriate.",
+                    "inherits": "BaseManager#has",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "searchElement",
+                            "description": "The element to search for.",
+                            "type": [
+                                [
+                                    [
+                                        "EconomyUser"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "fromIndex",
+                            "description": "The array index at which to begin the search. \rIf fromIndex is omitted, the search starts at index 0.",
+                            "optional": true,
+                            "type": [
+                                [
+                                    [
+                                        "Number"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "Is the specified element included or not."
+                    },
+                    "meta": {
+                        "line": 178,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "indexOf",
+                    "description": "This method is the same as `Array.indexOf()`.",
+                    "inherits": "BaseManager#indexOf",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "searchElement",
+                            "description": "The value to locate in the array.",
+                            "type": [
+                                [
+                                    [
+                                        "EconomyUser"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "fromIndex",
+                            "description": "The array index at which to begin the search. \rIf fromIndex is omitted, the search starts at index 0.",
+                            "optional": true,
+                            "type": [
+                                [
+                                    [
+                                        "Number"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Number"
+                                ]
+                            ]
+                        ],
+                        "description": "Element index in the array."
+                    },
+                    "meta": {
+                        "line": 191,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "lastIndexOf",
+                    "description": "This method is the same as `Array.lastIndexOf()`.",
+                    "inherits": "BaseManager#lastIndexOf",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "searchElement",
+                            "description": "The value to locate in the array.",
+                            "type": [
+                                [
+                                    [
+                                        "EconomyUser"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "fromIndex",
+                            "description": "The array index at which to begin searching backward. \rIf fromIndex is omitted, the search starts at the last index in the array.",
+                            "optional": true,
+                            "type": [
+                                [
+                                    [
+                                        "Number"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Number"
+                                ]
+                            ]
+                        ],
+                        "description": "Element index in the array."
+                    },
+                    "meta": {
+                        "line": 204,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "reverse",
+                    "description": "This method is the same as `Array.reverse()`. \r\rReverses the array of all elements and returns it.",
+                    "inherits": "BaseManager#reverse",
+                    "inherited": true,
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Array",
+                                    "<"
+                                ],
+                                [
+                                    "EconomyUser",
+                                    ">"
+                                ]
+                            ]
+                        ],
+                        "description": "Reversed elements array."
+                    },
+                    "meta": {
+                        "line": 214,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "sort",
+                    "description": "This method is the same as `Array.sort()`.\r\rSorts an array in place. This method mutates the array and returns a reference to the same array.",
+                    "inherits": "BaseManager#sort",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "compareFn",
+                            "description": "Function used to determine the order of the elements. \rIt is expected to return a negative value if first argument is less than second argument, \rzero if they're equal and a positive value otherwise. \rIf omitted, the elements are sorted in ascending, ASCII character order.",
+                            "optional": true,
+                            "type": [
+                                [
+                                    [
+                                        "CompareFunction"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Array",
+                                    "<"
+                                ],
+                                [
+                                    "EconomyUser",
+                                    ">"
+                                ]
+                            ]
+                        ],
+                        "description": "Sorted elements array."
+                    },
+                    "meta": {
+                        "line": 229,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "filter",
+                    "description": "This method is the same as `Array.filter()`.\r\rFilters the array by specified condition and returns the array.",
+                    "inherits": "BaseManager#filter",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "predicate",
+                            "description": "A function that accepts up to three arguments. \rThe filter method calls the predicate function one time for each element in the array.",
+                            "type": [
+                                [
+                                    [
+                                        "PredicateFunction"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "thisArg",
+                            "description": "An object to which the this keyword can refer in the callbackfn function. \rIf thisArg is omitted, undefined is used as the this value.",
+                            "optional": true,
+                            "type": [
+                                [
+                                    [
+                                        "any"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": [
+                        [
+                            [
+                                "Array",
+                                "<"
+                            ],
+                            [
+                                "EconomyUser",
+                                ">"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 245,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "map",
+                    "description": "This method is the same as `Array.map()`. \r\rCalls a defined callback function on each element of an array, \rand returns an array that contains the results.",
+                    "inherits": "BaseManager#map",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "callbackfn",
+                            "description": "A function that accepts up to three arguments. \rThe map method calls the callbackfn function one time for each element in the array.",
+                            "type": [
+                                [
+                                    [
+                                        "PredicateFunction"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "thisArg",
+                            "description": "An object to which the this keyword can refer in the callbackfn function. \rIf thisArg is omitted, undefined is used as the this value.",
+                            "optional": true,
+                            "type": [
+                                [
+                                    [
+                                        "any"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": [
+                        [
+                            [
+                                "any"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 262,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "forEach",
+                    "description": "This method is the same as `Array.forEach()`. \r\rCalls a defined callback function on each element of an array, \rand returns an array that contains the results.",
+                    "inherits": "BaseManager#forEach",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "callbackfn",
+                            "description": "A function that accepts up to three arguments. \rThe map method calls the callbackfn function one time for each element in the array.",
+                            "type": [
+                                [
+                                    [
+                                        "PredicateFunction"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "thisArg",
+                            "description": "An object to which the this keyword can refer in the callbackfn function. \rIf thisArg is omitted, undefined is used as the this value.",
+                            "optional": true,
+                            "type": [
+                                [
+                                    [
+                                        "any"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": [
+                        [
+                            [
+                                "void"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 279,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "some",
+                    "description": "This method is the same as `Array.some()`. \r\rDetermines whether the specified callback function returns true for any element of an array.",
+                    "inherits": "BaseManager#some",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "predicate",
+                            "description": "A function that accepts up to three arguments. \rThe some method calls the predicate function for each element in the array\runtil the predicate returns a value which is coercible to the Boolean value true, \ror until the end of the array.",
+                            "type": [
+                                [
+                                    [
+                                        "PredicateFunction"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "thisArg",
+                            "description": "An object to which the this keyword can refer in the callbackfn function. \rIf thisArg is omitted, undefined is used as the this value.",
+                            "optional": true,
+                            "type": [
+                                [
+                                    [
+                                        "any"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "Is any of the elements returns true or not."
+                    },
+                    "meta": {
+                        "line": 297,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "values",
+                    "description": "Returns an iterable of values in the array.",
+                    "inherits": "BaseManager#values",
+                    "inherited": true,
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "IterableIterator",
+                                    "<"
+                                ],
+                                [
+                                    "EconomyUser",
+                                    ">"
+                                ]
+                            ]
+                        ],
+                        "description": "An iterable of values in the array."
+                    },
+                    "meta": {
+                        "line": 305,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "toString",
+                    "description": "Returns a string representation of an array.",
+                    "inherits": "BaseManager#toString",
+                    "inherited": true,
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "String"
+                                ]
+                            ]
+                        ],
+                        "description": "String representation of an array."
+                    },
+                    "meta": {
+                        "line": 313,
+                        "file": "BaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "on",
+                    "description": "Listens to the event.",
+                    "inherits": "Emitter#on",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "ShopEvents"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "listener",
+                            "description": "Callback function.",
+                            "type": [
+                                [
+                                    [
+                                        "function"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Emitter"
+                                ]
+                            ]
+                        ],
+                        "description": "Economy Emitter."
+                    },
+                    "meta": {
+                        "line": 25,
+                        "file": "Emitter.js",
+                        "path": "src/classes/util"
+                    }
+                },
+                {
+                    "name": "once",
+                    "description": "Listens to the event only for once.",
+                    "inherits": "Emitter#once",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "ShopEvents"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "listener",
+                            "description": "Callback function.",
+                            "type": [
+                                [
+                                    [
+                                        "function"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Emitter"
+                                ]
+                            ]
+                        ],
+                        "description": "Economy Emitter."
+                    },
+                    "meta": {
+                        "line": 35,
+                        "file": "Emitter.js",
+                        "path": "src/classes/util"
+                    }
+                },
+                {
+                    "name": "emit",
+                    "description": "Emits the event.",
+                    "inherits": "Emitter#emit",
+                    "inherited": true,
+                    "params": [
+                        {
+                            "name": "event",
+                            "description": "Event name.",
+                            "type": [
+                                [
+                                    [
+                                        "ShopEvents"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "data",
+                            "description": "Any data to send.",
+                            "type": [
+                                [
+                                    [
+                                        "any"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "If emitted: true; else: false."
+                    },
+                    "meta": {
+                        "line": 45,
+                        "file": "Emitter.js",
+                        "path": "src/classes/util"
+                    }
+                }
+            ],
+            "meta": {
+                "line": 12,
+                "file": "Shop.js",
+                "path": "src/classes/guild"
             }
         },
         {
