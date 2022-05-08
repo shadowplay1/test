@@ -5,8 +5,17 @@ const BaseManager = require('../../managers/BaseManager')
 
 const ShopItem = require('../ShopItem')
 
-
+/**
+ * Guild shop class.
+ * @extends BaseManager
+ */
 class Shop extends BaseManager {
+
+    /**
+     * Guild shop constructor.
+     * @param {String} guildID Guild ID.
+     * @param {EconomyOptions} options Economy configuration.
+     */
     constructor(guildID, options) {
         super(options, ShopItem)
 
