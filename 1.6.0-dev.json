@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.11.1",
         "format": 20,
-        "date": 1652052851788
+        "date": 1652141231358
     },
     "custom": {
         "general": {
@@ -1193,6 +1193,105 @@
                     }
                 },
                 {
+                    "name": "shopItemRemove",
+                    "description": "Emits when someone's removed an item in the shop.",
+                    "params": [
+                        {
+                            "name": "id",
+                            "description": "Item ID.",
+                            "type": [
+                                [
+                                    [
+                                        "Number"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "data.name",
+                            "description": "Item name.",
+                            "type": [
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "data.price",
+                            "description": "Item price.",
+                            "type": [
+                                [
+                                    [
+                                        "Number"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "data.message",
+                            "description": "Item message that will be returned on item use.",
+                            "type": [
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "data.description",
+                            "description": "Item description.",
+                            "type": [
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "data.maxAmount",
+                            "description": "Max amount of the item that user can hold in their inventory.",
+                            "type": [
+                                [
+                                    [
+                                        "Number"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "data.role",
+                            "description": "Role ID from your Discord server.",
+                            "type": [
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "data.date",
+                            "description": "Formatted date when the item was added to the shop.",
+                            "type": [
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "meta": {
+                        "line": 660,
+                        "file": "index.js",
+                        "path": "src"
+                    }
+                },
+                {
                     "name": "shopItemBuy",
                     "description": "Emits when someone's added an item in the shop.",
                     "params": [
@@ -1286,7 +1385,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 660,
+                        "line": 673,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1385,7 +1484,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 673,
+                        "line": 686,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1451,7 +1550,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 686,
+                        "line": 699,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1473,7 +1572,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 696,
+                        "line": 709,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -1495,7 +1594,7 @@
                         }
                     ],
                     "meta": {
-                        "line": 702,
+                        "line": 715,
                         "file": "index.js",
                         "path": "src"
                     }
@@ -2273,7 +2372,7 @@
                         "description": "Item info."
                     },
                     "meta": {
-                        "line": 120,
+                        "line": 144,
                         "file": "Shop.js",
                         "path": "src/classes/guild"
                     }
@@ -2300,7 +2399,7 @@
                         },
                         {
                             "name": "itemProperty",
-                            "description": "This argument means what thing in item you want to edit (item property). \rAvailable item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.",
+                            "description": "This argument means what thing in item you want to edit (item property). \rAvailable item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.",
                             "type": [
                                 [
                                     [
@@ -2363,7 +2462,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 134,
+                        "line": 158,
                         "file": "Shop.js",
                         "path": "src/classes/guild"
                     }
@@ -2390,7 +2489,7 @@
                         },
                         {
                             "name": "itemProperty",
-                            "description": "This argument means what thing in item you want to edit (item property). \rAvailable item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.",
+                            "description": "This argument means what thing in item you want to edit (item property). \rAvailable item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.",
                             "type": [
                                 [
                                     [
@@ -2442,7 +2541,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 211,
+                        "line": 238,
                         "file": "Shop.js",
                         "path": "src/classes/guild"
                     }
@@ -2461,7 +2560,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 219,
+                        "line": 246,
                         "file": "Shop.js",
                         "path": "src/classes/guild"
                     }
@@ -2485,7 +2584,7 @@
                         "description": "The shop array."
                     },
                     "meta": {
-                        "line": 237,
+                        "line": 264,
                         "file": "Shop.js",
                         "path": "src/classes/guild"
                     }
@@ -2522,7 +2621,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 249,
+                        "line": 276,
                         "file": "Shop.js",
                         "path": "src/classes/guild"
                     }
@@ -4182,6 +4281,22 @@
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
+                },
+                {
+                    "name": "custom",
+                    "description": "Custom item data object.",
+                    "type": [
+                        [
+                            [
+                                "Object"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 84,
+                        "file": "ShopItem.js",
+                        "path": "src/classes"
+                    }
                 }
             ],
             "methods": [
@@ -4212,7 +4327,7 @@
                         "description": "Is the user has enough money to buy the item."
                     },
                     "meta": {
-                        "line": 91,
+                        "line": 97,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -4244,7 +4359,7 @@
                         "description": "Is the user has the item in their inventory."
                     },
                     "meta": {
-                        "line": 102,
+                        "line": 108,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -4255,7 +4370,7 @@
                     "params": [
                         {
                             "name": "itemProperty",
-                            "description": "This argument means what thing in item you want to edit (item property). \rAvailable item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.",
+                            "description": "This argument means what thing in item you want to edit (item property). \rAvailable item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.",
                             "type": [
                                 [
                                     [
@@ -4292,6 +4407,12 @@
                                         "role",
                                         "\""
                                     ]
+                                ],
+                                [
+                                    [
+                                        "custom",
+                                        "'"
+                                    ]
                                 ]
                             ]
                         },
@@ -4318,7 +4439,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 118,
+                        "line": 124,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -4329,7 +4450,7 @@
                     "params": [
                         {
                             "name": "itemProperty",
-                            "description": "This argument means what thing in item you want to edit (item property). \rAvailable item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.",
+                            "description": "This argument means what thing in item you want to edit (item property). \rAvailable item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.",
                             "type": [
                                 [
                                     [
@@ -4392,7 +4513,39 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 192,
+                        "line": 198,
+                        "file": "ShopItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
+                    "name": "setCustom",
+                    "description": "Sets a custom object for the item.",
+                    "params": [
+                        {
+                            "name": "custom",
+                            "description": "Custom item data object.",
+                            "type": [
+                                [
+                                    [
+                                        "Object"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "If set successfully: true, else: false."
+                    },
+                    "meta": {
+                        "line": 207,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -4411,7 +4564,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 202,
+                        "line": 217,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -4430,7 +4583,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 210,
+                        "line": 225,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -13435,7 +13588,7 @@
                         "description": "Item info."
                     },
                     "meta": {
-                        "line": 131,
+                        "line": 135,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -13473,7 +13626,7 @@
                         },
                         {
                             "name": "itemProperty",
-                            "description": "This argument means what thing in item you want to edit (item property). \rAvailable item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.",
+                            "description": "This argument means what thing in item you want to edit (item property). \rAvailable item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.",
                             "type": [
                                 [
                                     [
@@ -13525,7 +13678,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 145,
+                        "line": 149,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -13563,7 +13716,7 @@
                         },
                         {
                             "name": "itemProperty",
-                            "description": "This argument means what thing in item you want to edit (item property). \rAvailable item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.",
+                            "description": "This argument means what thing in item you want to edit (item property). \rAvailable item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.",
                             "type": [
                                 [
                                     [
@@ -13626,7 +13779,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 228,
+                        "line": 231,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -13674,7 +13827,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 238,
+                        "line": 241,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -13706,7 +13859,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 276,
+                        "line": 281,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -13750,7 +13903,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 309,
+                        "line": 314,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -13787,7 +13940,7 @@
                         "description": "The shop array."
                     },
                     "meta": {
-                        "line": 342,
+                        "line": 347,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -13824,7 +13977,7 @@
                         "description": "The shop array."
                     },
                     "meta": {
-                        "line": 358,
+                        "line": 363,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -13872,7 +14025,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 368,
+                        "line": 373,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -13920,7 +14073,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 396,
+                        "line": 401,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -13980,7 +14133,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 416,
+                        "line": 421,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -14056,7 +14209,7 @@
                         "description": "If item bought successfully: true; if item not found, false will be returned; \rif user reached the item's max amount: 'max' string."
                     },
                     "meta": {
-                        "line": 461,
+                        "line": 466,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -14131,7 +14284,7 @@
                         "description": "If item bought successfully: true; if item not found, false will be returned; \rif user reached the item's max amount: 'max' string."
                     },
                     "meta": {
-                        "line": 566,
+                        "line": 574,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -14180,7 +14333,7 @@
                         "description": "User's inventory array."
                     },
                     "meta": {
-                        "line": 585,
+                        "line": 593,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -14256,7 +14409,7 @@
                         "description": "Item message or null if item not found."
                     },
                     "meta": {
-                        "line": 627,
+                        "line": 635,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -14305,7 +14458,7 @@
                         "description": "User's purchase history."
                     },
                     "meta": {
-                        "line": 707,
+                        "line": 716,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -14349,7 +14502,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 751,
+                        "line": 760,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -16691,7 +16844,7 @@
                 }
             ],
             "meta": {
-                "line": 774,
+                "line": 787,
                 "file": "index.js",
                 "path": "src"
             }
@@ -16790,6 +16943,18 @@
                             ]
                         ]
                     ]
+                },
+                {
+                    "name": "custom",
+                    "description": "Custom item properties object.",
+                    "optional": true,
+                    "type": [
+                        [
+                            [
+                                "Object"
+                            ]
+                        ]
+                    ]
                 }
             ],
             "returns": {
@@ -16803,7 +16968,7 @@
                 "description": "Item info."
             },
             "meta": {
-                "line": 779,
+                "line": 788,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -16906,10 +17071,21 @@
                             ]
                         ]
                     ]
+                },
+                {
+                    "name": "custom",
+                    "description": "Custom item properties object.",
+                    "type": [
+                        [
+                            [
+                                "Object"
+                            ]
+                        ]
+                    ]
                 }
             ],
             "meta": {
-                "line": 803,
+                "line": 813,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -17118,10 +17294,21 @@
                             ]
                         ]
                     ]
+                },
+                {
+                    "name": "custom",
+                    "description": "Custom item properties object.",
+                    "type": [
+                        [
+                            [
+                                "Object"
+                            ]
+                        ]
+                    ]
                 }
             ],
             "meta": {
-                "line": 816,
+                "line": 827,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -17227,7 +17414,7 @@
                 }
             ],
             "meta": {
-                "line": 790,
+                "line": 800,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -18204,7 +18391,7 @@
                 }
             ],
             "meta": {
-                "line": 149,
+                "line": 160,
                 "file": "errors.js",
                 "path": "src/structures"
             }
