@@ -77,6 +77,12 @@ class ShopItem {
          */
         this.date = itemObject.date
 
+        /**
+         * Custom item data object.
+         * @type {Object}
+         */
+        this.custom = itemObject.custom || {}
+
         for (const [key, value] of Object.entries(itemObject || {})) {
             this[key] = value
         }
@@ -108,15 +114,15 @@ class ShopItem {
     /**
      * Edits the item in the shop.
      * 
-     * @param {"description" | "price" | "name" | "message" | "maxAmount" | "role"} itemProperty
+     * @param {"description" | "price" | "name" | "message" | "maxAmount" | "role" | 'custom'} itemProperty
      * This argument means what thing in item you want to edit (item property). 
-     * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.
+     * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.
      * 
      * @param {any} value Any value to set.
      * @returns {Boolean} If edited successfully: true, else: false.
      */
     edit(itemProperty, value) {
-        const itemProperties = ['description', 'price', 'name', 'message', 'maxAmount', 'role']
+        const itemProperties = ['description', 'price', 'name', 'message', 'maxAmount', 'role', 'custom']
 
         if (!itemProperties.includes(itemProperty)) {
             throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + itemProperty)
@@ -184,13 +190,22 @@ class ShopItem {
      * 
      * @param {"description" | "price" | "name" | "message" | "maxAmount" | "role"} itemProperty
      * This argument means what thing in item you want to edit (item property). 
-     * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.
+     * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.
      * 
      * @param {any} value Any value to set.
      * @returns {Boolean} If edited successfully: true, else: false.
      */
     editItem(itemProperty, value) {
         return this.edit(itemProperty, value)
+    }
+
+    /**
+     * Sets a custom object for the item.
+     * @param {Object} custom Custom item data object.
+     * @returns {Boolean} If set successfully: true, else: false.
+     */
+    setCustom(customObject) {
+        return this.editItem('custom', customObject)
     }
 
     /**
@@ -214,7 +229,7 @@ class ShopItem {
 
         this.database.removeElement(`${guildID}.shop`, itemIndex)
 
-        this.emit('shopRemoveItem', {
+        this.emit('shopItemRemove', {
             id: item.id,
             name: item.name,
             price: item.price,
@@ -222,7 +237,8 @@ class ShopItem {
             description: item.description,
             maxAmount: item.maxAmount,
             role: item.role || null,
-            date: item.date
+            date: item.date,
+            custom: item.custom || {}
         })
 
         return true
@@ -241,6 +257,7 @@ class ShopItem {
  * @property {String} role ID of Discord Role that will be given to Wuser on item use.
  * @property {Number} maxAmount Max amount of the item that user can hold in their inventory.
  * @property {String} date Date when the item was added in the shop.
+ * @property {Object} custom Custom item properties object.
  */
 
 /**

@@ -50,13 +50,12 @@ class ShopManager extends Emitter {
      * @returns {ShopItem} Item info.
      */
     addItem(guildID, options = {}) {
-        let {
-            // eslint-disable-next-line prefer-const
-            name, itemName, price, message,
-            // eslint-disable-next-line prefer-const
+        let name = options.name
+
+        const {
+            itemName, price, message, custom,
             description, maxAmount, role
         } = options
-
 
         const dateLocale = this.database.fetch(`${guildID}.settings.dateLocale`)
             || this.options.dateLocale
@@ -105,6 +104,10 @@ class ShopManager extends Emitter {
             throw new EconomyError(errors.invalidTypes.addItemOptions.role + typeof role)
         }
 
+        if (custom && typeof custom !== 'object' && !Array.isArray(custom)) {
+            throw new EconomyError(errors.invalidTypes.addItemOptions.role + typeof role)
+        }
+
         const itemInfo = {
             id: shop?.length ? shop[shop.length - 1].id + 1 : 1,
             name,
@@ -113,7 +116,8 @@ class ShopManager extends Emitter {
             description: description || 'Very mysterious item.',
             maxAmount: maxAmount == undefined ? null : Number(maxAmount),
             role: role || null,
-            date
+            date,
+            custom: custom || {}
         }
 
         this.database.push(`${guildID}.shop`, itemInfo)
@@ -138,12 +142,12 @@ class ShopManager extends Emitter {
      * @param {String} guildID Guild ID
      * @param {'description' | 'price' | 'name' | 'message' | 'maxAmount' | 'role'} itemProperty 
      * This argument means what thing in item you want to edit (item property). 
-     * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.
+     * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.
      * 
      * @returns {Boolean} If edited successfully: true, else: false.
      */
     editItem(itemID, guildID, itemProperty, value) {
-        const itemProperties = ['description', 'price', 'name', 'message', 'maxAmount', 'role']
+        const itemProperties = ['description', 'price', 'name', 'message', 'maxAmount', 'role', 'custom']
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
             throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
@@ -174,7 +178,6 @@ class ShopManager extends Emitter {
             if (!item) return false
 
             item[itemProperty] = value
-
             this.database.changeElement(`${guildID}.shop`, itemIndex, item)
 
             this.emit('shopItemEdit', {
@@ -220,7 +223,7 @@ class ShopManager extends Emitter {
      * @param {String} guildID Guild ID
      * @param {'description' | 'price' | 'name' | 'message' | 'maxAmount' | 'role'} itemProperty 
      * This argument means what thing in item you want to edit (item property). 
-     * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.
+     * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.
      * @param {any} value Any value to set.
      * 
      * @returns {Boolean} If edited successfully: true, else: false.
@@ -241,6 +244,7 @@ class ShopManager extends Emitter {
         * @type {ItemData[]}
         */
         const shop = this.list(guildID)
+
         const itemIndex = shop.findIndex(item => item.id == itemID || item.name == itemID)
         const item = shop[itemIndex]
 
@@ -254,7 +258,7 @@ class ShopManager extends Emitter {
 
         this.database.removeElement(`${guildID}.shop`, itemIndex)
 
-        this.emit('shopRemoveItem', {
+        this.emit('shopItemRemove', {
             id: item.id,
             name: item.name,
             price: item.price,
@@ -262,7 +266,8 @@ class ShopManager extends Emitter {
             description: item.description,
             maxAmount: item.maxAmount,
             role: item.role || null,
-            date: item.date
+            date: item.date,
+            custom: item.custom || {}
         })
 
         return true
@@ -461,7 +466,7 @@ class ShopManager extends Emitter {
     buy(itemID, memberID, guildID, reason = 'received the item from the shop') {
         const balance = this.database.fetch(`${guildID}.${memberID}.money`)
 
-        const shop = this.list(guildID)
+        const shop = this.fetch(guildID)
         const item = shop.find(item => item.id == itemID || item.name == itemID)
 
         const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`)
@@ -501,7 +506,8 @@ class ShopManager extends Emitter {
             description: item.description,
             role: item.role || null,
             maxAmount: item.maxAmount,
-            date: new Date().toLocaleString(dateLocale)
+            date: new Date().toLocaleString(dateLocale),
+            custom: item.custom || {},
         }
 
         if (subtractOnBuy) {
@@ -525,7 +531,8 @@ class ShopManager extends Emitter {
             description: item.description,
             role: item.role || null,
             maxAmount: item.maxAmount,
-            date: new Date().toLocaleString(dateLocale)
+            date: new Date().toLocaleString(dateLocale),
+            custom: item.custom || {}
         })
 
         if (savePurchasesHistory) {
@@ -542,7 +549,8 @@ class ShopManager extends Emitter {
                 price: item.price,
                 role: item.role || null,
                 maxAmount: item.maxAmount,
-                date: new Date().toLocaleString(dateLocale)
+                date: new Date().toLocaleString(dateLocale),
+                custom: item.custom || {}
             })
         }
 
@@ -646,6 +654,7 @@ class ShopManager extends Emitter {
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
             throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
         }
+
         if (typeof memberID !== 'string') {
             throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
         }
@@ -784,6 +793,7 @@ class ShopManager extends Emitter {
  * @property {String} [description='Very mysterious item.'] Item description.
  * @property {String | Number} [maxAmount=null] Max amount of the item that user can hold in their inventory.
  * @property {String} [role=null] Role ID from your Discord server.
+ * @property {Object} [custom] Custom item properties object.
  * @returns {ItemData} Item info.
  */
 
@@ -811,6 +821,7 @@ class ShopManager extends Emitter {
  * @property {String} role ID of Discord Role that will be given to Wuser on item use.
  * @property {Number} maxAmount Max amount of the item that user can hold in their inventory.
  * @property {String} date Date when the item was added in the shop.
+ * @property {Object} custom Custom item properties object.
  */
 
 /**
@@ -823,6 +834,7 @@ class ShopManager extends Emitter {
  * @property {String} role ID of Discord Role that will be given to user on item use.
  * @property {Number} maxAmount Max amount of the item that user can hold in their inventory.
  * @property {String} date Date when the item was bought by a user.
+ * @property {Object} custom Custom item properties object.
  */
 
 /**

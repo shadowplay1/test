@@ -23,6 +23,16 @@ const colors = {
     reset: '\x1b[0m'
 }
 
+const availableItemProps = [
+    'description',
+    'price',
+    'name',
+    'message',
+    'maxAmount',
+    'role',
+    'custom'
+]
+
 module.exports = {
     notReady: 'The module is not ready to work.',
     savingHistoryDisabled: 'Saving the purchases history is disabled.',
@@ -42,13 +52,14 @@ module.exports = {
             message: 'options.message must be a string. Received type: ',
             description: 'options.description must be a string. Received type: ',
             maxAmount: 'options.maxAmount must be a number. Received type: ',
-            role: 'options.role must be a string. Received type: '
+            role: 'options.role must be a string. Received type: ',
+            custom: 'options.custom must be an object. Received type: ',
         },
 
         editItemArgs: {
             itemID: 'itemID is not a string or a number. Received type: ',
             itemProperty: '\'itemProperty\' parameter must be one of these values: ' +
-                ['description', 'price', 'name', 'message', 'maxAmount', 'role'].map(x => `'${x}'`).join(', ') +
+                availableItemProps.map(prop => `'${prop}'`).join(', ') +
                 '. Received: ',
             noValue: 'no value specified. Received: '
         },

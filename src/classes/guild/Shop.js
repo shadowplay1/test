@@ -60,13 +60,35 @@ class Shop extends BaseManager {
      * @returns {ItemData} Item info.
      */
     addItem(options = {}) {
+        let name = options.name
+
         const {
-            name, price, message,
+            itemName, price, message, custom,
             description, maxAmount, role
         } = options
 
-        const date = new Date().toLocaleString(this.options.dateLocale || 'en')
-        const shop = this.database.fetch(`${this.guildID}.shop`)
+        const dateLocale = this.database.fetch(`${guildID}.settings.dateLocale`)
+            || this.options.dateLocale
+
+        const date = new Date().toLocaleString(dateLocale)
+        const shop = this.database.fetch(`${guildID}.shop`)
+
+        if (!name && itemName) {
+            name = itemName
+
+            console.log(
+                errors.propertyDeprecationWarning('Shop', 'itemName', 'name', {
+                    method: 'addItem',
+                    argumentName: 'options',
+                    argumentsList: ['options'],
+                    example: 'banana'
+                })
+            )
+        }
+
+        if (typeof this.guildID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.guildID + typeof this.guildID)
+        }
 
         if (typeof name !== 'string') {
             throw new EconomyError(errors.invalidTypes.addItemOptions.name + typeof name)
@@ -92,22 +114,24 @@ class Shop extends BaseManager {
             throw new EconomyError(errors.invalidTypes.addItemOptions.role + typeof role)
         }
 
+        if (custom && typeof custom !== 'object' && !Array.isArray(custom)) {
+            throw new EconomyError(errors.invalidTypes.addItemOptions.role + typeof role)
+        }
+
         const itemInfo = {
-            id: shop.length ? shop[shop.length - 1].id + 1 : 1,
+            id: shop?.length ? shop[shop.length - 1].id + 1 : 1,
             name,
             price,
             message: message || 'You have used this item!',
             description: description || 'Very mysterious item.',
             maxAmount: maxAmount == undefined ? null : Number(maxAmount),
             role: role || null,
-            date
+            date,
+            custom: custom || {}
         }
 
-
-        this.emit('shopItemAdd', itemInfo)
         this.database.push(`${this.guildID}.shop`, itemInfo)
-
-        return new ShopItem(this.guildID, this.database, itemInfo)
+        return new ShopItem(this.guildID, this.options, itemInfo)
     }
 
     /**
@@ -126,16 +150,20 @@ class Shop extends BaseManager {
      * @param {Number | String} itemID Item ID or name.
      * @param {'description' | 'price' | 'name' | 'message' | 'maxAmount' | 'role'} itemProperty 
      * This argument means what thing in item you want to edit (item property). 
-     * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.
+     * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.
      * 
      * @param {any} value Any value to set.
      * @returns {Boolean} If edited successfully: true, else: false.
      */
     editItem(itemID, itemProperty, value) {
-        const itemProperties = ['description', 'price', 'name', 'message', 'maxAmount', 'role']
+        const itemProperties = ['description', 'price', 'name', 'message', 'maxAmount', 'role', 'custom']
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
             throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
+        }
+
+        if (typeof this.guildID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.guilddID + typeof this.guildID)
         }
 
         if (!itemProperties.includes(itemProperty)) {
@@ -151,7 +179,7 @@ class Shop extends BaseManager {
             /**
              * @type {ItemData[]}
              */
-            const shop = this.all()
+            const shop = this.list(this.guildID)
 
             const itemIndex = shop.findIndex(item => item.id == itemID || item.name == itemID)
             const item = shop[itemIndex]
@@ -159,7 +187,6 @@ class Shop extends BaseManager {
             if (!item) return false
 
             item[itemProperty] = value
-
             this.database.changeElement(`${this.guildID}.shop`, itemIndex, item)
 
             this.emit('shopItemEdit', {
@@ -204,7 +231,7 @@ class Shop extends BaseManager {
      * @param {Number | String} itemID Item ID or name.
      * @param {'description' | 'price' | 'name' | 'message' | 'maxAmount' | 'role'} itemProperty 
      * This argument means what thing in item you want to edit (item property). 
-     * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role'.
+     * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.
      * 
      * @returns {Boolean} If edited successfully: true, else: false.
      */
@@ -268,6 +295,7 @@ module.exports = Shop
  * @property {String} role ID of Discord Role that will be given to Wuser on item use.
  * @property {Number} maxAmount Max amount of the item that user can hold in their inventory.
  * @property {String} date Date when the item was added in the shop.
+ * @property {Object} custom Custom item properties object.
  */
 
 /**
@@ -278,6 +306,7 @@ module.exports = Shop
  * @property {String} [description='Very mysterious item.'] Item description.
  * @property {String | Number} [maxAmount=null] Max amount of the item that user can hold in their inventory.
  * @property {String} [role=null] Role ID from your Discord server.
+ * @property {Object} [custom] Custom item properties object.
  * @returns {ItemData} Item info.
  */
 

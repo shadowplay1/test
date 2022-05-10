@@ -658,6 +658,19 @@ class Economy extends Emitter {
 */
 
 /**
+* Emits when someone's removed an item in the shop.
+* @event Economy#shopItemRemove
+* @param {Number} id Item ID.
+* @param {String} data.name Item name.
+* @param {Number} data.price Item price.
+* @param {String} data.message Item message that will be returned on item use.
+* @param {String} data.description Item description.
+* @param {Number} data.maxAmount Max amount of the item that user can hold in their inventory.
+* @param {String} data.role Role ID from your Discord server.
+* @param {String} data.date Formatted date when the item was added to the shop.
+*/
+
+/**
 * Emits when someone's added an item in the shop.
 * @event Economy#shopItemBuy
 * @param {Number} id Item ID.
