@@ -83,6 +83,7 @@ class ShopItem {
          */
         this.custom = itemObject.custom || {}
 
+
         for (const [key, value] of Object.entries(itemObject || {})) {
             this[key] = value
         }

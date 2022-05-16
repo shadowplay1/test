@@ -100,6 +100,7 @@ class EconomyUser {
          */
         this.rewards = new Rewards(id, guildID, this.storagePath)
 
+
         for (const [key, value] of Object.entries(userObject || {})) {
             this[key] = value
         }

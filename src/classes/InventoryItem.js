@@ -15,9 +15,10 @@ class InventoryItem {
      * @param {String} guildID Guild ID.
      * @param {String} memberID Member ID.
      * @param {EconomyOptions} ecoOptions Economy configuration.
+     * @param {DatabaseManager} database Database Manager.
      * @param {InventoryData} itemObject Economy guild object.
      */
-    constructor(guildID, memberID, ecoOptions, itemObject) {
+    constructor(guildID, memberID, ecoOptions, itemObject, database) {
 
         /**
          * Economy configuration.
@@ -81,7 +82,7 @@ class InventoryItem {
         this.date = itemObject.date
 
 
-        for (const [key, value] of Object.entries(guildObject || {})) {
+        for (const [key, value] of Object.entries(itemObject || {})) {
             this[key] = value
         }
 
@@ -90,14 +91,14 @@ class InventoryItem {
          * @type {SettingsManager}
          * @private
          */
-        this.settings = new SettingsManager(options)
+        this.settings = new SettingsManager(ecoOptions)
 
         /**
          * Database Manager.
          * @type {DatabaseManager}
          * @private
          */
-        this.database = new DatabaseManager(options)
+        this.database = database
     }
 
     /**
