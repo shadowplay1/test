@@ -191,7 +191,7 @@ class Economy extends Emitter {
         this.settings = null
 
         /**
-         * Economy class.
+         * Economy instance.
          * @type {Economy}
          */
         this.economy = this
@@ -201,9 +201,9 @@ class Economy extends Emitter {
         this.init().then(status => {
             if (status) {
                 this.ready = true
-                this.emit('ready')
 
-                this._logger.debug('Economy is ready!', 'green')
+		this._logger.debug('Economy is ready!', 'green')
+                this.emit('ready')
             }
         })
     }
