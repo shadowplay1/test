@@ -17,7 +17,7 @@ class Shop extends BaseManager {
      * @param {EconomyOptions} options Economy configuration.
      */
     constructor(guildID, options) {
-        super(options, ShopItem)
+        super(options, null, guildID,  ShopItem)
 
         /**
          * Guild ID.
@@ -41,7 +41,7 @@ class Shop extends BaseManager {
         }
 
         if (!item) return null
-        return new ShopItem(this.guildID, this.options, item)
+        return new ShopItem(this.guildID, this.database, item)
     }
 
     /**
@@ -67,11 +67,11 @@ class Shop extends BaseManager {
             description, maxAmount, role
         } = options
 
-        const dateLocale = this.database.fetch(`${guildID}.settings.dateLocale`)
+        const dateLocale = this.database.fetch(`${this.guildID}.settings.dateLocale`)
             || this.options.dateLocale
 
         const date = new Date().toLocaleString(dateLocale)
-        const shop = this.database.fetch(`${guildID}.shop`)
+        const shop = this.database.fetch(`${this.guildID}.shop`)
 
         if (!name && itemName) {
             name = itemName
@@ -131,7 +131,7 @@ class Shop extends BaseManager {
         }
 
         this.database.push(`${this.guildID}.shop`, itemInfo)
-        return new ShopItem(this.guildID, this.options, itemInfo)
+        return new ShopItem(this.guildID, this.database, itemInfo)
     }
 
     /**
@@ -240,6 +240,16 @@ class Shop extends BaseManager {
     }
 
     /**
+     * Sets a custom object for the item.
+     * @param {string | number} itemID Item ID or name.
+     * @param {Object} custom Custom item data object.
+     * @returns {Boolean} If set successfully: true, else: false.
+     */
+    setCustom(itemID, customObject) {
+        return this.editItem(itemID, this.guildID, 'custom', customObject)
+    }
+
+    /**
      * Clears the shop.
      * @returns {Boolean} If cleared: true, else: false.
      */
@@ -263,7 +273,7 @@ class Shop extends BaseManager {
      */
     fetch() {
         const shop = this.database.fetch(`${this.guildID}.shop`) || []
-        return shop.map(item => new ShopItem(this.guildID, this.options, item))
+        return shop.map(item => new ShopItem(this.guildID, this.database, item))
     }
 
     /**
@@ -283,6 +293,7 @@ class Shop extends BaseManager {
  * @type {Shop}
  */
 module.exports = Shop
+
 
 /**
  * Item data object.
