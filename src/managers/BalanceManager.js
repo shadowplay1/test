@@ -176,9 +176,9 @@ class BalanceManager extends Emitter {
     }
 
     /**
-     * Shows a money leaderboard for your server
-     * @param {String} guildID Guild ID
-     * @returns {BalanceLeaderboard[]} Sorted leaderboard array
+     * Shows a money leaderboard for your server.
+     * @param {String} guildID Guild ID.
+     * @returns {BalanceLeaderboard[]} Sorted leaderboard array.
      */
     leaderboard(guildID) {
         const lb = []
@@ -192,7 +192,7 @@ class BalanceManager extends Emitter {
         if (!guildData) return []
 
         const users = Object.keys(guildData)
-        const ranks = Object.values(guildData).map(user => user.bank).filter(userID => !isNaN(userID))
+        const ranks = Object.values(guildData).map(user => user.money).filter(userID => !isNaN(userID))
 
         for (const rank in ranks) lb.push({
             index: Number(rank) + 1,
@@ -239,6 +239,7 @@ class BalanceManager extends Emitter {
     }
 }
 
+
 /**
  * Paying options.
  * @typedef {Object} PayingOptions
@@ -250,6 +251,15 @@ class BalanceManager extends Emitter {
  * @property {String} [receivingReason='receiving money from user']
  * The reason of adding a money to recipient. (example: "receiving money from {user}")
  */
+
+/**
+ * Balance leaderboard object.
+ * @typedef {Object} BalanceLeaderboard
+ * @property {Number} index User's place in the leaderboard.
+ * @property {String} userID User ID.
+ * @property {Number} money Amount of money.
+ */
+
 
 /**
  * Balance manager class.

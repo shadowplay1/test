@@ -1,7 +1,9 @@
 const EconomyUser = require('../classes/EconomyUser')
 
-const BaseManager = require('./BaseManager')
 const DatabaseManager = require('./DatabaseManager')
+const FetchManager = require('./FetchManager')
+
+const BaseManager = require('./BaseManager')
 const UtilsManager = require('./UtilsManager')
 
 
@@ -16,7 +18,7 @@ class UserManager extends BaseManager {
      * @param {EconomyOptions} options Economy configuration.
      */
     constructor(options) {
-        super(options, EconomyUser)
+        super(options, null, null, EconomyUser)
 
         /**
          * Economy configuration.
@@ -37,7 +39,7 @@ class UserManager extends BaseManager {
          * @type {UtilsManager}
          * @private
          */
-        this.utils = new UtilsManager(options)
+        this.utils = new UtilsManager(options, this.database, new FetchManager(options))
     }
 
     /**

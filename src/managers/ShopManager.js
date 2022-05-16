@@ -121,7 +121,7 @@ class ShopManager extends Emitter {
         }
 
         this.database.push(`${guildID}.shop`, itemInfo)
-        return new ShopItem(guildID, this.options, itemInfo)
+        return new ShopItem(guildID, this.database, itemInfo)
     }
 
     /**
@@ -140,7 +140,7 @@ class ShopManager extends Emitter {
      * Edits the item in the shop.
      * @param {Number | String} itemID Item ID or name.
      * @param {String} guildID Guild ID
-     * @param {'description' | 'price' | 'name' | 'message' | 'maxAmount' | 'role'} itemProperty 
+     * @param {'description' | 'price' | 'name' | 'message' | 'maxAmount' | 'role' | 'custom'} itemProperty 
      * This argument means what thing in item you want to edit (item property). 
      * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.
      * 
@@ -221,7 +221,7 @@ class ShopManager extends Emitter {
      * This method is an alias for the `ShopManager.editItem()` method.
      * @param {Number | String} itemID Item ID or name.
      * @param {String} guildID Guild ID
-     * @param {'description' | 'price' | 'name' | 'message' | 'maxAmount' | 'role'} itemProperty 
+     * @param {'description' | 'price' | 'name' | 'message' | 'maxAmount' | 'role' | 'custom'} itemProperty 
      * This argument means what thing in item you want to edit (item property). 
      * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.
      * @param {any} value Any value to set.
@@ -230,6 +230,17 @@ class ShopManager extends Emitter {
      */
     edit(itemID, guildID, itemProperty, value) {
         return this.editItem(itemID, guildID, itemProperty, value)
+    }
+
+    /**
+     * Sets a custom object for the item.
+     * @param {string | number} itemID Item ID or name.
+     * @param {string} guildID Guild ID.
+     * @param {Object} custom Custom item data object.
+     * @returns {Boolean} If set successfully: true, else: false.
+     */
+    setCustom(itemID, guildID, customObject) {
+        return this.editItem(itemID, guildID, 'custom', customObject)
     }
 
     /**
@@ -324,7 +335,7 @@ class ShopManager extends Emitter {
         }
 
 
-        const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`)
+        const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`) || []
 
         if (typeof memberID !== 'string') {
             throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
@@ -350,7 +361,7 @@ class ShopManager extends Emitter {
         }
 
         const shop = this.database.fetch(`${guildID}.shop`)
-        return shop.map(item => new ShopItem(guildID, this.options, item))
+        return shop.map(item => new ShopItem(guildID, this.database, item))
     }
 
     /**
@@ -387,7 +398,7 @@ class ShopManager extends Emitter {
         }
 
         if (!item) return null
-        return new ShopItem(guildID, this.options, item)
+        return new ShopItem(guildID, this.database, item)
     }
 
     /**
@@ -433,7 +444,7 @@ class ShopManager extends Emitter {
         /**
         * @type {InventoryData[]}
         */
-        const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`)
+        const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`) || []
         const item = inventory.find(item => item.id == itemID || item.name == itemID)
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
@@ -459,8 +470,7 @@ class ShopManager extends Emitter {
      * @param {String} guildID Guild ID.
      * @param {String} reason The reason why the money was subtracted. Default: 'received the item from the shop'.
      * 
-     * @returns {Boolean | String} 
-     * If item bought successfully: true; if item not found, false will be returned; 
+     * @returns {Boolean | String} If item bought successfully: true; if item not found, false will be returned;
      * if user reached the item's max amount: 'max' string.
      */
     buy(itemID, memberID, guildID, reason = 'received the item from the shop') {
@@ -469,7 +479,7 @@ class ShopManager extends Emitter {
         const shop = this.fetch(guildID)
         const item = shop.find(item => item.id == itemID || item.name == itemID)
 
-        const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`)
+        const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`) || []
         const inventoryItems = inventory.filter(invItem => invItem.name == item.name)
 
 
@@ -602,7 +612,7 @@ class ShopManager extends Emitter {
             )
         }
 
-        const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`)
+        const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`) || []
 
         if (typeof memberID !== 'string') {
             throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
@@ -647,7 +657,7 @@ class ShopManager extends Emitter {
         /**
          * @type {InventoryData[]}
          */
-        const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`)
+        const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`) || []
         const itemIndex = inventory.findIndex(invItem => invItem.id == itemID || invItem.name == itemID)
         const item = inventory[itemIndex]
 

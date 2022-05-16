@@ -174,9 +174,9 @@ class BankManager extends Emitter {
     }
 
     /**
-     * Shows a money leaderboard for your server
-     * @param {String} guildID Guild ID
-     * @returns {BankLeaderboard[]} Sorted leaderboard array
+     * Shows a money leaderboard for your server.
+     * @param {String} guildID Guild ID.
+     * @returns {BankLeaderboard[]} Sorted leaderboard array.
      */
     leaderboard(guildID) {
         const lb = []
@@ -202,12 +202,13 @@ class BankManager extends Emitter {
     }
 }
 
+
 /**
  * Bank leaderboard object.
  * @typedef {Object} BankLeaderboard
  * @property {Number} index User's place in the top.
- * @property {String} userID User's ID.
- * @property {Number} money User's amount of money.
+ * @property {String} userID User ID.
+ * @property {Number} money Amount of money.
  */
 
 /**

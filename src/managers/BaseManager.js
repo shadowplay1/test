@@ -26,12 +26,11 @@ const UtilsManager = require('./UtilsManager')
  *       super(options, ShopItem)
  * 
  *       this.database = new DatabaseManager(options)
- *       this.options = options
  *   }
  *  
  *  all() {
  *      const shop = this.database.fetch(`${this.guildID}.shop`) || []
-        return shop.map(item => new ShopItem(this.guildID, this.options, item))
+        return shop.map(item => new ShopItem(this.guildID, this.database, item))
  *  }
  * }
  */
@@ -40,9 +39,11 @@ class BaseManager extends Emitter {
     /**
      * Base Manager.
      * @param {EconomyOptions} options Economy configuration.
+     * @param {String} memberID Member ID.
+     * @param {String} guildID Guild ID.
      * @param {any} constructor A constructor (EconomyUser, ShopItem, etc.) to work with.
      */
-    constructor(options, constructor) {
+    constructor(options, memberID, guildID, constructor) {
         super()
 
         /**
@@ -66,6 +67,18 @@ class BaseManager extends Emitter {
          */
         this.utils = new UtilsManager(options)
 
+	/**
+	 * Member ID.
+	 * @type {String}
+	 */
+	this.memberID = memberID
+	
+	/**
+	 * Guild ID.
+	 * @type {String}
+	 */
+	this.guildID = guildID
+
         /**
          * A constructor (EconomyUser, ShopItem, etc.) to work with.
          * @type {any}
@@ -81,40 +94,89 @@ class BaseManager extends Emitter {
 
     /**
      * Gets the first user in specified guild.
-     * @param {String} guildID Guild ID.
      * @returns {EconomyUser} User object.
      */
-    first(guildID) {
+    first() {
         const array = this.all()
+	const firstElement = array[0]
 
-        return new this.baseConstructor(memberID, guildID, this.options, array[0])
-        //new EconomyUser(memberID, guildID, this.options, array[0])
+        if (!this.memberID) {
+	    return new this.baseConstructor(this.guildID, this.options, firstElement, this.database)
+	}
+
+	else if (this.memberID && this.guildID) {
+	    return new this.baseConstructor(this.memberID, this.guildID, this.options, firstElement, this.database)
+	}
+
+	else {
+	    return new this.baseConstructor(
+		    firstElement.memberID || firstElement.id, 
+		    firstElement.guildID, 
+		    this.options, 
+		    firstElement,
+		    this.database
+	    )
+	}
     }
 
     /**
-     * Gets the last user in specified guild.
-     * @param {String} guildID Guild ID.
-     * @returns {EconomyUser} User object.
+     * Gets the last element in specified guild.
+     * @returns {EconomyUser} Last database object.
      */
-    last(guildID) {
+    last() {
         const array = this.all()
+        const lastElement = array[array.length - 1]
 
-        return new this.baseConstructor(memberID, guildID, this.options, array[array.length - 1])
-        // new EconomyUser(memberID, guildID, this.options, array[array.length - 1])
+        if (!this.memberID) {
+            return new this.baseConstructor(this.guildID, this.options, lastElement, this.database)
+        }
+
+        else if (this.memberID && this.guildID) {
+            return new this.baseConstructor(this.memberID, this.guildID, this.options, lastElement, this.database)
+        }
+
+        else {
+            return new this.baseConstructor(
+                    lastElement.memberID || lastElement.id,
+                    lastElement.guildID,
+                    this.options,
+                    lastElement,
+                    this.database
+            )
+        }
+
     }
 
     /**
      * Returns an array of elements in specified guild.
-     * @param {String} guildID Guild ID.
-     * @returns {EconomyUser[]} Array of elements in specified guild.
+     * @returns {any[]} Array of elements in specified guild.
      */
-    toArray(guildID) {
+    toArray() {
         const array = this.all()
 
-        return array.map(user => {
-            return new this.baseConstructor(user.id, guildID, this.options, user)
-            // new EconomyUser(user.id, guildID, this.options, user)
-        })
+	if (!this.memberID) {
+            return array.map(element => {
+		return new this.baseConstructor(this.guildID, this.options, element, this.database)
+            })
+	}
+	
+	if (this.memberID && this.guildID) {
+	    return array.map(element => {
+                return new this.baseConstructor(this.memberID, this.guildID, this.options, element, this.database)
+            })
+        }
+
+	else {
+	    return array.map(element => {
+                return new this.baseConstructor(
+                    element.memberID || element.id,
+                    element.guildID,
+                    this.options,
+                    element,
+                    this.database
+            )
+            })
+	}
     }
 
     /**

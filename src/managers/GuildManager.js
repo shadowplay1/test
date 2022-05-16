@@ -3,11 +3,12 @@ const EconomyGuild = require('../classes/EconomyGuild')
 const BaseManager = require('./BaseManager')
 
 const DatabaseManager = require('./DatabaseManager')
+const FetchManager = require('./FetchManager')
+
 const UtilsManager = require('./UtilsManager')
 const UserManager = require('./UserManager')
 
 const EconomyError = require('../classes/util/EconomyError')
-
 const errors = require('../structures/errors')
 
 
@@ -22,7 +23,7 @@ class GuildManager extends BaseManager {
      * @param {EconomyOptions} options Economy configuration.
      */
     constructor(options) {
-        super(options, EconomyGuild)
+        super(options, null, null, EconomyGuild)
 
 
         /**
@@ -51,7 +52,7 @@ class GuildManager extends BaseManager {
          * @type {UtilsManager}
          * @private
          */
-        this.utils = new UtilsManager(options)
+        this.utils = new UtilsManager(options, this.database, new FetchManager(options))
     }
 
     /**

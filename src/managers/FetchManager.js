@@ -139,7 +139,7 @@ class FetchManager {
          */
         const history = memberData?.history || []
 
-        return history.map(item => new HistoryItem(guildID, this.options, item))
+        return history.map(item => new HistoryItem(guildID, memberID, this.options, item))
     }
 
     /**
@@ -181,7 +181,7 @@ class FetchManager {
         const guildData = data[guildID]
         const shop = guildData?.shop || []
 
-        return new ShopItem(guildID, this.options, shop)
+        return new ShopItem(guildID, this.database, shop)
     }
 }
 

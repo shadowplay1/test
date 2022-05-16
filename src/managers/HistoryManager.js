@@ -61,7 +61,7 @@ class HistoryManager {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
         }
 
-        return new HistoryItem(guildID, this.options, history)
+        return new HistoryItem(guildID, memberID, this.options, history)
     }
 
     /**
@@ -192,7 +192,7 @@ class HistoryManager {
 
 
         const historyItem = history.find(historyItem => historyItem.id == id)
-        return new HistoryItem(guildID, this.options, historyItem) || null
+        return new HistoryItem(guildID, memberID, this.options, historyItem) || null
     }
 
     /**

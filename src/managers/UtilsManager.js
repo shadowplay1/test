@@ -79,14 +79,14 @@ class UtilsManager {
          * @type {FetchManager}
          * @private
          */
-         this.fetcher = fetcher//new FetchManager(options)
+        this.fetcher = fetcher
 
         /**
          * Database manager methods object.
          * @type {DatabaseManager}
          * @private
          */
-        this.database = database //new DatabaseManager(options)
+        this.database = database
     }
 
     /**
@@ -212,37 +212,47 @@ class UtilsManager {
         this._logger.debug('Debug mode is enabled.', 'lightcyan')
         this._logger.debug('Checking the configuration...')
 
-        const optionsFileExists = existsSync('./economy.config.js')
-        const dirName = dirname(require.main.filename) // process.env.PWD
+	const filePathArray = require.main.filename.replaceAll('\\', '/').split('/')
+	const fileName = filePathArray[filePathArray.length - 1]
 
-        // console.log(dirName)
+	const isTSFileAllowed = fileName.endsWith('.ts')
+        const dirName = dirname(require.main.filename).replace('/' + fileName, '').replace('\\' + fileName, '')
+
+	let fileExtension = isTSFileAllowed ? 'ts' : 'js'
+	let optionsFileExists = existsSync(`./economy.config.${fileExtension}`)
+
+	if (!optionsFileExists && fileExtension == 'ts' && isTSFileAllowed) {
+	    fileExtension = 'js'
+	    optionsFileExists = existsSync(`./economy.config.${fileExtension}`)
+	}
+
+        console.log(dirName)
+	console.log(fileName)
+	console.log(fileExtension)
 
         if (optionsFileExists) {
-            // const fileLanguage = __filename.endsWith('js') ? 'js' : 'ts'
-
-            // const file = require.main.filename
-            // console.log(file)
+            const file = require.main.filename
+            console.log(file)
 
             const slash = dirName.includes('\\') ? '\\' : '/'
-            this._logger.debug(`Using configuration file at ${dirName}${slash}economy.config.js...`, 'cyan')
+            this._logger.debug(
+		`Using configuration file at ${dirName}${slash}economy.config.${fileExtension}...`, 'cyan'
+	    )
 
             try {
-                const optionsObject = require(`${dirName}/economy.config.js`)
+                const optionsObject = require(`${dirName}/economy.config.${fileExtension}`)
 
                 options = optionsObject.optionsChecker
                 ecoOptions = optionsObject
-
-                // console.log('file:', optionsFile)
             } catch (err) {
                 this._logger.error(`Failed to open the configuration file:\n${err.stack}`)
                 this._logger.debug('Using the configuration specified in a constructor...', 'cyan')
             }
         } else this._logger.debug('Using the configuration specified in a constructor...', 'cyan')
 
+
         const problems = []
         const output = {}
-
-        // console.log('options:', options, ecoOptions)
 
         const keys = Object.keys(DefaultOptions)
         const optionKeys = Object.keys(ecoOptions || {})
