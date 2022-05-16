@@ -19,7 +19,7 @@ class Inventory extends BaseManager {
      * @param {EconomyOptions} options Economy configuration.
      */
     constructor(memberID, guildID, options) {
-        super(options, InventoryItem)
+        super(options, memberID, guildID, InventoryItem)
 
         /**
         * Member ID.
@@ -228,7 +228,8 @@ class Inventory extends BaseManager {
         return inventory.map(
             inventoryItem => new InventoryItem(
                 this.guildID, this.memberID,
-                this.options, inventoryItem
+                this.options, inventoryItem,
+		this.database
             )
         )
     }

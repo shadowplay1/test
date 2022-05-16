@@ -21,7 +21,7 @@ class History extends BaseManager {
      * @param {EconomyOptions} options Economy configuration.
      */
     constructor(memberID, guildID, options) {
-        super(options, HistoryItem)
+        super(options, memberID, guildID, HistoryItem)
 
         /**
         * Member ID.
@@ -65,7 +65,7 @@ class History extends BaseManager {
      */
     all() {
         const results = this.database.fetch(`${this.guildID}.${this.memberID}.history`) || []
-        return results.map(historyItem => new HistoryItem(guildID, this.options, historyItem))
+        return results.map(historyItem => new HistoryItem(this.guildID, this.memberID, this.options, historyItem))
     }
 
     /**
