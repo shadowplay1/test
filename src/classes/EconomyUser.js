@@ -6,8 +6,11 @@ const Bank = require('./user/Bank')
 
 const History = require('./user/History')
 const Inventory = require('./user/Inventory')
+
 const Cooldowns = require('./user/Cooldowns')
 const Rewards = require('./user/Rewards')
+
+const Items = require('./user/Items')
 
 
 /**
@@ -17,7 +20,7 @@ class EconomyUser {
 
     /**
      * Economy user class.
-     * @param {String} id User's ID.
+     * @param {String} id User ID.
      * @param {String} guildID Guild ID.
      * @param {EconomyOptions} ecoOptions Economy configuration.
      * @param {RawEconomyUser} userObject Economy user object.
@@ -65,40 +68,46 @@ class EconomyUser {
         this._shop = new ShopManager(this.options)
 
         /**
-         * User's cooldowns info.
+         * User cooldowns.
          * @type {Cooldowns}
          */
         this.cooldowns = new Cooldowns(userObject, ecoOptions)
 
         /**
-         * User's history info.
+         * User history.
          * @type {History}
          */
         this.history = new History(id, guildID, ecoOptions)
 
         /**
-         * User's inventory info.
+         * User inventory.
          * @type {Inventory}
          */
         this.inventory = new Inventory(id, guildID, ecoOptions)
 
         /**
-         * User's balance info.
+         * User balance.
          * @type {Balance}
          */
         this.balance = new Balance(id, guildID, ecoOptions)
 
         /**
-         * User's bank balance info.
+         * User bank balance.
          * @type {Bank}
          */
-        this.bank = new Bank(id, guildID, this.storagePath)
+        this.bank = new Bank(id, guildID, ecoOptions)
 
         /**
-         * User's rewards info.
+         * User rewards.
          * @type {Rewards}
          */
-        this.rewards = new Rewards(id, guildID, this.storagePath)
+        this.rewards = new Rewards(id, guildID, ecoOptions)
+
+        /**
+         * User items.
+         * @type {Items}
+         */
+        this.items = new Items(id, guildID, ecoOptions)
 
 
         for (const [key, value] of Object.entries(userObject || {})) {
@@ -121,18 +130,6 @@ class EconomyUser {
      */
     reset() {
         return this._utils.reset(id, this.guildID)
-    }
-
-    /**
-     * Buys the item from the shop.
-     * @param {String | Number} itemID Item ID or name.
-     * 
-     * @returns {Boolean} 
-     * If item bought successfully: true; if item not found, false will be returned; 
-     * if user reached the item's max amount: 'max' string.
-     */
-    buyItem(itemID) {
-        return this._shop.buy(itemID, this.id, this.guildID)
     }
 }
 

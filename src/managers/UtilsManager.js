@@ -226,15 +226,10 @@ class UtilsManager {
 	    optionsFileExists = existsSync(`./economy.config.${fileExtension}`)
 	}
 
-        console.log(dirName)
-	console.log(fileName)
-	console.log(fileExtension)
-
         if (optionsFileExists) {
             const file = require.main.filename
-            console.log(file)
-
             const slash = dirName.includes('\\') ? '\\' : '/'
+
             this._logger.debug(
 		`Using configuration file at ${dirName}${slash}economy.config.${fileExtension}...`, 'cyan'
 	    )

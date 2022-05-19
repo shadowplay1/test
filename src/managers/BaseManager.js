@@ -72,7 +72,7 @@ class BaseManager extends Emitter {
 	 * @type {String}
 	 */
 	this.memberID = memberID
-	
+
 	/**
 	 * Guild ID.
 	 * @type {String}
@@ -110,9 +110,9 @@ class BaseManager extends Emitter {
 
 	else {
 	    return new this.baseConstructor(
-		    firstElement.memberID || firstElement.id, 
-		    firstElement.guildID, 
-		    this.options, 
+		    firstElement.memberID || firstElement.id,
+		    firstElement.guildID,
+		    this.options,
 		    firstElement,
 		    this.database
 	    )
@@ -159,7 +159,7 @@ class BaseManager extends Emitter {
 		return new this.baseConstructor(this.guildID, this.options, element, this.database)
             })
 	}
-	
+
 	if (this.memberID && this.guildID) {
 	    return array.map(element => {
                 return new this.baseConstructor(this.memberID, this.guildID, this.options, element, this.database)

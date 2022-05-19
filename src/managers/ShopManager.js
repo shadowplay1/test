@@ -170,7 +170,7 @@ class ShopManager extends Emitter {
             /**
              * @type {ItemData[]}
              */
-            const shop = this.list(guildID)
+            const shop = this.fetch(guildID)
 
             const itemIndex = shop.findIndex(item => item.id == itemID || item.name == itemID)
             const item = shop[itemIndex]
@@ -254,7 +254,7 @@ class ShopManager extends Emitter {
         /**
         * @type {ItemData[]}
         */
-        const shop = this.list(guildID)
+        const shop = this.fetch(guildID)
 
         const itemIndex = shop.findIndex(item => item.id == itemID || item.name == itemID)
         const item = shop[itemIndex]
@@ -290,7 +290,7 @@ class ShopManager extends Emitter {
      * @returns {Boolean} If cleared: true, else: false.
      */
     clear(guildID) {
-        const shop = this.list(guildID)
+        const shop = this.fetch(guildID)
 
         if (typeof guildID !== 'string') {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
@@ -352,27 +352,16 @@ class ShopManager extends Emitter {
 
     /**
      * Shows all items in the shop.
-     * @param {String} guildID Guild ID.
+     * @param {string} guildID Guild ID
      * @returns {ShopItem[]} The shop array.
      */
-    list(guildID) {
+    fetch(guildID) {
         if (typeof guildID !== 'string') {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
         }
 
         const shop = this.database.fetch(`${guildID}.shop`)
         return shop.map(item => new ShopItem(guildID, this.database, item))
-    }
-
-    /**
-     * Shows all items in the shop.
-     * 
-     * This method is an alias for the `ShopManager.list()` method.
-     * @param {String} guildID Guild ID.
-     * @returns {ShopItem[]} The shop array.
-     */
-    fetch(guildID) {
-        return this.list(guildID)
     }
 
     /**
@@ -386,7 +375,7 @@ class ShopManager extends Emitter {
         /**
         * @type {ItemData[]}
         */
-        const shop = this.list(guildID)
+        const shop = this.fetch(guildID)
         const item = shop.find(item => item.id == itemID || item.name == itemID)
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {

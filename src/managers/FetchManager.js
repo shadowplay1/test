@@ -181,7 +181,7 @@ class FetchManager {
         const guildData = data[guildID]
         const shop = guildData?.shop || []
 
-        return new ShopItem(guildID, this.database, shop)
+        return shop.map(item => new ShopItem(guildID, this.database, item))
     }
 }
 

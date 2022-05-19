@@ -3,6 +3,9 @@ const DatabaseManager = require('../managers/DatabaseManager')
 const UserManager = require('../managers/UserManager')
 
 const Shop = require('./guild/Shop')
+const Leaderboards = require('./guild/Leaderboards')
+
+const Settings = require('./guild/Settings')
 
 
 /**
@@ -17,6 +20,7 @@ class EconomyGuild {
      * @param {any} guildObject Economy guild object.
      */
     constructor(id, ecoOptions, guildObject) {
+        delete guildObject.settings
 
         /**
          * Guild User Manager.
@@ -45,10 +49,22 @@ class EconomyGuild {
         this.utils = new UtilsManager({ storagePath: ecoOptions.storagePath })
 
         /**
-         * Guild shop info.
+         * Guild Shop.
          * @type {Shop}
          */
         this.shop = new Shop(id, ecoOptions)
+
+        /**
+             * Guild Leaderboards.
+             * @type {Leaderboards}
+             */
+        this.leaderboards = new Leaderboards(id, ecoOptions)
+
+        /**
+         * Guild Settings.
+         * @type {Settings}
+         */
+        this.settings = new Settings(id, ecoOptions)
 
 
         delete guildObject.shop

@@ -23,7 +23,6 @@ class InventoryManager extends Emitter {
     constructor(options = {}) {
         super()
 
-
         /**
          * Economy configuration.
          * @private

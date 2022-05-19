@@ -165,7 +165,7 @@ class SettingsManager {
      * specified configuration or default configuration.
      * 
      * @param {Settings} key The setting to change.
-     * @param {any} value The value to set.`
+     * @param {any} value The value to set.
      * @param {String} guildID Guild ID.
      * @returns {SettingsTypes} The server settings object.
      */
@@ -204,7 +204,7 @@ class SettingsManager {
     }
 
     /**
-     * Fetches the server's settings object.
+     * Fetches all the server's settings object.
      * @param {String} guildID Guild ID.
      * @returns {SettingsTypes} The server settings object.
      */

@@ -5,7 +5,7 @@ const BankManager = require('../../managers/BankManager')
  * Guild leaderboards.
  */
 class Leaderboards {
- 
+
     /**
      * Guild leaderboards class.
      * @param {String} guildID Guild ID.
@@ -13,25 +13,25 @@ class Leaderboards {
      */
     constructor(guildID, options) {
 
-	/**
-         * Guild ID.
-         * @type {String}
-         * @private
-         */
+        /**
+        * Guild ID.
+        * @type {String}
+        * @private
+        */
         this.guildID = guildID
 
-	/**
-         * Balance Manager.
-         * @type {BalanceManager}
-         * @private
-         */
+        /**
+        * Balance Manager.
+        * @type {BalanceManager}
+        * @private
+        */
         this._balance = new BalanceManager(options)
 
-	/**
-         * Bank Manager.
-         * @type {BankManager}
-         * @private
-         */
+        /**
+        * Bank Manager.
+        * @type {BankManager}
+        * @private
+        */
         this._bank = new BankManager(options)
     }
 
@@ -40,7 +40,17 @@ class Leaderboards {
      * @returns {BalanceLeaderboard[]} Balance leaderboard array.
      */
     balance() {
-	return this._balance.leaderboard(this.guildID)
+        return this._balance.leaderboard(this.guildID)
+    }
+
+    /**
+     * Gets a money leaderboard for this guild.
+     *
+     * This method is an alias for 'Leaderboards.balance()' method.
+     * @returns {BalanceLeaderboard[]} Balance leaderboard array.
+     */
+    money() {
+        return this.balance()
     }
 
     /**
@@ -48,13 +58,15 @@ class Leaderboards {
      * @returns {BankLeaderboard[]} Bank balance leaderboard array.
      */
     bank() {
-	return this._bank.leaderboard(this.guildID)
+        return this._bank.leaderboard(this.guildID)
     }
 }
 
 /**
- * Guild leaderboards class.                                                                                                                                    * @type {Leaderboards}
- */                                                                                                                                                            module.exports = Leaderboards
+ * Guild leaderboards class.
+ * @type {Leaderboards}
+ */
+module.exports = Leaderboards
 
 
 /**
@@ -64,7 +76,8 @@ class Leaderboards {
  * @property {Number} [dailyCooldown=86400000]
  * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  *
- * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)                                                 * @property {Number | Number[]} [dailyAmount=100] Amount of money for Daily Command. Default: 100.
+ * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
+ * @property {Number | Number[]} [dailyAmount=100] Amount of money for Daily Command. Default: 100.
  * @property {Number} [weeklyCooldown=604800000]
  * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
  *

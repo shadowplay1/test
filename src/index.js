@@ -173,13 +173,13 @@ class Economy extends Emitter {
         this.rewards = null
 
         /**
-        * User manager methods object.
+        * Economy users.
         * @type {UserManager}
         */
         this.users = new UserManager(this.options)
 
         /**
-        * Guild manager methods object.
+        * Economy guilds.
         * @type {GuildManager}
         */
         this.guilds = new GuildManager(this.options)
