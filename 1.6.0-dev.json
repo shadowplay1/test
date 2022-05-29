@@ -1,8 +1,8 @@
 {
     "meta": {
-        "generator": "0.10.0",
+        "generator": "0.11.1",
         "format": 20,
-        "date": 1652996836563
+        "date": 1653786704522
     },
     "custom": {
         "general": {
@@ -1860,6 +1860,17 @@
                                 ]
                             ]
                         ]
+                    },
+                    {
+                        "name": "database",
+                        "description": "Database Manager.",
+                        "type": [
+                            [
+                                [
+                                    "DatabaseManager"
+                                ]
+                            ]
+                        ]
                     }
                 ]
             },
@@ -1875,7 +1886,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 34,
+                        "line": 35,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1891,7 +1902,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 40,
+                        "line": 41,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1907,7 +1918,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 46,
+                        "line": 47,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1924,7 +1935,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 54,
+                        "line": 55,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1941,7 +1952,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 61,
+                        "line": 62,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1958,7 +1969,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 68,
+                        "line": 69,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1974,7 +1985,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 74,
+                        "line": 75,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -1990,7 +2001,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 80,
+                        "line": 81,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -2006,7 +2017,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 86,
+                        "line": 87,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -2022,7 +2033,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 92,
+                        "line": 93,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -2038,7 +2049,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 98,
+                        "line": 99,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -2054,7 +2065,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 104,
+                        "line": 105,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -2070,7 +2081,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 110,
+                        "line": 111,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -2091,7 +2102,7 @@
                         "description": "Deleted user object."
                     },
                     "meta": {
-                        "line": 122,
+                        "line": 123,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -2110,7 +2121,7 @@
                         "description": "If reset successfully: true; else: false."
                     },
                     "meta": {
-                        "line": 131,
+                        "line": 132,
                         "file": "EconomyUser.js",
                         "path": "src/classes"
                     }
@@ -2702,7 +2713,7 @@
             "methods": [
                 {
                     "name": "get",
-                    "description": "Gets the item from the shop.",
+                    "description": "Gets the item in the shop.",
                     "params": [
                         {
                             "name": "itemID",
@@ -2725,7 +2736,7 @@
                         "types": [
                             [
                                 [
-                                    "ItemData"
+                                    "ShopItem"
                                 ]
                             ]
                         ],
@@ -2739,7 +2750,7 @@
                 },
                 {
                     "name": "all",
-                    "description": "Gets all the items in the shop.\r\rThis method is an alias for the`EconomyGuild.shop.fetch()` method.",
+                    "description": "Gets all the items in the shop.",
                     "returns": {
                         "types": [
                             [
@@ -2753,10 +2764,10 @@
                                 ]
                             ]
                         ],
-                        "description": "Guild array."
+                        "description": "Guild shop array."
                     },
                     "meta": {
-                        "line": 53,
+                        "line": 51,
                         "file": "Shop.js",
                         "path": "src/classes/guild"
                     }
@@ -2788,14 +2799,14 @@
                         "description": "Item info."
                     },
                     "meta": {
-                        "line": 62,
+                        "line": 61,
                         "file": "Shop.js",
                         "path": "src/classes/guild"
                     }
                 },
                 {
                     "name": "add",
-                    "description": "Creates an item in shop.\r\rThis method is an alias for the `EconomyGuild.shop.addItem()` method.",
+                    "description": "Creates an item in shop.\r\rThis method is an alias for the `Shop.addItem()` method.",
                     "params": [
                         {
                             "name": "options",
@@ -2820,7 +2831,7 @@
                         "description": "Item info."
                     },
                     "meta": {
-                        "line": 144,
+                        "line": 143,
                         "file": "Shop.js",
                         "path": "src/classes/guild"
                     }
@@ -2910,14 +2921,14 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 158,
+                        "line": 157,
                         "file": "Shop.js",
                         "path": "src/classes/guild"
                     }
                 },
                 {
                     "name": "edit",
-                    "description": "Edits the item in the shop.\r\rThis method is an alias for the `EconomyGuild.shop.editItem()` method.",
+                    "description": "Edits the item in the shop.\r\rThis method is an alias for the `Shop.editItem()` method.",
                     "params": [
                         {
                             "name": "itemID",
@@ -2989,7 +3000,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 238,
+                        "line": 237,
                         "file": "Shop.js",
                         "path": "src/classes/guild"
                     }
@@ -3037,7 +3048,7 @@
                         "description": "If set successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 248,
+                        "line": 247,
                         "file": "Shop.js",
                         "path": "src/classes/guild"
                     }
@@ -3056,7 +3067,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 256,
+                        "line": 255,
                         "file": "Shop.js",
                         "path": "src/classes/guild"
                     }
@@ -3072,7 +3083,7 @@
                                     "<"
                                 ],
                                 [
-                                    "ItemData",
+                                    "ShopItem",
                                     ">"
                                 ]
                             ]
@@ -3080,62 +3091,25 @@
                         "description": "The shop array."
                     },
                     "meta": {
-                        "line": 274,
-                        "file": "Shop.js",
-                        "path": "src/classes/guild"
-                    }
-                },
-                {
-                    "name": "findItem",
-                    "description": "Searches for the item in the shop.\r\rThis method is an alias for the `EconomyGuild.shop.get()` method.",
-                    "params": [
-                        {
-                            "name": "itemID",
-                            "description": "Item ID or name.",
-                            "type": [
-                                [
-                                    [
-                                        "Number"
-                                    ]
-                                ],
-                                [
-                                    [
-                                        "String"
-                                    ]
-                                ]
-                            ]
-                        }
-                    ],
-                    "returns": {
-                        "types": [
-                            [
-                                [
-                                    "ItemData"
-                                ]
-                            ]
-                        ],
-                        "description": "If item not found: null; else: item info object."
-                    },
-                    "meta": {
-                        "line": 286,
+                        "line": 273,
                         "file": "Shop.js",
                         "path": "src/classes/guild"
                     }
                 },
                 {
                     "name": "first",
-                    "description": "Gets the first user in specified guild.",
+                    "description": "Gets the first element in specified guild.",
                     "inherits": "BaseManager#first",
                     "inherited": true,
                     "returns": {
                         "types": [
                             [
                                 [
-                                    "EconomyUser"
+                                    "any"
                                 ]
                             ]
                         ],
-                        "description": "User object."
+                        "description": "First database object."
                     },
                     "meta": {
                         "line": 99,
@@ -3152,7 +3126,7 @@
                         "types": [
                             [
                                 [
-                                    "EconomyUser"
+                                    "any"
                                 ]
                             ]
                         ],
@@ -3224,11 +3198,11 @@
                         "types": [
                             [
                                 [
-                                    "EconomyUser"
+                                    "any"
                                 ]
                             ]
                         ],
-                        "description": "Economy user object."
+                        "description": "Database object."
                     },
                     "meta": {
                         "line": 194,
@@ -3294,7 +3268,7 @@
                             "type": [
                                 [
                                     [
-                                        "EconomyUser"
+                                        "any"
                                     ]
                                 ]
                             ]
@@ -3340,7 +3314,7 @@
                             "type": [
                                 [
                                     [
-                                        "EconomyUser"
+                                        "any"
                                     ]
                                 ]
                             ]
@@ -3386,7 +3360,7 @@
                             "type": [
                                 [
                                     [
-                                        "EconomyUser"
+                                        "any"
                                     ]
                                 ]
                             ]
@@ -3432,7 +3406,7 @@
                             "type": [
                                 [
                                     [
-                                        "EconomyUser"
+                                        "any"
                                     ]
                                 ]
                             ]
@@ -3479,7 +3453,7 @@
                                     "<"
                                 ],
                                 [
-                                    "EconomyUser",
+                                    "any",
                                     ">"
                                 ]
                             ]
@@ -3519,7 +3493,7 @@
                                     "<"
                                 ],
                                 [
-                                    "EconomyUser",
+                                    "any",
                                     ">"
                                 ]
                             ]
@@ -3569,7 +3543,7 @@
                                 "<"
                             ],
                             [
-                                "EconomyUser",
+                                "any",
                                 ">"
                             ]
                         ]
@@ -3704,7 +3678,7 @@
                                 ]
                             ]
                         ],
-                        "description": "Is any of the elements returns true or not."
+                        "description": "Is any of the elements meets the specified condition."
                     },
                     "meta": {
                         "line": 359,
@@ -3725,7 +3699,7 @@
                                     "<"
                                 ],
                                 [
-                                    "EconomyUser",
+                                    "any",
                                     ">"
                                 ]
                             ]
@@ -3940,6 +3914,17 @@
                                 ]
                             ]
                         ]
+                    },
+                    {
+                        "name": "database",
+                        "description": "Database Manager.",
+                        "type": [
+                            [
+                                [
+                                    "DatabaseManager"
+                                ]
+                            ]
+                        ]
                     }
                 ]
             },
@@ -3955,7 +3940,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 20,
+                        "line": 25,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
@@ -3971,7 +3956,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 26,
+                        "line": 31,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
@@ -3987,7 +3972,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 32,
+                        "line": 37,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
@@ -4003,7 +3988,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 38,
+                        "line": 43,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
@@ -4019,7 +4004,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 44,
+                        "line": 49,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
@@ -4035,7 +4020,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 50,
+                        "line": 55,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
@@ -4051,7 +4036,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 56,
+                        "line": 61,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
@@ -4067,7 +4052,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 62,
+                        "line": 67,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
@@ -4083,23 +4068,24 @@
                         ]
                     ],
                     "meta": {
-                        "line": 68,
+                        "line": 73,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
                 },
                 {
-                    "name": "_history",
-                    "description": "Inventory Manager.",
+                    "name": "_database",
+                    "description": "Database Manager.",
+                    "access": "private",
                     "type": [
                         [
                             [
-                                "HistoryManager"
+                                "DatabaseManager"
                             ]
                         ]
                     ],
                     "meta": {
-                        "line": 74,
+                        "line": 80,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
@@ -4120,7 +4106,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 87,
+                        "line": 93,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
@@ -4139,14 +4125,14 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 95,
+                        "line": 101,
                         "file": "HistoryItem.js",
                         "path": "src/classes"
                     }
                 }
             ],
             "meta": {
-                "line": 6,
+                "line": 10,
                 "file": "HistoryItem.js",
                 "path": "src/classes"
             }
@@ -4516,7 +4502,7 @@
                         "description": "Item message."
                     },
                     "meta": {
-                        "line": 137,
+                        "line": 135,
                         "file": "InventoryItem.js",
                         "path": "src/classes"
                     }
@@ -4535,7 +4521,7 @@
                         "description": "The price the item was sold for."
                     },
                     "meta": {
-                        "line": 213,
+                        "line": 209,
                         "file": "InventoryItem.js",
                         "path": "src/classes"
                     }
@@ -4827,7 +4813,7 @@
                         "description": "Is the user has the item in their inventory."
                     },
                     "meta": {
-                        "line": 109,
+                        "line": 108,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -4907,7 +4893,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 125,
+                        "line": 123,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -4981,7 +4967,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 199,
+                        "line": 197,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -5013,7 +4999,7 @@
                         "description": "If set successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 208,
+                        "line": 206,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -5032,7 +5018,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 218,
+                        "line": 216,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -5051,7 +5037,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 226,
+                        "line": 224,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -6178,7 +6164,7 @@
                 },
                 {
                     "name": "delete",
-                    "description": "Removes the specified item from purchases history.\r\rThis method is an alias for `EconomyUser.history.remove()` method.",
+                    "description": "Removes the specified item from purchases history.\r\rThis method is an alias for `History.remove()` method.",
                     "params": [
                         {
                             "name": "id",
@@ -6208,7 +6194,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 129,
+                        "line": 135,
                         "file": "History.js",
                         "path": "src/classes/user"
                     }
@@ -6227,7 +6213,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 137,
+                        "line": 143,
                         "file": "History.js",
                         "path": "src/classes/user"
                     }
@@ -6264,14 +6250,14 @@
                         "description": "Purchases history item."
                     },
                     "meta": {
-                        "line": 157,
+                        "line": 163,
                         "file": "History.js",
                         "path": "src/classes/user"
                     }
                 },
                 {
                     "name": "search",
-                    "description": "Searches for the specified item from history.\r\rThis method is an alias for the `EconomyUser.history.findItem()` method.",
+                    "description": "Searches for the specified item from history.\r\rThis method is an alias for the `History.findItem()` method.",
                     "params": [
                         {
                             "name": "id",
@@ -6301,14 +6287,14 @@
                         "description": "Purchases history item."
                     },
                     "meta": {
-                        "line": 168,
+                        "line": 174,
                         "file": "History.js",
                         "path": "src/classes/user"
                     }
                 },
                 {
                     "name": "fetch",
-                    "description": "Shows the user's purchase history.\r\rThis method is an alias for the `EconomyUser.history.all()` method.",
+                    "description": "Shows the user's purchase history.\r\rThis method is an alias for the `History.all()` method.",
                     "returns": {
                         "types": [
                             [
@@ -6320,7 +6306,7 @@
                         "description": "User's purchase history."
                     },
                     "meta": {
-                        "line": 178,
+                        "line": 184,
                         "file": "History.js",
                         "path": "src/classes/user"
                     }
@@ -6753,6 +6739,17 @@
                                 ]
                             ]
                         ]
+                    },
+                    {
+                        "name": "database",
+                        "description": "Database Manager.",
+                        "type": [
+                            [
+                                [
+                                    "DatabaseManager"
+                                ]
+                            ]
+                        ]
                     }
                 ]
             },
@@ -6769,7 +6766,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 22,
+                        "line": 24,
                         "file": "Items.js",
                         "path": "src/classes/user"
                     }
@@ -6786,7 +6783,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 29,
+                        "line": 31,
                         "file": "Items.js",
                         "path": "src/classes/user"
                     }
@@ -6803,7 +6800,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 36,
+                        "line": 38,
                         "file": "Items.js",
                         "path": "src/classes/user"
                     }
@@ -6820,7 +6817,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 43,
+                        "line": 45,
                         "file": "Items.js",
                         "path": "src/classes/user"
                     }
@@ -6859,7 +6856,7 @@
                         "description": "If item bought successfully: true; if item not found, false will be returned; \rif user reached the item's max amount: 'max' string."
                     },
                     "meta": {
-                        "line": 54,
+                        "line": 56,
                         "file": "Items.js",
                         "path": "src/classes/user"
                     }
@@ -6896,7 +6893,7 @@
                         "description": "If added successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 63,
+                        "line": 65,
                         "file": "Items.js",
                         "path": "src/classes/user"
                     }
@@ -6938,7 +6935,7 @@
                         "description": "User's inventory array."
                     },
                     "meta": {
-                        "line": 72,
+                        "line": 74,
                         "file": "Items.js",
                         "path": "src/classes/user"
                     }
@@ -6987,7 +6984,7 @@
                         "description": "Item message."
                     },
                     "meta": {
-                        "line": 82,
+                        "line": 84,
                         "file": "Items.js",
                         "path": "src/classes/user"
                     }
@@ -7024,7 +7021,7 @@
                         "description": "If removed successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 91,
+                        "line": 93,
                         "file": "Items.js",
                         "path": "src/classes/user"
                     }
@@ -7061,14 +7058,14 @@
                         "description": "If removed successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 102,
+                        "line": 104,
                         "file": "Items.js",
                         "path": "src/classes/user"
                     }
                 }
             ],
             "meta": {
-                "line": 7,
+                "line": 8,
                 "file": "Items.js",
                 "path": "src/classes/user"
             }
@@ -9121,16 +9118,16 @@
             "methods": [
                 {
                     "name": "first",
-                    "description": "Gets the first user in specified guild.",
+                    "description": "Gets the first element in specified guild.",
                     "returns": {
                         "types": [
                             [
                                 [
-                                    "EconomyUser"
+                                    "any"
                                 ]
                             ]
                         ],
-                        "description": "User object."
+                        "description": "First database object."
                     },
                     "meta": {
                         "line": 99,
@@ -9145,7 +9142,7 @@
                         "types": [
                             [
                                 [
-                                    "EconomyUser"
+                                    "any"
                                 ]
                             ]
                         ],
@@ -9213,11 +9210,11 @@
                         "types": [
                             [
                                 [
-                                    "EconomyUser"
+                                    "any"
                                 ]
                             ]
                         ],
-                        "description": "Economy user object."
+                        "description": "Database object."
                     },
                     "meta": {
                         "line": 194,
@@ -9279,7 +9276,7 @@
                             "type": [
                                 [
                                     [
-                                        "EconomyUser"
+                                        "any"
                                     ]
                                 ]
                             ]
@@ -9323,7 +9320,7 @@
                             "type": [
                                 [
                                     [
-                                        "EconomyUser"
+                                        "any"
                                     ]
                                 ]
                             ]
@@ -9367,7 +9364,7 @@
                             "type": [
                                 [
                                     [
-                                        "EconomyUser"
+                                        "any"
                                     ]
                                 ]
                             ]
@@ -9411,7 +9408,7 @@
                             "type": [
                                 [
                                     [
-                                        "EconomyUser"
+                                        "any"
                                     ]
                                 ]
                             ]
@@ -9456,7 +9453,7 @@
                                     "<"
                                 ],
                                 [
-                                    "EconomyUser",
+                                    "any",
                                     ">"
                                 ]
                             ]
@@ -9494,7 +9491,7 @@
                                     "<"
                                 ],
                                 [
-                                    "EconomyUser",
+                                    "any",
                                     ">"
                                 ]
                             ]
@@ -9542,7 +9539,7 @@
                                 "<"
                             ],
                             [
-                                "EconomyUser",
+                                "any",
                                 ">"
                             ]
                         ]
@@ -9671,7 +9668,7 @@
                                 ]
                             ]
                         ],
-                        "description": "Is any of the elements returns true or not."
+                        "description": "Is any of the elements meets the specified condition."
                     },
                     "meta": {
                         "line": 359,
@@ -9690,7 +9687,7 @@
                                     "<"
                                 ],
                                 [
-                                    "EconomyUser",
+                                    "any",
                                     ">"
                                 ]
                             ]
@@ -10635,11 +10632,6 @@
                                 [
                                     "any"
                                 ]
-                            ],
-                            [
-                                [
-                                    "boolean"
-                                ]
                             ]
                         ],
                         "description": "Value from the specified key or 'false' if failed to read or 'null' if nothing found."
@@ -10855,6 +10847,70 @@
                     }
                 },
                 {
+                    "name": "has",
+                    "description": "Checks if the element is existing in database.",
+                    "params": [
+                        {
+                            "name": "key",
+                            "description": "The key in database.",
+                            "type": [
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "If existing: true; else: false."
+                    },
+                    "meta": {
+                        "line": 298,
+                        "file": "DatabaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
+                    "name": "includes",
+                    "description": "Checks if the element is existing in database.\r\rThis method is an alias for `DatabaseManager.has()` method.",
+                    "params": [
+                        {
+                            "name": "key",
+                            "description": "The key in database.",
+                            "type": [
+                                [
+                                    [
+                                        "String"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "Boolean"
+                                ]
+                            ]
+                        ],
+                        "description": "If existing: true; else: false."
+                    },
+                    "meta": {
+                        "line": 309,
+                        "file": "DatabaseManager.js",
+                        "path": "src/managers"
+                    }
+                },
+                {
                     "name": "all",
                     "description": "Fetches the entire database.",
                     "returns": {
@@ -10868,7 +10924,7 @@
                         "description": "Database contents"
                     },
                     "meta": {
-                        "line": 297,
+                        "line": 317,
                         "file": "DatabaseManager.js",
                         "path": "src/managers"
                     }
@@ -11517,18 +11573,18 @@
                 },
                 {
                     "name": "first",
-                    "description": "Gets the first user in specified guild.",
+                    "description": "Gets the first element in specified guild.",
                     "inherits": "BaseManager#first",
                     "inherited": true,
                     "returns": {
                         "types": [
                             [
                                 [
-                                    "EconomyUser"
+                                    "any"
                                 ]
                             ]
                         ],
-                        "description": "User object."
+                        "description": "First database object."
                     },
                     "meta": {
                         "line": 99,
@@ -11545,7 +11601,7 @@
                         "types": [
                             [
                                 [
-                                    "EconomyUser"
+                                    "any"
                                 ]
                             ]
                         ],
@@ -11617,11 +11673,11 @@
                         "types": [
                             [
                                 [
-                                    "EconomyUser"
+                                    "any"
                                 ]
                             ]
                         ],
-                        "description": "Economy user object."
+                        "description": "Database object."
                     },
                     "meta": {
                         "line": 194,
@@ -11687,7 +11743,7 @@
                             "type": [
                                 [
                                     [
-                                        "EconomyUser"
+                                        "any"
                                     ]
                                 ]
                             ]
@@ -11733,7 +11789,7 @@
                             "type": [
                                 [
                                     [
-                                        "EconomyUser"
+                                        "any"
                                     ]
                                 ]
                             ]
@@ -11779,7 +11835,7 @@
                             "type": [
                                 [
                                     [
-                                        "EconomyUser"
+                                        "any"
                                     ]
                                 ]
                             ]
@@ -11825,7 +11881,7 @@
                             "type": [
                                 [
                                     [
-                                        "EconomyUser"
+                                        "any"
                                     ]
                                 ]
                             ]
@@ -11872,7 +11928,7 @@
                                     "<"
                                 ],
                                 [
-                                    "EconomyUser",
+                                    "any",
                                     ">"
                                 ]
                             ]
@@ -11912,7 +11968,7 @@
                                     "<"
                                 ],
                                 [
-                                    "EconomyUser",
+                                    "any",
                                     ">"
                                 ]
                             ]
@@ -11962,7 +12018,7 @@
                                 "<"
                             ],
                             [
-                                "EconomyUser",
+                                "any",
                                 ">"
                             ]
                         ]
@@ -12097,7 +12153,7 @@
                                 ]
                             ]
                         ],
-                        "description": "Is any of the elements returns true or not."
+                        "description": "Is any of the elements meets the specified condition."
                     },
                     "meta": {
                         "line": 359,
@@ -12118,7 +12174,7 @@
                                     "<"
                                 ],
                                 [
-                                    "EconomyUser",
+                                    "any",
                                     ">"
                                 ]
                             ]
@@ -12491,7 +12547,7 @@
                         "description": "User's purchases history."
                     },
                     "meta": {
-                        "line": 75,
+                        "line": 78,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -12534,7 +12590,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 85,
+                        "line": 88,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -12593,7 +12649,7 @@
                         "description": "If added: true, else: false."
                     },
                     "meta": {
-                        "line": 107,
+                        "line": 110,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -12652,7 +12708,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 147,
+                        "line": 150,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -12711,7 +12767,7 @@
                         "description": "Purchases history item."
                     },
                     "meta": {
-                        "line": 178,
+                        "line": 187,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -12763,14 +12819,14 @@
                         "types": [
                             [
                                 [
-                                    "HistoryData"
+                                    "HistoryItem"
                                 ]
                             ]
                         ],
                         "description": "Purchases history item."
                     },
                     "meta": {
-                        "line": 207,
+                        "line": 216,
                         "file": "HistoryManager.js",
                         "path": "src/managers"
                     }
@@ -12801,17 +12857,6 @@
                         ]
                     },
                     {
-                        "name": "options.storagePath",
-                        "description": "Full path to a JSON file. Default: './storage.json'.",
-                        "type": [
-                            [
-                                [
-                                    "String"
-                                ]
-                            ]
-                        ]
-                    },
-                    {
                         "name": "options.dateLocale",
                         "description": "The region (example: 'ru' or 'en') to format date and time. Default: 'en'.",
                         "type": [
@@ -12829,6 +12874,17 @@
                             [
                                 [
                                     "Boolean"
+                                ]
+                            ]
+                        ]
+                    },
+                    {
+                        "name": "database",
+                        "description": "Database manager.",
+                        "type": [
+                            [
+                                [
+                                    "DatabaseManager"
                                 ]
                             ]
                         ]
@@ -12887,23 +12943,6 @@
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
-                },
-                {
-                    "name": "fetcher",
-                    "description": "Fetch manager methods object.",
-                    "access": "private",
-                    "type": [
-                        [
-                            [
-                                "FetchManager"
-                            ]
-                        ]
-                    ],
-                    "meta": {
-                        "line": 52,
-                        "file": "InventoryManager.js",
-                        "path": "src/managers"
-                    }
                 }
             ],
             "methods": [
@@ -12945,7 +12984,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 61,
+                        "line": 54,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -13004,7 +13043,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 84,
+                        "line": 77,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -13063,7 +13102,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 117,
+                        "line": 110,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -13111,7 +13150,7 @@
                         "description": "User's inventory array."
                     },
                     "meta": {
-                        "line": 127,
+                        "line": 120,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -13159,7 +13198,7 @@
                         "description": "User's inventory array."
                     },
                     "meta": {
-                        "line": 149,
+                        "line": 142,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -13230,7 +13269,7 @@
                         "description": "Item message."
                     },
                     "meta": {
-                        "line": 161,
+                        "line": 154,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -13301,7 +13340,7 @@
                         "description": "Item message."
                     },
                     "meta": {
-                        "line": 256,
+                        "line": 250,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -13360,7 +13399,7 @@
                         "description": "If removed successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 267,
+                        "line": 261,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -13414,12 +13453,18 @@
                                 [
                                     "Boolean"
                                 ]
+                            ],
+                            [
+                                [
+                                    "max",
+                                    "'"
+                                ]
                             ]
                         ],
                         "description": "If added successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 302,
+                        "line": 296,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -13491,7 +13536,7 @@
                         "description": "The price the item was sold for."
                     },
                     "meta": {
-                        "line": 355,
+                        "line": 350,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -13563,7 +13608,7 @@
                         "description": "The price the item was sold for."
                     },
                     "meta": {
-                        "line": 396,
+                        "line": 391,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -15816,18 +15861,18 @@
                 },
                 {
                     "name": "first",
-                    "description": "Gets the first user in specified guild.",
+                    "description": "Gets the first element in specified guild.",
                     "inherits": "BaseManager#first",
                     "inherited": true,
                     "returns": {
                         "types": [
                             [
                                 [
-                                    "EconomyUser"
+                                    "any"
                                 ]
                             ]
                         ],
-                        "description": "User object."
+                        "description": "First database object."
                     },
                     "meta": {
                         "line": 99,
@@ -15844,7 +15889,7 @@
                         "types": [
                             [
                                 [
-                                    "EconomyUser"
+                                    "any"
                                 ]
                             ]
                         ],
@@ -15916,11 +15961,11 @@
                         "types": [
                             [
                                 [
-                                    "EconomyUser"
+                                    "any"
                                 ]
                             ]
                         ],
-                        "description": "Economy user object."
+                        "description": "Database object."
                     },
                     "meta": {
                         "line": 194,
@@ -15986,7 +16031,7 @@
                             "type": [
                                 [
                                     [
-                                        "EconomyUser"
+                                        "any"
                                     ]
                                 ]
                             ]
@@ -16032,7 +16077,7 @@
                             "type": [
                                 [
                                     [
-                                        "EconomyUser"
+                                        "any"
                                     ]
                                 ]
                             ]
@@ -16078,7 +16123,7 @@
                             "type": [
                                 [
                                     [
-                                        "EconomyUser"
+                                        "any"
                                     ]
                                 ]
                             ]
@@ -16124,7 +16169,7 @@
                             "type": [
                                 [
                                     [
-                                        "EconomyUser"
+                                        "any"
                                     ]
                                 ]
                             ]
@@ -16171,7 +16216,7 @@
                                     "<"
                                 ],
                                 [
-                                    "EconomyUser",
+                                    "any",
                                     ">"
                                 ]
                             ]
@@ -16211,7 +16256,7 @@
                                     "<"
                                 ],
                                 [
-                                    "EconomyUser",
+                                    "any",
                                     ">"
                                 ]
                             ]
@@ -16261,7 +16306,7 @@
                                 "<"
                             ],
                             [
-                                "EconomyUser",
+                                "any",
                                 ">"
                             ]
                         ]
@@ -16396,7 +16441,7 @@
                                 ]
                             ]
                         ],
-                        "description": "Is any of the elements returns true or not."
+                        "description": "Is any of the elements meets the specified condition."
                     },
                     "meta": {
                         "line": 359,
@@ -16417,7 +16462,7 @@
                                     "<"
                                 ],
                                 [
-                                    "EconomyUser",
+                                    "any",
                                     ">"
                                 ]
                             ]
@@ -16638,7 +16683,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 61,
+                        "line": 60,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -16655,7 +16700,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 68,
+                        "line": 67,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -16672,7 +16717,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 75,
+                        "line": 74,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -16689,7 +16734,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 82,
+                        "line": 81,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -16706,7 +16751,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 89,
+                        "line": 88,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -16715,7 +16760,7 @@
             "methods": [
                 {
                     "name": "checkUpdates",
-                    "description": "Checks for if the module is up to date.",
+                    "description": "Checks for the module updates.",
                     "async": true,
                     "returns": {
                         "types": [
@@ -16730,10 +16775,10 @@
                                 ]
                             ]
                         ],
-                        "description": "This method will show is the module updated, latest version and installed version."
+                        "description": "Is the module updated, latest version and installed version."
                     },
                     "meta": {
-                        "line": 97,
+                        "line": 95,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -16752,7 +16797,7 @@
                         "description": "Database contents"
                     },
                     "meta": {
-                        "line": 116,
+                        "line": 118,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -16795,7 +16840,7 @@
                         "description": "If successfully written: true; else: false."
                     },
                     "meta": {
-                        "line": 126,
+                        "line": 128,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -16814,7 +16859,7 @@
                         "description": "If cleared successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 141,
+                        "line": 143,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -16846,7 +16891,7 @@
                         "description": "If cleared successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 156,
+                        "line": 158,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -16889,7 +16934,7 @@
                         "description": "If cleared successfully: true; else: false"
                     },
                     "meta": {
-                        "line": 173,
+                        "line": 175,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -16932,7 +16977,7 @@
                         "description": "If reset successfully: true; else: false."
                     },
                     "meta": {
-                        "line": 193,
+                        "line": 195,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -16975,7 +17020,7 @@
                         "description": "Fixed Economy configuration."
                     },
                     "meta": {
-                        "line": 211,
+                        "line": 213,
                         "file": "UtilsManager.js",
                         "path": "src/managers"
                     }
@@ -17267,7 +17312,7 @@
                 }
             ],
             "meta": {
-                "line": 389,
+                "line": 391,
                 "file": "UtilsManager.js",
                 "path": "src/managers"
             }
@@ -17311,7 +17356,7 @@
                 }
             ],
             "meta": {
-                "line": 422,
+                "line": 424,
                 "file": "UtilsManager.js",
                 "path": "src/managers"
             }
@@ -17367,7 +17412,7 @@
                 }
             ],
             "meta": {
-                "line": 429,
+                "line": 431,
                 "file": "UtilsManager.js",
                 "path": "src/managers"
             }
@@ -17463,7 +17508,7 @@
                 }
             ],
             "meta": {
-                "line": 436,
+                "line": 438,
                 "file": "UtilsManager.js",
                 "path": "src/managers"
             }
@@ -19104,7 +19149,7 @@
                     "type": [
                         [
                             [
-                                "EconomyUser"
+                                "any"
                             ]
                         ]
                     ]
@@ -19128,7 +19173,7 @@
                                 "<"
                             ],
                             [
-                                "EconomyUser",
+                                "any",
                                 ">"
                             ]
                         ]
@@ -19163,7 +19208,7 @@
                     "type": [
                         [
                             [
-                                "EconomyUser"
+                                "any"
                             ]
                         ]
                     ]
@@ -19173,7 +19218,7 @@
                     "type": [
                         [
                             [
-                                "EconomyUser"
+                                "any"
                             ]
                         ]
                     ]
@@ -19238,7 +19283,7 @@
                 }
             ],
             "meta": {
-                "line": 381,
+                "line": 383,
                 "file": "UtilsManager.js",
                 "path": "src/managers"
             }
