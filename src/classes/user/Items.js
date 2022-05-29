@@ -1,5 +1,6 @@
-const ShopManager = require('../../ShopManager')
-const InventoryManager = require('../../InventoryManager')
+const ShopManager = require('../../managers/ShopManager')
+const InventoryManager = require('../../managers/InventoryManager')
+const DatabaseManager = require('../../managers/DatabaseManager')
 
 /**
  * User Items.
@@ -11,8 +12,9 @@ class Items {
      * @param {String} memberID Member ID.
      * @param {String} guildID Guild ID.
      * @param {EconomyOptions} ecoOptions Economy configuratuion.
+     * @param {DatabaseManager} database Database Manager.
      */
-    constructor(memberID, guildID, ecoOptions) {
+    constructor(memberID, guildID, ecoOptions, database) {
 
         /**
          * Member ID.
@@ -40,7 +42,7 @@ class Items {
          * @type {InventoryManager}
          * @private
          */
-        this._inventory = new InventoryManager(ecoOptions)
+        this._inventory = new InventoryManager(ecoOptions, database)
     }
 
     /**

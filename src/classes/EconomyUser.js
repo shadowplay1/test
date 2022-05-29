@@ -24,8 +24,9 @@ class EconomyUser {
      * @param {String} guildID Guild ID.
      * @param {EconomyOptions} ecoOptions Economy configuration.
      * @param {RawEconomyUser} userObject Economy user object.
+     * @param {DatabaseManager} database Database Manager.
      */
-    constructor(id, guildID, ecoOptions, userObject) {
+    constructor(id, guildID, ecoOptions, userObject, database) {
 
         /**
          * User's ID.
@@ -107,7 +108,7 @@ class EconomyUser {
          * User items.
          * @type {Items}
          */
-        this.items = new Items(id, guildID, ecoOptions)
+        this.items = new Items(id, guildID, ecoOptions, database)
 
 
         for (const [key, value] of Object.entries(userObject || {})) {

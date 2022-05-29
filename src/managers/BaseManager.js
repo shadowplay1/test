@@ -67,17 +67,17 @@ class BaseManager extends Emitter {
          */
         this.utils = new UtilsManager(options)
 
-	/**
-	 * Member ID.
-	 * @type {String}
-	 */
-	this.memberID = memberID
+        /**
+         * Member ID.
+         * @type {String}
+         */
+        this.memberID = memberID
 
-	/**
-	 * Guild ID.
-	 * @type {String}
-	 */
-	this.guildID = guildID
+        /**
+         * Guild ID.
+         * @type {String}
+         */
+        this.guildID = guildID
 
         /**
          * A constructor (EconomyUser, ShopItem, etc.) to work with.
@@ -93,35 +93,35 @@ class BaseManager extends Emitter {
     }
 
     /**
-     * Gets the first user in specified guild.
-     * @returns {EconomyUser} User object.
+     * Gets the first element in specified guild.
+     * @returns {any} First database object.
      */
     first() {
         const array = this.all()
-	const firstElement = array[0]
+        const firstElement = array[0]
 
         if (!this.memberID) {
-	    return new this.baseConstructor(this.guildID, this.options, firstElement, this.database)
-	}
+            return new this.baseConstructor(this.guildID, this.options, firstElement, this.database)
+        }
 
-	else if (this.memberID && this.guildID) {
-	    return new this.baseConstructor(this.memberID, this.guildID, this.options, firstElement, this.database)
-	}
+        else if (this.memberID && this.guildID) {
+            return new this.baseConstructor(this.memberID, this.guildID, this.options, firstElement, this.database)
+        }
 
-	else {
-	    return new this.baseConstructor(
-		    firstElement.memberID || firstElement.id,
-		    firstElement.guildID,
-		    this.options,
-		    firstElement,
-		    this.database
-	    )
-	}
+        else {
+            return new this.baseConstructor(
+                firstElement.memberID || firstElement.id,
+                firstElement.guildID,
+                this.options,
+                firstElement,
+                this.database
+            )
+        }
     }
 
     /**
      * Gets the last element in specified guild.
-     * @returns {EconomyUser} Last database object.
+     * @returns {any} Last database object.
      */
     last() {
         const array = this.all()
@@ -137,11 +137,11 @@ class BaseManager extends Emitter {
 
         else {
             return new this.baseConstructor(
-                    lastElement.memberID || lastElement.id,
-                    lastElement.guildID,
-                    this.options,
-                    lastElement,
-                    this.database
+                lastElement.memberID || lastElement.id,
+                lastElement.guildID,
+                this.options,
+                lastElement,
+                this.database
             )
         }
 
@@ -154,29 +154,29 @@ class BaseManager extends Emitter {
     toArray() {
         const array = this.all()
 
-	if (!this.memberID) {
+        if (!this.memberID) {
             return array.map(element => {
-		return new this.baseConstructor(this.guildID, this.options, element, this.database)
+                return new this.baseConstructor(this.guildID, this.options, element, this.database)
             })
-	}
+        }
 
-	if (this.memberID && this.guildID) {
-	    return array.map(element => {
+        if (this.memberID && this.guildID) {
+            return array.map(element => {
                 return new this.baseConstructor(this.memberID, this.guildID, this.options, element, this.database)
             })
         }
 
-	else {
-	    return array.map(element => {
+        else {
+            return array.map(element => {
                 return new this.baseConstructor(
                     element.memberID || element.id,
                     element.guildID,
                     this.options,
                     element,
                     this.database
-            )
+                )
             })
-	}
+        }
     }
 
     /**
@@ -189,7 +189,7 @@ class BaseManager extends Emitter {
      * @param {any} [thisArg] 
      * An object to which the this keyword can refer in the callbackfn function. 
      * If thisArg is omitted, undefined is used as the this value.
-     * @returns {EconomyUser} Economy user object.
+     * @returns {any} Database object.
      */
     find(predicate, thisArg) {
         return this.all().find(predicate, thisArg)
@@ -217,7 +217,7 @@ class BaseManager extends Emitter {
      * This method is the same as `Array.includes()`. 
      * 
      * Determines whether an array includes a certain element, returning true or false as appropriate.
-     * @param {EconomyUser} searchElement The element to search for.
+     * @param {any} searchElement The element to search for.
      * @param {Number} [fromIndex] The position in this array at which to begin searching for searchElement.
      * @returns {Boolean} Is the specified element included or not.
      */
@@ -231,7 +231,7 @@ class BaseManager extends Emitter {
      * This method is an alias for `UserManager.includes()` method.
      * 
      * Determines whether an array includes a certain element, returning true or false as appropriate.
-     * @param {EconomyUser} searchElement The element to search for.
+     * @param {any} searchElement The element to search for.
      * @param {Number} [fromIndex] 
      * The array index at which to begin the search. 
      * If fromIndex is omitted, the search starts at index 0.
@@ -244,7 +244,7 @@ class BaseManager extends Emitter {
     /**
      * This method is the same as `Array.indexOf()`. 
      * 
-     * @param {EconomyUser} searchElement The value to locate in the array.
+     * @param {any} searchElement The value to locate in the array.
      * @param {Number} [fromIndex] 
      * The array index at which to begin the search. 
      * If fromIndex is omitted, the search starts at index 0.
@@ -257,7 +257,7 @@ class BaseManager extends Emitter {
     /**
      * This method is the same as `Array.lastIndexOf()`. 
      * 
-     * @param {EconomyUser} searchElement The value to locate in the array.
+     * @param {any} searchElement The value to locate in the array.
      * @param {Number} [fromIndex] 
      * The array index at which to begin searching backward. 
      * If fromIndex is omitted, the search starts at the last index in the array.
@@ -271,7 +271,7 @@ class BaseManager extends Emitter {
      * This method is the same as `Array.reverse()`. 
      * 
      * Reverses the array of all elements and returns it.
-     * @returns {EconomyUser[]} Reversed elements array.
+     * @returns {any[]} Reversed elements array.
      */
     reverse() {
         return this.all().reverse()
@@ -286,7 +286,7 @@ class BaseManager extends Emitter {
      * It is expected to return a negative value if first argument is less than second argument, 
      * zero if they're equal and a positive value otherwise. 
      * If omitted, the elements are sorted in ascending, ASCII character order.
-     * @returns {EconomyUser[]} Sorted elements array.
+     * @returns {any[]} Sorted elements array.
      */
     sort(compareFn) {
         return this.all().sort(compareFn)
@@ -302,7 +302,7 @@ class BaseManager extends Emitter {
      * @param {any} [thisArg] 
      * An object to which the this keyword can refer in the callbackfn function. 
      * If thisArg is omitted, undefined is used as the this value.
-     * @returns {EconomyUser[]}
+     * @returns {any[]}
      */
     filter(predicate, thisArg) {
         return this.all().filter(predicate, thisArg)
@@ -354,7 +354,7 @@ class BaseManager extends Emitter {
      * @param {any} [thisArg] 
      * An object to which the this keyword can refer in the callbackfn function. 
      * If thisArg is omitted, undefined is used as the this value.
-     * @returns {boolean} Is any of the elements returns true or not.
+     * @returns {boolean} Is any of the elements meets the specified condition.
      */
     some(predicate, thisArg) {
         return this.all().some(predicate, thisArg)
@@ -362,7 +362,7 @@ class BaseManager extends Emitter {
 
     /**
      * Returns an iterable of values in the array.
-     * @returns {IterableIterator<EconomyUser>} An iterable of values in the array.
+     * @returns {IterableIterator<any>} An iterable of values in the array.
      */
     values() {
         return this.all().values()
@@ -413,16 +413,16 @@ class BaseManager extends Emitter {
 
 /**
  * @callback PredicateFunction
- * @param {EconomyUser} value
+ * @param {any} value
  * @param {Number} index
- * @param {EconomyUser[]} array
+ * @param {any[]} array
  * @returns {Boolean}
  */
 
 /**
- * @callback CompareFunction (a: EconomyUser, b: EconomyUser) => number
- * @param {EconomyUser} a
- * @param {EconomyUser} b
+ * @callback CompareFunction
+ * @param {any} a
+ * @param {any} b
  * @returns {Number}
  */
 

@@ -235,7 +235,7 @@ class BalanceManager extends Emitter {
         this.add(amount, recipientMemberID, guildID, receivingReason || 'receiving money from user')
         this.subtract(amount, senderMemberID, guildID, sendingReason || 'sending money to user')
 
-        return true
+        return amount
     }
 }
 

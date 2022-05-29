@@ -15,12 +15,12 @@ class InventoryManager extends Emitter {
     /**
       * Inventory Manager.
       * @param {Object} options Economy configuration.
-      * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
       * @param {String} options.dateLocale The region (example: 'ru' or 'en') to format date and time. Default: 'en'.
       * @param {Boolean} options.subtractOnBuy 
       * If true, when someone buys the item, their balance will subtract by item price.
+      * @param {DatabaseManager} database Database manager.
      */
-    constructor(options = {}) {
+    constructor(options = {}, database) {
         super()
 
         /**
@@ -35,21 +35,14 @@ class InventoryManager extends Emitter {
          * @type {DatabaseManager}
          * @private
          */
-        this.database = new DatabaseManager(options)
+        this.database = database
 
         /**
          * Balance manager methods object.
          * @type {BalanceManager}
          * @private
          */
-        this.balance = new BalanceManager(options)
-
-        /**
-         * Fetch manager methods object.
-         * @type {FetchManager}
-         * @private
-         */
-        this.fetcher = new FetchManager(options)
+        this.balance = new BalanceManager(options, database)
     }
 
     /**
@@ -173,6 +166,7 @@ class InventoryManager extends Emitter {
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
             throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
         }
+
         if (typeof memberID !== 'string') {
             throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
         }
@@ -297,7 +291,7 @@ class InventoryManager extends Emitter {
      * @param {String | Number} itemID Item ID or name.
      * @param {String} memberID Member ID.
      * @param {String} guildID Guild ID.
-     * @returns {Boolean} If added successfully: true, else: false.
+     * @returns {Boolean | 'max'} If added successfully: true, else: false.
      */
     addItem(itemID, memberID, guildID) {
 
@@ -336,7 +330,8 @@ class InventoryManager extends Emitter {
             description: item.description,
             role: item.role || null,
             maxAmount: item.maxAmount,
-            date: new Date().toLocaleString(this.options.dateLocale || 'en')
+            date: new Date().toLocaleString(this.options.dateLocale || 'en'),
+            custom: item.custom || {}
         }
 
         return this.database.push(`${guildID}.${memberID}.inventory`, itemData)

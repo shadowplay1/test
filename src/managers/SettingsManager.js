@@ -126,14 +126,14 @@ class SettingsManager {
         * @type {DatabaseManager}
         * @private
         */
-        this.database = database // new DatabaseManager(options)
+        this.database = database
 
         /**
         * Utils manager methods object.
         * @type {UtilsManager}
         * @private
         */
-        this.utils = new UtilsManager(options)
+        this.utils = new UtilsManager(options, database)
     }
 
     /**

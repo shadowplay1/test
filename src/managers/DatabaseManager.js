@@ -1,6 +1,6 @@
 const FetchManager = require('./FetchManager')
 
-const DefaultOptions = require('../structures/DefaultConfiguration')
+const DefaultConfiguration = require('../structures/DefaultConfiguration')
 const errors = require('../structures/errors')
 
 const EconomyError = require('../classes/util/EconomyError')
@@ -48,7 +48,7 @@ class DatabaseManager {
          */
         this.parser = new DotParser(options)
 
-        if (!options.storagePath) this.storagePath = DefaultOptions.storagePath
+        if (!options.storagePath) this.storagePath = DefaultConfiguration.storagePath
     }
 
     /**
@@ -175,7 +175,7 @@ class DatabaseManager {
      * 
      * This method is an alias for the `DatabaseManager.fetch()` method.
      * @param {String} key The key in database.
-     * @returns {any | boolean} Value from the specified key or 'false' if failed to read or 'null' if nothing found.
+     * @returns {any} Value from the specified key or 'false' if failed to read or 'null' if nothing found.
      */
     find(key) {
         return this.fetch(key)
@@ -288,6 +288,26 @@ class DatabaseManager {
 
         data.splice(index, 1, newValue)
         return this.set(key, data, false)
+    }
+
+    /**
+    * Checks if the element is existing in database.
+    * @param {String} key The key in database.
+    * @returns {Boolean} If existing: true; else: false.
+    */
+    has(key) {
+        return !!this.fetch(key)
+    }
+
+    /**
+     * Checks if the element is existing in database.
+     * 
+     * This method is an alias for `DatabaseManager.has()` method.
+     * @param {String} key The key in database.
+     * @returns {Boolean} If existing: true; else: false.
+     */
+    includes(key) {
+        return this.has(key)
     }
 
     /**

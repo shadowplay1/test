@@ -6,7 +6,7 @@ const { dirname } = require('path')
 const FetchManager = require('./FetchManager')
 const DatabaseManager = require('./DatabaseManager')
 
-const DefaultOptions = require('../structures/DefaultConfiguration')
+const DefaultConfiguration = require('../structures/DefaultConfiguration')
 const errors = require('../structures/errors')
 const defaultObject = require('../structures/DefaultUserObject')
 
@@ -52,7 +52,6 @@ class UtilsManager {
      */
     constructor(options = {}, database, fetcher) {
 
-        //console.log('fetch + database managers:', FetchManager, DatabaseManager)
         /**
          * Economy configuration.
          * @type {?EconomyOptions}
@@ -90,18 +89,21 @@ class UtilsManager {
     }
 
     /**
-     * Checks for if the module is up to date.
-     * @returns {Promise<VersionData>} 
-     * This method will show is the module updated, latest version and installed version.
-     */
-    async checkUpdates() {
+    * Checks for the module updates.
+    * @returns {Promise<VersionData>} Is the module updated, latest version and installed version.
+    */
+     async checkUpdates() {
         const version = require('../../package.json').version
-        const packageData = await fetch('https://registry.npmjs.com/discord-economy-super').then(text => text.json())
+
+        const packageData = await fetch('https://registry.npmjs.com/discord-economy-super')
+            .then(text => text.json())
+
         if (version == packageData['dist-tags'].latest) return {
             updated: true,
             installedVersion: version,
             packageVersion: packageData['dist-tags'].latest
         }
+
         return {
             updated: false,
             installedVersion: version,
@@ -249,7 +251,7 @@ class UtilsManager {
         const problems = []
         const output = {}
 
-        const keys = Object.keys(DefaultOptions)
+        const keys = Object.keys(DefaultConfiguration)
         const optionKeys = Object.keys(ecoOptions || {})
 
         if (!options.ignoreUnspecifiedOptions) options.ignoreUnspecifiedOptions = true
@@ -258,23 +260,23 @@ class UtilsManager {
 
         if (typeof ecoOptions !== 'object' && !Array.isArray(ecoOptions)) {
             problems.push('options is not an object. Received type: ' + typeof ecoOptions)
-            output = DefaultOptions
+            output = DefaultConfiguration
         } else {
             for (const i of keys) {
                 if (ecoOptions[i] == undefined) {
 
-                    output[i] = DefaultOptions[i]
+                    output[i] = DefaultConfiguration[i]
                     if (!options.ignoreUnspecifiedOptions) problems.push(`options.${i} is not specified.`)
                 }
                 else {
                     output[i] = ecoOptions[i]
                 }
 
-                for (const y of Object.keys(DefaultOptions[i]).filter(key => isNaN(key))) {
+                for (const y of Object.keys(DefaultConfiguration[i]).filter(key => isNaN(key))) {
 
                     if (ecoOptions[i]?.[y] == undefined || output[i]?.[y] == undefined) {
                         try {
-                            output[i][y] = DefaultOptions[i][y]
+                            output[i][y] = DefaultConfiguration[i][y]
                         } catch (_) { }
 
                         if (!options.ignoreUnspecifiedOptions) problems.push(`options.${i}.${y} is not specified.`)
@@ -283,7 +285,7 @@ class UtilsManager {
                     else { }
                 }
 
-                if (typeof output[i] !== typeof DefaultOptions[i]) {
+                if (typeof output[i] !== typeof DefaultConfiguration[i]) {
                     if (!options.ignoreInvalidTypes) {
                         const isRewardOption = i == 'dailyAmount' || i == 'workAmount' || i == 'weeklyAmount'
 
@@ -293,16 +295,16 @@ class UtilsManager {
                                     `options.${i} is not a number or array.` +
                                     `Received type: ${typeof output[i]}.`
                                 )
-                                output[i] = DefaultOptions[i]
+                                output[i] = DefaultConfiguration[i]
                             }
 
                         } else {
                             problems.push(
-                                `options.${i} is not a ${typeof DefaultOptions[i]}. ` +
+                                `options.${i} is not a ${typeof DefaultConfiguration[i]}. ` +
                                 `Received type: ${typeof output[i]}.`
                             )
 
-                            output[i] = DefaultOptions[i]
+                            output[i] = DefaultConfiguration[i]
                         }
                     }
                 }
@@ -320,16 +322,16 @@ class UtilsManager {
                 }
 
 
-                for (const y of Object.keys(DefaultOptions[i]).filter(key => isNaN(key))) {
+                for (const y of Object.keys(DefaultConfiguration[i]).filter(key => isNaN(key))) {
 
-                    if (typeof output[i]?.[y] !== typeof DefaultOptions[i][y]) {
+                    if (typeof output[i]?.[y] !== typeof DefaultConfiguration[i][y]) {
                         if (!options.ignoreInvalidTypes) {
                             problems.push(
-                                `options.${i}.${y} is not a ${typeof DefaultOptions[i][y]}. ` +
+                                `options.${i}.${y} is not a ${typeof DefaultConfiguration[i][y]}. ` +
                                 `Received type: ${typeof output[i][y]}.`
                             )
                         }
-                        output[i][y] = DefaultOptions[i][y]
+                        output[i][y] = DefaultConfiguration[i][y]
                     }
 
                     else { }
@@ -341,7 +343,7 @@ class UtilsManager {
                 const objectKeys = Object.keys(ecoOptions[i]).filter(key => isNaN(key))
 
                 for (const y of objectKeys) {
-                    const allKeys = Object.keys(DefaultOptions[i])
+                    const allKeys = Object.keys(DefaultConfiguration[i])
                     const index = allKeys.indexOf(y)
 
                     if (!allKeys[index]) {
@@ -373,7 +375,7 @@ class UtilsManager {
             }
         }
 
-        if (output == DefaultOptions) return ecoOptions
+        if (output == DefaultConfiguration) return ecoOptions
         else return output
     }
 }

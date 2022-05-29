@@ -1,4 +1,8 @@
+const EconomyError = require('../classes/util/EconomyError')
+const errors = require('../../src/structures/errors')
+
 const HistoryManager = require('../managers/HistoryManager')
+
 
 /**
 * History item class.
@@ -10,8 +14,9 @@ class HistoryItem {
      * @param {String} guildID Guild ID.
      * @param {EconomyOptions} ecoOptions Economy configuration.
      * @param {HistoryData} itemObject User purchases history item object.
+     * @param {DatabaseManager} database Database Manager.
      */
-    constructor(guildID, memberID, ecoOptions, itemObject) {
+    constructor(guildID, memberID, ecoOptions, itemObject, database) {
 
         /**
          * Guild ID.
@@ -68,10 +73,11 @@ class HistoryItem {
         this.role = itemObject.role
 
         /**
-         * Inventory Manager.
-         * @type {HistoryManager}
+         * Database Manager.
+         * @type {DatabaseManager}
+         * @private
          */
-        this._history = new HistoryManager(this.options)
+        this._database = database
 
         for (const [key, value] of Object.entries(itemObject || {})) {
             this[key] = value
@@ -93,7 +99,35 @@ class HistoryItem {
      * @returns {Boolean} If removed: true, else: false.
      */
     remove() {
-        return this._history.remove(this.id, this.memberID, this.guildID)
+        const id = this.id
+
+        if (typeof id !== 'number' && typeof id !== 'string') {
+            throw new EconomyError(errors.invalidTypes.id + typeof id)
+        }
+
+        if (typeof memberID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+        }
+
+        if (typeof guildID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+        }
+
+        const history = this.database
+
+        const historyItem = history.find(
+            historyItem =>
+                historyItem.id == id &&
+                historyItem.memberID == memberID &&
+                historyItem.guildID == guildID
+        )
+
+        const historyItemIndex = history.findIndex(histItem => histItem.id == historyItem.id)
+
+        if (!historyItem) return false
+        history.splice(historyItemIndex, 1)
+
+        return this.database.set(`${guildID}.${memberID}.history`, history)
     }
 }
 

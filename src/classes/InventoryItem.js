@@ -118,10 +118,8 @@ class InventoryItem {
     remove() {
         const inventory = this.fetch(this.memberID, this.guildID)
 
-        const item = this.searchItem(this.id, this.memberID, this.guildID)
+        const item = this
         const itemIndex = inventory.findIndex(invItem => invItem.id == item?.id)
-
-        if (!item) return false
 
         return this.database.removeElement(`${this.guildID}.${this.memberID}.inventory`, itemIndex)
     }
@@ -135,13 +133,12 @@ class InventoryItem {
      * @returns {String} Item message.
      */
     use(client) {
-        const inventory = this.database.fetch(`${this.guildID}.${this.memberID}.inventory`)
+        const inventory = this.database.fetch(`${this.guildID}.${this.memberID}.inventory`) || []
 
-        const itemObject = this.searchItem(this.id, this.memberID, this.guildID)
+        const itemObject = this
         const itemIndex = inventory.findIndex(invItem => invItem.id == itemObject?.id)
 
         const item = inventory[itemIndex]
-
         if (!item) return null
 
         if (item.role) {
@@ -171,7 +168,7 @@ class InventoryItem {
             })
         }
 
-        this.removeItem(this.itemID, this.memberID, this.guildID)
+        this.delete(this.itemID, this.memberID, this.guildID)
         this.emit('shopItemUse', item)
 
         let msg
@@ -194,7 +191,6 @@ class InventoryItem {
                 const randomString = arr[Math.floor(Math.random() * arr.length)]
                 const replacingString = string.slice(string.indexOf('['))
 
-
                 msg = string.replace(replacingString, randomString) +
                     string.slice(string.indexOf('"]')).replace('"]', '')
             }
@@ -211,18 +207,16 @@ class InventoryItem {
      * @returns {Number} The price the item was sold for.
      */
     sell() {
-        const item = this.searchItem(this.id, this.memberID, this.guildID)
+        const item = this
 
         const percent = this.settings.get('sellingItemPercent', guildID)
             || this.options.sellingItemPercent
 
         const sellingPrice = Math.floor((item?.price / 100) * percent)
 
-
-        if (!item) return null
         this.database.add(`${this.guildID}.${this.memberID}.money`, sellingPrice)
-
         this.removeItem(this.id, this.memberID, this.guildID)
+
         return sellingPrice
     }
 }

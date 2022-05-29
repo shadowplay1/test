@@ -17,7 +17,7 @@ class Shop extends BaseManager {
      * @param {EconomyOptions} options Economy configuration.
      */
     constructor(guildID, options) {
-        super(options, null, guildID,  ShopItem)
+        super(options, null, guildID, ShopItem)
 
         /**
          * Guild ID.
@@ -28,9 +28,9 @@ class Shop extends BaseManager {
     }
 
     /**
-    * Gets the item from the shop.
+    * Gets the item in the shop.
     * @param {string | number} itemID Item ID.
-    * @returns {ItemData} Shop item.
+    * @returns {ShopItem} Shop item.
     */
     get(itemID) {
         const shop = this.all()
@@ -46,13 +46,12 @@ class Shop extends BaseManager {
 
     /**
      * Gets all the items in the shop.
-     * 
-     * This method is an alias for the`EconomyGuild.shop.fetch()` method.
-     * @returns {ItemData[]} Guild array.
+     * @returns {ItemData[]} Guild shop array.
      */
     all() {
-        return this.fetch()
+        return this.database.fetch(`${this.guildID}.shop`) || []
     }
+
 
     /**
      * Creates an item in shop.
@@ -137,7 +136,7 @@ class Shop extends BaseManager {
     /**
      * Creates an item in shop.
      * 
-     * This method is an alias for the `EconomyGuild.shop.addItem()` method.
+     * This method is an alias for the `Shop.addItem()` method.
      * @param {AddItemOptions} options Configuration with item info.
      * @returns {ItemData} Item info.
      */
@@ -227,7 +226,7 @@ class Shop extends BaseManager {
     /**
      * Edits the item in the shop.
      * 
-     * This method is an alias for the `EconomyGuild.shop.editItem()` method.
+     * This method is an alias for the `Shop.editItem()` method.
      * @param {Number | String} itemID Item ID or name.
      * @param {'description' | 'price' | 'name' | 'message' | 'maxAmount' | 'role'} itemProperty 
      * This argument means what thing in item you want to edit (item property). 
@@ -269,22 +268,11 @@ class Shop extends BaseManager {
 
     /**
      * Shows all items in the shop.
-     * @returns {ItemData[]} The shop array.
+     * @returns {ShopItem[]} The shop array.
      */
     fetch() {
         const shop = this.database.fetch(`${this.guildID}.shop`) || []
         return shop.map(item => new ShopItem(this.guildID, this.database, item))
-    }
-
-    /**
-     * Searches for the item in the shop.
-     * 
-     * This method is an alias for the `EconomyGuild.shop.get()` method.
-     * @param {Number | String} itemID Item ID or name.
-     * @returns {ItemData} If item not found: null; else: item info object.
-     */
-    findItem(itemID) {
-        return this.get(itemID)
     }
 }
 

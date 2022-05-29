@@ -97,7 +97,6 @@ class ShopItem {
      */
     isEnoughMoneyFor(userID) {
         const user = this.database.fetch(`${this.guildID}.${userID}`)
-
         return user.money >= this.price
     }
 
@@ -108,7 +107,6 @@ class ShopItem {
      */
     isInInventory(userID) {
         const user = this.database.fetch(`${this.guildID}.${userID}`)
-
         return !!user.inventory.find(item => item.id == this.id)
     }
 

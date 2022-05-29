@@ -61,7 +61,10 @@ class HistoryManager {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
         }
 
-        return new HistoryItem(guildID, memberID, this.options, history)
+        return history.map(
+            historyItem =>
+                new HistoryItem(guildID, memberID, this.options, historyItem, this.database)
+        )
     }
 
     /**
@@ -158,7 +161,13 @@ class HistoryManager {
         }
 
         const history = this.fetch(memberID, guildID)
-        const historyItem = this.find(id, memberID, guildID)
+
+        const historyItem = this.find(
+            historyItem =>
+                historyItem.id == id &&
+                historyItem.memberID == memberID &&
+                historyItem.guildID == guildID
+        )
 
         const historyItemIndex = history.findIndex(histItem => histItem.id == historyItem.id)
 
@@ -202,25 +211,12 @@ class HistoryManager {
      * @param {String | Number} id History item ID.
      * @param {String} memberID Member ID.
      * @param {String} guildID Guild ID.
-     * @returns {HistoryData} Purchases history item.
+     * @returns {HistoryItem} Purchases history item.
      */
     search(id, memberID, guildID) {
         return this.find(id, memberID, guildID)
     }
 }
-
-/**
- * History data object.
- * @typedef {Object} HistoryData
- * @property {Number} id Item ID in history.
- * @property {String} name Item name.
- * @property {Number} price Item price.
- * @property {String} message The message that will be returned on item use.
- * @property {String} role ID of Discord Role that will be given to user on item use.
- * @property {String} date Date when the item was bought by a user.
- * @property {String} memberID Member ID.
- * @property {String} guildID Guild ID.
- */
 
 /**
  * Item data object.

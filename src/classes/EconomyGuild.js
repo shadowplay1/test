@@ -39,14 +39,14 @@ class EconomyGuild {
          * @type {DatabaseManager}
          * @private
          */
-        this.database = new DatabaseManager({ storagePath: ecoOptions.storagePath })
+        this.database = new DatabaseManager(ecoOptions)
 
         /**
          * Utils Manager.
          * @type {UtilsManager}
          * @private
          */
-        this.utils = new UtilsManager({ storagePath: ecoOptions.storagePath })
+        this.utils = new UtilsManager(ecoOptions, this.database)
 
         /**
          * Guild Shop.
@@ -55,9 +55,9 @@ class EconomyGuild {
         this.shop = new Shop(id, ecoOptions)
 
         /**
-             * Guild Leaderboards.
-             * @type {Leaderboards}
-             */
+        * Guild Leaderboards.
+        * @type {Leaderboards}
+        */
         this.leaderboards = new Leaderboards(id, ecoOptions)
 
         /**

@@ -109,7 +109,13 @@ class History extends BaseManager {
         }
 
         const history = this.fetch(memberID, guildID)
-        const historyItem = this.find(id, memberID, guildID)
+
+        const historyItem = this.find(
+            historyItem =>
+                historyItem.id == id &&
+                historyItem.memberID == memberID &&
+                historyItem.guildID == guildID
+        )
 
         const historyItemIndex = history.findIndex(histItem => histItem.id == historyItem.id)
 
@@ -122,7 +128,7 @@ class History extends BaseManager {
     /**
      * Removes the specified item from purchases history.
      * 
-     * This method is an alias for `EconomyUser.history.remove()` method.
+     * This method is an alias for `History.remove()` method.
      * @param {String | Number} id History item ID.
      * @returns {Boolean} If removed: true, else: false.
      */
@@ -161,7 +167,7 @@ class History extends BaseManager {
     /**
     * Searches for the specified item from history.
     * 
-    * This method is an alias for the `EconomyUser.history.findItem()` method.
+    * This method is an alias for the `History.findItem()` method.
     * @param {String | Number} id History item ID.
     * @returns {HistoryItem} Purchases history item.
     */
@@ -172,7 +178,7 @@ class History extends BaseManager {
     /**
      * Shows the user's purchase history.
      * 
-     * This method is an alias for the `EconomyUser.history.all()` method.
+     * This method is an alias for the `History.all()` method.
      * @returns {HistoryItem} User's purchase history.
      */
     fetch() {

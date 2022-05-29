@@ -1,5 +1,6 @@
 const EconomyConfig = {
     storagePath: './storage.json',
+
     dailyAmount: 100,
     updateCountdown: 1000,
     workAmount: [10, 50],
@@ -13,15 +14,18 @@ const EconomyConfig = {
     checkStorage: true,
     dateLocale: 'en',
     subtractOnBuy: true,
+
     updater: {
         checkUpdates: true,
         upToDateMessage: true
     },
+
     errorHandler: {
         handleErrors: true,
         attempts: 5,
         time: 5000
     },
+
     optionsChecker: {
         ignoreInvalidTypes: false,
         ignoreUnspecifiedOptions: true,
@@ -30,6 +34,7 @@ const EconomyConfig = {
         sendLog: true,
         sendSuccessLog: false
     },
+
     debug: false
 }
 

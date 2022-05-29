@@ -1,7 +1,7 @@
 const { writeFileSync } = require('fs')
 
 const FetchManager = require('../../managers/FetchManager')
-const DefaultOptions = require('../../structures/DefaultConfiguration')
+const DefaultConfiguration = require('../../structures/DefaultConfiguration')
 
 /**
  * Dot parser class.
@@ -30,7 +30,7 @@ class DotParser {
          */
         this.fetcher = new FetchManager(options)
 
-        if (!options.storagePath) this.storagePath = DefaultOptions.storagePath
+        if (!options.storagePath) this.storagePath = DefaultConfiguration.storagePath
     }
 
     /**
