@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.10.0",
         "format": 20,
-        "date": 1654858671230
+        "date": 1654861480780
     },
     "custom": {
         "general": {
@@ -5318,45 +5318,12 @@
                     "description": "Sends the money to a specified user.",
                     "params": [
                         {
-                            "name": "amount",
-                            "description": "Amount of money to send.",
+                            "name": "options",
+                            "description": "Transfering options.",
                             "type": [
                                 [
                                     [
-                                        "number"
-                                    ]
-                                ]
-                            ]
-                        },
-                        {
-                            "name": "senderMemberID",
-                            "description": "A member ID who will send the money.",
-                            "type": [
-                                [
-                                    [
-                                        "string"
-                                    ]
-                                ]
-                            ]
-                        },
-                        {
-                            "name": "sendingReason",
-                            "description": "The reason of subtracting the money from sender. (example: \"sending money to {user}\")",
-                            "type": [
-                                [
-                                    [
-                                        "string"
-                                    ]
-                                ]
-                            ]
-                        },
-                        {
-                            "name": "receivingReason",
-                            "description": "The reason of adding a money to recipient. (example: \"receiving money from {user}\")",
-                            "type": [
-                                [
-                                    [
-                                        "string"
+                                        "TransferingOptions"
                                     ]
                                 ]
                             ]
@@ -5370,10 +5337,10 @@
                                 ]
                             ]
                         ],
-                        "description": "How much money was sent."
+                        "description": "Amount of money that was sent."
                     },
                     "meta": {
-                        "line": 153,
+                        "line": 146,
                         "file": "Balance.js",
                         "path": "src/classes/user"
                     }
@@ -8319,7 +8286,7 @@
                                 ]
                             ]
                         ],
-                        "description": "How much money was sent."
+                        "description": "Amount of money that was sent."
                     },
                     "meta": {
                         "line": 224,
@@ -18941,6 +18908,83 @@
             }
         },
         {
+            "name": "TransferingOptions",
+            "description": "Transfering options.",
+            "type": [
+                [
+                    [
+                        "object"
+                    ]
+                ]
+            ],
+            "props": [
+                {
+                    "name": "amount",
+                    "description": "Amount of money to send.",
+                    "type": [
+                        [
+                            [
+                                "number"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "senderMemberID",
+                    "description": "A member ID who will send the money.",
+                    "type": [
+                        [
+                            [
+                                "string"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "recipientMemberID",
+                    "description": "A member ID who will receive the money.",
+                    "type": [
+                        [
+                            [
+                                "string"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "sendingReason",
+                    "description": "The reason of subtracting the money from sender. (example: \"sending money to {user}\")",
+                    "optional": true,
+                    "default": "'sending money to user'",
+                    "type": [
+                        [
+                            [
+                                "string"
+                            ]
+                        ]
+                    ]
+                },
+                {
+                    "name": "receivingReason",
+                    "description": "The reason of adding a money to recipient. (example: \"receiving money from {user}\")",
+                    "optional": true,
+                    "default": "'receiving money from user'",
+                    "type": [
+                        [
+                            [
+                                "string"
+                            ]
+                        ]
+                    ]
+                }
+            ],
+            "meta": {
+                "line": 255,
+                "file": "BalanceManager.js",
+                "path": "src/managers"
+            }
+        },
+        {
             "name": "TimeData",
             "type": [
                 [
@@ -19350,83 +19394,6 @@
                 "line": 82,
                 "file": "Logger.js",
                 "path": "src/classes/util"
-            }
-        },
-        {
-            "name": "TransferingOptions",
-            "description": "Transfering options.",
-            "type": [
-                [
-                    [
-                        "object"
-                    ]
-                ]
-            ],
-            "props": [
-                {
-                    "name": "amount",
-                    "description": "Amount of money to send.",
-                    "type": [
-                        [
-                            [
-                                "number"
-                            ]
-                        ]
-                    ]
-                },
-                {
-                    "name": "senderMemberID",
-                    "description": "A member ID who will send the money.",
-                    "type": [
-                        [
-                            [
-                                "string"
-                            ]
-                        ]
-                    ]
-                },
-                {
-                    "name": "recipientMemberID",
-                    "description": "A member ID who will receive the money.",
-                    "type": [
-                        [
-                            [
-                                "string"
-                            ]
-                        ]
-                    ]
-                },
-                {
-                    "name": "sendingReason",
-                    "description": "The reason of subtracting the money from sender. (example: \"sending money to {user}\")",
-                    "optional": true,
-                    "default": "'sending money to user'",
-                    "type": [
-                        [
-                            [
-                                "string"
-                            ]
-                        ]
-                    ]
-                },
-                {
-                    "name": "receivingReason",
-                    "description": "The reason of adding a money to recipient. (example: \"receiving money from {user}\")",
-                    "optional": true,
-                    "default": "'receiving money from user'",
-                    "type": [
-                        [
-                            [
-                                "string"
-                            ]
-                        ]
-                    ]
-                }
-            ],
-            "meta": {
-                "line": 255,
-                "file": "BalanceManager.js",
-                "path": "src/managers"
             }
         },
         {
