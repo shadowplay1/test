@@ -10,10 +10,10 @@ class HistoryManager {
 
     /**
     * History Manager.
-    * @param {Object} options Economy configuration.
-    * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
-    * @param {String} options.dateLocale The region (example: 'ru' or 'en') to format date and time. Default: 'en'.
-    * @param {Boolean} options.savePurchasesHistory If true, the module will save all the purchases history.
+    * @param {object} options Economy configuration.
+    * @param {string} options.storagePath Full path to a JSON file. Default: './storage.json'.
+    * @param {string} options.dateLocale The region (example: 'ru' or 'en') to format date and time. Default: 'en'.
+    * @param {boolean} options.savePurchasesHistory If true, the module will save all the purchases history.
     */
     constructor(options = {}, database) {
 
@@ -27,7 +27,7 @@ class HistoryManager {
 
         /**
          * Full path to a JSON file.
-         * @type {String}
+         * @type {string}
          * @private
          */
         this.storagePath = options.storagePath || './storage.json'
@@ -42,8 +42,8 @@ class HistoryManager {
 
     /**
      * Shows the user's purchases history.
-     * @param {String} memberID Member ID
-     * @param {String} guildID Guild ID
+     * @param {string} memberID Member ID
+     * @param {string} guildID Guild ID
      * @returns {HistoryItem[]} User's purchases history.
      */
     fetch(memberID, guildID) {
@@ -71,8 +71,8 @@ class HistoryManager {
     * Shows the user's purchases history.
     * 
     * This method is an alias for `HistoryManager.fetch()` method.
-    * @param {String} memberID Member ID
-    * @param {String} guildID Guild ID
+    * @param {string} memberID Member ID
+    * @param {string} guildID Guild ID
     * @returns {HistoryItem[]} User's purchases history.
     */
     get(memberID, guildID) {
@@ -81,9 +81,9 @@ class HistoryManager {
 
     /**
     * Clears the user's purchases history.
-    * @param {String} memberID Member ID.
-    * @param {String} guildID Guild ID.
-    * @returns {Boolean} If cleared: true, else: false.
+    * @param {string} memberID Member ID.
+    * @param {string} guildID Guild ID.
+    * @returns {boolean} If cleared: true, else: false.
     */
     clear(memberID, guildID) {
         const history = this.fetch(memberID, guildID)
@@ -102,10 +102,10 @@ class HistoryManager {
 
     /**
      * Adds the item from the shop to the purchases history.
-     * @param {String | Number} itemID Item ID or name.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
-     * @returns {Boolean} If added: true, else: false.
+     * @param {string | number} itemID Item ID or name.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
+     * @returns {boolean} If added: true, else: false.
      */
     add(itemID, memberID, guildID) {
         const shop = this.database.fetch(`${guildID}.shop`)
@@ -142,10 +142,10 @@ class HistoryManager {
 
     /**
      * Removes the specified item from purchases history.
-     * @param {String | Number} id History item ID.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
-     * @returns {Boolean} If removed: true, else: false.
+     * @param {string | number} id History item ID.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
+     * @returns {boolean} If removed: true, else: false.
      */
     remove(id, memberID, guildID) {
         if (typeof id !== 'number' && typeof id !== 'string') {
@@ -179,9 +179,9 @@ class HistoryManager {
 
     /**
      * Searches for the specified item from history.
-     * @param {String | Number} id History item ID.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
+     * @param {string | number} id History item ID.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
      * @returns {HistoryItem} Purchases history item.
      */
     find(id, memberID, guildID) {
@@ -208,9 +208,9 @@ class HistoryManager {
      * Searches for the specified item from history.
      * 
      * This method is an alias for the `HistoryManager.find()` method.
-     * @param {String | Number} id History item ID.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
+     * @param {string | number} id History item ID.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
      * @returns {HistoryItem} Purchases history item.
      */
     search(id, memberID, guildID) {
@@ -220,62 +220,62 @@ class HistoryManager {
 
 /**
  * Item data object.
- * @typedef {Object} ItemData
- * @property {Number} id Item ID.
- * @property {String} name Item name.
- * @property {Number} price Item price.
- * @property {String} message The message that will be returned on item use.
- * @property {String} description Item description.
- * @property {String} role ID of Discord Role that will be given to Wuser on item use.
- * @property {Number} maxAmount Max amount of the item that user can hold in their inventory.
- * @property {String} date Date when the item was added in the shop.
- * @property {Object} custom Custom item properties object.
+ * @typedef {object} ItemData
+ * @property {number} id Item ID.
+ * @property {string} name Item name.
+ * @property {number} price Item price.
+ * @property {string} message The message that will be returned on item use.
+ * @property {string} description Item description.
+ * @property {string} role ID of Discord Role that will be given to Wuser on item use.
+ * @property {number} maxAmount Max amount of the item that user can hold in their inventory.
+ * @property {string} date Date when the item was added in the shop.
+ * @property {object} custom Custom item properties object.
  */
 
 /**
  * Inventory data object.
- * @typedef {Object} InventoryData
- * @property {Number} id Item ID in your inventory.
- * @property {String} name Item name.
- * @property {Number} price Item price.
- * @property {String} message The message that will be returned on item use.
- * @property {String} role ID of Discord Role that will be given to user on item use.
- * @property {Number} maxAmount Max amount of the item that user can hold in their inventory.
- * @property {String} date Date when the item was bought by a user.
- * @property {Object} custom Custom item properties object.
+ * @typedef {object} InventoryData
+ * @property {number} id Item ID in your inventory.
+ * @property {string} name Item name.
+ * @property {number} price Item price.
+ * @property {string} message The message that will be returned on item use.
+ * @property {string} role ID of Discord Role that will be given to user on item use.
+ * @property {number} maxAmount Max amount of the item that user can hold in their inventory.
+ * @property {string} date Date when the item was bought by a user.
+ * @property {object} custom Custom item properties object.
  */
 
 /**
- * @typedef {Object} EconomyOptions Default Economy configuration.
- * @property {String} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
- * @property {Boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
- * @property {Number} [dailyCooldown=86400000]
+ * @typedef {object} EconomyOptions Default Economy configuration.
+ * @property {string} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
+ * @property {boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
+ * @property {number} [dailyCooldown=86400000]
  * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  *
- * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
+ * @property {number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
  * @property {Number | Number[]} [dailyAmount=100] Amount of money for Daily Command. Default: 100.
- * @property {Number} [weeklyCooldown=604800000]
+ * @property {number} [weeklyCooldown=604800000]
  * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
  *
- * @property {Boolean} [deprecationWarnings=true]
+ * @property {boolean} [deprecationWarnings=true]
  * If true, the deprecation warnings will be sent in the console. Default: true.
  *
- * @property {Boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
+ * @property {boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
  *
- * @property {Number} [sellingItemPercent=75]
+ * @property {number} [sellingItemPercent=75]
  * Percent of the item's price it will be sold for. Default: 75.
  *
  * @property {Number | Number[]} [weeklyAmount=100] Amount of money for Weekly Command. Default: 1000.
  * @property {Number | Number[]} [workAmount=[10, 50]] Amount of money for Work Command. Default: [10, 50].
- * @property {Boolean} [subtractOnBuy=true]
+ * @property {boolean} [subtractOnBuy=true]
  * If true, when someone buys the item, their balance will subtract by item price. Default: false
  *
- * @property {Number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
- * @property {String} [dateLocale='en'] The region (example: 'ru' or 'en') to format the date and time. Default: 'en'.
+ * @property {number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
+ * @property {string} [dateLocale='en'] The region (example: 'ru' or 'en') to format the date and time. Default: 'en'.
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.
  * @property {CheckerOptions} [optionsChecker=CheckerOptions] Configuration for an 'Economy.utils.checkOptions' method.
- * @property {Boolean} [debug=false] Enables or disables the debug mode.
+ * @property {boolean} [debug=false] Enables or disables the debug mode.
  */
 
 module.exports = HistoryManager

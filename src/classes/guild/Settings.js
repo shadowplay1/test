@@ -10,14 +10,14 @@ class Settings {
 
     /**
      * Guild settings class.
-     * @param {String} guildID Guild ID.
+     * @param {string} guildID Guild ID.
      * @param {EconomyOptions} options Economy configuration.
      */
     constructor(guildID, options) {
 
         /**
          * Guild ID.
-         * @type {String}
+         * @type {string}
          * @private
          */
         this.guildID = guildID
@@ -32,7 +32,7 @@ class Settings {
 
     /**
      * Fetches the server's settings object.
-     * @param {String} guildID Guild ID.
+     * @param {string} guildID Guild ID.
      * @returns {SettingsTypes} The server settings object.
      */
     all() {
@@ -76,7 +76,7 @@ class Settings {
      * specified configuration or default configuration.
      *
      * @param {Settings} key The setting to remove.
-     * @param {String} guildID Guild ID.
+     * @param {string} guildID Guild ID.
      * @returns {SettingsTypes} The server settings object.
      */
     remove(key) {
@@ -85,7 +85,7 @@ class Settings {
 
     /**
      * Resets all the settings to setting that are in configuration.
-     * @param {String} guildID Guild ID.
+     * @param {string} guildID Guild ID.
      * @returns {SettingsTypes} The server settings object.
      */
     reset() {
@@ -95,54 +95,54 @@ class Settings {
 
 
 /**
- * @typedef {Object} EconomyOptions Default Economy configuration.
- * @property {String} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
- * @property {Boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
- * @property {Number} [dailyCooldown=86400000]
+ * @typedef {object} EconomyOptions Default Economy configuration.
+ * @property {string} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
+ * @property {boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
+ * @property {number} [dailyCooldown=86400000]
  * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  *
- * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
+ * @property {number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
  * @property {Number | Number[]} [dailyAmount=100] Amount of money for Daily Command. Default: 100.
- * @property {Number} [weeklyCooldown=604800000]
+ * @property {number} [weeklyCooldown=604800000]
  * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
  *
  * @property {Number | Number[]} [weeklyAmount=100] Amount of money for Weekly Command. Default: 1000.
  * @property {Number | Number[]} [workAmount=[10, 50]] Amount of money for Work Command. Default: [10, 50].
- * @property {Boolean} [subtractOnBuy=true]
+ * @property {boolean} [subtractOnBuy=true]
  * If true, when someone buys the item, their balance will subtract by item price. Default: false
  *
- * @property {Number} [sellingItemPercent=75]
+ * @property {number} [sellingItemPercent=75]
  * Percent of the item's price it will be sold for. Default: 75.
  *
- * @property {Boolean} [deprecationWarnings=true]
+ * @property {boolean} [deprecationWarnings=true]
  * If true, the deprecation warnings will be sent in the console. Default: true.
  *
- * @property {Boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
+ * @property {boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
  *
- * @property {Number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
- * @property {String} [dateLocale='en'] The region (example: 'ru'; 'en') to format the date and time. Default: 'en'.
+ * @property {number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
+ * @property {string} [dateLocale='en'] The region (example: 'ru'; 'en') to format the date and time. Default: 'en'.
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.
  * @property {CheckerOptions} [optionsChecker=CheckerOptions] Configuration for an 'Economy.utils.checkOptions' method.
- * @property {Boolean} [debug=false] Enables or disables the debug mode.
+ * @property {boolean} [debug=false] Enables or disables the debug mode.
 */
 
 /**
- * @typedef {Object} SettingsTypes Settings object.
+ * @typedef {object} SettingsTypes Settings object.
  * @property {Number | Number[]} dailyAmount Amount of money for Daily Command. Default: 100.
- * @property {Number} dailyCooldown Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
+ * @property {number} dailyCooldown Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  *
  * @property {Number | Number[]} workAmount Amount of money for Work Command. Default: [10, 50].
- * @property {Number} workCooldown Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
+ * @property {number} workCooldown Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
  *
  * @property {Number | Number[]} weeklyAmount Amount of money for Weekly Command. Default: 1000.
- * @property {Number} weeklyCooldown Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
+ * @property {number} weeklyCooldown Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
  *
- * @property {String} dateLocale The region (example: 'ru' or 'en') to format the date and time. Default: 'en'
- * @property {Boolean} subtractOnBuy
+ * @property {string} dateLocale The region (example: 'ru' or 'en') to format the date and time. Default: 'en'
+ * @property {boolean} subtractOnBuy
  * If true, when someone buys the item, their balance will subtract by item price. Default: false.
  *
- * @property {Number} sellingItemPercent Percent of the item's price it will be sold for. Default: 75.
+ * @property {number} sellingItemPercent Percent of the item's price it will be sold for. Default: 75.
  */
 
 /**

@@ -8,14 +8,14 @@ class Leaderboards {
 
     /**
      * Guild leaderboards class.
-     * @param {String} guildID Guild ID.
+     * @param {string} guildID Guild ID.
      * @param {EconomyOptions} options Economy configuration.
      */
     constructor(guildID, options) {
 
         /**
         * Guild ID.
-        * @type {String}
+        * @type {string}
         * @private
         */
         this.guildID = guildID
@@ -70,50 +70,50 @@ module.exports = Leaderboards
 
 
 /**
- * @typedef {Object} EconomyOptions Default Economy configuration.
- * @property {String} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
- * @property {Boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
- * @property {Number} [dailyCooldown=86400000]
+ * @typedef {object} EconomyOptions Default Economy configuration.
+ * @property {string} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
+ * @property {boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
+ * @property {number} [dailyCooldown=86400000]
  * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  *
- * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
+ * @property {number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
  * @property {Number | Number[]} [dailyAmount=100] Amount of money for Daily Command. Default: 100.
- * @property {Number} [weeklyCooldown=604800000]
+ * @property {number} [weeklyCooldown=604800000]
  * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
  *
  * @property {Number | Number[]} [weeklyAmount=100] Amount of money for Weekly Command. Default: 1000.
  * @property {Number | Number[]} [workAmount=[10, 50]] Amount of money for Work Command. Default: [10, 50].
- * @property {Boolean} [subtractOnBuy=true]
+ * @property {boolean} [subtractOnBuy=true]
  * If true, when someone buys the item, their balance will subtract by item price. Default: false
  *
- * @property {Number} [sellingItemPercent=75]
+ * @property {number} [sellingItemPercent=75]
  * Percent of the item's price it will be sold for. Default: 75.
  *
- * @property {Boolean} [deprecationWarnings=true]
+ * @property {boolean} [deprecationWarnings=true]
  * If true, the deprecation warnings will be sent in the console. Default: true.
  *
- * @property {Boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
+ * @property {boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
  *
- * @property {Number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
- * @property {String} [dateLocale='en'] The region (example: 'ru'; 'en') to format the date and time. Default: 'en'.
+ * @property {number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
+ * @property {string} [dateLocale='en'] The region (example: 'ru'; 'en') to format the date and time. Default: 'en'.
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.
  * @property {CheckerOptions} [optionsChecker=CheckerOptions] Configuration for an 'Economy.utils.checkOptions' method.
- * @property {Boolean} [debug=false] Enables or disables the debug mode.
+ * @property {boolean} [debug=false] Enables or disables the debug mode.
 */
 
 /**
  * Balance leaderboard object.
- * @typedef {Object} BalanceLeaderboard
- * @property {Number} index User's place in the leaderboard.
- * @property {String} userID User ID.
- * @property {Number} money Amount of money.
+ * @typedef {object} BalanceLeaderboard
+ * @property {number} index User's place in the leaderboard.
+ * @property {string} userID User ID.
+ * @property {number} money Amount of money.
  */
 
 /**
  * Bank balance leaderboard object.
- * @typedef {Object} BankLeaderboard
- * @property {Number} index User's place in the leaderboard.
- * @property {String} userID User ID.
- * @property {Number} money Amount of money.
+ * @typedef {object} BankLeaderboard
+ * @property {number} index User's place in the leaderboard.
+ * @property {string} userID User ID.
+ * @property {number} money Amount of money.
  */

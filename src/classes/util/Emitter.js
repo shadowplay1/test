@@ -40,7 +40,7 @@ class Emitter {
      * Emits the event.
      * @param {ShopEvents} event Event name.
      * @param {any} data Any data to send.
-     * @returns {Boolean} If emitted: true; else: false.
+     * @returns {boolean} If emitted: true; else: false.
      */
     emit(event, data) {
         return emitter.emit(event, data)

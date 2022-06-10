@@ -25,14 +25,14 @@ class RewardManager {
 
     /**
       * Reward Manager.
-      * @param {Object} options Economy configuration.
-      * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
-      * @param {Number} options.dailyCooldown Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
-      * @param {Number} options.workCooldown Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
-      * @param {Number} options.dailyAmount Amount of money for Daily Command. Default: 100.
-      * @param {Number} options.weeklyCooldown
+      * @param {object} options Economy configuration.
+      * @param {string} options.storagePath Full path to a JSON file. Default: './storage.json'.
+      * @param {number} options.dailyCooldown Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
+      * @param {number} options.workCooldown Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
+      * @param {number} options.dailyAmount Amount of money for Daily Command. Default: 100.
+      * @param {number} options.weeklyCooldown
       * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
-      * @param {Number} options.weeklyAmount Amount of money for Weekly Command. Default: 1000.
+      * @param {number} options.weeklyAmount Amount of money for Weekly Command. Default: 1000.
       * @param {Number | Array} options.workAmount Amount of money for Work Command. Default: [10, 50].
      */
     constructor(options) {
@@ -75,9 +75,9 @@ class RewardManager {
 
     /**
      * Adds a daily reward on user's balance.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
-     * @param {String} reason The reason why the money was added. Default: 'claimed the daily reward'.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
+     * @param {string} reason The reason why the money was added. Default: 'claimed the daily reward'.
      * @returns {RewardData} Daily reward object.
     */
     daily(memberID, guildID, reason = 'claimed the daily reward') {
@@ -133,9 +133,9 @@ class RewardManager {
 
     /**
      * Adds a work reward on user's balance.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
-     * @param {String} reason The reason why the money was added. Default: 'claimed the work reward'.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
+     * @param {string} reason The reason why the money was added. Default: 'claimed the work reward'.
      * @returns {RewardData} Work reward object.
      */
     work(memberID, guildID, reason = 'claimed the work reward') {
@@ -191,9 +191,9 @@ class RewardManager {
 
     /**
      * Adds a weekly reward on user's balance.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
-     * @param {String} reason The reason why the money was added. Default: 'claimed the weekly reward'.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
+     * @param {string} reason The reason why the money was added. Default: 'claimed the weekly reward'.
      * @returns {RewardData} Weekly reward object.
      */
     weekly(memberID, guildID, reason = 'claimed the weekly reward') {
@@ -249,27 +249,27 @@ class RewardManager {
 }
 
 /**
- * @typedef {Object} RewardData
+ * @typedef {object} RewardData
  * @property {'daily' | 'work' | 'weekly'} type Type of the operation.
- * @property {Boolean} status The status of operation.
+ * @property {boolean} status The status of operation.
  * @property {CooldownData} cooldown Cooldown object.
- * @property {Number} reward Amount of money that the user received.
- * @property {Number} defaultReward Reward that was specified in a module configuration.
+ * @property {number} reward Amount of money that the user received.
+ * @property {number} defaultReward Reward that was specified in a module configuration.
  */
 
 /**
- * @typedef {Object} TimeData
- * @property {Number} days Amount of days until the cooldown ends.
- * @property {Number} hours Amount of hours until the cooldown ends.
- * @property {Number} minutes Amount of minutes until the cooldown ends.
- * @property {Number} seconds Amount of seconds until the cooldown ends.
- * @property {Number} milliseconds Amount of milliseconds until the cooldown ends.
+ * @typedef {object} TimeData
+ * @property {number} days Amount of days until the cooldown ends.
+ * @property {number} hours Amount of hours until the cooldown ends.
+ * @property {number} minutes Amount of minutes until the cooldown ends.
+ * @property {number} seconds Amount of seconds until the cooldown ends.
+ * @property {number} milliseconds Amount of milliseconds until the cooldown ends.
  */
 
 /**
- * @typedef {Object} CooldownData
+ * @typedef {object} CooldownData
  * @property {TimeData} time A time object with the remaining time until the cooldown ends.
- * @property {String} pretty A formatted string with the remaining time until the cooldown ends.
+ * @property {string} pretty A formatted string with the remaining time until the cooldown ends.
  */
 
 /**

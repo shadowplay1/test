@@ -47,8 +47,8 @@ class UtilsManager {
     /**
      * Utils Manager.
      * 
-     * @param {Object} options Economy configuration.
-     * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
+     * @param {object} options Economy configuration.
+     * @param {string} options.storagePath Full path to a JSON file. Default: './storage.json'.
      */
     constructor(options = {}, database, fetcher) {
 
@@ -69,7 +69,7 @@ class UtilsManager {
         /**
         * Full path to a JSON file.
         * @private
-        * @type {String}
+        * @type {string}
         */
         this.storagePath = options.storagePath || './storage.json'
 
@@ -113,7 +113,7 @@ class UtilsManager {
 
     /**
     * Fetches the entire database.
-    * @returns {Object} Database contents
+    * @returns {object} Database contents
     */
     all() {
         return this.database.all()
@@ -121,9 +121,9 @@ class UtilsManager {
 
     /**
      * Writes the data to file.
-     * @param {String} path File path to write.
+     * @param {string} path File path to write.
      * @param {any} data Any data to write
-     * @returns {Boolean} If successfully written: true; else: false.
+     * @returns {boolean} If successfully written: true; else: false.
      */
     write(path, data) {
         if (!path) return false
@@ -138,9 +138,9 @@ class UtilsManager {
 
     /**
      * Clears the storage file.
-     * @returns {Boolean} If cleared successfully: true; else: false
+     * @returns {boolean} If cleared successfully: true; else: false
      */
-    clearStorage() {
+    clearDatabase() {
         const data = this.all()
         const stringData = String(data)
 
@@ -152,8 +152,8 @@ class UtilsManager {
 
     /**
     * Fully removes the guild from database.
-    * @param {String} guildID Guild ID
-    * @returns {Boolean} If cleared successfully: true; else: false
+    * @param {string} guildID Guild ID
+    * @returns {boolean} If cleared successfully: true; else: false
     */
     removeGuild(guildID) {
         const data = this.fetcher.fetchAll()
@@ -168,9 +168,9 @@ class UtilsManager {
 
     /**
      * Removes the user from database.
-     * @param {String} memberID Member ID
-     * @param {String} guildID Guild ID
-     * @returns {Boolean} If cleared successfully: true; else: false
+     * @param {string} memberID Member ID
+     * @param {string} guildID Guild ID
+     * @returns {boolean} If cleared successfully: true; else: false
      */
     removeUser(memberID, guildID) {
         const data = this.fetcher.fetchAll()
@@ -188,9 +188,9 @@ class UtilsManager {
 
     /**
      * Sets the default user object for the specified member.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
-     * @returns {Boolean} If reset successfully: true; else: false.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
+     * @returns {boolean} If reset successfully: true; else: false.
      */
     reset(memberID, guildID) {
         if (!guildID) return false
@@ -382,74 +382,74 @@ class UtilsManager {
 
 /**
 * Module update state.
-* @typedef {Object} VersionData
-* @property {Boolean} updated Is the module updated.
-* @property {String} installedVersion Installed version.
-* @property {String} packageVersion Avaible version.
+* @typedef {object} VersionData
+* @property {boolean} updated Is the module updated.
+* @property {string} installedVersion Installed version.
+* @property {string} packageVersion Avaible version.
 */
 
 /**
- * @typedef {Object} EconomyOptions Default Economy configuration.
- * @property {String} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
- * @property {Boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
- * @property {Number} [dailyCooldown=86400000] 
+ * @typedef {object} EconomyOptions Default Economy configuration.
+ * @property {string} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
+ * @property {boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
+ * @property {number} [dailyCooldown=86400000] 
  * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  * 
- * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
+ * @property {number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
  * @property {Number | Number[]} [dailyAmount=100] Amount of money for Daily Command. Default: 100.
- * @property {Number} [weeklyCooldown=604800000] 
+ * @property {number} [weeklyCooldown=604800000] 
  * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
  * 
  * @property {Number | Number[]} [weeklyAmount=100] Amount of money for Weekly Command. Default: 1000.
  * @property {Number | Number[]} [workAmount=[10, 50]] Amount of money for Work Command. Default: [10, 50].
- * @property {Boolean} [subtractOnBuy=true] 
+ * @property {boolean} [subtractOnBuy=true] 
  * If true, when someone buys the item, their balance will subtract by item price. Default: false
  * 
- * @property {Number} [sellingItemPercent=75] 
+ * @property {number} [sellingItemPercent=75] 
  * Percent of the item's price it will be sold for. Default: 75.
  * 
- * @property {Boolean} [deprecationWarnings=true] 
+ * @property {boolean} [deprecationWarnings=true] 
  * If true, the deprecation warnings will be sent in the console. Default: true.
  * 
- * @property {Boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
+ * @property {boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
  * 
- * @property {Number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
- * @property {String} [dateLocale='en'] The region (example: 'ru'; 'en') to format the date and time. Default: 'en'.
+ * @property {number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
+ * @property {string} [dateLocale='en'] The region (example: 'ru'; 'en') to format the date and time. Default: 'en'.
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.
  * @property {CheckerOptions} [optionsChecker=CheckerOptions] Configuration for an 'Economy.utils.checkOptions' method.
- * @property {Boolean} [debug=false] Enables or disables the debug mode.
+ * @property {boolean} [debug=false] Enables or disables the debug mode.
  */
 
 /**
- * @typedef {Object} UpdaterOptions Update checker configuration.
- * @property {Boolean} [checkUpdates=true] Sends the update state message in console on start. Default: true.
- * @property {Boolean} [upToDateMessage=true] 
+ * @typedef {object} UpdaterOptions Update checker configuration.
+ * @property {boolean} [checkUpdates=true] Sends the update state message in console on start. Default: true.
+ * @property {boolean} [upToDateMessage=true] 
  * Sends the message in console on start if module is up to date. Default: true.
  */
 
 /**
- * @typedef {Object} ErrorHandlerOptions
- * @property {Boolean} [handleErrors=true] Handles all errors on startup. Default: true.
- * @property {Number} [attempts=5] Amount of attempts to load the module. Use 0 for infinity attempts. Default: 5.
- * @property {Number} [time=3000] Time between every attempt to start the module (in ms). Default: 3000.
+ * @typedef {object} ErrorHandlerOptions
+ * @property {boolean} [handleErrors=true] Handles all errors on startup. Default: true.
+ * @property {number} [attempts=5] Amount of attempts to load the module. Use 0 for infinity attempts. Default: 5.
+ * @property {number} [time=3000] Time between every attempt to start the module (in ms). Default: 3000.
  */
 
 /**
- * @typedef {Object} CheckerOptions Configuration for an 'Economy.utils.checkOptions' method.
- * @property {Boolean} [ignoreInvalidTypes=false] 
+ * @typedef {object} CheckerOptions Configuration for an 'Economy.utils.checkOptions' method.
+ * @property {boolean} [ignoreInvalidTypes=false] 
  * Allows the method to ignore the options with invalid types. Default: false.
  * 
- * @property {Boolean} [ignoreUnspecifiedOptions=true] 
+ * @property {boolean} [ignoreUnspecifiedOptions=true] 
  * Allows the method to ignore the unspecified options. Default: true.
  * 
- * @property {Boolean} [ignoreInvalidOptions=false] Allows the method to ignore the unexisting options. Default: false.
- * @property {Boolean} [showProblems=true] Allows the method to show all the problems in the console. Default: true. 
+ * @property {boolean} [ignoreInvalidOptions=false] Allows the method to ignore the unexisting options. Default: false.
+ * @property {boolean} [showProblems=true] Allows the method to show all the problems in the console. Default: true. 
  * 
- * @property {Boolean} [sendLog=true] Allows the method to send the result in the console. 
+ * @property {boolean} [sendLog=true] Allows the method to send the result in the console. 
  * Requires the 'showProblems' or 'sendLog' options to set. Default: true.
  * 
- * @property {Boolean} [sendSuccessLog=false] 
+ * @property {boolean} [sendSuccessLog=false] 
  * Allows the method to send the result if no problems were found. Default: false.
  */
 

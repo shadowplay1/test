@@ -14,8 +14,8 @@ class Inventory extends BaseManager {
 
     /**
      * Inventory constructor.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
      * @param {EconomyOptions} options Economy configuration.
      */
     constructor(memberID, guildID, options) {
@@ -23,13 +23,13 @@ class Inventory extends BaseManager {
 
         /**
         * Member ID.
-        * @type {String}
+        * @type {string}
         */
         this.memberID = memberID
 
         /**
          * Guild ID.
-         * @type {String}
+         * @type {string}
          */
         this.guildID = guildID
 
@@ -69,9 +69,9 @@ class Inventory extends BaseManager {
 
     /**
      * Uses the item from user's inventory.
-     * @param {String | Number} itemID Item ID.
+     * @param {string | number} itemID Item ID.
      * @param {any} [client] Discord Client [Specify if the role will be given in a discord server].
-     * @returns {String} Item message or null if item not found.
+     * @returns {string} Item message or null if item not found.
      */
     use(itemID, client) {
         const inventory = this.fetch(memberID, guildID)
@@ -150,8 +150,8 @@ class Inventory extends BaseManager {
 
     /**
      * Adds the item from the shop to user's inventory.
-     * @param {String | Number} itemID Item ID.
-     * @returns {Boolean} If added successfully: true, else: false.
+     * @param {string | number} itemID Item ID.
+     * @returns {boolean} If added successfully: true, else: false.
      */
     add(itemID) {
 
@@ -190,8 +190,8 @@ class Inventory extends BaseManager {
 
     /**
      * Removes the item from user's inventory.
-     * @param {String | Number} itemID Item ID.
-     * @returns {Boolean} If removed successfully: true, else: false.
+     * @param {string | number} itemID Item ID.
+     * @returns {boolean} If removed successfully: true, else: false.
      */
     removeItem(itemID) {
         const inventory = this.fetch(memberID, guildID)
@@ -204,12 +204,12 @@ class Inventory extends BaseManager {
         }
 
         if (!item) return false
-        return this.database.removeElement(`${guildID}.${memberID}.inventory`, itemIndex)
+        return this.database.pop(`${guildID}.${memberID}.inventory`, itemIndex)
     }
 
     /**
      * Clears the user's inventory.
-     * @returns {Boolean} If cleared: true, else: false.
+     * @returns {boolean} If cleared: true, else: false.
      */
     clear() {
         const inventory = this.fetch(this.memberID, this.guildID)
@@ -247,36 +247,36 @@ class Inventory extends BaseManager {
 }
 
 /**
- * @typedef {Object} EconomyOptions Default Economy configuration.
- * @property {String} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
- * @property {Boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
- * @property {Number} [dailyCooldown=86400000] 
+ * @typedef {object} EconomyOptions Default Economy configuration.
+ * @property {string} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
+ * @property {boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
+ * @property {number} [dailyCooldown=86400000] 
  * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  * 
- * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
+ * @property {number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
  * @property {Number | Number[]} [dailyAmount=100] Amount of money for Daily Command. Default: 100.
- * @property {Number} [weeklyCooldown=604800000] 
+ * @property {number} [weeklyCooldown=604800000] 
  * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
  * 
  * @property {Number | Number[]} [weeklyAmount=100] Amount of money for Weekly Command. Default: 1000.
  * @property {Number | Number[]} [workAmount=[10, 50]] Amount of money for Work Command. Default: [10, 50].
- * @property {Boolean} [subtractOnBuy=true] 
+ * @property {boolean} [subtractOnBuy=true] 
  * If true, when someone buys the item, their balance will subtract by item price. Default: false
  * 
- * @property {Number} [sellingItemPercent=75] 
+ * @property {number} [sellingItemPercent=75] 
  * Percent of the item's price it will be sold for. Default: 75.
  * 
- * @property {Boolean} [deprecationWarnings=true] 
+ * @property {boolean} [deprecationWarnings=true] 
  * If true, the deprecation warnings will be sent in the console. Default: true.
  * 
- * @property {Boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
+ * @property {boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
  * 
- * @property {Number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
- * @property {String} [dateLocale='en'] The region (example: 'ru'; 'en') to format the date and time. Default: 'en'.
+ * @property {number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
+ * @property {string} [dateLocale='en'] The region (example: 'ru'; 'en') to format the date and time. Default: 'en'.
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.
  * @property {CheckerOptions} [optionsChecker=CheckerOptions] Configuration for an 'Economy.utils.checkOptions' method.
- * @property {Boolean} [debug=false] Enables or disables the debug mode.
+ * @property {boolean} [debug=false] Enables or disables the debug mode.
  */
 
 /**

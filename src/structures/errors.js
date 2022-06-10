@@ -114,12 +114,12 @@ module.exports = {
 
     /**
      * Sends a deprecation warning log in the console.
-     * @param {String} oldManager
-     * @param {String} oldMethod 
-     * @param {String} newManager 
-     * @param {String} newMethod
+     * @param {string} oldManager
+     * @param {string} oldMethod 
+     * @param {string} newManager 
+     * @param {string} newMethod
      * @param {String[]} argumentsList
-     * @returns {String} Deprecation warning message.
+     * @returns {string} Deprecation warning message.
      */
     deprecationWarning(oldManager, oldMethod, newManager, newMethod, argumentsList = [], newArgumentsList = []) {
         return `${colors.magenta}[Economy - Deprecation Warning] ${colors.red}"${oldManager}.${oldMethod}` +
@@ -158,7 +158,7 @@ module.exports = {
 }
 
 /**
- * @typedef {Object} ProperyDeprecationOptions
+ * @typedef {object} ProperyDeprecationOptions
  * @property {string} method The method that includes an options object with deprecated property.
  * @property {string} argumentName The name of the argument where the options object has a deprecated property.
  * @property {string[]} argumentsList The list of arguments of the method.

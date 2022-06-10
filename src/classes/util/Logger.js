@@ -44,8 +44,8 @@ class Logger {
 
     /**
      * Sends an info message to the console.
-     * @param {String} message A message to send.
-     * @param {String} [color='red'] Message color to use.
+     * @param {string} message A message to send.
+     * @param {string} [color='red'] Message color to use.
      */
     info(message, color = 'cyan') {
         console.log(`${this.colors[color]}[Economy] ${message}${this.colors.reset}`)
@@ -53,8 +53,8 @@ class Logger {
 
     /**
      * Sends an error message to the console.
-     * @param {String} message A message to send.
-     * @param {String} [color='red'] Message color to use.
+     * @param {string} message A message to send.
+     * @param {string} [color='red'] Message color to use.
      */
     error(message, color = 'red') {
         console.error(`${this.colors[color]}[Economy - Error] ${message}${this.colors.reset}`)
@@ -62,8 +62,8 @@ class Logger {
 
     /**
      * Sends a debug message to the console.
-     * @param {String} message A message to send.
-     * @param {String} [color='yellow'] Message color to use.
+     * @param {string} message A message to send.
+     * @param {string} [color='yellow'] Message color to use.
      */
     debug(message, color = 'yellow') {
         if (!this.options.debug) return // this.error('Debug mode is disabled.')
@@ -80,27 +80,27 @@ module.exports = Logger
 
 
 /**
- * @typedef {Object} LoggerOptions
- * @property {Boolean} debug Is the debug mode enabled.
+ * @typedef {object} LoggerOptions
+ * @property {boolean} debug Is the debug mode enabled.
  */
 
 /**
- * @typedef {Object} LoggerColors
- * @property {String} red Red color.
- * @property {String} green Green color.
- * @property {String} yellow Yellow color.
- * @property {String} blue Blue color.
- * @property {String} magenta Magenta color.
- * @property {String} cyan Cyan color.
- * @property {String} white White color.
- * @property {String} reset Reset color.
- * @property {String} black Black color.
- * @property {String} lightgray Light gray color.
- * @property {String} darkgray Dark gray color.
- * @property {String} lightred Light red color.
- * @property {String} lightgreen Light green color.
- * @property {String} lightyellow Light yellow color.
- * @property {String} lightblue Light blue color.
- * @property {String} lightmagenta Light magenta color.
- * @property {String} lightcyan Light cyan color.
+ * @typedef {object} LoggerColors
+ * @property {string} red Red color.
+ * @property {string} green Green color.
+ * @property {string} yellow Yellow color.
+ * @property {string} blue Blue color.
+ * @property {string} magenta Magenta color.
+ * @property {string} cyan Cyan color.
+ * @property {string} white White color.
+ * @property {string} reset Reset color.
+ * @property {string} black Black color.
+ * @property {string} lightgray Light gray color.
+ * @property {string} darkgray Dark gray color.
+ * @property {string} lightred Light red color.
+ * @property {string} lightgreen Light green color.
+ * @property {string} lightyellow Light yellow color.
+ * @property {string} lightblue Light blue color.
+ * @property {string} lightmagenta Light magenta color.
+ * @property {string} lightcyan Light cyan color.
  */

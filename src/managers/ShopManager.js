@@ -14,16 +14,16 @@ class ShopManager extends Emitter {
 
     /**
       * Shop Manager.
-      * @param {Object} options Economy configuration.
-      * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
-      * @param {String} options.dateLocale The region (example: 'ru' or 'en') to format date and time. Default: 'en'.
-      * @param {Boolean} options.subtractOnBuy
+      * @param {object} options Economy configuration.
+      * @param {string} options.storagePath Full path to a JSON file. Default: './storage.json'.
+      * @param {string} options.dateLocale The region (example: 'ru' or 'en') to format date and time. Default: 'en'.
+      * @param {boolean} options.subtractOnBuy
       * If true, when someone buys the item, their balance will subtract by item price.
       * 
-      * @param {Boolean} options.deprecationWarnings 
+      * @param {boolean} options.deprecationWarnings 
       * If true, the deprecation warnings will be sent in the console.
       * 
-      * @param {Boolean} options.savePurchasesHistory If true, the module will save all the purchases history.
+      * @param {boolean} options.savePurchasesHistory If true, the module will save all the purchases history.
      */
     constructor(options = {}) {
         super()
@@ -45,7 +45,7 @@ class ShopManager extends Emitter {
 
     /**
      * Creates an item in shop.
-     * @param {String} guildID Guild ID.
+     * @param {string} guildID Guild ID.
      * @param {AddItemOptions} options Configuration with item info.
      * @returns {ShopItem} Item info.
      */
@@ -128,7 +128,7 @@ class ShopManager extends Emitter {
      * Creates an item in shop.
      * 
      * This method is an alias for the `ShopManager.addItem()` method.
-     * @param {String} guildID Guild ID.
+     * @param {string} guildID Guild ID.
      * @param {AddItemOptions} options Configuration with item info.
      * @returns {ShopItem} Item info.
      */
@@ -139,12 +139,12 @@ class ShopManager extends Emitter {
     /**
      * Edits the item in the shop.
      * @param {Number | String} itemID Item ID or name.
-     * @param {String} guildID Guild ID
+     * @param {string} guildID Guild ID
      * @param {'description' | 'price' | 'name' | 'message' | 'maxAmount' | 'role' | 'custom'} itemProperty 
      * This argument means what thing in item you want to edit (item property). 
      * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.
      * 
-     * @returns {Boolean} If edited successfully: true, else: false.
+     * @returns {boolean} If edited successfully: true, else: false.
      */
     editItem(itemID, guildID, itemProperty, value) {
         const itemProperties = ['description', 'price', 'name', 'message', 'maxAmount', 'role', 'custom']
@@ -178,7 +178,7 @@ class ShopManager extends Emitter {
             if (!item) return false
 
             item[itemProperty] = value
-            this.database.changeElement(`${guildID}.shop`, itemIndex, item)
+            this.database.pull(`${guildID}.shop`, itemIndex, item)
 
             this.emit('shopItemEdit', {
                 itemID,
@@ -220,13 +220,13 @@ class ShopManager extends Emitter {
      * 
      * This method is an alias for the `ShopManager.editItem()` method.
      * @param {Number | String} itemID Item ID or name.
-     * @param {String} guildID Guild ID
+     * @param {string} guildID Guild ID
      * @param {'description' | 'price' | 'name' | 'message' | 'maxAmount' | 'role' | 'custom'} itemProperty 
      * This argument means what thing in item you want to edit (item property). 
      * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.
      * @param {any} value Any value to set.
      * 
-     * @returns {Boolean} If edited successfully: true, else: false.
+     * @returns {boolean} If edited successfully: true, else: false.
      */
     edit(itemID, guildID, itemProperty, value) {
         return this.editItem(itemID, guildID, itemProperty, value)
@@ -236,8 +236,8 @@ class ShopManager extends Emitter {
      * Sets a custom object for the item.
      * @param {string | number} itemID Item ID or name.
      * @param {string} guildID Guild ID.
-     * @param {Object} custom Custom item data object.
-     * @returns {Boolean} If set successfully: true, else: false.
+     * @param {object} custom Custom item data object.
+     * @returns {boolean} If set successfully: true, else: false.
      */
     setCustom(itemID, guildID, customObject) {
         return this.editItem(itemID, guildID, 'custom', customObject)
@@ -246,8 +246,8 @@ class ShopManager extends Emitter {
     /**
      * Removes an item from the shop.
      * @param {Number | String} itemID Item ID or name .
-     * @param {String} guildID Guild ID.
-     * @returns {Boolean} If removed: true, else: false.
+     * @param {string} guildID Guild ID.
+     * @returns {boolean} If removed: true, else: false.
      */
     removeItem(itemID, guildID) {
 
@@ -267,7 +267,7 @@ class ShopManager extends Emitter {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
         }
 
-        this.database.removeElement(`${guildID}.shop`, itemIndex)
+        this.database.pop(`${guildID}.shop`, itemIndex)
 
         this.emit('shopItemRemove', {
             id: item.id,
@@ -286,8 +286,8 @@ class ShopManager extends Emitter {
 
     /**
      * Clears the shop.
-     * @param {String} guildID Guild ID.
-     * @returns {Boolean} If cleared: true, else: false.
+     * @param {string} guildID Guild ID.
+     * @returns {boolean} If cleared: true, else: false.
      */
     clear(guildID) {
         const shop = this.fetch(guildID)
@@ -317,9 +317,9 @@ class ShopManager extends Emitter {
      * 
      * [!!!] No help will be provided for inventory
      * related methods in ShopManager.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
-     * @returns {Boolean} If cleared: true, else: false.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
+     * @returns {boolean} If cleared: true, else: false.
      * @deprecated
      */
     clearInventory(memberID, guildID) {
@@ -365,9 +365,31 @@ class ShopManager extends Emitter {
     }
 
     /**
+     * Shows all items in the shop.
+     * 
+     * This method is an alias for the `ShopManager.fetch()` method.
+     * @param {string} guildID Guild ID
+     * @returns {ShopItem[]} The shop array.
+     */
+    get(guildID) {
+        return this.fetch(guildID)
+    }
+
+    /**
+     * Shows all items in the shop.
+     * 
+     * This method is an alias for the `ShopManager.get()` method.
+     * @param {string} guildID Guild ID
+     * @returns {ShopItem[]} The shop array.
+     */
+    all(guildID) {
+        return this.get(guildID)
+    }
+
+    /**
      * Searches for the item in the shop.
      * @param {Number | String} itemID Item ID or name.
-     * @param {String} guildID Guild ID.
+     * @param {string} guildID Guild ID.
      * @returns {ShopItem} If item not found: null; else: item info object.
      */
     searchItem(itemID, guildID) {
@@ -395,7 +417,7 @@ class ShopManager extends Emitter {
      * 
      * This method is an alias for the `ShopManager.searchItem()` method.
      * @param {Number | String} itemID Item ID or name.
-     * @param {String} guildID Guild ID.
+     * @param {string} guildID Guild ID.
      * @returns {ShopItem} If item not found: null; else: item info object.
      */
     findItem(itemID, guildID) {
@@ -413,8 +435,8 @@ class ShopManager extends Emitter {
      * [!!!] No help will be provided for inventory
      * related methods in ShopManager.
      * @param {Number | String} itemID Item ID or name.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
      * @returns {InventoryData} If item not found: null; else: item info object.
      * @deprecated
      */
@@ -455,11 +477,11 @@ class ShopManager extends Emitter {
     /**
      * Buys the item from the shop.
      * @param {Number | String} itemID Item ID or name.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
-     * @param {String} reason The reason why the money was subtracted. Default: 'received the item from the shop'.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
+     * @param {string} reason The reason why the money was subtracted. Default: 'received the item from the shop'.
      * 
-     * @returns {Boolean | String} If item bought successfully: true; if item not found, false will be returned;
+     * @returns {boolean | string} If item bought successfully: true; if item not found, false will be returned;
      * if user reached the item's max amount: 'max' string.
      */
     buy(itemID, memberID, guildID, reason = 'received the item from the shop') {
@@ -562,11 +584,11 @@ class ShopManager extends Emitter {
      * 
      * This method is an alias for the `ShopManager.buy()` method.
      * @param {Number | String} itemID Item ID or name.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
-     * @param {String} reason The reason why the money was subtracted. Default: 'received the item from the shop'.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
+     * @param {string} reason The reason why the money was subtracted. Default: 'received the item from the shop'.
      * 
-     * @returns {Boolean | String} 
+     * @returns {boolean | string} 
      * If item bought successfully: true; if item not found, false will be returned; 
      * if user reached the item's max amount: 'max' string.
      */
@@ -584,8 +606,8 @@ class ShopManager extends Emitter {
      * 
      * [!!!] No help will be provided for inventory
      * related methods in ShopManager.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
      * @returns {InventoryData[]} User's inventory array.
      * @deprecated
      */
@@ -625,8 +647,8 @@ class ShopManager extends Emitter {
      * [!!!] No help will be provided for inventory
      * related methods in ShopManager.
      * @param {Number | String} itemID Item ID or name.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
      * @param {Client} client The Discord Client. [Optional]
      * @returns {String | boolean} Item message or null if item not found.
      * @deprecated
@@ -690,7 +712,7 @@ class ShopManager extends Emitter {
                 })
             })
 
-            this.database.removeElement(`${guildID}.${memberID}.inventory`, itemIndex + 1)
+            this.database.pop(`${guildID}.${memberID}.inventory`, itemIndex + 1)
             this.emit('shopItemUse', item)
 
             return item.message
@@ -707,8 +729,8 @@ class ShopManager extends Emitter {
      * 
      * [!!!] No help will be provided for history
      * related methods in ShopManager.
-     * @param {String} memberID Member ID
-     * @param {String} guildID Guild ID
+     * @param {string} memberID Member ID
+     * @param {string} guildID Guild ID
      * @returns {HistoryData[]} User's purchase history.
      * @deprecated
      */
@@ -751,9 +773,9 @@ class ShopManager extends Emitter {
     * 
     * [!!!] No help will be provided for history
     * related methods in ShopManager.
-    * @param {String} memberID Member ID.
-    * @param {String} guildID Guild ID.
-    * @returns {Boolean} If cleared: true, else: false.
+    * @param {string} memberID Member ID.
+    * @param {string} guildID Guild ID.
+    * @returns {boolean} If cleared: true, else: false.
     * @deprecated
     */
     clearHistory(memberID, guildID) {
@@ -785,88 +807,88 @@ class ShopManager extends Emitter {
 }
 
 /**
- * @typedef {Object} AddItemOptions Configuration with item info for 'Economy.shop.addItem' method.
- * @property {String} name Item name.
- * @property {String | Number} price Item price.
- * @property {String} [message='You have used this item!'] Item message that will be returned on use.
- * @property {String} [description='Very mysterious item.'] Item description.
- * @property {String | Number} [maxAmount=null] Max amount of the item that user can hold in their inventory.
- * @property {String} [role=null] Role ID from your Discord server.
- * @property {Object} [custom] Custom item properties object.
+ * @typedef {object} AddItemOptions Configuration with item info for 'Economy.shop.addItem' method.
+ * @property {string} name Item name.
+ * @property {string | number} price Item price.
+ * @property {string} [message='You have used this item!'] Item message that will be returned on use.
+ * @property {string} [description='Very mysterious item.'] Item description.
+ * @property {string | number} [maxAmount=null] Max amount of the item that user can hold in their inventory.
+ * @property {string} [role=null] Role ID from your Discord server.
+ * @property {object} [custom] Custom item properties object.
  * @returns {ItemData} Item info.
  */
 
 /**
  * History data object.
- * @typedef {Object} HistoryData
- * @property {Number} id Item ID in history.
- * @property {String} name Item name.
- * @property {Number} price Item price.
- * @property {String} message The message that will be returned on item use.
- * @property {String} role ID of Discord Role that will be given to user on item use.
- * @property {String} date Date when the item was bought by a user.
- * @property {String} memberID Member ID.
- * @property {String} guildID Guild ID.
+ * @typedef {object} HistoryData
+ * @property {number} id Item ID in history.
+ * @property {string} name Item name.
+ * @property {number} price Item price.
+ * @property {string} message The message that will be returned on item use.
+ * @property {string} role ID of Discord Role that will be given to user on item use.
+ * @property {string} date Date when the item was bought by a user.
+ * @property {string} memberID Member ID.
+ * @property {string} guildID Guild ID.
  */
 
 /**
  * Item data object.
- * @typedef {Object} ItemData
- * @property {Number} id Item ID.
- * @property {String} name Item name.
- * @property {Number} price Item price.
- * @property {String} message The message that will be returned on item use.
- * @property {String} description Item description.
- * @property {String} role ID of Discord Role that will be given to Wuser on item use.
- * @property {Number} maxAmount Max amount of the item that user can hold in their inventory.
- * @property {String} date Date when the item was added in the shop.
- * @property {Object} custom Custom item properties object.
+ * @typedef {object} ItemData
+ * @property {number} id Item ID.
+ * @property {string} name Item name.
+ * @property {number} price Item price.
+ * @property {string} message The message that will be returned on item use.
+ * @property {string} description Item description.
+ * @property {string} role ID of Discord Role that will be given to Wuser on item use.
+ * @property {number} maxAmount Max amount of the item that user can hold in their inventory.
+ * @property {string} date Date when the item was added in the shop.
+ * @property {object} custom Custom item properties object.
  */
 
 /**
  * Inventory data object.
- * @typedef {Object} InventoryData
- * @property {Number} id Item ID in your inventory.
- * @property {String} name Item name.
- * @property {Number} price Item price.
- * @property {String} message The message that will be returned on item use.
- * @property {String} role ID of Discord Role that will be given to user on item use.
- * @property {Number} maxAmount Max amount of the item that user can hold in their inventory.
- * @property {String} date Date when the item was bought by a user.
- * @property {Object} custom Custom item properties object.
+ * @typedef {object} InventoryData
+ * @property {number} id Item ID in your inventory.
+ * @property {string} name Item name.
+ * @property {number} price Item price.
+ * @property {string} message The message that will be returned on item use.
+ * @property {string} role ID of Discord Role that will be given to user on item use.
+ * @property {number} maxAmount Max amount of the item that user can hold in their inventory.
+ * @property {string} date Date when the item was bought by a user.
+ * @property {object} custom Custom item properties object.
  */
 
 /**
- * @typedef {Object} EconomyOptions Default Economy configuration.
- * @property {String} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
- * @property {Boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
- * @property {Number} [dailyCooldown=86400000]
+ * @typedef {object} EconomyOptions Default Economy configuration.
+ * @property {string} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
+ * @property {boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
+ * @property {number} [dailyCooldown=86400000]
  * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  *
- * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
+ * @property {number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
  * @property {Number | Number[]} [dailyAmount=100] Amount of money for Daily Command. Default: 100.
- * @property {Number} [weeklyCooldown=604800000]
+ * @property {number} [weeklyCooldown=604800000]
  * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
  *
- * @property {Boolean} [deprecationWarnings=true]
+ * @property {boolean} [deprecationWarnings=true]
  * If true, the deprecation warnings will be sent in the console. Default: true.
  *
- * @property {Boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
+ * @property {boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
  *
- * @property {Number} [sellingItemPercent=75]
+ * @property {number} [sellingItemPercent=75]
  * Percent of the item's price it will be sold for. Default: 75.
  *
  * @property {Number | Number[]} [weeklyAmount=100] Amount of money for Weekly Command. Default: 1000.
  * @property {Number | Number[]} [workAmount=[10, 50]] Amount of money for Work Command. Default: [10, 50].
- * @property {Boolean} [subtractOnBuy=true]
+ * @property {boolean} [subtractOnBuy=true]
  * If true, when someone buys the item, their balance will subtract by item price. Default: false
  *
- * @property {Number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
- * @property {String} [dateLocale='en'] The region (example: 'ru' or 'en') to format the date and time. Default: 'en'.
+ * @property {number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
+ * @property {string} [dateLocale='en'] The region (example: 'ru' or 'en') to format the date and time. Default: 'en'.
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.
  * @property {CheckerOptions} [optionsChecker=CheckerOptions] Configuration for an 'Economy.utils.checkOptions' method.
- * @property {Boolean} [debug=false] Enables or disables the debug mode.
+ * @property {boolean} [debug=false] Enables or disables the debug mode.
  */
 
 /**

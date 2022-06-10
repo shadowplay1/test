@@ -43,19 +43,19 @@ class Economy extends Emitter {
 
         /**
          * Module ready status.
-         * @type {?Boolean}
+         * @type {?boolean}
          */
         this.ready = false
 
         /**
          * Economy errored status.
-         * @type {?Boolean}
+         * @type {?boolean}
          */
         this.errored = false
 
         /**
         * Module version.
-        * @type {String}
+        * @type {string}
         */
         this.version = require('../package.json').version
 
@@ -72,7 +72,7 @@ class Economy extends Emitter {
 
         /**
          * Link to the module's documentation website.
-         * @type {String}
+         * @type {string}
          */
         this.docs = 'https://des-docs.tk'
 
@@ -202,7 +202,7 @@ class Economy extends Emitter {
             if (status) {
                 this.ready = true
 
-		this._logger.debug('Economy is ready!', 'green')
+                this._logger.debug('Economy is ready!', 'green')
                 this.emit('ready')
             }
         })
@@ -232,7 +232,7 @@ class Economy extends Emitter {
 
     /**
      * Starts the module.
-     * @returns {Promise<Boolean>} If started successfully: true; else: Error instance.
+     * @returns {Promise<boolean>} If started successfully: true; else: Error instance.
      */
     init() {
         let attempt = 0
@@ -477,7 +477,7 @@ class Economy extends Emitter {
 
     /**
      * Starts all the managers.
-     * @returns {Boolean} If successfully started: true.
+     * @returns {boolean} If successfully started: true.
      * @private
      */
     start() {
@@ -575,135 +575,135 @@ class Economy extends Emitter {
 /**
 * Emits when someone's set the money on the balance.
 * @event Economy#balanceSet
-* @param {Object} data Data object.
-* @param {String} data.type The type of operation.
-* @param {String} data.guildID Guild ID.
-* @param {String} data.memberID Member ID.
-* @param {Number} data.amount Amount of money in completed operation.
-* @param {Number} data.balance User's balance after the operation was completed successfully.
-* @param {String} data.reason The reason why the operation was completed.
+* @param {object} data Data object.
+* @param {string} data.type The type of operation.
+* @param {string} data.guildID Guild ID.
+* @param {string} data.memberID Member ID.
+* @param {number} data.amount Amount of money in completed operation.
+* @param {number} data.balance User's balance after the operation was completed successfully.
+* @param {string} data.reason The reason why the operation was completed.
 */
 
 /**
 * Emits when someone's added the money on the balance.
 * @event Economy#balanceAdd
-* @param {Object} data Data object.
-* @param {String} data.type The type of operation.
-* @param {String} data.guildID Guild ID.
-* @param {String} data.memberID Member ID.
-* @param {Number} data.amount Amount of money in completed operation.
-* @param {Number} data.balance User's balance after the operation was completed successfully.
-* @param {String} data.reason The reason why the operation was completed.
+* @param {object} data Data object.
+* @param {string} data.type The type of operation.
+* @param {string} data.guildID Guild ID.
+* @param {string} data.memberID Member ID.
+* @param {number} data.amount Amount of money in completed operation.
+* @param {number} data.balance User's balance after the operation was completed successfully.
+* @param {string} data.reason The reason why the operation was completed.
 */
 
 /**
 * Emits when someone's subtracts the money from user's balance.
 * @event Economy#balanceSubtract
-* @param {Object} data Data object.
-* @param {String} data.type The type of operation.
-* @param {String} data.guildID Guild ID.
-* @param {String} data.memberID Member ID.
-* @param {Number} data.amount Amount of money in completed operation.
-* @param {Number} data.balance User's balance after the operation was completed successfully.
-* @param {String} data.reason The reason why the operation was completed.
+* @param {object} data Data object.
+* @param {string} data.type The type of operation.
+* @param {string} data.guildID Guild ID.
+* @param {string} data.memberID Member ID.
+* @param {number} data.amount Amount of money in completed operation.
+* @param {number} data.balance User's balance after the operation was completed successfully.
+* @param {string} data.reason The reason why the operation was completed.
 */
 
 /**
 * Emits when someone's set the money on the bank balance.
 * @event Economy#bankSet
-* @param {Object} data Data object.
-* @param {String} data.type The type of operation.
-* @param {String} data.guildID Guild ID.
-* @param {String} data.memberID Member ID.
-* @param {Number} data.amount Amount of money in completed operation.
-* @param {Number} data.balance User's balance after the operation was completed successfully.
-* @param {String} data.reason The reason why the operation was completed.
+* @param {object} data Data object.
+* @param {string} data.type The type of operation.
+* @param {string} data.guildID Guild ID.
+* @param {string} data.memberID Member ID.
+* @param {number} data.amount Amount of money in completed operation.
+* @param {number} data.balance User's balance after the operation was completed successfully.
+* @param {string} data.reason The reason why the operation was completed.
 */
 
 /**
 * Emits when someone's added the money on the bank balance.
 * @event Economy#bankAdd
-* @param {Object} data Data object.
-* @param {String} data.type The type of operation.
-* @param {String} data.guildID Guild ID.
-* @param {String} data.memberID Member ID.
-* @param {Number} data.amount Amount of money in completed operation.
-* @param {Number} data.balance User's balance after the operation was completed successfully.
-* @param {String} data.reason The reason why the operation was completed.
+* @param {object} data Data object.
+* @param {string} data.type The type of operation.
+* @param {string} data.guildID Guild ID.
+* @param {string} data.memberID Member ID.
+* @param {number} data.amount Amount of money in completed operation.
+* @param {number} data.balance User's balance after the operation was completed successfully.
+* @param {string} data.reason The reason why the operation was completed.
 */
 
 /**
 * Emits when someone's subtracts the money from user's bank balance.
 * @event Economy#bankSubtract
-* @param {Object} data Data object.
-* @param {String} data.type The type of operation.
-* @param {String} data.guildID Guild ID.
-* @param {String} data.memberID Member ID.
-* @param {Number} data.amount Amount of money in completed operation.
-* @param {Number} data.balance User's balance after the operation was completed successfully.
-* @param {String} data.reason The reason why the operation was completed.
+* @param {object} data Data object.
+* @param {string} data.type The type of operation.
+* @param {string} data.guildID Guild ID.
+* @param {string} data.memberID Member ID.
+* @param {number} data.amount Amount of money in completed operation.
+* @param {number} data.balance User's balance after the operation was completed successfully.
+* @param {string} data.reason The reason why the operation was completed.
 */
 
 /**
 * Emits when someone's added an item in the shop.
 * @event Economy#shopItemAdd
-* @param {Number} id Item ID.
-* @param {String} data.name Item name.
-* @param {Number} data.price Item price.
-* @param {String} data.message Item message that will be returned on item use.
-* @param {String} data.description Item description.
-* @param {Number} data.maxAmount Max amount of the item that user can hold in their inventory.
-* @param {String} data.role Role ID from your Discord server.
-* @param {String} data.date Formatted date when the item was added to the shop.
+* @param {number} id Item ID.
+* @param {string} data.name Item name.
+* @param {number} data.price Item price.
+* @param {string} data.message Item message that will be returned on item use.
+* @param {string} data.description Item description.
+* @param {number} data.maxAmount Max amount of the item that user can hold in their inventory.
+* @param {string} data.role Role ID from your Discord server.
+* @param {string} data.date Formatted date when the item was added to the shop.
 */
 
 /**
 * Emits when someone's removed an item in the shop.
 * @event Economy#shopItemRemove
-* @param {Number} id Item ID.
-* @param {String} data.name Item name.
-* @param {Number} data.price Item price.
-* @param {String} data.message Item message that will be returned on item use.
-* @param {String} data.description Item description.
-* @param {Number} data.maxAmount Max amount of the item that user can hold in their inventory.
-* @param {String} data.role Role ID from your Discord server.
-* @param {String} data.date Formatted date when the item was added to the shop.
+* @param {number} id Item ID.
+* @param {string} data.name Item name.
+* @param {number} data.price Item price.
+* @param {string} data.message Item message that will be returned on item use.
+* @param {string} data.description Item description.
+* @param {number} data.maxAmount Max amount of the item that user can hold in their inventory.
+* @param {string} data.role Role ID from your Discord server.
+* @param {string} data.date Formatted date when the item was added to the shop.
 */
 
 /**
 * Emits when someone's added an item in the shop.
 * @event Economy#shopItemBuy
-* @param {Number} id Item ID.
-* @param {String} data.name Item name.
-* @param {Number} data.price Item price.
-* @param {String} data.message Item message that will be returned on item use.
-* @param {String} data.description Item description.
-* @param {Number} data.maxAmount Max amount of the item that user can hold in their inventory.
-* @param {String} data.role Role ID from your Discord server.
-* @param {String} data.date Formatted date when the item was added to the shop.
+* @param {number} id Item ID.
+* @param {string} data.name Item name.
+* @param {number} data.price Item price.
+* @param {string} data.message Item message that will be returned on item use.
+* @param {string} data.description Item description.
+* @param {number} data.maxAmount Max amount of the item that user can hold in their inventory.
+* @param {string} data.role Role ID from your Discord server.
+* @param {string} data.date Formatted date when the item was added to the shop.
 */
 
 /**
 * Emits when someone's used an item from their inventory.
 * @event Economy#shopItemUse
-* @param {Number} id Item ID.
-* @param {String} data.name Item name.
-* @param {Number} data.price Item price.
-* @param {String} data.message Item message that will be returned on item use.
-* @param {String} data.description Item description.
-* @param {Number} data.maxAmount Max amount of the item that user can hold in their inventory.
-* @param {String} data.role Role ID from your Discord server.
-* @param {String} data.date Formatted date when the item was added to the shop.
+* @param {number} id Item ID.
+* @param {string} data.name Item name.
+* @param {number} data.price Item price.
+* @param {string} data.message Item message that will be returned on item use.
+* @param {string} data.description Item description.
+* @param {number} data.maxAmount Max amount of the item that user can hold in their inventory.
+* @param {string} data.role Role ID from your Discord server.
+* @param {string} data.date Formatted date when the item was added to the shop.
 */
 
 /**
 * Emits when someone's edited an item in the shop.
 * @event Economy#shopItemEdit
-* @param {Number} id Item ID.
-* @param {String} data.guildID Guild ID.
-* @param {String} data.changedProperty The item property that was changed.
-* @param {String} data.oldValue Value before edit.
-* @param {String} data.newValue Value after edit.
+* @param {number} id Item ID.
+* @param {string} data.guildID Guild ID.
+* @param {string} data.changedProperty The item property that was changed.
+* @param {string} data.oldValue Value before edit.
+* @param {string} data.newValue Value after edit.
 */
 
 /**
@@ -719,74 +719,74 @@ class Economy extends Emitter {
 */
 
 /**
- * @typedef {Object} EconomyOptions Default Economy configuration.
- * @property {String} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
- * @property {Boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
- * @property {Number} [dailyCooldown=86400000] Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
- * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
+ * @typedef {object} EconomyOptions Default Economy configuration.
+ * @property {string} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
+ * @property {boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
+ * @property {number} [dailyCooldown=86400000] Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
+ * @property {number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
  * @property {Number | Number[]} [dailyAmount=100] Amount of money for Daily Command. Default: 100.
- * @property {Number} [weeklyCooldown=604800000] Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
- * @property {Number} [sellingItemPercent=75] 
+ * @property {number} [weeklyCooldown=604800000] Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
+ * @property {number} [sellingItemPercent=75] 
  * Percent of the item's price it will be sold for. Default: 75.
  * 
- * @property {Boolean} [deprecationWarnings=true] 
+ * @property {boolean} [deprecationWarnings=true] 
  * If true, the deprecation warnings will be sent in the console. Default: true.
  * 
- * @property {Boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
+ * @property {boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
  * 
  * @property {Number | Number[]} [weeklyAmount=100] Amount of money for Weekly Command. Default: 1000.
  * @property {Number | Number[]} [workAmount=[10, 50]] Amount of money for Work Command. Default: [10, 50].
- * @property {Boolean} [subtractOnBuy=true] If true, when someone buys the item, their balance will subtract by item price. Default: false
+ * @property {boolean} [subtractOnBuy=true] If true, when someone buys the item, their balance will subtract by item price. Default: false
  * 
- * @property {Number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
- * @property {String} [dateLocale='en'] The region (example: 'ru' or 'en') to format the date and time. Default: 'en'.
+ * @property {number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
+ * @property {string} [dateLocale='en'] The region (example: 'ru' or 'en') to format the date and time. Default: 'en'.
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.
  * @property {CheckerOptions} [optionsChecker=CheckerOptions] Configuration for an 'Economy.utils.checkOptions' method.
- * @property {Boolean} [debug=false] Enables or disables the debug mode.
+ * @property {boolean} [debug=false] Enables or disables the debug mode.
  */
 
 /**
- * @typedef {Object} UpdaterOptions Update checker configuration.
- * @property {Boolean} [checkUpdates=true] Sends the update state message in console on start. Default: true.
- * @property {Boolean} [upToDateMessage=true] Sends the message in console on start if module is up to date. Default: true.
+ * @typedef {object} UpdaterOptions Update checker configuration.
+ * @property {boolean} [checkUpdates=true] Sends the update state message in console on start. Default: true.
+ * @property {boolean} [upToDateMessage=true] Sends the message in console on start if module is up to date. Default: true.
  */
 
 /**
- * @typedef {Object} ErrorHandlerOptions
- * @property {Boolean} [handleErrors=true] Handles all errors on startup. Default: true.
- * @property {Number} [attempts=5] Amount of attempts to load the module. Use 0 for infinity attempts. Default: 5.
- * @property {Number} [time=3000] Time between every attempt to start the module (in ms). Default: 3000.
+ * @typedef {object} ErrorHandlerOptions
+ * @property {boolean} [handleErrors=true] Handles all errors on startup. Default: true.
+ * @property {number} [attempts=5] Amount of attempts to load the module. Use 0 for infinity attempts. Default: 5.
+ * @property {number} [time=3000] Time between every attempt to start the module (in ms). Default: 3000.
  */
 
 /**
- * @typedef {Object} CheckerOptions Configuration for an 'Economy.utils.checkOptions' method.
- * @property {Boolean} [ignoreInvalidTypes=false] Allows the method to ignore the options with invalid types. Default: false.
- * @property {Boolean} [ignoreUnspecifiedOptions=false] Allows the method to ignore the unspecified options. Default: false.
- * @property {Boolean} [ignoreInvalidOptions=false] Allows the method to ignore the unexisting options. Default: false.
- * @property {Boolean} [showProblems=false] Allows the method to show all the problems in the console. Default: false. 
+ * @typedef {object} CheckerOptions Configuration for an 'Economy.utils.checkOptions' method.
+ * @property {boolean} [ignoreInvalidTypes=false] Allows the method to ignore the options with invalid types. Default: false.
+ * @property {boolean} [ignoreUnspecifiedOptions=false] Allows the method to ignore the unspecified options. Default: false.
+ * @property {boolean} [ignoreInvalidOptions=false] Allows the method to ignore the unexisting options. Default: false.
+ * @property {boolean} [showProblems=false] Allows the method to show all the problems in the console. Default: false. 
  * 
- * @property {Boolean} [sendLog=false] Allows the method to send the result in the console. 
+ * @property {boolean} [sendLog=false] Allows the method to send the result in the console. 
  * Requires the 'showProblems' or 'sendLog' options to set. Default: false.
  * 
- * @property {Boolean} [sendSuccessLog=false] Allows the method to send the result if no problems were found. Default: false.
+ * @property {boolean} [sendSuccessLog=false] Allows the method to send the result if no problems were found. Default: false.
  */
 
 /**
- * @typedef {Object} LoggerColors
- * @property {String} red Red color.
- * @property {String} green Green color.
- * @property {String} yellow Yellow color.
- * @property {String} blue Blue color.
- * @property {String} magenta Magenta color.
- * @property {String} cyan Cyan color.
- * @property {String} white White color.
- * @property {String} reset Reset color.
+ * @typedef {object} LoggerColors
+ * @property {string} red Red color.
+ * @property {string} green Green color.
+ * @property {string} yellow Yellow color.
+ * @property {string} blue Blue color.
+ * @property {string} magenta Magenta color.
+ * @property {string} cyan Cyan color.
+ * @property {string} white White color.
+ * @property {string} reset Reset color.
  */
 
 /**
- * @typedef {Object} Manager
- * @property {String} name The manager's short name.
+ * @typedef {object} Manager
+ * @property {string} name The manager's short name.
  * @property {Function} manager The manager class.
  */
 

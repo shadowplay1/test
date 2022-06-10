@@ -22,9 +22,10 @@ const UtilsManager = require('./UtilsManager')
  * const ShopItem = require('./ShopItem') // must be a class
  * 
  * class ShopManager extends BaseManager {
- *    constructor(options) {
- *       super(options, ShopItem)
+ *    constructor(options, memberID, guildID) {
+ *       super(options, memberID, guildID, ShopItem)
  * 
+ *       this.guildID = guildID
  *       this.database = new DatabaseManager(options)
  *   }
  *  
@@ -39,8 +40,8 @@ class BaseManager extends Emitter {
     /**
      * Base Manager.
      * @param {EconomyOptions} options Economy configuration.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
      * @param {any} constructor A constructor (EconomyUser, ShopItem, etc.) to work with.
      */
     constructor(options, memberID, guildID, constructor) {
@@ -69,13 +70,13 @@ class BaseManager extends Emitter {
 
         /**
          * Member ID.
-         * @type {String}
+         * @type {string}
          */
         this.memberID = memberID
 
         /**
          * Guild ID.
-         * @type {String}
+         * @type {string}
          */
         this.guildID = guildID
 
@@ -87,7 +88,7 @@ class BaseManager extends Emitter {
 
         /**
          * Amount of elements in database.
-         * @type {Number}
+         * @type {number}
          */
         this.length = this.all().length
     }
@@ -207,7 +208,7 @@ class BaseManager extends Emitter {
      * @param {any} [thisArg] 
      * An object to which the this keyword can refer in the callbackfn function. 
      * If thisArg is omitted, undefined is used as the this value.
-     * @returns {Number} Element index.
+     * @returns {number} Element index.
      */
     findIndex(predicate, thisArg) {
         return this.all().findIndex(predicate, thisArg)
@@ -218,8 +219,8 @@ class BaseManager extends Emitter {
      * 
      * Determines whether an array includes a certain element, returning true or false as appropriate.
      * @param {any} searchElement The element to search for.
-     * @param {Number} [fromIndex] The position in this array at which to begin searching for searchElement.
-     * @returns {Boolean} Is the specified element included or not.
+     * @param {number} [fromIndex] The position in this array at which to begin searching for searchElement.
+     * @returns {boolean} Is the specified element included or not.
      */
     includes(searchElement, fromIndex) {
         return this.all().includes(searchElement, fromIndex)
@@ -232,10 +233,10 @@ class BaseManager extends Emitter {
      * 
      * Determines whether an array includes a certain element, returning true or false as appropriate.
      * @param {any} searchElement The element to search for.
-     * @param {Number} [fromIndex] 
+     * @param {number} [fromIndex] 
      * The array index at which to begin the search. 
      * If fromIndex is omitted, the search starts at index 0.
-     * @returns {Boolean} Is the specified element included or not.
+     * @returns {boolean} Is the specified element included or not.
      */
     has(searchElement, fromIndex) {
         return this.all().includes(searchElement, fromIndex)
@@ -245,10 +246,10 @@ class BaseManager extends Emitter {
      * This method is the same as `Array.indexOf()`. 
      * 
      * @param {any} searchElement The value to locate in the array.
-     * @param {Number} [fromIndex] 
+     * @param {number} [fromIndex] 
      * The array index at which to begin the search. 
      * If fromIndex is omitted, the search starts at index 0.
-     * @returns {Number} Element index in the array.
+     * @returns {number} Element index in the array.
      */
     indexOf(searchElement, fromIndex) {
         return this.all().indexOf(searchElement, fromIndex)
@@ -258,10 +259,10 @@ class BaseManager extends Emitter {
      * This method is the same as `Array.lastIndexOf()`. 
      * 
      * @param {any} searchElement The value to locate in the array.
-     * @param {Number} [fromIndex] 
+     * @param {number} [fromIndex] 
      * The array index at which to begin searching backward. 
      * If fromIndex is omitted, the search starts at the last index in the array.
-     * @returns {Number} Element index in the array.
+     * @returns {number} Element index in the array.
      */
     lastIndexOf(searchElement, fromIndex) {
         return this.all().lastIndexOf(searchElement, fromIndex)
@@ -370,7 +371,7 @@ class BaseManager extends Emitter {
 
     /**
      * Returns a string representation of an array.
-     * @returns {String} String representation of an array.
+     * @returns {string} String representation of an array.
      */
     toString() {
         return this.all().toString()
@@ -379,51 +380,51 @@ class BaseManager extends Emitter {
 
 
 /**
- * @typedef {Object} EconomyOptions Default Economy configuration.
- * @property {String} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
- * @property {Boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
- * @property {Number} [dailyCooldown=86400000] 
+ * @typedef {object} EconomyOptions Default Economy configuration.
+ * @property {string} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
+ * @property {boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
+ * @property {number} [dailyCooldown=86400000] 
  * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  * 
- * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
+ * @property {number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
  * @property {Number | Number[]} [dailyAmount=100] Amount of money for Daily Command. Default: 100.
- * @property {Number} [weeklyCooldown=604800000] 
+ * @property {number} [weeklyCooldown=604800000] 
  * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
  * 
- * @property {Boolean} [deprecationWarnings=true] 
+ * @property {boolean} [deprecationWarnings=true] 
  * If true, the deprecation warnings will be sent in the console. Default: true.
  * 
- * @property {Boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
+ * @property {boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
  *
- * @property {Number} [sellingItemPercent=75] 
+ * @property {number} [sellingItemPercent=75] 
  * Percent of the item's price it will be sold for. Default: 75.
  * 
  * @property {Number | Number[]} [weeklyAmount=100] Amount of money for Weekly Command. Default: 1000.
  * @property {Number | Number[]} [workAmount=[10, 50]] Amount of money for Work Command. Default: [10, 50].
- * @property {Boolean} [subtractOnBuy=true] 
+ * @property {boolean} [subtractOnBuy=true] 
  * If true, when someone buys the item, their balance will subtract by item price. Default: false
  * 
- * @property {Number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
- * @property {String} [dateLocale='en'] The region (example: 'ru' or 'en') to format the date and time. Default: 'en'.
+ * @property {number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
+ * @property {string} [dateLocale='en'] The region (example: 'ru' or 'en') to format the date and time. Default: 'en'.
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.
  * @property {CheckerOptions} [optionsChecker=CheckerOptions] Configuration for an 'Economy.utils.checkOptions' method.
- * @property {Boolean} [debug=false] Enables or disables the debug mode.
+ * @property {boolean} [debug=false] Enables or disables the debug mode.
  */
 
 /**
  * @callback PredicateFunction
  * @param {any} value
- * @param {Number} index
+ * @param {number} index
  * @param {any[]} array
- * @returns {Boolean}
+ * @returns {boolean}
  */
 
 /**
  * @callback CompareFunction
  * @param {any} a
  * @param {any} b
- * @returns {Number}
+ * @returns {number}
  */
 
 /**

@@ -15,8 +15,8 @@ class FetchManager {
 
     /**
      * Fetch Manager.
-     * @param {Object} options Economy configuration.
-     * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
+     * @param {object} options Economy configuration.
+     * @param {string} options.storagePath Full path to a JSON file. Default: './storage.json'.
      */
     constructor(options = {}) {
 
@@ -29,7 +29,7 @@ class FetchManager {
 
         /**
          * Full path to a JSON file.
-         * @type {String}
+         * @type {string}
          * @private
          */
         this.storagePath = options.storagePath || './storage.json'
@@ -37,7 +37,7 @@ class FetchManager {
 
     /**
     * Fetches the entire database.
-    * @returns {Object} Database contents
+    * @returns {object} Database contents
     */
     fetchAll() {
         const isFileExisting = existsSync(this.storagePath)
@@ -52,9 +52,9 @@ class FetchManager {
 
     /**
     * Fetches the user's balance.
-    * @param {String} memberID Member ID
-    * @param {String} guildID Guild ID
-    * @returns {Number} User's balance.
+    * @param {string} memberID Member ID
+    * @param {string} guildID Guild ID
+    * @returns {number} User's balance.
     */
     fetchBalance(memberID, guildID) {
         const data = this.fetchAll()
@@ -66,7 +66,7 @@ class FetchManager {
         const memberData = guildData?.[memberID]
 
         /**
-         * @type {Number}
+         * @type {number}
          */
         const money = memberData?.money || 0
 
@@ -75,9 +75,9 @@ class FetchManager {
 
     /**
      * Fetches the user's bank balance.
-     * @param {String} memberID Member ID
-     * @param {String} guildID Guild ID
-     * @returns {Number} User's bank balance.
+     * @param {string} memberID Member ID
+     * @param {string} guildID Guild ID
+     * @returns {number} User's bank balance.
      */
     fetchBank(memberID, guildID) {
         const data = this.fetchAll()
@@ -89,7 +89,7 @@ class FetchManager {
         const memberData = guildData?.[memberID]
 
         /**
-         * @type {Number}
+         * @type {number}
          */
         const bankMoney = memberData?.bank || 0
 
@@ -98,8 +98,8 @@ class FetchManager {
 
     /**
      * Fetches the user's inventory.
-     * @param {String} memberID Member ID
-     * @param {String} guildID Guild ID
+     * @param {string} memberID Member ID
+     * @param {string} guildID Guild ID
      * @returns {InventoryItem[]} User's inventory.
      */
     fetchInventory(memberID, guildID) {
@@ -121,8 +121,8 @@ class FetchManager {
 
     /**
      * Fetches the user's purchases history.
-     * @param {String} memberID Member ID
-     * @param {String} guildID Guild ID
+     * @param {string} memberID Member ID
+     * @param {string} guildID Guild ID
      * @returns {HistoryItem[]} User's purchases history.
      */
     fetchHistory(memberID, guildID) {
@@ -144,8 +144,8 @@ class FetchManager {
 
     /**
      * Fetches the user's cooldowns.
-     * @param {String} memberID Member ID
-     * @param {String} guildID Guild ID
+     * @param {string} memberID Member ID
+     * @param {string} guildID Guild ID
      * @returns {CooldownData} User's cooldowns object.
      */
     fetchCooldowns(memberID, guildID) {
@@ -170,7 +170,7 @@ class FetchManager {
 
     /**
      * Shows all items in the shop.
-     * @param {String} guildID Guild ID
+     * @param {string} guildID Guild ID
      * @returns {ShopItem[]} The shop array.
      */
     fetchShop(guildID) {
@@ -186,48 +186,48 @@ class FetchManager {
 }
 
 /**
- * @typedef {Object} CooldownData User's cooldown data.
- * @property {Number} dailyCooldown User's daily cooldown.
- * @property {Number} workCooldown User's work cooldown.
- * @property {Number} weeklyCooldown User's weekly cooldown.
+ * @typedef {object} CooldownData User's cooldown data.
+ * @property {number} dailyCooldown User's daily cooldown.
+ * @property {number} workCooldown User's work cooldown.
+ * @property {number} weeklyCooldown User's weekly cooldown.
  */
 
 /**
- * @typedef {Object} HistoryData History data object.
- * @property {Number} id Item ID in history.
- * @property {String} name Item name.
- * @property {Number} price Item price.
- * @property {String} message The message that will be returned on item use.
- * @property {String} role ID of Discord Role that will be given to user on item use.
- * @property {String} date Date when the item was bought by a user.
- * @property {String} memberID Member ID.
- * @property {String} guildID Guild ID.
+ * @typedef {object} HistoryData History data object.
+ * @property {number} id Item ID in history.
+ * @property {string} name Item name.
+ * @property {number} price Item price.
+ * @property {string} message The message that will be returned on item use.
+ * @property {string} role ID of Discord Role that will be given to user on item use.
+ * @property {string} date Date when the item was bought by a user.
+ * @property {string} memberID Member ID.
+ * @property {string} guildID Guild ID.
  */
 
 /**
- * @typedef {Object} InventoryData Inventory data object.
- * @property {Number} id Item ID in your inventory.
- * @property {String} name Item name.
- * @property {Number} price Item price.
- * @property {String} message The message that will be returned on item use.
- * @property {String} role ID of Discord Role that will be given to user on item use.
- * @property {Number} maxAmount Max amount of the item that user can hold in their inventory.
- * @property {String} date Date when the item was bought by a user.
- * @property {Object} custom Custom item properties object.
+ * @typedef {object} InventoryData Inventory data object.
+ * @property {number} id Item ID in your inventory.
+ * @property {string} name Item name.
+ * @property {number} price Item price.
+ * @property {string} message The message that will be returned on item use.
+ * @property {string} role ID of Discord Role that will be given to user on item use.
+ * @property {number} maxAmount Max amount of the item that user can hold in their inventory.
+ * @property {string} date Date when the item was bought by a user.
+ * @property {object} custom Custom item properties object.
  */
 
 /**
  * Item data object.
- * @typedef {Object} ItemData
- * @property {Number} id Item ID.
- * @property {String} name Item name.
- * @property {Number} price Item price.
- * @property {String} message The message that will be returned on item use.
- * @property {String} description Item description.
- * @property {String} role ID of Discord Role that will be given to Wuser on item use.
- * @property {Number} maxAmount Max amount of the item that user can hold in their inventory.
- * @property {String} date Date when the item was added in the shop.
- * @property {Object} custom Custom item properties object.
+ * @typedef {object} ItemData
+ * @property {number} id Item ID.
+ * @property {string} name Item name.
+ * @property {number} price Item price.
+ * @property {string} message The message that will be returned on item use.
+ * @property {string} description Item description.
+ * @property {string} role ID of Discord Role that will be given to Wuser on item use.
+ * @property {number} maxAmount Max amount of the item that user can hold in their inventory.
+ * @property {string} date Date when the item was added in the shop.
+ * @property {object} custom Custom item properties object.
  */
 
 /**

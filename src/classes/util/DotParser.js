@@ -11,8 +11,8 @@ class DotParser {
 
     /**
      * Economy configuration. 
-     * @param {Object} options Economy configuration.
-     * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
+     * @param {object} options Economy configuration.
+     * @param {string} options.storagePath Full path to a JSON file. Default: './storage.json'.
      */
     constructor(options = {}) {
 
@@ -35,7 +35,7 @@ class DotParser {
 
     /**
     * Parses the key and fetches the value from database.
-    * @param {String} key The key in database.
+    * @param {string} key The key in database.
     * @returns {any | boolean} The data from database or 'false' if failed to parse or 'null' if nothing found.
     */
     parse(key) {
@@ -60,9 +60,9 @@ class DotParser {
 
     /**
      * Parses the key and sets the data in database.
-     * @param {String} key The key in database.
+     * @param {string} key The key in database.
      * @param {any} value Any data to set.
-     * @returns {Boolean} If set successfully: true; else: false
+     * @returns {boolean} If set successfully: true; else: false
      */
     set(key, value) {
         const { isObject } = this
@@ -97,8 +97,8 @@ class DotParser {
 
     /**
      * Parses the key and removes the data from database. 
-     * @param {String} key The key in database.
-     * @returns {Boolean} If removed successfully: true; else: false
+     * @param {string} key The key in database.
+     * @returns {boolean} If removed successfully: true; else: false
      */
     remove(key) {
         const { isObject } = this
@@ -132,7 +132,7 @@ class DotParser {
     /**
      * Checks for is the item object and returns it.
      * @param {any} item The item to check.
-     * @returns {Boolean} Is the item object or not.
+     * @returns {boolean} Is the item object or not.
     */
     isObject(item) {
         return !Array.isArray(item)

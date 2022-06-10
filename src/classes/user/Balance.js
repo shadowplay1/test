@@ -12,8 +12,8 @@ class Balance extends Emitter {
 
     /**
      * User balance class.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
      * @param {EconomyOptions} ecoOptions Economy configuration.
      */
     constructor(memberID, guildID, ecoOptions) {
@@ -21,13 +21,13 @@ class Balance extends Emitter {
 
         /**
         * Member ID.
-        * @type {String}
+        * @type {string}
         */
         this.memberID = memberID
 
         /**
          * Guild ID.
-         * @type {String}
+         * @type {string}
          */
         this.guildID = guildID
 
@@ -41,9 +41,9 @@ class Balance extends Emitter {
 
     /**
      * Sets the money amount on user's balance.
-     * @param {Number} amount Money amount
-     * @param {String} [reason] The reason why you set the money.
-     * @returns {Number} Money amount
+     * @param {number} amount Money amount
+     * @param {string} [reason] The reason why you set the money.
+     * @returns {number} Money amount
      */
     set(amount, reason) {
         const balance = this.get()
@@ -68,9 +68,9 @@ class Balance extends Emitter {
 
     /**
      * Adds the money amount on user's balance.
-     * @param {Number} amount Money amount.
-     * @param {String} [reason] The reason why you add the money.
-     * @returns {Number} Money amount.
+     * @param {number} amount Money amount.
+     * @param {string} [reason] The reason why you add the money.
+     * @returns {number} Money amount.
      */
     add(amount, reason) {
         const balance = this.get()
@@ -95,9 +95,9 @@ class Balance extends Emitter {
 
     /**
      * Subtracts the money amount on user's balance.
-     * @param {Number} amount Money amount.
-     * @param {String} [reason] The reason why you subtract the money.
-     * @returns {Number} Money amount.
+     * @param {number} amount Money amount.
+     * @param {string} [reason] The reason why you subtract the money.
+     * @returns {number} Money amount.
      */
     subtract(amount, reason) {
         const balance = this.get()
@@ -124,7 +124,7 @@ class Balance extends Emitter {
      * Fetches the user's balance.
      * 
      * This method is an alias for 'EconomyUser.balance.fetch()' method
-     * @returns {Number} User's balance.
+     * @returns {number} User's balance.
      */
     get() {
         return this.database.fetch(`${this.guildID}.${this.memberID}.money`) || 0
@@ -132,7 +132,7 @@ class Balance extends Emitter {
 
     /**
      * Fetches the user's balance.
-     * @returns {Number} User's balance.
+     * @returns {number} User's balance.
      */
     fetch() {
         return this.get()
@@ -140,17 +140,17 @@ class Balance extends Emitter {
 
     /**
      * Sends the money to a specified user.
-     * @param {Number} amount Amount of money to send.
-     * @param {String} senderMemberID A member ID who will send the money.
-     * @param {String} sendingReason 
+     * @param {number} amount Amount of money to send.
+     * @param {string} senderMemberID A member ID who will send the money.
+     * @param {string} sendingReason 
      * The reason of subtracting the money from sender. (example: "sending money to {user}")
      * 
-     * @param {String} receivingReason 
+     * @param {string} receivingReason 
      * The reason of adding a money to recipient. (example: "receiving money from {user}")
      * 
-     * @returns {Number} How much money was sent.
+     * @returns {number} How much money was sent.
      */
-    pay(amount, senderMemberID, sendingReason, receivingReason) {
+    transfer(amount, senderMemberID, sendingReason, receivingReason) {
         if (isNaN(amount)) {
             throw new EconomyError(errors.invalidTypes.amount + typeof amount)
         }
@@ -167,36 +167,36 @@ class Balance extends Emitter {
 }
 
 /**
- * @typedef {Object} EconomyOptions Default Economy configuration.
- * @property {String} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
- * @property {Boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
- * @property {Number} [dailyCooldown=86400000] 
+ * @typedef {object} EconomyOptions Default Economy configuration.
+ * @property {string} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
+ * @property {boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
+ * @property {number} [dailyCooldown=86400000] 
  * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  * 
- * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
+ * @property {number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
  * @property {Number | Number[]} [dailyAmount=100] Amount of money for Daily Command. Default: 100.
- * @property {Number} [weeklyCooldown=604800000] 
+ * @property {number} [weeklyCooldown=604800000] 
  * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
  * 
  * @property {Number | Number[]} [weeklyAmount=100] Amount of money for Weekly Command. Default: 1000.
  * @property {Number | Number[]} [workAmount=[10, 50]] Amount of money for Work Command. Default: [10, 50].
- * @property {Boolean} [subtractOnBuy=true] 
+ * @property {boolean} [subtractOnBuy=true] 
  * If true, when someone buys the item, their balance will subtract by item price. Default: false
  * 
- * @property {Number} [sellingItemPercent=75] 
+ * @property {number} [sellingItemPercent=75] 
  * Percent of the item's price it will be sold for. Default: 75.
  * 
- * @property {Boolean} [deprecationWarnings=true] 
+ * @property {boolean} [deprecationWarnings=true] 
  * If true, the deprecation warnings will be sent in the console. Default: true.
  * 
- * @property {Boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
+ * @property {boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
  * 
- * @property {Number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
- * @property {String} [dateLocale='en'] The region (example: 'ru'; 'en') to format the date and time. Default: 'en'.
+ * @property {number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
+ * @property {string} [dateLocale='en'] The region (example: 'ru'; 'en') to format the date and time. Default: 'en'.
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.
  * @property {CheckerOptions} [optionsChecker=CheckerOptions] Configuration for an 'Economy.utils.checkOptions' method.
- * @property {Boolean} [debug=false] Enables or disables the debug mode.
+ * @property {boolean} [debug=false] Enables or disables the debug mode.
  */
 
 /**

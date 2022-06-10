@@ -16,7 +16,7 @@ var y = d * 365.25
  *  - `long` verbose formatting [false]
  *
  * @param {String|Number} val
- * @param {Object} [options]
+ * @param {object} [options]
  * @throws {Error} throw an error if val is not a non-empty string or a number
  * @return {String|Number}
  * @api public
@@ -37,8 +37,8 @@ module.exports = function (val, options = { long: true }) {
 /**
  * Parse the given `str` and return milliseconds.
  *
- * @param {String} str
- * @return {Number}
+ * @param {string} str
+ * @return {number}
  * @api private
  */
 
@@ -104,8 +104,8 @@ function parse(str) {
 /**
  * Short format for `ms`.
  *
- * @param {Number} ms
- * @return {String}
+ * @param {number} ms
+ * @return {string}
  * @api private
  */
 
@@ -129,8 +129,8 @@ function fmtShort(ms) {
 /**
  * Long format for `ms`.
  *
- * @param {Number} ms
- * @return {String}
+ * @param {number} ms
+ * @return {string}
  * @api private
  */
 

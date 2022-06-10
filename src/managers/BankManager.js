@@ -15,8 +15,8 @@ class BankManager extends Emitter {
     /**
      * Bank Manager.
      * 
-     * @param {Object} options Economy configuration.
-     * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
+     * @param {object} options Economy configuration.
+     * @param {string} options.storagePath Full path to a JSON file. Default: './storage.json'.
      */
     constructor(options = {}) {
         super(options)
@@ -46,9 +46,9 @@ class BankManager extends Emitter {
 
     /**
     * Fetches the user's bank balance.
-    * @param {String} memberID Member ID
-    * @param {String} guildID Guild ID
-    * @returns {Number} User's bank balance
+    * @param {string} memberID Member ID
+    * @param {string} guildID Guild ID
+    * @returns {number} User's bank balance
     */
     fetch(memberID, guildID) {
         if (typeof memberID !== 'string') {
@@ -63,12 +63,24 @@ class BankManager extends Emitter {
     }
 
     /**
+    * Gets the user's bank balance.
+    * 
+    * This method is an alias of `BankManager.fetch()` method.
+    * @param {string} memberID Member ID
+    * @param {string} guildID Guild ID
+    * @returns {number} User's bank balance
+    */
+    get(memberID, guildID) {
+        return this.fetch(memberID, guildID)
+    }
+
+    /**
      * Sets the money amount on user's bank balance.
-     * @param {Number} amount Money amount.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
-     * @param {String} reason The reason why you add the money.
-     * @returns {Number} Money amount.
+     * @param {number} amount Money amount.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
+     * @param {string} reason The reason why you add the money.
+     * @returns {number} Money amount.
      */
     set(amount, memberID, guildID, reason = null) {
         const bank = this.fetcher.fetchBank(memberID, guildID)
@@ -101,11 +113,11 @@ class BankManager extends Emitter {
 
     /**
      * Adds the money amount on user's bank balance.
-     * @param {Number} amount Money amount.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
-     * @param {String} reason The reason why you add the money.
-     * @returns {Number} Money amount.
+     * @param {number} amount Money amount.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
+     * @param {string} reason The reason why you add the money.
+     * @returns {number} Money amount.
      */
     add(amount, memberID, guildID, reason = null) {
         const bank = this.fetcher.fetchBank(memberID, guildID)
@@ -138,11 +150,11 @@ class BankManager extends Emitter {
 
     /**
      * Subtracts the money amount on user's bank balance.
-     * @param {Number} amount Money amount.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
-     * @param {String} reason The reason why you add the money.
-     * @returns {Number} Money amount.
+     * @param {number} amount Money amount.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
+     * @param {string} reason The reason why you add the money.
+     * @returns {number} Money amount.
      */
     subtract(amount, memberID, guildID, reason = null) {
         const bank = this.fetcher.fetchBank(memberID, guildID)
@@ -175,7 +187,7 @@ class BankManager extends Emitter {
 
     /**
      * Shows a money leaderboard for your server.
-     * @param {String} guildID Guild ID.
+     * @param {string} guildID Guild ID.
      * @returns {BankLeaderboard[]} Sorted leaderboard array.
      */
     leaderboard(guildID) {
@@ -205,10 +217,10 @@ class BankManager extends Emitter {
 
 /**
  * Bank leaderboard object.
- * @typedef {Object} BankLeaderboard
- * @property {Number} index User's place in the top.
- * @property {String} userID User ID.
- * @property {Number} money Amount of money.
+ * @typedef {object} BankLeaderboard
+ * @property {number} index User's place in the top.
+ * @property {string} userID User ID.
+ * @property {number} money Amount of money.
  */
 
 /**

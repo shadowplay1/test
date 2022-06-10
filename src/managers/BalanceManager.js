@@ -17,8 +17,8 @@ class BalanceManager extends Emitter {
     /**
      * Balance Manager.
      * 
-     * @param {Object} options Economy configuration.
-     * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
+     * @param {object} options Economy configuration.
+     * @param {string} options.storagePath Full path to a JSON file. Default: './storage.json'.
      */
     constructor(options = {}) {
         super(options)
@@ -48,9 +48,9 @@ class BalanceManager extends Emitter {
 
     /**
     * Fetches the user's balance.
-    * @param {String} memberID Member ID
-    * @param {String} guildID Guild ID
-    * @returns {Number} User's balance
+    * @param {string} memberID Member ID
+    * @param {string} guildID Guild ID
+    * @returns {number} User's balance
     */
     fetch(memberID, guildID) {
         if (typeof memberID !== 'string') {
@@ -65,12 +65,24 @@ class BalanceManager extends Emitter {
     }
 
     /**
+    * Gets the user's balance.
+    * 
+    * This method is an alias of `BalanceManager.fetch()` method.
+    * @param {string} memberID Member ID
+    * @param {string} guildID Guild ID
+    * @returns {number} User's balance
+    */
+    get(memberID, guildID) {
+        return this.fetch(memberID, guildID)
+    }
+
+    /**
      * Sets the money amount on user's balance.
-     * @param {Number} amount Money amount.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
-     * @param {String} reason The reason why you set the money.
-     * @returns {Number} Money amount.
+     * @param {number} amount Money amount.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
+     * @param {string} reason The reason why you set the money.
+     * @returns {number} Money amount.
      */
     set(amount, memberID, guildID, reason = null) {
         const balance = this.fetcher.fetchBalance(memberID, guildID)
@@ -103,11 +115,11 @@ class BalanceManager extends Emitter {
 
     /**
      * Adds the money amount on user's balance.
-     * @param {Number} amount Money amount.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
-     * @param {String} reason The reason why you add the money.
-     * @returns {Number} Money amount.
+     * @param {number} amount Money amount.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
+     * @param {string} reason The reason why you add the money.
+     * @returns {number} Money amount.
      */
     add(amount, memberID, guildID, reason = null) {
         const balance = this.fetcher.fetchBalance(memberID, guildID)
@@ -140,11 +152,11 @@ class BalanceManager extends Emitter {
 
     /**
      * Subtracts the money amount on user's balance.
-     * @param {Number} amount Money amount.
-     * @param {String} memberID Member ID.
-     * @param {String} guildID Guild ID.
-     * @param {String} reason The reason why you add the money.
-     * @returns {Number} Money amount.
+     * @param {number} amount Money amount.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
+     * @param {string} reason The reason why you add the money.
+     * @returns {number} Money amount.
      */
     subtract(amount, memberID, guildID, reason = null) {
         const balance = this.fetcher.fetchBalance(memberID, guildID)
@@ -177,7 +189,7 @@ class BalanceManager extends Emitter {
 
     /**
      * Shows a money leaderboard for your server.
-     * @param {String} guildID Guild ID.
+     * @param {string} guildID Guild ID.
      * @returns {BalanceLeaderboard[]} Sorted leaderboard array.
      */
     leaderboard(guildID) {
@@ -205,11 +217,11 @@ class BalanceManager extends Emitter {
 
     /**
      * Sends the money to a specified user.
-     * @param {String} guildID Guild ID.
-     * @param {PayingOptions} options Paying options.
-     * @returns {Number} How much money was sent.
+     * @param {string} guildID Guild ID.
+     * @param {TransferingOptions} options Transfering options.
+     * @returns {number} How much money was sent.
      */
-    pay(guildID, options = {}) {
+    transfer(guildID, options = {}) {
         const {
             amount, senderMemberID,
             recipientMemberID,
@@ -241,23 +253,23 @@ class BalanceManager extends Emitter {
 
 
 /**
- * Paying options.
- * @typedef {Object} PayingOptions
- * @property {Number} amount Amount of money to send.
- * @property {String} senderMemberID A member ID who will send the money.
- * @property {String} recipientMemberID A member ID who will receive the money.
- * @property {String} [sendingReason='sending money to user'] 
+ * Transfering options.
+ * @typedef {object} TransferingOptions
+ * @property {number} amount Amount of money to send.
+ * @property {string} senderMemberID A member ID who will send the money.
+ * @property {string} recipientMemberID A member ID who will receive the money.
+ * @property {string} [sendingReason='sending money to user'] 
  * The reason of subtracting the money from sender. (example: "sending money to {user}")
- * @property {String} [receivingReason='receiving money from user']
+ * @property {string} [receivingReason='receiving money from user']
  * The reason of adding a money to recipient. (example: "receiving money from {user}")
  */
 
 /**
  * Balance leaderboard object.
- * @typedef {Object} BalanceLeaderboard
- * @property {Number} index User's place in the leaderboard.
- * @property {String} userID User ID.
- * @property {Number} money Amount of money.
+ * @typedef {object} BalanceLeaderboard
+ * @property {number} index User's place in the leaderboard.
+ * @property {string} userID User ID.
+ * @property {number} money Amount of money.
  */
 
 

@@ -144,7 +144,7 @@ class SettingsManager {
      * configuration or default configuration.
      * 
      * @param {Settings} key The setting to fetch.
-     * @param {String} guildID Guild ID.
+     * @param {string} guildID Guild ID.
      * @returns {any} The setting from the database.
      */
     get(key, guildID) {
@@ -166,7 +166,7 @@ class SettingsManager {
      * 
      * @param {Settings} key The setting to change.
      * @param {any} value The value to set.
-     * @param {String} guildID Guild ID.
+     * @param {string} guildID Guild ID.
      * @returns {SettingsTypes} The server settings object.
      */
     set(key, value, guildID) {
@@ -190,7 +190,7 @@ class SettingsManager {
      * specified configuration or default configuration.
      * 
      * @param {Settings} key The setting to remove.
-     * @param {String} guildID Guild ID.
+     * @param {string} guildID Guild ID.
      * @returns {SettingsTypes} The server settings object.
      */
     remove(key, guildID) {
@@ -205,7 +205,7 @@ class SettingsManager {
 
     /**
      * Fetches all the server's settings object.
-     * @param {String} guildID Guild ID.
+     * @param {string} guildID Guild ID.
      * @returns {SettingsTypes} The server settings object.
      */
     all(guildID) {
@@ -232,7 +232,7 @@ class SettingsManager {
 
     /**
      * Resets all the settings to setting that are in configuration.
-     * @param {String} guildID Guild ID.
+     * @param {string} guildID Guild ID.
      * @returns {SettingsTypes} The server settings object.
      */
     reset(guildID) {
@@ -261,86 +261,86 @@ class SettingsManager {
 }
 
 /**
- * @typedef {Object} SettingsTypes Settings object.
+ * @typedef {object} SettingsTypes Settings object.
  * @property {Number | Number[]} dailyAmount Amount of money for Daily Command. Default: 100.
- * @property {Number} dailyCooldown Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
+ * @property {number} dailyCooldown Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  * 
  * @property {Number | Number[]} workAmount Amount of money for Work Command. Default: [10, 50].
- * @property {Number} workCooldown Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
+ * @property {number} workCooldown Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
  * 
  * @property {Number | Number[]} weeklyAmount Amount of money for Weekly Command. Default: 1000.
- * @property {Number} weeklyCooldown Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
+ * @property {number} weeklyCooldown Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
  * 
- * @property {String} dateLocale The region (example: 'ru' or 'en') to format the date and time. Default: 'en'
- * @property {Boolean} subtractOnBuy 
+ * @property {string} dateLocale The region (example: 'ru' or 'en') to format the date and time. Default: 'en'
+ * @property {boolean} subtractOnBuy 
  * If true, when someone buys the item, their balance will subtract by item price. Default: false.
  * 
- * @property {Number} sellingItemPercent Percent of the item's price it will be sold for. Default: 75.
+ * @property {number} sellingItemPercent Percent of the item's price it will be sold for. Default: 75.
  */
 
 /**
- * @typedef {Object} EconomyOptions Default Economy configuration.
- * @property {String} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
- * @property {Boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
- * @property {Number} [dailyCooldown=86400000] 
+ * @typedef {object} EconomyOptions Default Economy configuration.
+ * @property {string} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
+ * @property {boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
+ * @property {number} [dailyCooldown=86400000] 
  * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  * 
- * @property {Number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
+ * @property {number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
  * @property {Number | Number[]} [dailyAmount=100] Amount of money for Daily Command. Default: 100.
- * @property {Number} [weeklyCooldown=604800000] 
+ * @property {number} [weeklyCooldown=604800000] 
  * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
  * 
- * @property {Boolean} [deprecationWarnings=true] 
+ * @property {boolean} [deprecationWarnings=true] 
  * If true, the deprecation warnings will be sent in the console. Default: true.
  * 
- * @property {Boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
+ * @property {boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
  *
- * @property {Number} [sellingItemPercent=75] 
+ * @property {number} [sellingItemPercent=75] 
  * Percent of the item's price it will be sold for. Default: 75.
  * 
  * @property {Number | Number[]} [weeklyAmount=100] Amount of money for Weekly Command. Default: 1000.
  * @property {Number | Number[]} [workAmount=[10, 50]] Amount of money for Work Command. Default: [10, 50].
- * @property {Boolean} [subtractOnBuy=true] 
+ * @property {boolean} [subtractOnBuy=true] 
  * If true, when someone buys the item, their balance will subtract by item price. Default: false
  * 
- * @property {Number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
- * @property {String} [dateLocale='en'] The region (example: 'ru' or 'en') to format the date and time. Default: 'en'.
+ * @property {number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
+ * @property {string} [dateLocale='en'] The region (example: 'ru' or 'en') to format the date and time. Default: 'en'.
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.
  * @property {CheckerOptions} [optionsChecker=CheckerOptions] Configuration for an 'Economy.utils.checkOptions' method.
- * @property {Boolean} [debug=false] Enables or disables the debug mode.
+ * @property {boolean} [debug=false] Enables or disables the debug mode.
  */
 
 /**
- * @typedef {Object} UpdaterOptions Update checker configuration.
- * @property {Boolean} [checkUpdates=true] Sends the update state message in console on start. Default: true.
+ * @typedef {object} UpdaterOptions Update checker configuration.
+ * @property {boolean} [checkUpdates=true] Sends the update state message in console on start. Default: true.
  * 
- * @property {Boolean} [upToDateMessage=true] 
+ * @property {boolean} [upToDateMessage=true] 
  * Sends the message in console on start if module is up to date. Default: true.
  */
 
 /**
- * @typedef {Object} ErrorHandlerOptions
- * @property {Boolean} [handleErrors=true] Handles all errors on startup. Default: true.
- * @property {Number} [attempts=5] Amount of attempts to load the module. Use 0 for infinity attempts. Default: 5.
- * @property {Number} [time=3000] Time between every attempt to start the module (in ms). Default: 3000.
+ * @typedef {object} ErrorHandlerOptions
+ * @property {boolean} [handleErrors=true] Handles all errors on startup. Default: true.
+ * @property {number} [attempts=5] Amount of attempts to load the module. Use 0 for infinity attempts. Default: 5.
+ * @property {number} [time=3000] Time between every attempt to start the module (in ms). Default: 3000.
  */
 
 /**
- * @typedef {Object} CheckerOptions Configuration for an 'Economy.utils.checkOptions' method.
- * @property {Boolean} [ignoreInvalidTypes=false] 
+ * @typedef {object} CheckerOptions Configuration for an 'Economy.utils.checkOptions' method.
+ * @property {boolean} [ignoreInvalidTypes=false] 
  * Allows the method to ignore the options with invalid types. Default: false.
  * 
- * @property {Boolean} [ignoreUnspecifiedOptions=false] 
+ * @property {boolean} [ignoreUnspecifiedOptions=false] 
  * Allows the method to ignore the unspecified options. Default: false.
  * 
- * @property {Boolean} [ignoreInvalidOptions=false] Allows the method to ignore the unexisting options. Default: false.
- * @property {Boolean} [showProblems=false] Allows the method to show all the problems in the console. Default: false. 
+ * @property {boolean} [ignoreInvalidOptions=false] Allows the method to ignore the unexisting options. Default: false.
+ * @property {boolean} [showProblems=false] Allows the method to show all the problems in the console. Default: false. 
  * 
- * @property {Boolean} [sendLog=false] Allows the method to send the result in the console. 
+ * @property {boolean} [sendLog=false] Allows the method to send the result in the console. 
  * Requires the 'showProblems' or 'sendLog' options to set. Default: false.
  * 
- * @property {Boolean} [sendSuccessLog=false] 
+ * @property {boolean} [sendSuccessLog=false] 
  * Allows the method to send the result if no problems were found. Default: false.
  */
 

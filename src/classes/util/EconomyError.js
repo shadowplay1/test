@@ -17,7 +17,7 @@ class EconomyError extends Error {
 
         /**
          * Error name.
-         * @type {String}
+         * @type {string}
          */
         this.name = 'EconomyError'
     }

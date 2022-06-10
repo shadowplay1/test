@@ -12,15 +12,15 @@ class CooldownManager {
 
     /**
       * Cooldown Manager.
-      * @param {Object} options Economy configuration.
-      * @param {String} options.storagePath Full path to a JSON file. Default: './storage.json'.
-      * @param {Number} options.dailyCooldown Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
-      * @param {Number} options.workCooldown Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
-      * @param {Number} options.dailyAmount Amount of money for Daily Command. Default: 100.
-      * @param {Number} options.weeklyCooldown 
+      * @param {object} options Economy configuration.
+      * @param {string} options.storagePath Full path to a JSON file. Default: './storage.json'.
+      * @param {number} options.dailyCooldown Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
+      * @param {number} options.workCooldown Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
+      * @param {number} options.dailyAmount Amount of money for Daily Command. Default: 100.
+      * @param {number} options.weeklyCooldown 
       * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
       * 
-      * @param {Number} options.weeklyAmount Amount of money for Weekly Command. Default: 1000.
+      * @param {number} options.weeklyAmount Amount of money for Weekly Command. Default: 1000.
       * @param {Number | Array} options.workAmount Amount of money for Work Command. Default: [10, 50].
      */
     constructor(options) {
@@ -43,9 +43,9 @@ class CooldownManager {
 
     /**
      * Gets a user's daily cooldown.
-     * @param {String} memberID Member ID
-     * @param {String} guildID Guild ID
-     * @returns {Number} Cooldown end timestamp
+     * @param {string} memberID Member ID
+     * @param {string} guildID Guild ID
+     * @returns {number} Cooldown end timestamp
      */
     daily(memberID, guildID) {
         if (typeof memberID !== 'string') {
@@ -63,9 +63,9 @@ class CooldownManager {
 
     /**
      * Gets a user's work cooldown.
-     * @param {String} memberID Member ID
-     * @param {String} guildID Guild ID
-     * @returns {Number} Cooldown end timestamp
+     * @param {string} memberID Member ID
+     * @param {string} guildID Guild ID
+     * @returns {number} Cooldown end timestamp
      */
     work(memberID, guildID) {
         if (typeof memberID !== 'string') {
@@ -83,9 +83,9 @@ class CooldownManager {
 
     /**
      * Gets a user's daily cooldown.
-     * @param {String} memberID Member ID
-     * @param {String} guildID Guild ID
-     * @returns {Number} Cooldown end timestamp
+     * @param {string} memberID Member ID
+     * @param {string} guildID Guild ID
+     * @returns {number} Cooldown end timestamp
      */
     weekly(memberID, guildID) {
         if (typeof memberID !== 'string') {
@@ -103,9 +103,9 @@ class CooldownManager {
 
     /**
      * Clears user's daily cooldown.
-     * @param {String} memberID Member ID
-     * @param {String} guildID Guild ID
-     * @returns {Boolean} If cleared: true; else: false
+     * @param {string} memberID Member ID
+     * @param {string} guildID Guild ID
+     * @returns {boolean} If cleared: true; else: false
      */
     clearDaily(memberID, guildID) {
         if (typeof memberID !== 'string') {
@@ -121,9 +121,9 @@ class CooldownManager {
 
     /**
      * Clears user's work cooldown.
-     * @param {String} memberID Member ID
-     * @param {String} guildID Guild ID
-     * @returns {Boolean} If cleared: true; else: false
+     * @param {string} memberID Member ID
+     * @param {string} guildID Guild ID
+     * @returns {boolean} If cleared: true; else: false
      */
     clearWork(memberID, guildID) {
         if (typeof memberID !== 'string') {
@@ -139,9 +139,9 @@ class CooldownManager {
 
     /**
      * Clears user's weekly cooldown.
-     * @param {String} memberID Member ID
-     * @param {String} guildID Guild ID
-     * @returns {Boolean} If cleared: true; else: false
+     * @param {string} memberID Member ID
+     * @param {string} guildID Guild ID
+     * @returns {boolean} If cleared: true; else: false
      */
     clearWeekly(memberID, guildID) {
         if (typeof memberID !== 'string') {
