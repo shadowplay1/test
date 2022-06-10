@@ -140,23 +140,30 @@ class Balance extends Emitter {
 
     /**
      * Sends the money to a specified user.
-     * @param {number} amount Amount of money to send.
-     * @param {string} senderMemberID A member ID who will send the money.
-     * @param {string} sendingReason 
-     * The reason of subtracting the money from sender. (example: "sending money to {user}")
-     * 
-     * @param {string} receivingReason 
-     * The reason of adding a money to recipient. (example: "receiving money from {user}")
-     * 
-     * @returns {number} How much money was sent.
+     * @param {TransferingOptions} options Transfering options.
+     * @returns {number} Amount of money that was sent.
      */
-    transfer(amount, senderMemberID, sendingReason, receivingReason) {
+    transfer(options) {
+        const {
+            amount, senderMemberID,
+            recipientMemberID,
+            sendingReason, receivingReason
+        } = options || {}
+
+        if (typeof guildID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+        }
+
         if (isNaN(amount)) {
             throw new EconomyError(errors.invalidTypes.amount + typeof amount)
         }
 
         if (typeof senderMemberID !== 'string') {
             throw new EconomyError(errors.invalidTypes.senderMemberID + typeof memberID)
+        }
+
+        if (typeof recipientMemberID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.recipientMemberID + typeof memberID)
         }
 
         this.add(amount, recipientMemberID, this.guildID, receivingReason || 'receiving money from user')
@@ -197,6 +204,18 @@ class Balance extends Emitter {
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.
  * @property {CheckerOptions} [optionsChecker=CheckerOptions] Configuration for an 'Economy.utils.checkOptions' method.
  * @property {boolean} [debug=false] Enables or disables the debug mode.
+ */
+
+/**
+ * Transfering options.
+ * @typedef {object} TransferingOptions
+ * @property {number} amount Amount of money to send.
+ * @property {string} senderMemberID A member ID who will send the money.
+ * @property {string} recipientMemberID A member ID who will receive the money.
+ * @property {string} [sendingReason='sending money to user'] 
+ * The reason of subtracting the money from sender. (example: "sending money to {user}")
+ * @property {string} [receivingReason='receiving money from user']
+ * The reason of adding a money to recipient. (example: "receiving money from {user}")
  */
 
 /**

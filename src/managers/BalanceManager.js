@@ -219,14 +219,14 @@ class BalanceManager extends Emitter {
      * Sends the money to a specified user.
      * @param {string} guildID Guild ID.
      * @param {TransferingOptions} options Transfering options.
-     * @returns {number} How much money was sent.
+     * @returns {number} Amount of money that was sent.
      */
-    transfer(guildID, options = {}) {
+    transfer(guildID, options) {
         const {
             amount, senderMemberID,
             recipientMemberID,
             sendingReason, receivingReason
-        } = options
+        } = options || {}
 
         if (typeof guildID !== 'string') {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
