@@ -285,7 +285,7 @@ The test will look like this:
 <li><b>All typings were separated into files.</b></li>
 <li><b><a href="https://des-docs.tk">Documentation</a> update: now you can view the docs for a multiple module versions.</b></li>
 <li><b><a href="https://des-docs.tk">Documentation</a> update: now you can view the weekly downloads of the module on it's main page.</b></li>
-<li><b>... and more!</li>
+<li><b>... and more!</b></li>
 </ul>
 
 <b>1.3.5</b>
