@@ -8,7 +8,6 @@ const CooldownManager = require('./CooldownManager')
 const DatabaseManager = require('./DatabaseManager')
 
 const errors = require('../structures/errors')
-const UtilsManager = require('./UtilsManager')
 
 const parse = ms => ({
     days: Math.floor(ms / 86400000),
@@ -17,6 +16,7 @@ const parse = ms => ({
     seconds: Math.floor(ms / 1000 % 60),
     milliseconds: Math.floor(ms % 1000)
 })
+
 
 /**
 * Reward manager methods class.
@@ -43,13 +43,6 @@ class RewardManager {
          * @private
          */
         this.options = options
-
-        /**
-         * Utils manager methods object.
-         * @type {UtilsManager}
-         * @private
-         */
-        this.utils = new UtilsManager(options)
 
         /**
         * Database manager methods object.

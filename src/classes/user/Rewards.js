@@ -1,5 +1,6 @@
 const RewardManager = require('../../managers/RewardManager')
 
+
 /**
  * User rewards.
  */

@@ -5,7 +5,9 @@ const errors = require('../structures/errors')
 
 const HistoryItem = require('../classes/HistoryItem')
 
-
+/**
+ * History manager methods class.
+ */
 class HistoryManager {
 
     /**

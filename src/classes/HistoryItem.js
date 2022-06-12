@@ -1,8 +1,6 @@
 const EconomyError = require('../classes/util/EconomyError')
 const errors = require('../../src/structures/errors')
 
-const HistoryManager = require('../managers/HistoryManager')
-
 
 /**
 * History item class.

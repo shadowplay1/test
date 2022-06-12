@@ -7,6 +7,7 @@ const DatabaseManager = require('../../managers/DatabaseManager')
 
 /**
  * User bank class.
+ * @extends {Emitter}
  */
 class Bank extends Emitter {
 

@@ -1,11 +1,16 @@
 const EconomyError = require('../classes/util/EconomyError')
 const Emitter = require('../classes/util/Emitter')
 
-const FetchManager = require('./FetchManager')
 const DatabaseManager = require('./DatabaseManager')
+const FetchManager = require('./FetchManager')
+
 const BalanceManager = require('./BalanceManager')
 
 const errors = require('../structures/errors')
+
+const InventoryItem = require('../classes/InventoryItem')
+const ShopItem = require('../classes/ShopItem')
+
 
 /**
  * Inventory manager methods class.
@@ -36,6 +41,13 @@ class InventoryManager extends Emitter {
          * @private
          */
         this.database = database
+
+        /**
+         * Fetch Manager.
+         * @type {FetchManager}
+         * @private
+         */
+        this.fetcher = new FetchManager(options)
 
         /**
          * Balance manager methods object.
@@ -72,12 +84,12 @@ class InventoryManager extends Emitter {
      * @param {string | number} itemID Item ID or name.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
-     * @returns {InventoryData} If item not found: null; else: item info object.
+     * @returns {InventoryItem} If item not found: null; else: item info object.
      */
     searchItem(itemID, memberID, guildID) {
 
         /**
-        * @type {InventoryData[]}
+        * @type {InventoryItem[]}
         */
         const inventory = this.fetch(memberID, guildID)
         const item = inventory.find(item => item.id == itemID || item.name == itemID)
@@ -95,17 +107,17 @@ class InventoryManager extends Emitter {
         }
 
         if (!item) return null
-        return item
+        return new InventoryItem(guildID, memberID, this.options, item, this.database)
     }
 
     /**
      * Searches for the item in the inventory.
      * 
      * This method is an alias for the `InventoryManager.searchItem()` method.
-     * @param {Number | String} itemID Item ID or name.
+     * @param {number | string} itemID Item ID or name.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
-     * @returns {InventoryData} If item not found: null; else: item info object.
+     * @returns {InventoryItem} If item not found: null; else: item info object.
      */
     findItem(itemID, memberID, guildID) {
         return this.searchItem(itemID, memberID, guildID)
@@ -115,7 +127,7 @@ class InventoryManager extends Emitter {
      * Fetches the user's inventory.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
-     * @returns {InventoryData[]} User's inventory array.
+     * @returns {InventoryItem[]} User's inventory array.
      */
     fetch(memberID, guildID) {
         const inventory = this.fetcher.fetchInventory(memberID, guildID)
@@ -128,7 +140,9 @@ class InventoryManager extends Emitter {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
         }
 
-        return inventory
+        return inventory.map(item => {
+            return new InventoryItem(guildID, memberID, this.options, item, this.database)
+        })
     }
 
     /**
@@ -137,7 +151,7 @@ class InventoryManager extends Emitter {
      * This method is an alias for the `InventoryManager.fetch()` method.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
-     * @returns {InventoryData[]} User's inventory array.
+     * @returns {InventoryItem[]} User's inventory array.
      */
     get(memberID, guildID) {
         return this.fetch(memberID, guildID)
@@ -145,7 +159,7 @@ class InventoryManager extends Emitter {
 
     /**
      * Uses the item from user's inventory.
-     * @param {Number | String} itemID Item ID or name.
+     * @param {number | string} itemID Item ID or name.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {Client} [client] Discord Client [Specify if the role will be given in a discord server].
@@ -154,7 +168,7 @@ class InventoryManager extends Emitter {
     useItem(itemID, memberID, guildID, client) {
 
         /**
-         * @type {InventoryData[]}
+         * @type {InventoryItem[]}
          */
         const inventory = this.fetch(memberID, guildID)
 
@@ -241,7 +255,7 @@ class InventoryManager extends Emitter {
      * Uses the item from user's inventory.
      * 
      * This method is an alias for the `InventoryManager.useItem()` method.
-     * @param {Number | String} itemID Item ID or name.
+     * @param {number | string} itemID Item ID or name.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {Client} [client] The Discord Client. [Specify if the role will be given in a discord server].
@@ -261,7 +275,7 @@ class InventoryManager extends Emitter {
     removeItem(itemID, memberID, guildID) {
 
         /**
-        * @type {InventoryData[]}
+        * @type {InventoryItem[]}
         */
         const inventory = this.fetch(memberID, guildID)
 
@@ -282,8 +296,7 @@ class InventoryManager extends Emitter {
 
         if (!item) return false
 
-        return this.database
-            .pop(`${guildID}.${memberID}.inventory`, itemIndex)
+        return this.database.pop(`${guildID}.${memberID}.inventory`, itemIndex)
     }
 
     /**
@@ -291,18 +304,22 @@ class InventoryManager extends Emitter {
      * @param {string | number} itemID Item ID or name.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
-     * @returns {Boolean | 'max'} If added successfully: true, else: false.
+     * @param {number} [quantity=1] Quantity of items to add. Default: 1.
+     * @returns {ShopOperationInfo} If added successfully: true, else: false.
      */
-    addItem(itemID, memberID, guildID) {
+    addItem(itemID, memberID, guildID, quantity = 1) {
 
         /**
-        * @type {ItemData[]}
+        * @type {ShopItem[]}
         */
-        const shop = this.fetcher.fetchShop(guildID)
+        const shop = this.fetcher.fetchShop(guildID).map(item => {
+            return new ShopItem(guildID, this.database, item)
+        })
+
         const item = shop.find(shopItem => shopItem.id == itemID || shopItem.name == itemID)
 
         /**
-        * @type {InventoryData[]}
+        * @type {InventoryItem[]}
         */
         const inventory = this.fetcher.fetchInventory(memberID, guildID)
         const inventoryItems = inventory.filter(invItem => invItem.name == item.name)
@@ -319,22 +336,49 @@ class InventoryManager extends Emitter {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
         }
 
-        if (!item) return false
-        if (item.maxAmount && inventoryItems.length >= item.maxAmount) return 'max'
-
-        const itemData = {
-            id: inventory.length ? inventory[inventory.length - 1].id + 1 : 1,
-            name: item.name,
-            price: item.price,
-            message: item.message,
-            description: item.description,
-            role: item.role || null,
-            maxAmount: item.maxAmount,
-            date: new Date().toLocaleString(this.options.dateLocale || 'en'),
-            custom: item.custom || {}
+        if (!item) return {
+            status: false,
+            message: 'item not found',
+            item: null,
+            quantity: 0,
+            totalPrice: item.price * quantity
         }
 
-        return this.database.push(`${guildID}.${memberID}.inventory`, itemData)
+        if (
+            item.maxAmount &&
+            inventoryItems.length >= item.maxAmount &&
+            (inventoryItems.length + quantity) < item.maxAmount
+        ) return {
+            status: false,
+            message: `maximum items reached (${item.maxAmount})`,
+            item,
+            quantity,
+            totalPrice: item.price * quantity
+        }
+
+        for (let i = 0; i < quantity; i++) {
+            const itemData = {
+                id: inventory.length ? inventory[inventory.length - 1].id + 1 : 1,
+                name: item.name,
+                price: item.price,
+                message: item.message,
+                description: item.description,
+                role: item.role || null,
+                maxAmount: item.maxAmount,
+                date: new Date().toLocaleString(this.options.dateLocale || 'en'),
+                custom: item.custom || {}
+            }
+
+            this.database.push(`${guildID}.${memberID}.inventory`, itemData)
+        }
+
+        return {
+            status: true,
+            message: 'OK',
+            item,
+            quantity,
+            totalPrice: item.price * quantity
+        }
     }
 
     /**
@@ -401,7 +445,15 @@ class InventoryManager extends Emitter {
  * @property {string} [description='Very mysterious item.'] Item description.
  * @property {number} [maxAmount=null] Max amount of the item that user can hold in their inventory.
  * @property {string} [role=null] Role ID from your Discord server.
- * @returns {ItemData} Item info.
+ */
+
+/**
+ * @typedef {object} ShopOperationInfo
+ * @property {boolean} status Operation status.
+ * @property {string} message Operation message.
+ * @property {ShopItem} item Item object.
+ * @property {number} quantity Item quantity.
+ * @property {number} totalPrice Total price of the items.
  */
 
 /**
@@ -415,33 +467,6 @@ class InventoryManager extends Emitter {
  * @property {string} date Date when the item was bought by a user.
  * @property {string} memberID Member ID.
  * @property {string} guildID Guild ID.
- */
-
-/**
- * Item data object.
- * @typedef {object} ItemData
- * @property {number} id Item ID.
- * @property {string} name Item name.
- * @property {number} price Item price.
- * @property {string} message The message that will be returned on item use.
- * @property {string} description Item description.
- * @property {string} role ID of Discord Role that will be given to Wuser on item use.
- * @property {number} maxAmount Max amount of the item that user can hold in their inventory.
- * @property {string} date Date when the item was added in the shop.
- * @property {object} custom Custom item properties object.
- */
-
-/**
- * Inventory data object.
- * @typedef {object} InventoryData
- * @property {number} id Item ID in your inventory.
- * @property {string} name Item name.
- * @property {number} price Item price.
- * @property {string} message The message that will be returned on item use.
- * @property {string} role ID of Discord Role that will be given to user on item use.
- * @property {number} maxAmount Max amount of the item that user can hold in their inventory.
- * @property {string} date Date when the item was bought by a user.
- * @property {object} custom Custom item properties object.
  */
 
 /**

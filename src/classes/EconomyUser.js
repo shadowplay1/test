@@ -1,4 +1,3 @@
-const UtilsManager = require('../managers/UtilsManager')
 const ShopManager = require('../managers/ShopManager')
 
 const Balance = require('./user/Balance')
@@ -55,13 +54,6 @@ class EconomyUser {
         this.options = ecoOptions
 
         /**
-         * Utils Manager.
-         * @type {UtilsManager}
-         * @private
-         */
-        this._utils = new UtilsManager(ecoOptions)
-
-        /**
          * Shop Manager.
          * @type {ShopManager}
          * @private
@@ -110,6 +102,8 @@ class EconomyUser {
          */
         this.items = new Items(id, guildID, ecoOptions, database)
 
+        delete userObject.history
+        delete userObject.inventory
 
         for (const [key, value] of Object.entries(userObject || {})) {
             this[key] = value
@@ -121,7 +115,7 @@ class EconomyUser {
      * @returns {EconomyUser} Deleted user object.
      */
     delete() {
-        this._utils.removeUser(this.id, this.guildID)
+        this._shop.database.remove(`${guildID}.${memberID}`)
         return this
     }
 
@@ -130,7 +124,13 @@ class EconomyUser {
      * @returns {boolean} If reset successfully: true; else: false.
      */
     reset() {
-        return this._utils.reset(id, this.guildID)
+        const defaultObj = defaultUserObject
+
+        defaultObj.id = memberID
+        defaultObj.guildID = guildID
+
+        const result = this._shop.database.set(`${guildID}.${memberID}`, defaultObj)
+        return result
     }
 }
 

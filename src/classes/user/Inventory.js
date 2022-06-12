@@ -9,6 +9,7 @@ const InventoryItem = require('../InventoryItem')
 
 /**
  * User inventory class.
+ * @extends {BaseManager}
  */
 class Inventory extends BaseManager {
 

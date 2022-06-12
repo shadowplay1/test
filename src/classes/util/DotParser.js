@@ -3,6 +3,7 @@ const { writeFileSync } = require('fs')
 const FetchManager = require('../../managers/FetchManager')
 const DefaultConfiguration = require('../../structures/DefaultConfiguration')
 
+
 /**
  * Dot parser class.
  * @private

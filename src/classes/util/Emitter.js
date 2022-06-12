@@ -1,17 +1,19 @@
 const { EventEmitter } = require('events')
+
 const emitter = new EventEmitter({
     captureRejections: true
 })
 
+
 /**
- * Simple Economy event emitter with only important emitter methods.
+ * Economy event emitter with only important emitter methods.
  * @private
  */
 class Emitter {
 
 
     /**
-    * Simple Economy event emitter with only important emitter methods.
+    * Economy event emitter with only important emitter methods.
     * @private
     */
     constructor() { }

@@ -8,9 +8,10 @@ const DatabaseManager = require('./DatabaseManager')
 
 const DefaultConfiguration = require('../structures/DefaultConfiguration')
 const errors = require('../structures/errors')
-const defaultObject = require('../structures/DefaultUserObject')
+const defaultUserObject = require('../structures/DefaultUserObject')
 
 const Logger = require('../classes/util/Logger')
+const EconomyUser = require('../classes/EconomyUser')
 
 
 function unset(object, key) {
@@ -190,18 +191,21 @@ class UtilsManager {
      * Sets the default user object for the specified member.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
-     * @returns {boolean} If reset successfully: true; else: false.
+     * @returns {EconomyUser} If reset successfully: new user object
      */
-    reset(memberID, guildID) {
-        if (!guildID) return false
-        if (!memberID) return false
+    resetUser(memberID, guildID) {
+        if (!guildID) return null
+        if (!memberID) return null
 
-        const defaultObj = defaultObject
+        const defaultObj = defaultUserObject
 
         defaultObj.id = memberID
         defaultObj.guildID = guildID
 
-        return this.database.set(`${guildID}.${memberID}`, defaultObj)
+        this.database.set(`${guildID}.${memberID}`, defaultObj)
+
+        const newUser = new EconomyUser(memberID, guildID, this.options, defaultObj, this.database)
+        return newUser
     }
 
     /**
@@ -229,7 +233,6 @@ class UtilsManager {
 	}
 
         if (optionsFileExists) {
-            const file = require.main.filename
             const slash = dirName.includes('\\') ? '\\' : '/'
 
             this._logger.debug(

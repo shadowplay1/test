@@ -7,6 +7,7 @@ const DatabaseManager = require('../../managers/DatabaseManager')
 
 /**
  * User balance class.
+ * @extends {Emitter}
  */
 class Balance extends Emitter {
 

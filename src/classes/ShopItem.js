@@ -3,11 +3,14 @@ const DatabaseManager = require('../managers/DatabaseManager')
 const errors = require('../structures/errors')
 const EconomyError = require('./util/EconomyError')
 
+const Emitter = require('./util/Emitter')
+
 
 /**
 * Shop item class.
+* @extends {Emitter}
 */
-class ShopItem {
+class ShopItem extends Emitter {
 
     /**
      * Shop item class.
@@ -136,7 +139,7 @@ class ShopItem {
             /**
              * @type {ItemData[]}
              */
-            const shop = this.all()
+            const shop = this.database.fetch(`${this.guildID}.shop`)
 
             const itemIndex = shop.findIndex(item => item.id == this.id || item.name == this.id)
             const item = shop[itemIndex]
@@ -176,6 +179,9 @@ class ShopItem {
 
             case itemProperties[5]:
                 return edit(itemProperties[5], value)
+
+            case itemProperties[6]:
+                return edit(itemProperties[6], value)
 
             default:
                 return null

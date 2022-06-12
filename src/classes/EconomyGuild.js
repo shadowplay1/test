@@ -26,7 +26,7 @@ class EconomyGuild {
          * Guild User Manager.
          * @type {UserManager}
          */
-        this.users = new UserManager(ecoOptions)
+        this.users = new UserManager(ecoOptions, id)
 
         /**
          * Guild ID.
@@ -103,7 +103,6 @@ class EconomyGuild {
  * @property {string} [description='Very mysterious item.'] Item description.
  * @property {string | number} [maxAmount=null] Max amount of the item that user can hold in their inventory.
  * @property {string} [role=null] Role ID from your Discord server.
- * @returns {ItemData} Item info.
  */
 
 /**

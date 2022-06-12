@@ -261,24 +261,26 @@ class DatabaseManager {
      * Clears the whole database.
      * @returns {boolean} If cleared: true; else: false.
      */
-    deleteAll() {
+    clear() {
         const data = this.all()
         const stringData = String(data)
 
         if (stringData == '{}') return false
 
         this.write(this.options.storagePath, '{}')
+
+        this._logger.debug('Performed "clear" operation on a whole database.')
         return true
     }
 
     /**
      * Clears the whole database.
      * 
-     * This method is an alias for `DatabaseManager.deleteAll()` method.
+     * This method is an alias for `DatabaseManager.clear()` method.
      * @returns {boolean} If cleared: true; else: false.
      */
-    removeAll() {
-        return this.deleteAll()
+    deleteAll() {
+        return this.clear()
     }
 
     /**

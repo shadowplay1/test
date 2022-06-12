@@ -2,6 +2,7 @@ const ShopManager = require('../../managers/ShopManager')
 const InventoryManager = require('../../managers/InventoryManager')
 const DatabaseManager = require('../../managers/DatabaseManager')
 
+
 /**
  * User Items.
  */
@@ -48,22 +49,25 @@ class Items {
     /**
      * Buys the item from the shop.
      * @param {string | number} itemID Item ID or name.
+     * @param {number} [quantity=1] Quantity of items to buy. Default: 1.
      * 
-     * @returns {boolean} 
-     * If item bought successfully: true; if item not found, false will be returned; 
-     * if user reached the item's max amount: 'max' string.
+     * @param {string} [reason='received the item from the shop'] 
+     * The reason why the money was subtracted. Default: 'received the item from the shop'.
+     * 
+     * @returns {ShopOperationInfo} Operation information object.
      */
-    buy(itemID) {
-        return this._shop.buyItem(itemID, this.memberID, this.guildID)
+    buy(itemID, quantity, reason) {
+        return this._shop.buyItem(itemID, this.memberID, this.guildID, quantity, reason)
     }
 
     /**
      * Adds the item from the shop to user's inventory.
      * @param {string | number} itemID Item ID or name.
+     * @param {number} [quantity=1] Quantity of items to add. Default: 1.
      * @returns {boolean} If added successfully: true, else: false.
      */
-    add(itemID) {
-        return this._inventory.addItem(itemID, this.memberID, this.guildID)
+    add(itemID, quantity) {
+        return this._inventory.addItem(itemID, this.memberID, this.guildID, quantity)
     }
 
     /**
@@ -77,7 +81,7 @@ class Items {
 
     /**
      * Uses the item from user's inventory.
-     * @param {Number | String} itemID Item ID or name.
+     * @param {number | string} itemID Item ID or name.
      * @param {Client} [client] Discord Client [Specify if the role will be given in a discord server].
      * @returns {string} Item message.
      */

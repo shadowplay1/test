@@ -4,11 +4,14 @@ const SettingsManager = require('../managers/SettingsManager')
 const errors = require('../structures/errors')
 const EconomyError = require('./util/EconomyError')
 
+const Emitter = require('./util/Emitter')
+
 
 /**
 * Inventory item class.
+* @extends {Emitter}
 */
-class InventoryItem {
+class InventoryItem extends Emitter {
 
     /**
      * Inventory item class.
@@ -126,7 +129,7 @@ class InventoryItem {
 
     /**
      * Uses the item from user's inventory.
-     * @param {Number | String} itemID Item ID or name.
+     * @param {number | string} itemID Item ID or name.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {Client} [client] Discord Client [Specify if the role will be given in a discord server].

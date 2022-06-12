@@ -2,7 +2,6 @@ const Emitter = require('../classes/util/Emitter')
 const EconomyUser = require('../classes/EconomyUser')
 
 const DatabaseManager = require('./DatabaseManager')
-const UtilsManager = require('./UtilsManager')
 
 /**
  * The default manager with its default methods.
@@ -60,13 +59,6 @@ class BaseManager extends Emitter {
          * @private
          */
         this.database = new DatabaseManager(options)
-
-        /**
-         * Utils Manager.
-         * @type {UtilsManager}
-         * @private
-         */
-        this.utils = new UtilsManager(options)
 
         /**
          * Member ID.

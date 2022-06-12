@@ -6,6 +6,7 @@ const DatabaseManager = require('./DatabaseManager')
 
 const errors = require('../structures/errors')
 
+
 /**
 * Bank manager methods class.
 * @extends {Emitter}

@@ -5,9 +5,10 @@ const BaseManager = require('../../managers/BaseManager')
 
 const ShopItem = require('../ShopItem')
 
+
 /**
  * Guild shop class.
- * @extends BaseManager
+ * @extends {BaseManager}
  */
 class Shop extends BaseManager {
 
@@ -157,7 +158,7 @@ class Shop extends BaseManager {
 
     /**
      * Edits the item in the shop.
-     * @param {Number | String} itemID Item ID or name.
+     * @param {number | string} itemID Item ID or name.
      * @param {'description' | 'price' | 'name' | 'message' | 'maxAmount' | 'role'} itemProperty 
      * This argument means what thing in item you want to edit (item property). 
      * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.
@@ -238,7 +239,7 @@ class Shop extends BaseManager {
      * Edits the item in the shop.
      * 
      * This method is an alias for the `Shop.editItem()` method.
-     * @param {Number | String} itemID Item ID or name.
+     * @param {number | string} itemID Item ID or name.
      * @param {'description' | 'price' | 'name' | 'message' | 'maxAmount' | 'role'} itemProperty 
      * This argument means what thing in item you want to edit (item property). 
      * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.

@@ -1,11 +1,12 @@
 /**
  * EconomyError class.
+ * @extends {Error}
  */
 class EconomyError extends Error {
 
     /**
      * Creates an 'EconomyError' instance.
-     * @param {String | Error} message Error message.
+     * @param {string | Error} message Error message.
      */
     constructor(message) {
         if (message instanceof Error == 'Error') {

@@ -11,6 +11,7 @@ const HistoryItem = require('../HistoryItem')
 
 /**
  * User purchases history class.
+ * @extends {BaseManager}
  */
 class History extends BaseManager {
 

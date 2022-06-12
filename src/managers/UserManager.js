@@ -16,9 +16,10 @@ class UserManager extends BaseManager {
     /**
      * User Manager.
      * @param {EconomyOptions} options Economy configuration.
+     * @param {string} guildID Guild ID.
      */
-    constructor(options) {
-        super(options, null, null, EconomyUser)
+    constructor(options, guildID) {
+        super(options, null, guildID, EconomyUser)
 
         /**
          * Economy configuration.
@@ -50,7 +51,7 @@ class UserManager extends BaseManager {
      */
     get(userID, guildID) {
         const user = this.all()
-            .find(user => user.id == userID && user.guildID == guildID)
+            .find(user => user.id == userID && user.guildID == (guildID || this.guildID))
 
         return user
     }
@@ -58,23 +59,23 @@ class UserManager extends BaseManager {
     /**
      * Creates an economy user object in database.
      * @param {string} memberID The user ID to set.
-     * @param {string} guildID Guild ID.
+     * @param {string} [guildID] Guild ID.
      * @returns {EconomyUser} Economy user object.
      */
     create(memberID, guildID) {
-        this.utils.reset(memberID, guildID)
-
-        return this.all().find(user => user.guildID == guildID && user.id == memberID)
+        const result = this.utils.resetUser(memberID, guildID || this.guildID)
+        return result
     }
 
     /**
      * Sets the default user object for a specified member.
      * @param {string} userID User ID.
-     * @param {string} guildID Guild ID.
+     * @param {string} [guildID] Guild ID.
      * @returns {boolean} If reset successfully: true; else: false.
      */
     reset(userID, guildID) {
-        return this.utils.reset(userID, guildID)
+        this.utils.resetUser(userID, guildID || this.guildID)
+        return true
     }
 
     /**
@@ -91,7 +92,7 @@ class UserManager extends BaseManager {
             const userEntries = Object.entries(usersObject)
 
             for (const [key, value] of userEntries) {
-                if (!isNaN(key)) {
+                if (!Array.isArray(value) && typeof value == 'object') {
                     value.id = key
                     value.guildID = guildID
 

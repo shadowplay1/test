@@ -1,8 +1,6 @@
 const DatabaseManager = require('./DatabaseManager')
-const UtilsManager = require('./UtilsManager')
 
 const EconomyError = require('../classes/util/EconomyError')
-
 const errors = require('../structures/errors')
 
 const settingsArray = [
@@ -25,7 +23,10 @@ const settingsArray = [
 function checkValueType(key, value) {
     switch (key) {
         case 'dailyAmount':
-            if (typeof value !== 'number') {
+            if (
+                (Array.isArray(value) && typeof value[0] !== 'number' && typeof value[1] !== 'number')
+                || !Array.isArray(value) && typeof value !== 'number'
+            ) {
                 throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value))
             }
 
@@ -40,7 +41,10 @@ function checkValueType(key, value) {
 
 
         case 'workAmount':
-            if (typeof value !== 'number') {
+            if (
+                (Array.isArray(value) && typeof value[0] !== 'number' && typeof value[1] !== 'number')
+                || !Array.isArray(value) && typeof value !== 'number'
+            ) {
                 throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value))
             }
 
@@ -55,7 +59,10 @@ function checkValueType(key, value) {
 
 
         case 'weeklyAmount':
-            if (typeof value !== 'number') {
+            if (
+                (Array.isArray(value) && typeof value[0] !== 'number' && typeof value[1] !== 'number')
+                || !Array.isArray(value) && typeof value !== 'number'
+            ) {
                 throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value))
             }
 
@@ -101,6 +108,7 @@ function checkValueType(key, value) {
     return true
 }
 
+
 /**
  * Settings manager class.
  */
@@ -127,13 +135,6 @@ class SettingsManager {
         * @private
         */
         this.database = database
-
-        /**
-        * Utils manager methods object.
-        * @type {UtilsManager}
-        * @private
-        */
-        this.utils = new UtilsManager(options, database)
     }
 
     /**
