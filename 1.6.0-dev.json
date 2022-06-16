@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.11.1",
         "format": 20,
-        "date": 1654994055257
+        "date": 1655411735843
     },
     "custom": {
         "general": {
@@ -4373,7 +4373,23 @@
             "methods": [
                 {
                     "name": "delete",
-                    "description": "Removes an item from the shop.\r\rThis method is an alias for 'InventoryItem.remove()' method.",
+                    "description": "Removes an item from the shop.",
+                    "params": [
+                        {
+                            "name": "quantity",
+                            "description": "Quantity of items to delete.\r\rThis method is an alias for 'InventoryItem.removeItem()' method.",
+                            "optional": true,
+                            "default": 1,
+                            "type": [
+                                [
+                                    [
+                                        "number"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "async": true,
                     "returns": {
                         "types": [
                             [
@@ -4385,14 +4401,30 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 113,
+                        "line": 114,
                         "file": "InventoryItem.js",
                         "path": "src/classes"
                     }
                 },
                 {
-                    "name": "remove",
+                    "name": "removeItem",
                     "description": "Removes an item from the shop.",
+                    "params": [
+                        {
+                            "name": "quantity",
+                            "description": "Quantity of items to delete.",
+                            "optional": true,
+                            "default": 1,
+                            "type": [
+                                [
+                                    [
+                                        "number"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "async": true,
                     "returns": {
                         "types": [
                             [
@@ -4404,7 +4436,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 121,
+                        "line": 124,
                         "file": "InventoryItem.js",
                         "path": "src/classes"
                     }
@@ -4413,44 +4445,6 @@
                     "name": "use",
                     "description": "Uses the item from user's inventory.",
                     "params": [
-                        {
-                            "name": "itemID",
-                            "description": "Item ID or name.",
-                            "type": [
-                                [
-                                    [
-                                        "number"
-                                    ]
-                                ],
-                                [
-                                    [
-                                        "string"
-                                    ]
-                                ]
-                            ]
-                        },
-                        {
-                            "name": "memberID",
-                            "description": "Member ID.",
-                            "type": [
-                                [
-                                    [
-                                        "string"
-                                    ]
-                                ]
-                            ]
-                        },
-                        {
-                            "name": "guildID",
-                            "description": "Guild ID.",
-                            "type": [
-                                [
-                                    [
-                                        "string"
-                                    ]
-                                ]
-                            ]
-                        },
                         {
                             "name": "client",
                             "description": "Discord Client [Specify if the role will be given in a discord server].",
@@ -4475,7 +4469,7 @@
                         "description": "Item message."
                     },
                     "meta": {
-                        "line": 138,
+                        "line": 141,
                         "file": "InventoryItem.js",
                         "path": "src/classes"
                     }
@@ -4483,6 +4477,21 @@
                 {
                     "name": "sell",
                     "description": "Removes the item from user's inventory\rand adds its price to the user's balance.\rThis is the same as selling something.",
+                    "params": [
+                        {
+                            "name": "quantity",
+                            "description": "Quantity of items to sell.",
+                            "optional": true,
+                            "default": 1,
+                            "type": [
+                                [
+                                    [
+                                        "number"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
                     "returns": {
                         "types": [
                             [
@@ -4491,10 +4500,10 @@
                                 ]
                             ]
                         ],
-                        "description": "The price the item was sold for."
+                        "description": "The price the item(s) was/were sold for."
                     },
                     "meta": {
-                        "line": 212,
+                        "line": 217,
                         "file": "InventoryItem.js",
                         "path": "src/classes"
                     }
@@ -4708,6 +4717,22 @@
                     }
                 },
                 {
+                    "name": "itemObject",
+                    "description": "Item object.",
+                    "type": [
+                        [
+                            [
+                                "ItemData"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 33,
+                        "file": "ShopItem.js",
+                        "path": "src/classes"
+                    }
+                },
+                {
                     "name": "id",
                     "description": "Shop item ID.",
                     "type": [
@@ -4718,7 +4743,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 33,
+                        "line": 39,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -4734,7 +4759,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 39,
+                        "line": 45,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -4750,7 +4775,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 45,
+                        "line": 51,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -4766,7 +4791,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 51,
+                        "line": 57,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -4782,7 +4807,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 57,
+                        "line": 63,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -4798,7 +4823,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 63,
+                        "line": 69,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -4814,7 +4839,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 69,
+                        "line": 75,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -4830,7 +4855,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 75,
+                        "line": 81,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -4846,7 +4871,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 81,
+                        "line": 87,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -4862,7 +4887,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 87,
+                        "line": 93,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -4896,7 +4921,7 @@
                         "description": "Is the user has enough money to buy the item."
                     },
                     "meta": {
-                        "line": 101,
+                        "line": 107,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -4928,7 +4953,7 @@
                         "description": "Is the user has the item in their inventory."
                     },
                     "meta": {
-                        "line": 111,
+                        "line": 117,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -5008,7 +5033,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 126,
+                        "line": 132,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -5082,7 +5107,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 203,
+                        "line": 209,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -5114,7 +5139,7 @@
                         "description": "If set successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 212,
+                        "line": 218,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -5133,7 +5158,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 222,
+                        "line": 228,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -5152,7 +5177,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 230,
+                        "line": 236,
                         "file": "ShopItem.js",
                         "path": "src/classes"
                     }
@@ -9078,6 +9103,69 @@
                     }
                 },
                 {
+                    "name": "sell",
+                    "description": "Sells the item from the user's inventory.",
+                    "params": [
+                        {
+                            "name": "itemID",
+                            "description": "Item ID or name.",
+                            "type": [
+                                [
+                                    [
+                                        "string"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "number"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "quantity",
+                            "description": "Quantity of items to sell. Default: 1.",
+                            "optional": true,
+                            "default": 1,
+                            "type": [
+                                [
+                                    [
+                                        "number"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "reason",
+                            "description": "The reason why the money was added. Default: 'sold the item to the shop'.",
+                            "optional": true,
+                            "default": "'sold the item to the shop'",
+                            "type": [
+                                [
+                                    [
+                                        "string"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": {
+                        "types": [
+                            [
+                                [
+                                    "number"
+                                ]
+                            ]
+                        ],
+                        "description": "The price the item(s) was/were sold for."
+                    },
+                    "meta": {
+                        "line": 83,
+                        "file": "Items.js",
+                        "path": "src/classes/user"
+                    }
+                },
+                {
                     "name": "get",
                     "description": "Gets the specified item from the user's inventory.",
                     "params": [
@@ -9114,7 +9202,7 @@
                         "description": "User's inventory array."
                     },
                     "meta": {
-                        "line": 78,
+                        "line": 92,
                         "file": "Items.js",
                         "path": "src/classes/user"
                     }
@@ -9163,7 +9251,7 @@
                         "description": "Item message."
                     },
                     "meta": {
-                        "line": 88,
+                        "line": 102,
                         "file": "Items.js",
                         "path": "src/classes/user"
                     }
@@ -9200,7 +9288,7 @@
                         "description": "If removed successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 97,
+                        "line": 111,
                         "file": "Items.js",
                         "path": "src/classes/user"
                     }
@@ -9237,7 +9325,7 @@
                         "description": "If removed successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 108,
+                        "line": 122,
                         "file": "Items.js",
                         "path": "src/classes/user"
                     }
@@ -15794,20 +15882,39 @@
                                     ]
                                 ]
                             ]
+                        },
+                        {
+                            "name": "quantity",
+                            "description": "Quantity of items to remove.",
+                            "optional": true,
+                            "default": 1,
+                            "type": [
+                                [
+                                    [
+                                        "number"
+                                    ]
+                                ]
+                            ]
                         }
                     ],
+                    "async": true,
                     "returns": {
                         "types": [
                             [
                                 [
-                                    "boolean"
+                                    "Promise",
+                                    "<"
+                                ],
+                                [
+                                    "boolean",
+                                    ">"
                                 ]
                             ]
                         ],
                         "description": "If removed successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 275,
+                        "line": 276,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -15879,7 +15986,7 @@
                         "description": "If added successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 310,
+                        "line": 314,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -15927,6 +16034,19 @@
                             ]
                         },
                         {
+                            "name": "quantity",
+                            "description": "Quantity of items to sell.",
+                            "optional": true,
+                            "default": 1,
+                            "type": [
+                                [
+                                    [
+                                        "number"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
                             "name": "reason",
                             "description": "The reason why the item was sold.",
                             "optional": true,
@@ -15940,18 +16060,24 @@
                             ]
                         }
                     ],
+                    "async": true,
                     "returns": {
                         "types": [
                             [
                                 [
-                                    "number"
+                                    "Promise",
+                                    "<"
+                                ],
+                                [
+                                    "number",
+                                    ">"
                                 ]
                             ]
                         ],
-                        "description": "The price the item was sold for."
+                        "description": "The price the item(s) was/were sold for."
                     },
                     "meta": {
-                        "line": 394,
+                        "line": 392,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -15999,6 +16125,19 @@
                             ]
                         },
                         {
+                            "name": "quantity",
+                            "description": "Quantity of items to sell.",
+                            "optional": true,
+                            "default": 1,
+                            "type": [
+                                [
+                                    [
+                                        "number"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
                             "name": "reason",
                             "description": "The reason why the item was sold.",
                             "optional": true,
@@ -16016,14 +16155,19 @@
                         "types": [
                             [
                                 [
-                                    "number"
+                                    "Promise",
+                                    "<"
+                                ],
+                                [
+                                    "number",
+                                    ">"
                                 ]
                             ]
                         ],
-                        "description": "The price the item was sold for."
+                        "description": "The price the item(s) was/were sold for."
                     },
                     "meta": {
-                        "line": 435,
+                        "line": 434,
                         "file": "InventoryManager.js",
                         "path": "src/managers"
                     }
@@ -17672,7 +17816,7 @@
                         "description": "Operation information object."
                     },
                     "meta": {
-                        "line": 625,
+                        "line": 609,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -17721,7 +17865,7 @@
                         "description": "User's inventory array."
                     },
                     "meta": {
-                        "line": 644,
+                        "line": 628,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -17797,7 +17941,7 @@
                         "description": "Item message or null if item not found."
                     },
                     "meta": {
-                        "line": 686,
+                        "line": 670,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -17846,7 +17990,7 @@
                         "description": "User's purchase history."
                     },
                     "meta": {
-                        "line": 767,
+                        "line": 751,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -17890,7 +18034,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 811,
+                        "line": 795,
                         "file": "ShopManager.js",
                         "path": "src/managers"
                     }
@@ -20238,7 +20382,7 @@
                 }
             ],
             "meta": {
-                "line": 787,
+                "line": 789,
                 "file": "index.js",
                 "path": "src"
             }
@@ -20352,7 +20496,7 @@
                 }
             ],
             "meta": {
-                "line": 839,
+                "line": 823,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -20692,7 +20836,7 @@
                 }
             ],
             "meta": {
-                "line": 872,
+                "line": 856,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -20798,7 +20942,7 @@
                 }
             ],
             "meta": {
-                "line": 859,
+                "line": 843,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
@@ -21781,7 +21925,7 @@
                 }
             ],
             "meta": {
-                "line": 850,
+                "line": 834,
                 "file": "ShopManager.js",
                 "path": "src/managers"
             }
