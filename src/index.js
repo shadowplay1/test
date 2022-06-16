@@ -718,6 +718,7 @@ class Economy extends Emitter {
 * @param {void} data Void event.
 */
 
+
 /**
  * @typedef {object} EconomyOptions Default Economy configuration.
  * @property {string} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
@@ -771,6 +772,7 @@ class Economy extends Emitter {
  * 
  * @property {boolean} [sendSuccessLog=false] Allows the method to send the result if no problems were found. Default: false.
  */
+
 
 /**
  * @typedef {object} LoggerColors

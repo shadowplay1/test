@@ -270,16 +270,17 @@ class InventoryManager extends Emitter {
      * @param {string | number} itemID Item ID or name.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
-     * @returns {boolean} If removed successfully: true, else: false.
+     * @param {number} [quantity] Quantity of items to remove.
+     * @returns {Promise<boolean>} If removed successfully: true, else: false.
      */
-    removeItem(itemID, memberID, guildID) {
+    async removeItem(itemID, memberID, guildID, quantity = 1) {
 
         /**
         * @type {InventoryItem[]}
         */
-        const inventory = this.fetch(memberID, guildID)
+        const inventory = (await this.fetch(memberID, guildID)) || []
 
-        const item = this.searchItem(itemID, memberID, guildID)
+        const item = await this.findItem(itemID, memberID, guildID)
         const itemIndex = inventory.findIndex(invItem => invItem.id == item?.id)
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
@@ -296,7 +297,10 @@ class InventoryManager extends Emitter {
 
         if (!item) return false
 
-        return this.database.pop(`${guildID}.${memberID}.inventory`, itemIndex)
+        const newInventory = inventory.splice(itemIndex, quantity)
+        const result = await this.database.set(`${this.guildID}.${this.memberID}.inventory`, newInventory)
+
+        return result
     }
 
     /**
@@ -341,8 +345,14 @@ class InventoryManager extends Emitter {
             message: 'item not found',
             item: null,
             quantity: 0,
-            totalPrice: item.price * quantity
+            totalPrice: 0
         }
+
+
+        const totalPrice = item.price * quantity
+        const arrayOfItems = Array(quantity).fill(item.itemObject ? item.itemObject : item)
+
+        const newInventory = [...inventory, ...arrayOfItems]
 
         if (
             item.maxAmount &&
@@ -353,24 +363,11 @@ class InventoryManager extends Emitter {
             message: `maximum items reached (${item.maxAmount})`,
             item,
             quantity,
-            totalPrice: item.price * quantity
+            totalPrice
         }
 
-        for (let i = 0; i < quantity; i++) {
-            const itemData = {
-                id: inventory.length ? inventory[inventory.length - 1].id + 1 : 1,
-                name: item.name,
-                price: item.price,
-                message: item.message,
-                description: item.description,
-                role: item.role || null,
-                maxAmount: item.maxAmount,
-                date: new Date().toLocaleString(this.options.dateLocale || 'en'),
-                custom: item.custom || {}
-            }
 
-            this.database.push(`${guildID}.${memberID}.inventory`, itemData)
-        }
+        this.database.set(`${guildID}.${memberID}.inventory`, newInventory)
 
         return {
             status: true,
@@ -388,16 +385,18 @@ class InventoryManager extends Emitter {
      * @param {string | number} itemID Item ID or name.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
+     * @param {number} [quantity=1] Quantity of items to sell.
      * @param {string} [reason='sold the item from the inventory'] The reason why the item was sold.
-     * @returns {number} The price the item was sold for.
+     * @returns {Promise<number>} The price the item(s) was/were sold for.
      */
-    sellItem(itemID, memberID, guildID, reason = 'sold the item from the inventory') {
-        const item = this.searchItem(itemID, memberID, guildID)
+    async sellItem(itemID, memberID, guildID, quantity = 1, reason = 'sold the item from the inventory') {
+        const item = this.findItem(itemID, memberID, guildID)
 
         const percent = this.database.fetch(`${guildID}.settings.sellingItemPercent`)
             || this.options.sellingItemPercent
 
         const sellingPrice = Math.floor((item?.price / 100) * percent)
+        const totalSellingPrice = sellingPrice * quantity
 
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
@@ -413,10 +412,9 @@ class InventoryManager extends Emitter {
 
         if (!item) return null
 
-        this.balance
-            .add(sellingPrice, memberID, guildID, reason)
+        this.balance.add(totalSellingPrice, memberID, guildID, reason)
+        this.removeItem(itemID, memberID, guildID, quantity)
 
-        this.removeItem(itemID, memberID, guildID)
         return sellingPrice
     }
 
@@ -429,11 +427,12 @@ class InventoryManager extends Emitter {
      * @param {string | number} itemID Item ID or name.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
+     * @param {number} [quantity=1] Quantity of items to sell.
      * @param {string} [reason='sold the item from the inventory'] The reason why the item was sold.
-     * @returns {number} The price the item was sold for.
+     * @returns {Promise<number>} The price the item(s) was/were sold for.
      */
-    sell(itemID, memberID, guildID, reason = 'sold the item from the inventory') {
-        return this.sellItem(itemID, memberID, guildID, reason)
+    sell(itemID, memberID, guildID, quantity = 1, reason = 'sold the item from the inventory') {
+        return this.sellItem(itemID, memberID, guildID, quantity, reason)
     }
 }
 

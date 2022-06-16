@@ -71,6 +71,20 @@ class Items {
     }
 
     /**
+     * Sells the item from the user's inventory.
+     * @param {string | number} itemID Item ID or name.
+     * @param {number} [quantity=1] Quantity of items to sell. Default: 1.
+     * 
+     * @param {string} [reason='sold the item to the shop']
+     * The reason why the money was added. Default: 'sold the item to the shop'.
+     * 
+     * @returns {number} The price the item(s) was/were sold for.
+     */
+    sell(itemID, quantity, reason) {
+        return this._inventory.sellItem(itemID, this.memberID, this.guildID, quantity, reason)
+    }
+
+    /**
      * Gets the specified item from the user's inventory.
      * @param {string | number} itemID Item ID or name.
      * @returns {InventoryData[]} User's inventory array.

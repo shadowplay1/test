@@ -28,7 +28,7 @@ class Settings {
          * @type {SettingsManager}
          * @private
          */
-        this._settings = new SettingsManager(options, new DatabaseManager(options), new FetchManager(options))
+        this._settings = new SettingsManager(options, new DatabaseManager(options))
     }
 
     /**

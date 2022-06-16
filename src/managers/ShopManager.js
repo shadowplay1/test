@@ -527,6 +527,12 @@ class ShopManager extends Emitter {
             totalPrice: 0,
         }
 
+
+        const totalPrice = item.price * quantity
+        const arrayOfItems = Array(quantity).fill(item.itemObject ? item.itemObject : item)
+
+        const newInventory = [...inventory, ...arrayOfItems]
+
         if (
             item.maxAmount &&
             inventoryItems.length >= item.maxAmount &&
@@ -536,75 +542,53 @@ class ShopManager extends Emitter {
             message: `maximum items reached (${item.maxAmount})`,
             item,
             quantity,
-            totalPrice: item.price * quantity,
+            totalPrice
         }
 
-        for (let i = 0; i < quantity; i++) {
-            const itemData = {
-                id: inventory.length ? inventory[inventory.length - 1].id + 1 : 1,
+        if (subtractOnBuy) {
+            this.database.subtract(`${guildID}.${memberID}.money`, totalPrice)
+
+            this.emit('balanceSubtract', {
+                type: 'subtract',
+                guildID,
+                memberID,
+                amount: Number(totalPrice),
+                balance: balance - totalPrice,
+                reason
+            })
+        }
+
+        this.database.set(`${guildID}.${memberID}.inventory`, newInventory)
+
+        if (savePurchasesHistory) {
+            const shop = this.database.fetch(`${guildID}.shop`) || []
+            const history = this.database.fetch(`${guildID}.${memberID}.history`) || []
+
+            const item = shop.find(item => item.id == itemID || item.name == itemID)
+
+            this.database.push(`${guildID}.${memberID}.history`, {
+                id: history.length ? history[history.length - 1].id + 1 : 1,
+                memberID,
+                guildID,
                 name: item.name,
                 price: item.price,
-                message: item.message,
-                description: item.description,
-                role: item.role || null,
-                maxAmount: item.maxAmount,
-                date: new Date().toLocaleString(dateLocale),
-                custom: item.custom || {},
-            }
-
-            if (subtractOnBuy) {
-                this.database.subtract(`${guildID}.${memberID}.money`, item.price)
-
-                this.emit('balanceSubtract', {
-                    type: 'subtract',
-                    guildID,
-                    memberID,
-                    amount: Number(item.price),
-                    balance: balance - item.price,
-                    reason
-                })
-            }
-
-            this.database.push(`${guildID}.${memberID}.inventory`, {
-                id: inventory.length ? inventory[inventory.length - 1].id + 1 : 1,
-                name: item.name,
-                price: item.price,
-                message: item.message,
-                description: item.description,
+                quantity,
+                totalPrice,
                 role: item.role || null,
                 maxAmount: item.maxAmount,
                 date: new Date().toLocaleString(dateLocale),
                 custom: item.custom || {}
             })
-
-            if (savePurchasesHistory) {
-                const shop = this.database.fetch(`${guildID}.shop`)
-                const history = this.database.fetch(`${guildID}.${memberID}.history`)
-
-                const item = shop.find(item => item.id == itemID || item.name == itemID)
-
-                this.database.push(`${guildID}.${memberID}.history`, {
-                    id: history.length ? history[history.length - 1].id + 1 : 1,
-                    memberID,
-                    guildID,
-                    name: item.name,
-                    price: item.price,
-                    role: item.role || null,
-                    maxAmount: item.maxAmount,
-                    date: new Date().toLocaleString(dateLocale),
-                    custom: item.custom || {}
-                })
-            }
-
-            this.emit('shopItemBuy', itemData)
         }
+
+        this.emit('shopItemBuy', item)
 
         return {
             status: true,
             message: 'OK',
             item,
             quantity,
-            totalPrice: item.price * quantity,
+            totalPrice
         }
     }
 

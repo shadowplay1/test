@@ -94,7 +94,7 @@ class InventoryItem extends Emitter {
          * @type {SettingsManager}
          * @private
          */
-        this.settings = new SettingsManager(ecoOptions)
+        this.settings = new SettingsManager(ecoOptions, database)
 
         /**
          * Database Manager.
@@ -106,32 +106,35 @@ class InventoryItem extends Emitter {
 
     /**
      * Removes an item from the shop.
+     * @param {number} [quantity=1] Quantity of items to delete.
      * 
-     * This method is an alias for 'InventoryItem.remove()' method.
+     * This method is an alias for 'InventoryItem.removeItem()' method.
      * @returns {boolean} If removed: true, else: false.
      */
-    delete() {
-        return this.remove()
+    async delete(quantity = 1) {
+        const result = await this.removeItem(quantity)
+        return result
     }
 
     /**
      * Removes an item from the shop.
+     * @param {number} [quantity=1] Quantity of items to delete.
      * @returns {boolean} If removed: true, else: false.
      */
-    remove() {
-        const inventory = this.fetch(this.memberID, this.guildID)
+    async removeItem(quantity = 1) {
+        const inventory = this.database.fetch(`${this.guildID}.${this.memberID}.inventory`) || []
 
         const item = this
         const itemIndex = inventory.findIndex(invItem => invItem.id == item?.id)
 
-        return this.database.pop(`${this.guildID}.${this.memberID}.inventory`, itemIndex)
+        const newInventory = inventory.splice(itemIndex, quantity)
+        const result = this.database.set(`${this.guildID}.${this.memberID}.inventory`, newInventory)
+
+        return result
     }
 
     /**
      * Uses the item from user's inventory.
-     * @param {number | string} itemID Item ID or name.
-     * @param {string} memberID Member ID.
-     * @param {string} guildID Guild ID.
      * @param {Client} [client] Discord Client [Specify if the role will be given in a discord server].
      * @returns {string} Item message.
      */
@@ -207,23 +210,25 @@ class InventoryItem extends Emitter {
      * Removes the item from user's inventory
      * and adds its price to the user's balance.
      * This is the same as selling something.
-     * @returns {number} The price the item was sold for.
+     * 
+     * @param {number} [quantity=1] Quantity of items to sell.
+     * @returns {number} The price the item(s) was/were sold for.
      */
-    sell() {
+    sell(quantity = 1) {
         const item = this
 
         const percent = this.settings.get('sellingItemPercent', guildID)
             || this.options.sellingItemPercent
 
         const sellingPrice = Math.floor((item?.price / 100) * percent)
+        const totalSellingPrice = sellingPrice * quantity
 
-        this.database.add(`${this.guildID}.${this.memberID}.money`, sellingPrice)
-        this.removeItem(this.id, this.memberID, this.guildID)
+        this.database.add(`${this.guildID}.${this.memberID}.money`, totalSellingPrice)
+        this.removeItem(quantity)
 
         return sellingPrice
     }
 }
-
 
 
 /**

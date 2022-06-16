@@ -27,6 +27,12 @@ class ShopItem extends Emitter {
         this.guildID = guildID
 
         /**
+         * Item object.
+         * @type {ItemData}
+         */
+        this.itemObject = itemObject
+
+        /**
          * Shop item ID.
          * @type {number}
          */
