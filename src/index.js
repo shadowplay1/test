@@ -308,7 +308,7 @@ class Economy extends Emitter {
      * @private
      */
     _init() {
-        const reservedNames = ['package.json', 'package-lock.json', 'node_modules', 'mongo']
+        const reservedNames = ['package.json', 'package-lock.json', 'node_modules', 'mongo', 'mongodb']
         const updateCountdown = this.options.updateCountdown
 
         const isReservedStorage =

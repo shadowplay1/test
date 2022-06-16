@@ -78,7 +78,7 @@ class Items {
      * @param {string} [reason='sold the item to the shop']
      * The reason why the money was added. Default: 'sold the item to the shop'.
      * 
-     * @returns {number} The price the item(s) was/were sold for.
+     * @returns {SellingOperationInfo} Selling operation info.
      */
     sell(itemID, quantity, reason) {
         return this._inventory.sellItem(itemID, this.memberID, this.guildID, quantity, reason)

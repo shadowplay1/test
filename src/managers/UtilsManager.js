@@ -93,7 +93,7 @@ class UtilsManager {
     * Checks for the module updates.
     * @returns {Promise<VersionData>} Is the module updated, latest version and installed version.
     */
-     async checkUpdates() {
+    async checkUpdates() {
         const version = require('../../package.json').version
 
         const packageData = await fetch('https://registry.npmjs.com/discord-economy-super')
@@ -218,26 +218,26 @@ class UtilsManager {
         this._logger.debug('Debug mode is enabled.', 'lightcyan')
         this._logger.debug('Checking the configuration...')
 
-	const filePathArray = require.main.filename.replaceAll('\\', '/').split('/')
-	const fileName = filePathArray[filePathArray.length - 1]
+        const filePathArray = require.main.filename.replaceAll('\\', '/').split('/')
+        const fileName = filePathArray[filePathArray.length - 1]
 
-	const isTSFileAllowed = fileName.endsWith('.ts')
+        const isTSFileAllowed = fileName.endsWith('.ts')
         const dirName = dirname(require.main.filename).replace('/' + fileName, '').replace('\\' + fileName, '')
 
-	let fileExtension = isTSFileAllowed ? 'ts' : 'js'
-	let optionsFileExists = existsSync(`./economy.config.${fileExtension}`)
+        let fileExtension = isTSFileAllowed ? 'ts' : 'js'
+        let optionsFileExists = existsSync(`./economy.config.${fileExtension}`)
 
-	if (!optionsFileExists && fileExtension == 'ts' && isTSFileAllowed) {
-	    fileExtension = 'js'
-	    optionsFileExists = existsSync(`./economy.config.${fileExtension}`)
-	}
+        if (!optionsFileExists && fileExtension == 'ts' && isTSFileAllowed) {
+            fileExtension = 'js'
+            optionsFileExists = existsSync(`./economy.config.${fileExtension}`)
+        }
 
         if (optionsFileExists) {
             const slash = dirName.includes('\\') ? '\\' : '/'
 
             this._logger.debug(
-		`Using configuration file at ${dirName}${slash}economy.config.${fileExtension}...`, 'cyan'
-	    )
+                `Using configuration file at ${dirName}${slash}economy.config.${fileExtension}...`, 'cyan'
+            )
 
             try {
                 const optionsObject = require(`${dirName}/economy.config.${fileExtension}`)

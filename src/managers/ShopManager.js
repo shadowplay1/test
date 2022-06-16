@@ -835,7 +835,7 @@ class ShopManager extends Emitter {
  * @typedef {object} ShopOperationInfo
  * @property {boolean} status Operation status.
  * @property {string} message Operation message.
- * @property {ShopItem} item Item object.
+ * @property {ShopItem | InventoryItem} item Item object.
  * @property {number} quantity Item quantity.
  * @property {number} totalPrice Total price of the items.
  */

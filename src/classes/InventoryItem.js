@@ -30,6 +30,12 @@ class InventoryItem extends Emitter {
         this.options = ecoOptions
 
         /**
+         * Item object.
+         * @type {InventoryData}
+         */
+        this.itemObject = itemObject
+
+        /**
          * Guild ID.
          * @type {string}
          */
@@ -111,8 +117,8 @@ class InventoryItem extends Emitter {
      * This method is an alias for 'InventoryItem.removeItem()' method.
      * @returns {boolean} If removed: true, else: false.
      */
-    async delete(quantity = 1) {
-        const result = await this.removeItem(quantity)
+    delete(quantity = 1) {
+        const result = this.removeItem(quantity)
         return result
     }
 
@@ -121,15 +127,16 @@ class InventoryItem extends Emitter {
      * @param {number} [quantity=1] Quantity of items to delete.
      * @returns {boolean} If removed: true, else: false.
      */
-    async removeItem(quantity = 1) {
+    removeItem(quantity = 1) {
         const inventory = this.database.fetch(`${this.guildID}.${this.memberID}.inventory`) || []
-
         const item = this
-        const itemIndex = inventory.findIndex(invItem => invItem.id == item?.id)
 
-        const newInventory = inventory.splice(itemIndex, quantity)
+        const newInventory = [
+            ...inventory.filter(invItem => invItem.id != item.id),
+            ...Array(itemQuantity - quantity).fill(item.itemObject)
+        ]
+
         const result = this.database.set(`${this.guildID}.${this.memberID}.inventory`, newInventory)
-
         return result
     }
 
@@ -212,10 +219,13 @@ class InventoryItem extends Emitter {
      * This is the same as selling something.
      * 
      * @param {number} [quantity=1] Quantity of items to sell.
-     * @returns {number} The price the item(s) was/were sold for.
+     * @returns {ShopOperationInfo} Selling operation info.
      */
     sell(quantity = 1) {
+        const inventory = this.database.fetch(`${this.guildID}.${this.memberID}.inventory`) || []
+
         const item = this
+        const itemQuantity = inventory.filter(invItem => invItem.id == item.id).length
 
         const percent = this.settings.get('sellingItemPercent', guildID)
             || this.options.sellingItemPercent
@@ -223,10 +233,26 @@ class InventoryItem extends Emitter {
         const sellingPrice = Math.floor((item?.price / 100) * percent)
         const totalSellingPrice = sellingPrice * quantity
 
+        if (quantity > itemQuantity) {
+            return {
+                status: false,
+                message: `not enough items to sell (${itemQuantity} < ${quantity})`,
+                item,
+                quantity,
+                totalPrice
+            }
+        }
+
         this.database.add(`${this.guildID}.${this.memberID}.money`, totalSellingPrice)
         this.removeItem(quantity)
 
-        return sellingPrice
+        return {
+            status: true,
+            message: 'OK',
+            item,
+            quantity,
+            totalPrice
+        }
     }
 }
 
