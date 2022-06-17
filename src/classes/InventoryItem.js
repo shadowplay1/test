@@ -233,13 +233,13 @@ class InventoryItem extends Emitter {
         const sellingPrice = Math.floor((item?.price / 100) * percent)
         const totalSellingPrice = sellingPrice * quantity
 
-        if (quantity > itemQuantity) {
+        if (quantity > itemQuantity || quantity < 1) {
             return {
                 status: false,
                 message: `not enough items to sell (${itemQuantity} < ${quantity})`,
                 item,
                 quantity,
-                totalPrice
+                totalPrice: totalSellingPrice
             }
         }
 
@@ -251,7 +251,7 @@ class InventoryItem extends Emitter {
             message: 'OK',
             item,
             quantity,
-            totalPrice
+            totalPrice: totalSellingPrice
         }
     }
 }

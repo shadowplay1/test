@@ -33,7 +33,7 @@ class Shop extends BaseManager {
     * @param {string | number} itemID Item ID.
     * @returns {ShopItem} Shop item.
     */
-    get(itemID) {
+    findItem(itemID) {
         const shop = this.all()
         const item = shop.find(item => item.id == itemID || item.name == itemID)
 
@@ -60,7 +60,7 @@ class Shop extends BaseManager {
      * This method is an alias for the `Shop.all()` method.
      * @returns {ShopItem[]} Guild shop array.
      */
-    fetch() {
+    get() {
         return this.all()
     }
 
