@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.11.1",
         "format": 20,
-        "date": 1655418786426
+        "date": 1655493121044
     },
     "custom": {
         "general": {
@@ -2678,7 +2678,7 @@
             ],
             "methods": [
                 {
-                    "name": "get",
+                    "name": "findItem",
                     "description": "Gets the item in the shop.",
                     "params": [
                         {
@@ -2739,7 +2739,7 @@
                     }
                 },
                 {
-                    "name": "fetch",
+                    "name": "get",
                     "description": "Gets all the items in the shop.\r\rThis method is an alias for the `Shop.all()` method.",
                     "returns": {
                         "types": [
