@@ -7,29 +7,29 @@
 
 ## ❓ | Frequently Asked Questions
 
-### Q: Will the module support MongoDB?
-#### A: No. At the moment, we cant do support for MongoDB in the module. Sorry about that.
+### **Q:** How can I use MongoDB in Economy?
+#### **A:** Just follow the [migration guide](./migrating.md) to start using Economy with MongoDB.
 <br>
 
-### Q: Why do I get a "Cannot read property '(any manager property or method)' of null"?
-#### A: Because the module is not started and not ready yet. Use this code to fix this problem:
+### **Q:** Why do I get a "Cannot read property '(any manager property or method)' of null"?
+#### **A:** Because the module is not started and not ready yet. Use this code to fix this problem:
 ```js
 const Economy = require('discord-economy-super')
-const economy = new Economy(options)
+const eco = new Economy(options)
 
 economy.on('ready', () => {
-    <client>.economy = economy
+    <client>.eco = eco
 })
 ```
-It will add the module in your bot client's property and you could use it in any command without any errors. For example: `<client>.economy.balance.fetch(...)` will return you a user's balance number.
+It will add the module in your bot client's property and you could use it in any command without any errors. For example: `<client>.eco.balance.fetch(...)` will return you a user's balance number.
 <br>
 
-### Q: Why do I get a "SyntaxError: Unexpected token '.' "?
-#### A: Because the module is supporting only Node.js v14.0.0 or above. Earlier versions are not supporting the "?." operator. You need to update Node.js to make the module work.
+### **Q:** Why do I get a "SyntaxError: Unexpected token '.' "?
+#### **A:** Because the module is supporting only Node.js v14.0.0 or above. Earlier versions are not supporting the "?." operator. You need to update Node.js to make the module work.
 <br>
 
-### Q: Can I use the module globally?
-#### A: Yes! Just use '123' as guild ID or any other value in all methods, and the module will work with only one guild. For example: guild '111' and '222' will take the 333's balance info from guild '123' in database.
+### **Q:** Can I use the module globally?
+#### **A:** Yes! Just use '123' as guild ID or any other static value in all methods, and the module will work with only one guild. For example: guild '111' and '222' will take the 333's balance info from guild '123' in database.
 
 ```js
 // example eco database
@@ -58,16 +58,16 @@ eco.balance.fetch('1234', userID) // null; now it WON'T be the same!
 
 <br>
 
-### Q: Why are examples not working?
-#### A: Examples provided in documentation and in GitHub are for one-file bot. See the questions above to get more info. If it's a bug, see the question below.
+### **Q:** Why are the examples not working?
+#### **A:** Examples provided in documentation and in GitHub are for one-file bot. See the questions above to get more info. If it's a bug, see the question below.
 <br>
 
-### Q: I found a bug or have an idea. Where I could submit it?
-#### A: On our [Support Server](https://discord.gg/4pWKq8vUnb). We appreciate that!
+### **Q:** I found a bug or have an idea. Where I could submit it?
+#### **A:** In our [Support Server](https://discord.gg/4pWKq8vUnb). We appreciate that!
 <br>
 
-### Q: Can I send a random messages on using the item?
-#### A: Of course! The version 1.5.0 allows you do do that!
+### **Q:** Can I send a random messages on using the item?
+#### **A:** Yes! See the example below:
 Random string syntax: `[random="item1", "item2", "etc..."]`
 Example usage:
 ```js

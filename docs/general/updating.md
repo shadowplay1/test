@@ -7,7 +7,32 @@
 
 ## ✍ | Updating your code
 
+## Version 1.6.0
+
+This version takes much approach on object-orience. The most important changes are:
+
+- new `User-` and `Guild-` managers which are used to get user and guild data from MongoDB.
+- separated classes for every Economy entity (`ShopItem`, `InventoryItem`, `EconomyGuild`, `EconomyUser`, etc)
+- separated classes for every Economy action on users and guilds (`Shop`, `Inventory`, `Rewards`, etc)
+- some of the methods' names and/or return values were changed to make them sound better and more natural. (for example: `BalanceManager.pay(...)` → `BalanceManager.transfer(...)`)
+- some of the getter methods and theire aliases' names were changed.
+- ... and many more! You can see the full [changelog](./changelog.md) to see all the changes: it will help you on migrating to v1.6.0.
+
+These changes does not mean you will have to stop using the managers directly. You can use them as you normally would. Classes were provided as another way to use the Economy and make the code cleaner and more readable and understandable. Usage of managers is not deprecated or removed in this update. So, it means, you don't have to do much changes to make your code working again. 
+
+For example, this code will work as before:
+```js
+const balance = eco.balance.get('123', '123')
+const inventory = eco.inventory.get('123', '123')
+
+console.log(balance)
+console.log(inventory)
+```
+
+If you're looking for MongoDB migration guide, see the [MongoDB Migration Guide](./migrating.md).
+
 ## Version 1.5.0
+
 In version 1.5.0, all history related methods in ShopManager are deprecated.
 It's highly recommended to switch to the new HistoryManager:
 
@@ -17,6 +42,7 @@ It's highly recommended to switch to the new HistoryManager:
 See the [changelog](https://des-docs.tk/#/docs/main/1.5.2general/changelog) for the full list of changes.
 
 ## Version 1.4.7
+
 Since version 1.4.7, all deprecated methods/properties will not be deleted, but not be recommended to use.<br>
 If you want to receive all the new features and bugfixes, please consider switching from using the deprecated methods/properties.<br>
 [!!!] No support will be provided for any deprecated method or property.
@@ -32,15 +58,18 @@ It's highly recommended to switch to the new InventoryManager:
 See the [changelog](https://des-docs.tk/#/docs/main/1.4.7/general/changelog) for the full list of changes.
 
 ## Version 1.3.2
+
 Version 1.3.2 takes a much more object-oriented approach than previous versions. It also contains many bug fixes, optimizations and support for new Database Manager.
 
 Here's some examples of methods that were changed in this version:
+
 - `Economy.daily()` ==> `RewardManager.daily()`
 - `Economy.getDailyCooldown()` ==> `CooldownManager.daily()`
 - `Economy.all()` ==> `UtilsManager.all()`
-<br>
+  <br>
 
 So you have to change your code like this:
+
 - `eco.daily()` ==> `eco.rewards.daily()`
 - `eco.getDailyCooldown()` ==> `eco.cooldowns.daily()`
 - `eco.all()` ==> `eco.utils.all()`
@@ -48,6 +77,7 @@ So you have to change your code like this:
 See the [changelog](https://des-docs.tk/#/docs/main/1.3.2/general/changelog) for the full list of changes.
 
 ## Version 1.2.5
+
 In version 1.2.5 everything was optimized and all balance and bank balance methods were moved to objects:
 
 ```diff
@@ -77,6 +107,7 @@ In version 1.2.5 everything was optimized and all balance and bank balance metho
 ```
 
 ## ❗ | Useful Links
+
 <ul>
 <li><b><a href = "https://www.npmjs.com/package/discord-economy-super">NPM</a></b></li>
 <li><b><a href = "https://github.com/shadowplay1/discord-economy-super">GitHub</a></b></li>
