@@ -21,15 +21,14 @@ const DatabaseManager = require('./DatabaseManager')
  * const ShopItem = require('./ShopItem') // must be a class
  * 
  * class ShopManager extends BaseManager {
- *    constructor(options, memberID, guildID) {
- *       super(options, memberID, guildID, ShopItem)
+ *    constructor(options, memberID, guildID, database) {
+ *       super(options, memberID, guildID, ShopItem, database)
  * 
- *       this.guildID = guildID
- *       this.database = new DatabaseManager(options)
+ *       this.database = database
  *   }
  *  
- *  all() {
- *      const shop = this.database.fetch(`${this.guildID}.shop`) || []
+ *  async all() {
+ *      const shop = (await this.database.fetch(`${this.guildID}.shop`)) || []
         return shop.map(item => new ShopItem(this.guildID, this.database, item))
  *  }
  * }
@@ -42,9 +41,13 @@ class BaseManager extends Emitter {
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {any} constructor A constructor (EconomyUser, ShopItem, etc.) to work with.
+     * @param {DatabaseManager} database Database manager.
      */
-    constructor(options, memberID, guildID, constructor) {
+    constructor(options, memberID, guildID, constructor, database) {
         super()
+
+        delete options.connection
+
 
         /**
          * Economy configuration.
@@ -58,7 +61,7 @@ class BaseManager extends Emitter {
          * @type {DatabaseManager}
          * @private
          */
-        this.database = new DatabaseManager(options)
+        this.database = database
 
         /**
          * Member ID.
@@ -82,16 +85,18 @@ class BaseManager extends Emitter {
          * Amount of elements in database.
          * @type {number}
          */
-        this.length = this.all().length
+        this.length = 0
     }
 
     /**
      * Gets the first element in specified guild.
-     * @returns {any} First database object.
+     * @returns {Promise<any>} First database object.
      */
-    first() {
-        const array = this.all()
+    async first() {
+        const array = await this.all()
         const firstElement = array[0]
+
+        this.length = array.length
 
         if (!this.memberID) {
             return new this.baseConstructor(this.guildID, this.options, firstElement, this.database)
@@ -114,11 +119,13 @@ class BaseManager extends Emitter {
 
     /**
      * Gets the last element in specified guild.
-     * @returns {any} Last database object.
+     * @returns {Promise<any>} Last database object.
      */
-    last() {
+    async last() {
         const array = this.all()
         const lastElement = array[array.length - 1]
+
+        this.length = array.length
 
         if (!this.memberID) {
             return new this.baseConstructor(this.guildID, this.options, lastElement, this.database)
@@ -142,10 +149,16 @@ class BaseManager extends Emitter {
 
     /**
      * Returns an array of elements in specified guild.
-     * @returns {any[]} Array of elements in specified guild.
+     * @returns {Promise<any[]>} Array of elements in specified guild.
      */
-    toArray() {
-        const array = this.all()
+    async toArray() {
+
+        /**
+         * @type {any[]}
+         */
+        const array = await this.all()
+
+        this.length = array.length
 
         if (!this.memberID) {
             return array.map(element => {
@@ -179,13 +192,18 @@ class BaseManager extends Emitter {
      * @param {PredicateFunction} predicate 
      * A function that accepts up to three arguments. 
      * The filter method calls the predicate function one time for each element in the array.
+     * 
      * @param {any} [thisArg] 
      * An object to which the this keyword can refer in the callbackfn function. 
      * If thisArg is omitted, undefined is used as the this value.
-     * @returns {any} Database object.
+     * 
+     * @returns {Promise<any>} Database object.
      */
-    find(predicate, thisArg) {
-        return this.all().find(predicate, thisArg)
+    async find(predicate, thisArg) {
+        const allArray = await this.all()
+        this.length = allArray.length
+
+        return allArray.find(predicate, thisArg)
     }
 
     /**
@@ -200,10 +218,13 @@ class BaseManager extends Emitter {
      * @param {any} [thisArg] 
      * An object to which the this keyword can refer in the callbackfn function. 
      * If thisArg is omitted, undefined is used as the this value.
-     * @returns {number} Element index.
+     * @returns {Promise<number>} Element index.
      */
-    findIndex(predicate, thisArg) {
-        return this.all().findIndex(predicate, thisArg)
+    async findIndex(predicate, thisArg) {
+        const allArray = await this.all()
+        this.length = allArray.length
+
+        return allArray.findIndex(predicate, thisArg)
     }
 
     /**
@@ -212,10 +233,13 @@ class BaseManager extends Emitter {
      * Determines whether an array includes a certain element, returning true or false as appropriate.
      * @param {any} searchElement The element to search for.
      * @param {number} [fromIndex] The position in this array at which to begin searching for searchElement.
-     * @returns {boolean} Is the specified element included or not.
+     * @returns {Promise<boolean>} Is the specified element included or not.
      */
-    includes(searchElement, fromIndex) {
-        return this.all().includes(searchElement, fromIndex)
+    async includes(searchElement, fromIndex) {
+        const allArray = await this.all()
+        this.length = allArray.length
+
+        return allArray.includes(searchElement, fromIndex)
     }
 
     /**
@@ -228,10 +252,13 @@ class BaseManager extends Emitter {
      * @param {number} [fromIndex] 
      * The array index at which to begin the search. 
      * If fromIndex is omitted, the search starts at index 0.
-     * @returns {boolean} Is the specified element included or not.
+     * @returns {Promise<boolean>} Is the specified element included or not.
      */
-    has(searchElement, fromIndex) {
-        return this.all().includes(searchElement, fromIndex)
+    async has(searchElement, fromIndex) {
+        const allArray = await this.all()
+        this.length = allArray.length
+
+        return allArray.includes(searchElement, fromIndex)
     }
 
     /**
@@ -241,10 +268,13 @@ class BaseManager extends Emitter {
      * @param {number} [fromIndex] 
      * The array index at which to begin the search. 
      * If fromIndex is omitted, the search starts at index 0.
-     * @returns {number} Element index in the array.
+     * @returns {Promise<number>} Element index in the array.
      */
-    indexOf(searchElement, fromIndex) {
-        return this.all().indexOf(searchElement, fromIndex)
+    async indexOf(searchElement, fromIndex) {
+        const allArray = await this.all()
+        this.length = allArray.length
+
+        return allArray.indexOf(searchElement, fromIndex)
     }
 
     /**
@@ -254,20 +284,26 @@ class BaseManager extends Emitter {
      * @param {number} [fromIndex] 
      * The array index at which to begin searching backward. 
      * If fromIndex is omitted, the search starts at the last index in the array.
-     * @returns {number} Element index in the array.
+     * @returns {Promise<number>} Element index in the array.
      */
-    lastIndexOf(searchElement, fromIndex) {
-        return this.all().lastIndexOf(searchElement, fromIndex)
+    async lastIndexOf(searchElement, fromIndex) {
+        const allArray = await this.all()
+        this.length = allArray.length
+
+        return allArray.lastIndexOf(searchElement, fromIndex)
     }
 
     /**
      * This method is the same as `Array.reverse()`. 
      * 
      * Reverses the array of all elements and returns it.
-     * @returns {any[]} Reversed elements array.
+     * @returns {Promise<any[]>} Reversed elements array.
      */
-    reverse() {
-        return this.all().reverse()
+    async reverse() {
+        const allArray = await this.all()
+        this.length = allArray.length
+
+        return allArray.reverse()
     }
 
     /**
@@ -279,10 +315,13 @@ class BaseManager extends Emitter {
      * It is expected to return a negative value if first argument is less than second argument, 
      * zero if they're equal and a positive value otherwise. 
      * If omitted, the elements are sorted in ascending, ASCII character order.
-     * @returns {any[]} Sorted elements array.
+     * @returns {Promise<any[]>} Sorted elements array.
      */
-    sort(compareFn) {
-        return this.all().sort(compareFn)
+    async sort(compareFn) {
+        const allArray = await this.all()
+        this.length = allArray.length
+
+        return allArray.sort(compareFn)
     }
 
     /**
@@ -295,10 +334,13 @@ class BaseManager extends Emitter {
      * @param {any} [thisArg] 
      * An object to which the this keyword can refer in the callbackfn function. 
      * If thisArg is omitted, undefined is used as the this value.
-     * @returns {any[]}
+     * @returns {Promise<any[]>}
      */
-    filter(predicate, thisArg) {
-        return this.all().filter(predicate, thisArg)
+    async filter(predicate, thisArg) {
+        const allArray = await this.all()
+        this.length = allArray.length
+
+        return allArray.filter(predicate, thisArg)
     }
 
     /**
@@ -312,10 +354,13 @@ class BaseManager extends Emitter {
      * @param {any} [thisArg] 
      * An object to which the this keyword can refer in the callbackfn function. 
      * If thisArg is omitted, undefined is used as the this value.
-     * @returns {any}
+     * @returns {Promise<any>}
      */
-    map(callbackfn, thisArg) {
-        return this.all().map(callbackfn, thisArg)
+    async map(callbackfn, thisArg) {
+        const allArray = await this.all()
+        this.length = allArray.length
+
+        return allArray.map(callbackfn, thisArg)
     }
 
     /**
@@ -329,10 +374,13 @@ class BaseManager extends Emitter {
      * @param {any} [thisArg] 
      * An object to which the this keyword can refer in the callbackfn function. 
      * If thisArg is omitted, undefined is used as the this value.
-     * @returns {void}
+     * @returns {Promise<void>}
      */
-    forEach(callbackfn, thisArg) {
-        return this.all().forEach(callbackfn, thisArg)
+    async forEach(callbackfn, thisArg) {
+        const allArray = await this.all()
+        this.length = allArray.length
+
+        return allArray.forEach(callbackfn, thisArg)
     }
 
     /**
@@ -347,26 +395,35 @@ class BaseManager extends Emitter {
      * @param {any} [thisArg] 
      * An object to which the this keyword can refer in the callbackfn function. 
      * If thisArg is omitted, undefined is used as the this value.
-     * @returns {boolean} Is any of the elements meets the specified condition.
+     * @returns {Promise<boolean>} Is any of the elements meets the specified condition.
      */
-    some(predicate, thisArg) {
-        return this.all().some(predicate, thisArg)
+    async some(predicate, thisArg) {
+        const allArray = await this.all()
+        this.length = allArray.length
+
+        return allArray.some(predicate, thisArg)
     }
 
     /**
      * Returns an iterable of values in the array.
-     * @returns {IterableIterator<any>} An iterable of values in the array.
+     * @returns {Promise<IterableIterator<EconomyUser>>} An iterable of values in the array.
      */
-    values() {
-        return this.all().values()
+    async values() {
+        const allArray = await this.all()
+        this.length = allArray.length
+
+        return allArray.values()
     }
 
     /**
      * Returns a string representation of an array.
-     * @returns {string} String representation of an array.
+     * @returns {Promise<string>} String representation of an array.
      */
-    toString() {
-        return this.all().toString()
+    async toString() {
+        const allArray = await this.all()
+        this.length = allArray.length
+
+        return allArray.toString()
     }
 }
 

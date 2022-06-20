@@ -1,9 +1,8 @@
-const { existsSync, readFileSync, writeFileSync } = require('fs')
+const { exec } = require('child_process')
 const { promisify } = require('util')
 
-const DatabaseManager = require('./managers/DatabaseManager')
-const FetchManager = require('./managers/FetchManager')
 
+const DatabaseManager = require('./managers/DatabaseManager')
 const UtilsManager = require('./managers/UtilsManager')
 
 const BalanceManager = require('./managers/BalanceManager')
@@ -42,168 +41,194 @@ class Economy extends Emitter {
         super()
 
         /**
-         * Module ready status.
-         * @type {?boolean}
-         */
-        this.ready = false
-
-        /**
-         * Economy errored status.
-         * @type {?boolean}
-         */
-        this.errored = false
-
-        /**
-        * Module version.
-        * @type {string}
-        */
-        this.version = require('../package.json').version
-
-        /**
          * The Logger class.
          * @type {Logger}
          * @private
          */
         this._logger = new Logger(options)
 
-        if (options.debug) {
-            this._logger.debug('Economy version: ' + this.version, 'lightcyan')
-        }
-
         /**
-         * Link to the module's documentation website.
-         * @type {string}
-         */
-        this.docs = 'https://des-docs.tk'
-
-        /**
-        * Utils manager methods object.
-        * @type {UtilsManager}
-        */
-        this.utils = new UtilsManager(options, new DatabaseManager(options), new FetchManager(options))
-
-        /**
-         * Economy configuration.
-         * @type {?EconomyOptions}
-         */
-        this.options = this.utils.checkOptions(options.optionsChecker, options)
-
-        /**
-         * Econoomy managers list. Made for optimization purposes.
-         * @type {Manager[]}
-         */
-        this.managers = []
-
-        /**
-         * Colors object.
+         * Logger colors.
          * @type {LoggerColors}
+         * @private
          */
         this.colors = this._logger.colors
 
-        /**
-         * Database checking interval.
-         * @type {?NodeJS.Timeout}
-        */
-        this.interval = null
 
-        /**
-         * Economy error class.
-         * @type {EconomyError}
-         */
-        this.EconomyError = EconomyError
+        const connectionStartDate = Date.now()
 
-        /**
-         * Emitter class.
-         * @type {Emitter}
-         */
-        this.Emitter = Emitter
+        const QuickMongo = require('quick-mongo-super')
+        const mongo = new QuickMongo(options.connection)
 
-        /**
-        * Balance methods object.
-        * @type {BalanceManager}
-        */
-        this.balance = null
+        this._logger.debug('Connecting to MongoDB...', 'lightgreen')
 
-        /**
-        * Bank balance methods object.
-        * @type {BankManager}
-        */
-        this.bank = null
+        mongo.connect().then(() => {
+            const connectionTime = Date.now() - connectionStartDate
+            this._logger.debug(`MongoDB connection is established in ${connectionTime} ms.`, 'lightgreen')
 
-        /**
-        * Fetch manager methods object.
-        * @type {FetchManager}
-        */
-        this.fetcher = null
+            /**
+             * The QuickMongo instance.
+             * @type {QuickMongo}
+             * @private
+             */
+            this._mongo = mongo
 
-        /**
-        * Database manager methods object.
-        * @type {DatabaseManager}
-        */
-        this.database = null
+            /**
+             * Module ready status.
+             * @type {?boolean}
+             */
+            this.ready = false
 
-        /**
-        * Shop manager methods object.
-        * @type {ShopManager}
-        */
-        this.shop = null
+            /**
+             * Economy errored status.
+             * @type {?boolean}
+             */
+            this.errored = false
 
-        /**
-        * Inventory manager methods object.
-        * @type {InventoryManager}
-        */
-        this.inventory = null
+            /**
+            * Module version.
+            * @type {string}
+            */
+            this.version = require('../package.json').version
 
-        /**
-        * History manager methods object.
-        * @type {HistoryManager}
-        */
-        this.history = null
+            if (options.debug) {
+                this._logger.debug('Economy version: ' + this.version, 'lightcyan')
+            }
 
-        /**
-        * Bank balance methods object.
-        * @type {CooldownManager}
-        */
-        this.cooldowns = null
+            /**
+             * Link to the module's documentation website.
+             * @type {string}
+             */
+            this.docs = 'https://des-docs.tk'
 
-        /**
-        * Balance methods object.
-        * @type {RewardManager}
-        */
-        this.rewards = null
+            /**
+            * Utils manager methods object.
+            * @type {UtilsManager}
+            */
+            this.utils = new UtilsManager(options)
 
-        /**
-        * Economy users.
-        * @type {UserManager}
-        */
-        this.users = new UserManager(this.options)
+            /**
+             * Economy configuration.
+             * @type {?EconomyOptions}
+             */
+            this.options = this.utils.checkOptions(options.optionsChecker, options)
 
-        /**
-        * Economy guilds.
-        * @type {GuildManager}
-        */
-        this.guilds = new GuildManager(this.options)
+            /**
+             * Econoomy managers list. Made for optimization purposes.
+             * @type {Manager[]}
+             */
+            this.managers = []
 
-        /**
-        * Settings manager methods object.
-        * @type {SettingsManager}
-        */
-        this.settings = null
+            /**
+             * Database checking interval.
+             * @type {?NodeJS.Timeout}
+            */
+            this.interval = null
 
-        /**
-         * Economy instance.
-         * @type {Economy}
-         */
-        this.economy = this
+            /**
+             * Economy error class.
+             * @type {EconomyError}
+             */
+            this.EconomyError = EconomyError
 
-        this._logger.debug('Economy starting process launched.')
+            /**
+             * Emitter class.
+             * @type {Emitter}
+             */
+            this.Emitter = Emitter
 
-        this.init().then(status => {
-            if (status) {
-                this.ready = true
+            /**
+            * Balance methods object.
+            * @type {BalanceManager}
+            */
+            this.balance = null
 
-                this._logger.debug('Economy is ready!', 'green')
-                this.emit('ready')
+            /**
+            * Bank balance methods object.
+            * @type {BankManager}
+            */
+            this.bank = null
+
+            /**
+            * Database manager methods object.
+            * @type {DatabaseManager}
+            */
+            this.database = null
+
+            /**
+            * Shop manager methods object.
+            * @type {ShopManager}
+            */
+            this.shop = null
+
+            /**
+            * Inventory manager methods object.
+            * @type {InventoryManager}
+            */
+            this.inventory = null
+
+            /**
+            * History manager methods object.
+            * @type {HistoryManager}
+            */
+            this.history = null
+
+            /**
+            * Bank balance methods object.
+            * @type {CooldownManager}
+            */
+            this.cooldowns = null
+
+            /**
+            * Balance methods object.
+            * @type {RewardManager}
+            */
+            this.rewards = null
+
+            /**
+            * Economy users.
+            * @type {UserManager}
+            */
+            this.users = null
+
+            /**
+            * Economy guilds.
+            * @type {GuildManager}
+            */
+            this.guilds = null
+
+            /**
+            * Settings manager methods object.
+            * @type {SettingsManager}
+            */
+            this.settings = null
+
+            /**
+             * Economy instance.
+             * @type {Economy}
+             */
+            this.economy = this
+
+            this._logger.debug('Economy starting process launched.')
+
+            this.init().then(status => {
+                if (status) {
+                    this.ready = true
+
+                    this._logger.debug('Economy is ready!', 'green')
+                    this.emit('ready')
+                }
+            })
+
+        }).catch(err => {
+            if (err.message.includes('Command failed:')) {
+                console.log(
+                    `${this.colors.cyan}[Economy] ${this.colors.red}Failed to install ` +
+                    `${this.colors.yellow}'quick-mongo-super'${this.colors.red}. ` +
+                    `See the error details above.${this.colors.reset}`
+                )
+
+                process.exit(1)
             }
         })
     }
@@ -232,7 +257,7 @@ class Economy extends Emitter {
 
     /**
      * Starts the module.
-     * @returns {Promise<boolean>} If started successfully: true; else: Error instance.
+     * @returns {Promise<boolean>} If started successfully: true.
      */
     init() {
         let attempt = 0
@@ -304,23 +329,10 @@ class Economy extends Emitter {
 
     /**
      * Initializes the module.
-     * @returns {Promise<boolean>} If started successfully: true; else: Error instance.
+     * @returns {Promise<boolean>} If started successfully: true.
      * @private
      */
     _init() {
-        const reservedNames = ['package.json', 'package-lock.json', 'node_modules', 'mongo', 'mongodb']
-        const updateCountdown = this.options.updateCountdown
-
-        const isReservedStorage =
-            !this.options.storagePath.includes('testStorage123') &&
-            !__dirname.includes('discord-economy-super\\tests')
-
-        const isReservedPathUsed =
-            !__dirname.includes('discord-economy-super\\tests') &&
-            !__dirname.includes('discord-economy-super/tests')
-
-        const isFileExist = existsSync(this.options.storagePath)
-
         return new Promise(async (resolve, reject) => {
             try {
                 if (this.errored) return
@@ -371,95 +383,6 @@ class Economy extends Emitter {
                     }
                 } else this._logger.debug('Skipped the updates checking...')
 
-                if (this.options.checkStorage == undefined ? true : this.options.checkStorage) {
-                    this._logger.debug('Checking for reserved words in a storage file path...')
-
-                    if (!isFileExist && isReservedStorage) writeFileSync(this.options.storagePath, '{}')
-
-                    try {
-                        if (this.options.storagePath.includes('testStorage123') && isReservedPathUsed) {
-                            return reject(new EconomyError(errors.reservedName('testStorage123')))
-                        }
-
-                        for (const name of reservedNames) {
-                            if (this.options.storagePath.endsWith(name)) {
-                                return reject(new EconomyError(errors.reservedName(name)))
-                            }
-                        }
-
-                        this._logger.debug('Checking the data in a storage file...')
-
-                        const data = readFileSync(this.options.storagePath)
-                        JSON.parse(data.toString())
-
-                    } catch (err) {
-                        if (err.message.includes('Unexpected') && err.message.includes('JSON')) {
-                            return reject(new EconomyError(errors.wrongStorageData))
-                        }
-
-                        else return reject(err)
-                    }
-
-                    this._logger.debug(
-                        `Using storage file: ${this.options.storagePath}` +
-                        `${this.options.checkStorage ? `, checking every ${updateCountdown}ms.` : '.'}`, 'cyan'
-                    )
-                }
-
-                if (this.options.checkStorage == undefined ? true : this.options.checkStorage) {
-                    const storageExists = existsSync(this.options.storagePath)
-
-                    const interval = setInterval(() => {
-                        if (!storageExists) {
-                            this._logger.debug('Checking for reserved words in a storage file path...')
-
-                            try {
-                                const isReservedPathUsed =
-                                    this.options.storagePath.includes('testStorage123') &&
-                                    !__dirname.includes('discord-economy-super\\tests')
-
-                                if (isReservedPathUsed) {
-                                    throw new EconomyError(errors.reservedName('testStorage123'))
-                                }
-
-                                for (const name of reservedNames) {
-                                    if (this.options.storagePath.endsWith(name)) {
-                                        throw new EconomyError(errors.reservedName(name))
-                                    }
-                                }
-
-                                writeFileSync(this.options.storagePath, '{}', 'utf-8')
-                            } catch (err) {
-                                throw new EconomyError(errors.notReady)
-                            }
-
-                            console.log(
-                                `${this.colors.red}failed to find a database file;` +
-                                `created another one...${this.colors.reset}`
-                            )
-                        }
-
-                        try {
-                            if (!storageExists) writeFileSync(this.options.storagePath, '{}', 'utf-8')
-
-                            const data = readFileSync(this.options.storagePath)
-                            JSON.parse(data.toString())
-
-                        } catch (err) {
-                            if (err.message.includes('Unexpected token') ||
-                                err.message.includes('Unexpected end')) {
-                                reject(new EconomyError(errors.wrongStorageData))
-                            }
-
-                            else {
-                                reject(err)
-                                throw err
-                            }
-                        }
-
-                    }, updateCountdown)
-                    this.interval = interval
-                }
 
                 this._logger.debug('Starting the managers...', 'lightyellow')
                 this.start()
@@ -493,14 +416,6 @@ class Economy extends Emitter {
             {
                 name: 'bank',
                 manager: BankManager
-            },
-            {
-                name: 'fetcher',
-                manager: FetchManager
-            },
-            {
-                name: 'database',
-                manager: DatabaseManager
             },
             {
                 name: 'shop',
@@ -544,7 +459,8 @@ class Economy extends Emitter {
             'bankSet',
             'bankAdd',
             'bankSubtract',
-            'shopItemAd',
+            'shopItemAdd',
+            'shopItemRemove',
             'shopClear',
             'shopItemEdit',
             'shopItemBuy',
@@ -554,8 +470,11 @@ class Economy extends Emitter {
         ]
 
 
+        this.database = new DatabaseManager(this.options, this._mongo)
+        this._logger.debug('DatabaseManager is started.')
+
         for (const manager of managers) {
-            this[manager.name] = new manager.manager(this.options, new DatabaseManager(this.options))
+            this[manager.name] = new manager.manager(this.options, this.database)
             this._logger.debug(`${manager.manager.name} is started.`)
         }
 
@@ -571,6 +490,28 @@ class Economy extends Emitter {
         return true
     }
 }
+
+
+/**
+ * @typedef {object} LoggerColors
+ * @property {string} red Red color.
+ * @property {string} green Green color.
+ * @property {string} yellow Yellow color.
+ * @property {string} blue Blue color.
+ * @property {string} magenta Magenta color.
+ * @property {string} cyan Cyan color.
+ * @property {string} white White color.
+ * @property {string} reset Reset color.
+ * @property {string} black Black color.
+ * @property {string} lightgray Light gray color.
+ * @property {string} darkgray Dark gray color.
+ * @property {string} lightred Light red color.
+ * @property {string} lightgreen Light green color.
+ * @property {string} lightyellow Light yellow color.
+ * @property {string} lightblue Light blue color.
+ * @property {string} lightmagenta Light magenta color.
+ * @property {string} lightcyan Light cyan color.
+ */
 
 /**
 * Emits when someone's set the money on the balance.
@@ -721,7 +662,7 @@ class Economy extends Emitter {
 
 /**
  * @typedef {object} EconomyOptions Default Economy configuration.
- * @property {string} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
+ * @property {object} connection Connection info object.
  * @property {boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
  * @property {number} [dailyCooldown=86400000] Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  * @property {number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)

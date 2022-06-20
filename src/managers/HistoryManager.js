@@ -5,6 +5,7 @@ const errors = require('../structures/errors')
 
 const HistoryItem = require('../classes/HistoryItem')
 
+
 /**
  * History manager methods class.
  */
@@ -13,7 +14,6 @@ class HistoryManager {
     /**
     * History Manager.
     * @param {object} options Economy configuration.
-    * @param {string} options.storagePath Full path to a JSON file. Default: './storage.json'.
     * @param {string} options.dateLocale The region (example: 'ru' or 'en') to format date and time. Default: 'en'.
     * @param {boolean} options.savePurchasesHistory If true, the module will save all the purchases history.
     */
@@ -28,13 +28,6 @@ class HistoryManager {
         this.options = options
 
         /**
-         * Full path to a JSON file.
-         * @type {string}
-         * @private
-         */
-        this.storagePath = options.storagePath || './storage.json'
-
-        /**
         * Database Manager.
         * @type {DatabaseManager}
         * @private
@@ -46,10 +39,10 @@ class HistoryManager {
      * Shows the user's purchases history.
      * @param {string} memberID Member ID
      * @param {string} guildID Guild ID
-     * @returns {HistoryItem[]} User's purchases history.
+     * @returns {Promise<HistoryItem[]>} User's purchases history.
      */
-    fetch(memberID, guildID) {
-        const history = this.database.fetch(`${guildID}.${memberID}.history`)
+    async fetch(memberID, guildID) {
+        const history = (await this.database.fetch(`${guildID}.${memberID}.history`)) || []
 
         if (!this.options.savePurchasesHistory) {
             throw new EconomyError(errors.savingHistoryDisabled)
@@ -75,7 +68,7 @@ class HistoryManager {
     * This method is an alias for `HistoryManager.fetch()` method.
     * @param {string} memberID Member ID
     * @param {string} guildID Guild ID
-    * @returns {HistoryItem[]} User's purchases history.
+    * @returns {Promise<HistoryItem[]>} User's purchases history.
     */
     get(memberID, guildID) {
         return this.fetch(memberID, guildID)
@@ -85,10 +78,10 @@ class HistoryManager {
     * Clears the user's purchases history.
     * @param {string} memberID Member ID.
     * @param {string} guildID Guild ID.
-    * @returns {boolean} If cleared: true, else: false.
+    * @returns {Promise<boolean>} If cleared: true, else: false.
     */
-    clear(memberID, guildID) {
-        const history = this.fetch(memberID, guildID)
+    async clear(memberID, guildID) {
+        const history = (await this.fetch(memberID, guildID)) || []
 
         if (typeof memberID !== 'string') {
             throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
@@ -99,7 +92,9 @@ class HistoryManager {
         }
 
         if (!history) return false
-        return this.database.remove(`${guildID}.${memberID}.history`)
+
+        const result = await this.database.remove(`${guildID}.${memberID}.history`)
+        return result
     }
 
     /**
@@ -107,11 +102,11 @@ class HistoryManager {
      * @param {string | number} itemID Item ID or name.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
-     * @returns {boolean} If added: true, else: false.
+     * @returns {Promise<boolean>} If added: true, else: false.
      */
-    add(itemID, memberID, guildID) {
-        const shop = this.database.fetch(`${guildID}.shop`)
-        const history = this.database.fetch(`${guildID}.${memberID}.history`)
+    async add(itemID, memberID, guildID) {
+        const shop = (await this.database.fetch(`${guildID}.shop`)) || []
+        const history = (await this.database.fetch(`${guildID}.${memberID}.history`)) || []
 
         const item = shop.find(item => item.id == itemID || item.name == itemID)
 
@@ -130,7 +125,7 @@ class HistoryManager {
 
         if (!item) return false
 
-        return this.database.push(`${guildID}.${memberID}.history`, {
+        const result = await this.database.push(`${guildID}.${memberID}.history`, {
             id: history.length ? history[history.length - 1].id + 1 : 1,
             memberID,
             guildID,
@@ -140,6 +135,8 @@ class HistoryManager {
             maxAmount: item.maxAmount,
             date: new Date().toLocaleString(this.options.dateLocale || 'en')
         })
+
+        return result
     }
 
     /**
@@ -147,9 +144,9 @@ class HistoryManager {
      * @param {string | number} id History item ID.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
-     * @returns {boolean} If removed: true, else: false.
+     * @returns {Promise<boolean>} If removed: true, else: false.
      */
-    remove(id, memberID, guildID) {
+    async remove(id, memberID, guildID) {
         if (typeof id !== 'number' && typeof id !== 'string') {
             throw new EconomyError(errors.invalidTypes.id + typeof id)
         }
@@ -162,9 +159,9 @@ class HistoryManager {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
         }
 
-        const history = this.fetch(memberID, guildID)
+        const history = (await this.fetch(memberID, guildID)) || []
 
-        const historyItem = this.find(
+        const historyItem = await this.find(
             historyItem =>
                 historyItem.id == id &&
                 historyItem.memberID == memberID &&
@@ -176,7 +173,8 @@ class HistoryManager {
         if (!historyItem) return false
         history.splice(historyItemIndex, 1)
 
-        return this.database.set(`${guildID}.${memberID}.history`, history)
+        const result = await this.database.set(`${guildID}.${memberID}.history`, history)
+        return result
     }
 
     /**
@@ -184,10 +182,10 @@ class HistoryManager {
      * @param {string | number} id History item ID.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
-     * @returns {HistoryItem} Purchases history item.
+     * @returns {Promise<HistoryItem>} Purchases history item.
      */
-    find(id, memberID, guildID) {
-        const history = this.fetch(memberID, guildID)
+    async find(id, memberID, guildID) {
+        const history = (await this.fetch(memberID, guildID)) || []
 
         if (typeof id !== 'number' && typeof id !== 'string') {
             throw new EconomyError(errors.invalidTypes.id + typeof id)
@@ -203,7 +201,7 @@ class HistoryManager {
 
 
         const historyItem = history.find(historyItem => historyItem.id == id)
-        return new HistoryItem(guildID, memberID, this.options, historyItem) || null
+        return new HistoryItem(guildID, memberID, this.options, historyItem, this.database)
     }
 
     /**
@@ -213,7 +211,7 @@ class HistoryManager {
      * @param {string | number} id History item ID.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
-     * @returns {HistoryItem} Purchases history item.
+     * @returns {Promise<HistoryItem>} Purchases history item.
      */
     search(id, memberID, guildID) {
         return this.find(id, memberID, guildID)

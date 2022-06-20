@@ -1,6 +1,4 @@
 const DatabaseManager = require('../../managers/DatabaseManager')
-const FetchManager = require('../../managers/FetchManager')
-
 const SettingsManager = require('../../managers/SettingsManager')
 
 
@@ -13,8 +11,9 @@ class Settings {
      * Guild settings class.
      * @param {string} guildID Guild ID.
      * @param {EconomyOptions} options Economy configuration.
+     * @param {DatabaseManager} database Database Manager.
      */
-    constructor(guildID, options) {
+    constructor(guildID, options, database) {
 
         /**
          * Guild ID.
@@ -28,13 +27,13 @@ class Settings {
          * @type {SettingsManager}
          * @private
          */
-        this._settings = new SettingsManager(options, new DatabaseManager(options))
+        this._settings = new SettingsManager(options, database)
     }
 
     /**
      * Fetches the server's settings object.
      * @param {string} guildID Guild ID.
-     * @returns {SettingsTypes} The server settings object.
+     * @returns {Promise<SettingsTypes>} The server settings object.
      */
     all() {
         return this._settings.all(this, guildID)
@@ -48,7 +47,7 @@ class Settings {
      * configuration or default configuration.
      *
      * @param {Settings} key The setting to fetch.
-     * @returns {any} The setting from the database.
+     * @returns {Promise<any>} The setting from the database.
      */
     get(key) {
         return this._settings.get(key, this.guildID)
@@ -63,7 +62,7 @@ class Settings {
      *
      * @param {Settings} key The setting to change.
      * @param {any} value The value to set.
-     * @returns {SettingsTypes} The server settings object.
+     * @returns {Promise<SettingsTypes>} The server settings object.
      */
     set(key, value) {
         return this._settings.set(key, value, this.guildID)
@@ -78,7 +77,7 @@ class Settings {
      *
      * @param {Settings} key The setting to remove.
      * @param {string} guildID Guild ID.
-     * @returns {SettingsTypes} The server settings object.
+     * @returns {Promise<SettingsTypes>} The server settings object.
      */
     remove(key) {
         return this._settings.remove(key, this.guildID)
@@ -87,7 +86,7 @@ class Settings {
     /**
      * Resets all the settings to setting that are in configuration.
      * @param {string} guildID Guild ID.
-     * @returns {SettingsTypes} The server settings object.
+     * @returns {Promise<SettingsTypes>} The server settings object.
      */
     reset() {
         return this._settings.reset(this.guildID)

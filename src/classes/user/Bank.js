@@ -16,8 +16,9 @@ class Bank extends Emitter {
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {EconomyOptions} ecoOptions Economy configuration.
+     * @param {DatabaseManager} database Database Manager.
      */
-    constructor(memberID, guildID, options) {
+    constructor(memberID, guildID, options, database) {
         super()
 
         /**
@@ -43,14 +44,14 @@ class Bank extends Emitter {
          * @type {DatabaseManager}
          * @private
          */
-        this.database = new DatabaseManager(options)
+        this.database = database
     }
 
     /**
      * Sets the money amount on user's bank balance.
      * @param {number} amount Money amount
      * @param {string} [reason] The reason why you set the money.
-     * @returns {number} Money amount
+     * @returns {Promise<number>} Money amount
      */
     set(amount, reason) {
         const bank = this.get()
@@ -77,7 +78,7 @@ class Bank extends Emitter {
      * Adds the money amount on user's bank balance.
      * @param {number} amount Money amount.
      * @param {string} [reason] The reason why you add the money.
-     * @returns {number} Money amount.
+     * @returns {Promise<number>} Money amount.
      */
     add(amount, reason) {
         const bank = this.get()
@@ -104,7 +105,7 @@ class Bank extends Emitter {
      * Subtracts the money amount on user's bank balance.
      * @param {number} amount Money amount.
      * @param {string} [reason] The reason why you subtract the money.
-     * @returns {number} Money amount.
+     * @returns {Promise<number>} Money amount.
      */
     subtract(amount, reason) {
         const bank = this.get()
@@ -129,7 +130,7 @@ class Bank extends Emitter {
 
     /**
      * Fetches the user's bank balance.
-     * @returns {number} User's bank balance.
+     * @returns {Promise<number>} User's bank balance.
      */
     fetch() {
         return this.database.fetch(`${this.guildID}.${this.memberID}.bank`) || 0
@@ -139,7 +140,7 @@ class Bank extends Emitter {
      * Fetches the user's bank balance.
      * 
      * This method is an alias for 'EconomyUser.bank.fetch()' method.
-     * @returns {number} User's bank balance.
+     * @returns {Promise<number>} User's bank balance.
      */
     get() {
         return this.fetch()

@@ -1,5 +1,5 @@
 const EconomyError = require('../classes/util/EconomyError')
-const errors = require('../../src/structures/errors')
+const errors = require('../structures/errors')
 
 
 /**
@@ -86,17 +86,18 @@ class HistoryItem {
      * Removes the item from the history.
      * 
      * This method is an alias for 'HistoryItem.remove()' method.
-     * @returns {boolean} If removed: true, else: false.
+     * @returns {Promise<boolean>} If removed: true, else: false.
      */
-    delete() {
-        return this.remove()
+    async delete() {
+        const result = await this.remove()
+        return result
     }
 
     /**
      * Removes the item from the history.
-     * @returns {boolean} If removed: true, else: false.
+     * @returns {Promise<boolean>} If removed: true, else: false.
      */
-    remove() {
+    async remove() {
         const id = this.id
 
         if (typeof id !== 'number' && typeof id !== 'string') {
@@ -111,7 +112,7 @@ class HistoryItem {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
         }
 
-        const history = this.database
+        const history = (await this._database.fetch(`${this.guildID}.${this.memberID}.history`)) || []
 
         const historyItem = history.find(
             historyItem =>
@@ -125,7 +126,8 @@ class HistoryItem {
         if (!historyItem) return false
         history.splice(historyItemIndex, 1)
 
-        return this.database.set(`${guildID}.${memberID}.history`, history)
+        const result = await this.database.set(`${guildID}.${memberID}.history`, history)
+        return result
     }
 }
 

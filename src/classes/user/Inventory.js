@@ -18,8 +18,9 @@ class Inventory extends BaseManager {
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {EconomyOptions} options Economy configuration.
+     * @param {DatabaseManager} database Database Manager.
      */
-    constructor(memberID, guildID, options) {
+    constructor(memberID, guildID, options, database) {
         super(options, memberID, guildID, InventoryItem)
 
         /**
@@ -46,23 +47,24 @@ class Inventory extends BaseManager {
          * @type {DatabaseManager}
          * @private
          */
-        this.database = new DatabaseManager(options)
+        this.database = database
     }
 
     /**
      * Gets the item from user's inventory.
      * @param {string | number} itemID Item ID.
-     * @returns {InventoryItem} User's inventory item.
+     * @returns {Promise<InventoryItem>} User's inventory item.
      */
-    get(itemID) {
-        return this.fetch().find(item => item.id == itemID)
+    async get(itemID) {
+        const allInventory = await this.fetch()
+        return allInventory.find(item => item.id == itemID || item.name == itemID)
     }
 
     /**
      * Gets all the items in user's inventory.
      * 
-     * This method is an alias for 'EconomyUser.inventory.fetch' nethod.
-     * @returns {InventoryItem[]} User's inventory array.
+     * This method is an alias for 'Inventory.fetch' nethod.
+     * @returns {Promise<InventoryItem[]>} User's inventory array.
      */
     all() {
         return this.fetch()
@@ -72,12 +74,12 @@ class Inventory extends BaseManager {
      * Uses the item from user's inventory.
      * @param {string | number} itemID Item ID.
      * @param {any} [client] Discord Client [Specify if the role will be given in a discord server].
-     * @returns {string} Item message or null if item not found.
+     * @returns {Promise<string>} Item message or null if item not found.
      */
-    use(itemID, client) {
-        const inventory = this.fetch(memberID, guildID)
+    async use(itemID, client) {
+        const inventory = await this.fetch(memberID, guildID)
 
-        const itemObject = this.searchItem(itemID, memberID, guildID)
+        const itemObject = await this.findItem(itemID)
         const itemIndex = inventory.findIndex(invItem => invItem.id == itemObject?.id)
 
         const item = inventory[itemIndex]
@@ -115,7 +117,7 @@ class Inventory extends BaseManager {
             })
         }
 
-        this.removeItem(itemID, memberID, guildID)
+        await this.removeItem(itemID, memberID, guildID)
 
         let msg
         const string = item?.message || 'You have used this item!'
@@ -152,20 +154,16 @@ class Inventory extends BaseManager {
     /**
      * Adds the item from the shop to user's inventory.
      * @param {string | number} itemID Item ID.
-     * @returns {boolean} If added successfully: true, else: false.
+     * @returns {Promise<boolean>} If added successfully: true, else: false.
      */
-    add(itemID) {
-
-        /**
-         * @type {ItemData[]}
-         */
-        const shop = this.database.set(`${this.guildID}.shop`)
+    async add(itemID) {
+        const shop = await this.database.set(`${this.guildID}.shop`)
         const item = shop.find(shopItem => shopItem.id == itemID || shopItem.name == itemID)
 
         /**
         * @type {InventoryData[]}
         */
-        const inventory = this.fetcher.fetchInventory(memberID, guildID)
+        const inventory = await this.all()
         const inventoryItems = inventory.filter(invItem => invItem.name == item.name)
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
@@ -186,18 +184,19 @@ class Inventory extends BaseManager {
             date: new Date().toLocaleString(this.options.dateLocale || 'en')
         }
 
-        return this.database.push(`${guildID}.${memberID}.inventory`, itemData)
+        const result = await this.database.push(`${guildID}.${memberID}.inventory`, itemData)
+        return result
     }
 
     /**
      * Removes the item from user's inventory.
      * @param {string | number} itemID Item ID.
-     * @returns {boolean} If removed successfully: true, else: false.
+     * @returns {Promise<boolean>} If removed successfully: true, else: false.
      */
-    removeItem(itemID) {
-        const inventory = this.fetch(memberID, guildID)
+    async removeItem(itemID) {
+        const inventory = await this.all(memberID, guildID)
 
-        const item = this.searchItem(itemID, memberID, guildID)
+        const item = await this.findIndex(itemID, memberID, guildID)
         const itemIndex = inventory.findIndex(invItem => invItem.id == item?.id)
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
@@ -205,32 +204,35 @@ class Inventory extends BaseManager {
         }
 
         if (!item) return false
-        return this.database.pop(`${guildID}.${memberID}.inventory`, itemIndex)
+
+        const result = await this.database.pop(`${guildID}.${memberID}.inventory`, itemIndex)
+        return result
     }
 
     /**
      * Clears the user's inventory.
-     * @returns {boolean} If cleared: true, else: false.
+     * @returns {Promise<boolean>} If cleared: true, else: false.
      */
-    clear() {
+    async clear() {
         const inventory = this.fetch(this.memberID, this.guildID)
         if (!inventory) return false
 
-        return this.database.remove(`${this.guildID}.${this.memberID}.inventory`)
+        const result = await this.database.remove(`${this.guildID}.${this.memberID}.inventory`)
+        return result
     }
 
     /**
      * Fetches the user's inventory.
-     * @returns {InventoryItem[]} User's inventory array.
+     * @returns {Promise<InventoryItem[]>} User's inventory array.
      */
-    fetch() {
-        const inventory = this.database.fetch(`${this.guildID}.${this.memberID}.inventory`) || []
+    async fetch() {
+        const inventory = await this.database.fetch(`${this.guildID}.${this.memberID}.inventory`)
 
         return inventory.map(
             inventoryItem => new InventoryItem(
                 this.guildID, this.memberID,
                 this.options, inventoryItem,
-		this.database
+                this.database
             )
         )
     }
@@ -238,9 +240,9 @@ class Inventory extends BaseManager {
     /**
      * Gets the item from user's inventory.
      * 
-     * This method is an alias for 'EconomyUser.inventory.get()' method.
+     * This method is an alias for 'Inventory.get()' method.
      * @param {string | number} itemID Item ID.
-     * @returns {InventoryItem} User's inventory item.
+     * @returns {Promise<InventoryItem>} User's inventory item.
      */
     findItem(itemID) {
         return this.get(itemID)

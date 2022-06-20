@@ -22,6 +22,7 @@ class InventoryItem extends Emitter {
      * @param {InventoryData} itemObject Economy guild object.
      */
     constructor(guildID, memberID, ecoOptions, itemObject, database) {
+        super()
 
         /**
          * Economy configuration.
@@ -115,20 +116,20 @@ class InventoryItem extends Emitter {
      * @param {number} [quantity=1] Quantity of items to delete.
      * 
      * This method is an alias for 'InventoryItem.removeItem()' method.
-     * @returns {boolean} If removed: true, else: false.
+     * @returns {Promise<boolean>} If removed: true, else: false.
      */
-    delete(quantity = 1) {
-        const result = this.removeItem(quantity)
+    async delete(quantity = 1) {
+        const result = await this.removeItem(quantity)
         return result
     }
 
     /**
      * Removes an item from the shop.
      * @param {number} [quantity=1] Quantity of items to delete.
-     * @returns {boolean} If removed: true, else: false.
+     * @returns {Promise<boolean>} If removed: true, else: false.
      */
-    removeItem(quantity = 1) {
-        const inventory = this.database.fetch(`${this.guildID}.${this.memberID}.inventory`) || []
+    async removeItem(quantity = 1) {
+        const inventory = (await this.database.fetch(`${this.guildID}.${this.memberID}.inventory`)) || []
         const item = this
 
         const newInventory = [
@@ -136,17 +137,20 @@ class InventoryItem extends Emitter {
             ...Array(itemQuantity - quantity).fill(item.itemObject)
         ]
 
-        const result = this.database.set(`${this.guildID}.${this.memberID}.inventory`, newInventory)
+        const result = await this.database.set(`${this.guildID}.${this.memberID}.inventory`, newInventory)
         return result
     }
 
     /**
      * Uses the item from user's inventory.
+     * @param {number | string} itemID Item ID or name.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
      * @param {Client} [client] Discord Client [Specify if the role will be given in a discord server].
-     * @returns {string} Item message.
+     * @returns {Promise<string>} Item message.
      */
-    use(client) {
-        const inventory = this.database.fetch(`${this.guildID}.${this.memberID}.inventory`) || []
+    async use(client) {
+        const inventory = (await this.database.fetch(`${this.guildID}.${this.memberID}.inventory`)) || []
 
         const itemObject = this
         const itemIndex = inventory.findIndex(invItem => invItem.id == itemObject?.id)
@@ -188,13 +192,13 @@ class InventoryItem extends Emitter {
         const string = item?.message || 'You have used this item!'
 
         if (string.includes('[random=')) {
-            const s = string.slice(string.indexOf('[')).replace('random=', '')
+            const str = string.slice(string.indexOf('[')).replace('random=', '')
 
             let errored = false
             let arr
 
             try {
-                arr = JSON.parse(s.slice(0, s.indexOf(']') + 1))
+                arr = JSON.parse(str.slice(0, str.indexOf(']') + 1))
             } catch {
                 errored = true
             }
@@ -219,15 +223,15 @@ class InventoryItem extends Emitter {
      * This is the same as selling something.
      * 
      * @param {number} [quantity=1] Quantity of items to sell.
-     * @returns {ShopOperationInfo} Selling operation info.
+     * @returns {Promise<SellingOperationInfo>} Selling operation info.
      */
-    sell(quantity = 1) {
-        const inventory = this.database.fetch(`${this.guildID}.${this.memberID}.inventory`) || []
+    async sell(quantity = 1) {
+        const inventory = (await this.database.fetch(`${this.guildID}.${this.memberID}.inventory`)) || []
 
         const item = this
         const itemQuantity = inventory.filter(invItem => invItem.id == item.id).length
 
-        const percent = this.settings.get('sellingItemPercent', guildID)
+        const percent = (await this.settings.get('sellingItemPercent', guildID))
             || this.options.sellingItemPercent
 
         const sellingPrice = Math.floor((item?.price / 100) * percent)
@@ -243,8 +247,8 @@ class InventoryItem extends Emitter {
             }
         }
 
-        this.database.add(`${this.guildID}.${this.memberID}.money`, totalSellingPrice)
-        this.removeItem(quantity)
+        await this.database.add(`${this.guildID}.${this.memberID}.money`, totalSellingPrice)
+        await this.removeItem(quantity)
 
         return {
             status: true,

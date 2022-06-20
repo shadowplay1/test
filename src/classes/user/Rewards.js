@@ -1,6 +1,5 @@
 const RewardManager = require('../../managers/RewardManager')
 
-
 /**
  * User rewards.
  */
@@ -11,8 +10,9 @@ class Rewards {
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {EconomyOptions} options Economy configuration.
+     * @param {DatabaseManager} database Database Manager.
      */
-    constructor(memberID, guildID, options) {
+    constructor(memberID, guildID, options, database) {
 
         /**
         * Member ID.
@@ -37,7 +37,7 @@ class Rewards {
          * @type {RewardManager}
          * @private
          */
-        this._rewards = new RewardManager(options)
+        this._rewards = new RewardManager(options, database)
     }
 
     /**
@@ -45,10 +45,10 @@ class Rewards {
     * @param {string} [reason='claimed the daily reward'] 
     * The reason why the money was added. Default: 'claimed the daily reward'
     * 
-    * @returns {RewardData} Reward object information.
+    * @returns {Promise<RewardData>} Reward object information.
     */
     getDaily(reason) {
-        return this._rewards.daily(this.memberID, this.guildID, reason)
+        return this._rewards.getDaily(this.memberID, this.guildID, reason)
     }
 
     /**
@@ -56,10 +56,10 @@ class Rewards {
     * @param {string} [reason='claimed the work reward'] 
     * The reason why the money was added. Default: 'claimed the work reward'
     * 
-    * @returns {RewardData} Reward object information.
+    * @returns {Promise<RewardData>} Reward object information.
     */
     getWork(reason) {
-        return this._rewards.work(this.memberID, this.guildID, reason)
+        return this._rewards.getWork(this.memberID, this.guildID, reason)
     }
 
     /**
@@ -67,10 +67,10 @@ class Rewards {
     * @param {string} [reason='claimed the weekly reward'] 
     * The reason why the money was added. Default: 'claimed the weekly reward'
     * 
-    * @returns {RewardData} Reward object information.
+    * @returns {Promise<RewardData>} Reward object information.
     */
     getWeekly(reason) {
-        return this._rewards.weekly(this.memberID, this.guildID, reason)
+        return this._rewards.getWeekly(this.memberID, this.guildID, reason)
     }
 }
 

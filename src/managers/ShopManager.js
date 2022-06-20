@@ -16,7 +16,6 @@ class ShopManager extends Emitter {
     /**
       * Shop Manager.
       * @param {object} options Economy configuration.
-      * @param {string} options.storagePath Full path to a JSON file. Default: './storage.json'.
       * @param {string} options.dateLocale The region (example: 'ru' or 'en') to format date and time. Default: 'en'.
       * @param {boolean} options.subtractOnBuy
       * If true, when someone buys the item, their balance will subtract by item price.
@@ -25,8 +24,9 @@ class ShopManager extends Emitter {
       * If true, the deprecation warnings will be sent in the console.
       * 
       * @param {boolean} options.savePurchasesHistory If true, the module will save all the purchases history.
+      * @param {DatabaseManager} database Database manager.
      */
-    constructor(options = {}) {
+    constructor(options = {}, database) {
         super()
 
         /**
@@ -41,16 +41,16 @@ class ShopManager extends Emitter {
          * @type {DatabaseManager}
          * @private
          */
-        this.database = new DatabaseManager(options)
+        this.database = database
     }
 
     /**
      * Creates an item in shop.
      * @param {string} guildID Guild ID.
      * @param {AddItemOptions} options Configuration with item info.
-     * @returns {ShopItem} Item info.
+     * @returns {Promise<ShopItem>} Item info.
      */
-    addItem(guildID, options = {}) {
+    async addItem(guildID, options = {}) {
         let name = options.name
 
         const {
@@ -58,11 +58,11 @@ class ShopManager extends Emitter {
             description, maxAmount, role
         } = options
 
-        const dateLocale = this.database.fetch(`${guildID}.settings.dateLocale`)
+        const dateLocale = (await this.database.fetch(`${guildID}.settings.dateLocale`))
             || this.options.dateLocale
 
         const date = new Date().toLocaleString(dateLocale)
-        const shop = this.database.fetch(`${guildID}.shop`)
+        const shop = (await this.database.fetch(`${guildID}.shop`)) || []
 
         if (!name && itemName) {
             name = itemName
@@ -121,7 +121,7 @@ class ShopManager extends Emitter {
             custom: custom || {}
         }
 
-        this.database.push(`${guildID}.shop`, itemInfo)
+        await this.database.push(`${guildID}.shop`, itemInfo)
         return new ShopItem(guildID, this.database, itemInfo)
     }
 
@@ -131,7 +131,7 @@ class ShopManager extends Emitter {
      * This method is an alias for the `ShopManager.addItem()` method.
      * @param {string} guildID Guild ID.
      * @param {AddItemOptions} options Configuration with item info.
-     * @returns {ShopItem} Item info.
+     * @returns {Promise<ShopItem>} Item info.
      */
     add(guildID, options = {}) {
         return this.addItem(guildID, options)
@@ -145,9 +145,9 @@ class ShopManager extends Emitter {
      * This argument means what thing in item you want to edit (item property). 
      * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.
      * 
-     * @returns {boolean} If edited successfully: true, else: false.
+     * @returns {Promise<boolean>} If edited successfully: true, else: false.
      */
-    editItem(itemID, guildID, itemProperty, value) {
+    async editItem(itemID, guildID, itemProperty, value) {
         const itemProperties = ['description', 'price', 'name', 'message', 'maxAmount', 'role', 'custom']
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
@@ -166,12 +166,12 @@ class ShopManager extends Emitter {
             throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + value)
         }
 
-        const edit = (itemProperty, value) => {
+        const edit = async (itemProperty, value) => {
 
             /**
              * @type {ShopItem[]}
              */
-            const shop = this.fetch(guildID)
+            const shop = await this.fetch(guildID)
 
             const itemIndex = shop.findIndex(item => item.id == itemID || item.name == itemID)
             const item = shop[itemIndex]
@@ -179,7 +179,7 @@ class ShopManager extends Emitter {
             if (!item) return false
 
             item[itemProperty] = value
-            this.database.pull(`${guildID}.shop`, itemIndex, item)
+            await this.database.pull(`${guildID}.shop`, itemIndex, item)
 
             this.emit('shopItemEdit', {
                 itemID,
@@ -194,22 +194,28 @@ class ShopManager extends Emitter {
 
         switch (itemProperty) {
             case itemProperties[0]:
-                return edit(itemProperties[0], value)
+                const result = await edit(itemProperties[0], value)
+                return result
 
             case itemProperties[1]:
-                return edit(itemProperties[1], value)
+                const result1 = await edit(itemProperties[1], value)
+                return result1
 
             case itemProperties[2]:
-                return edit(itemProperties[2], value)
+                const result2 = await edit(itemProperties[2], value)
+                return result2
 
             case itemProperties[3]:
-                return edit(itemProperties[3], value)
+                const result3 = await edit(itemProperties[3], value)
+                return result3
 
             case itemProperties[4]:
-                return edit(itemProperties[4], value)
+                const result4 = await edit(itemProperties[4], value)
+                return result4
 
             case itemProperties[5]:
-                return edit(itemProperties[5], value)
+                const result5 = await edit(itemProperties[5], value)
+                return result5
 
             default:
                 return null
@@ -227,7 +233,7 @@ class ShopManager extends Emitter {
      * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.
      * @param {any} value Any value to set.
      * 
-     * @returns {boolean} If edited successfully: true, else: false.
+     * @returns {Promise<boolean>} If edited successfully: true, else: false.
      */
     edit(itemID, guildID, itemProperty, value) {
         return this.editItem(itemID, guildID, itemProperty, value)
@@ -238,7 +244,7 @@ class ShopManager extends Emitter {
      * @param {string | number} itemID Item ID or name.
      * @param {string} guildID Guild ID.
      * @param {object} custom Custom item data object.
-     * @returns {boolean} If set successfully: true, else: false.
+     * @returns {Promise<boolean>} If set successfully: true, else: false.
      */
     setCustom(itemID, guildID, customObject) {
         return this.editItem(itemID, guildID, 'custom', customObject)
@@ -248,14 +254,14 @@ class ShopManager extends Emitter {
      * Removes an item from the shop.
      * @param {number | string} itemID Item ID or name .
      * @param {string} guildID Guild ID.
-     * @returns {boolean} If removed: true, else: false.
+     * @returns {Promise<boolean>} If removed: true, else: false.
      */
-    removeItem(itemID, guildID) {
+    async removeItem(itemID, guildID) {
 
         /**
         * @type {ShopItem[]}
         */
-        const shop = this.fetch(guildID)
+        const shop = await this.fetch(guildID)
 
         const itemIndex = shop.findIndex(item => item.id == itemID || item.name == itemID)
         const item = shop[itemIndex]
@@ -268,7 +274,7 @@ class ShopManager extends Emitter {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
         }
 
-        this.database.pop(`${guildID}.shop`, itemIndex)
+        await this.database.pop(`${guildID}.shop`, itemIndex)
 
         this.emit('shopItemRemove', {
             id: item.id,
@@ -288,10 +294,10 @@ class ShopManager extends Emitter {
     /**
      * Clears the shop.
      * @param {string} guildID Guild ID.
-     * @returns {boolean} If cleared: true, else: false.
+     * @returns {Promise<boolean>} If cleared: true, else: false.
      */
-    clear(guildID) {
-        const shop = this.fetch(guildID)
+    async clear(guildID) {
+        const shop = await this.fetch(guildID)
 
         if (typeof guildID !== 'string') {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
@@ -302,66 +308,26 @@ class ShopManager extends Emitter {
             return false
         }
 
-        this.database.remove(`${guildID}.shop`)
+        await this.database.remove(`${guildID}.shop`)
         this.emit('shopClear', true)
 
         return true
     }
 
     /**
-     * Clears the user's inventory.
-     * 
-     * [!!!] This method is deprecated.
-     * If you want to get all the bugfixes and
-     * use the newest inventory features, please
-     * switch to the usage of the new InventoryManager.
-     * 
-     * [!!!] No help will be provided for inventory
-     * related methods in ShopManager.
-     * @param {string} memberID Member ID.
-     * @param {string} guildID Guild ID.
-     * @returns {boolean} If cleared: true, else: false.
-     * @deprecated
-     */
-    clearInventory(memberID, guildID) {
-        if (this.options.deprecationWarnings) {
-            console.log(
-                errors.deprecationWarning(
-                    'ShopManager', 'clearInventory',
-                    'InventoryManager', 'clear',
-                    ['memberID', 'guildID'],
-                    ['memberID', 'guildID']
-                )
-            )
-        }
-
-
-        const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`) || []
-
-        if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
-        }
-
-        if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
-        }
-
-        if (!inventory) return false
-
-        return this.database.remove(`${guildID}.${memberID}.inventory`)
-    }
-
-    /**
      * Shows all items in the shop.
      * @param {string} guildID Guild ID
-     * @returns {ShopItem[]} The shop array.
+     * @returns {Promise<ShopItem[]>} The shop array.
      */
-    fetch(guildID) {
+    async fetch(guildID) {
         if (typeof guildID !== 'string') {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
         }
 
-        const shop = this.database.fetch(`${guildID}.shop`)
+        /**
+         * @type {ShopItem[]}
+         */
+        const shop = (await this.database.fetch(`${guildID}.shop`)) || []
         return shop.map(item => new ShopItem(guildID, this.database, item))
     }
 
@@ -370,7 +336,7 @@ class ShopManager extends Emitter {
      * 
      * This method is an alias for the `ShopManager.fetch()` method.
      * @param {string} guildID Guild ID
-     * @returns {ShopItem[]} The shop array.
+     * @returns {Promise<ShopItem[]>} The shop array.
      */
     get(guildID) {
         return this.fetch(guildID)
@@ -381,7 +347,7 @@ class ShopManager extends Emitter {
      * 
      * This method is an alias for the `ShopManager.get()` method.
      * @param {string} guildID Guild ID
-     * @returns {ShopItem[]} The shop array.
+     * @returns {Promise<ShopItem[]>} The shop array.
      */
     all(guildID) {
         return this.get(guildID)
@@ -391,14 +357,14 @@ class ShopManager extends Emitter {
      * Searches for the item in the shop.
      * @param {number | string} itemID Item ID or name.
      * @param {string} guildID Guild ID.
-     * @returns {ShopItem} If item not found: null; else: item info object.
+     * @returns {Promise<ShopItem>} If item not found: null; else: item info object.
      */
-    searchItem(itemID, guildID) {
+    async searchItem(itemID, guildID) {
 
         /**
         * @type {ShopItem[]}
         */
-        const shop = this.fetch(guildID)
+        const shop = await this.fetch(guildID)
         const item = shop.find(item => item.id == itemID || item.name == itemID)
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
@@ -419,60 +385,10 @@ class ShopManager extends Emitter {
      * This method is an alias for the `ShopManager.searchItem()` method.
      * @param {number | string} itemID Item ID or name.
      * @param {string} guildID Guild ID.
-     * @returns {ShopItem} If item not found: null; else: item info object.
+     * @returns {Promise<ShopItem>} If item not found: null; else: item info object.
      */
     findItem(itemID, guildID) {
         return this.searchItem(itemID, guildID)
-    }
-
-    /**
-     * Searches for the item in the inventory.
-     *
-     * [!!!] This method is deprecated.
-     * If you want to get all the bugfixes and
-     * use the newest inventory features, please
-     * switch to the usage of the new InventoryManager.
-     * 
-     * [!!!] No help will be provided for inventory
-     * related methods in ShopManager.
-     * @param {number | string} itemID Item ID or name.
-     * @param {string} memberID Member ID.
-     * @param {string} guildID Guild ID.
-     * @returns {InventoryData} If item not found: null; else: item info object.
-     * @deprecated
-     */
-    searchInventoryItem(itemID, memberID, guildID) {
-        if (this.options.deprecationWarnings) {
-            console.log(
-                errors.deprecationWarning(
-                    'ShopManager', 'searchInventoryItem',
-                    'InventoryManager', 'searchItem',
-                    ['itemID', 'memberID', 'guildID'],
-                    ['itemID', 'memberID', 'guildID']
-                )
-            )
-        }
-
-        /**
-        * @type {InventoryData[]}
-        */
-        const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`) || []
-        const item = inventory.find(item => item.id == itemID || item.name == itemID)
-
-        if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
-        }
-
-        if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
-        }
-
-        if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
-        }
-
-        if (!item) return null
-        return item
     }
 
     /**
@@ -485,25 +401,25 @@ class ShopManager extends Emitter {
      * @param {string} [reason='received the item from the shop'] 
      * The reason why the money was subtracted. Default: 'received the item from the shop'.
      * 
-     * @returns {ShopOperationInfo} Operation information object.
+     * @returns {Promise<ShopOperationInfo>} Operation information object.
      */
-    buy(itemID, memberID, guildID, quantity = 1, reason = 'received the item from the shop') {
-        const balance = this.database.fetch(`${guildID}.${memberID}.money`)
+    async buy(itemID, memberID, guildID, quantity = 1, reason = 'received the item from the shop') {
+        const balance = (await this.database.fetch(`${guildID}.${memberID}.money`)) || []
 
-        const shop = this.fetch(guildID)
+        const shop = (await this.fetch(guildID)) || []
         const item = shop.find(item => item.id == itemID || item.name == itemID)
 
-        const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`) || []
+        const inventory = (await this.database.fetch(`${guildID}.${memberID}.inventory`)) || []
         const inventoryItems = inventory.filter(invItem => invItem.name == item.name)
 
 
-        const dateLocale = this.database.fetch(`${guildID}.settings.dateLocale`)
+        const dateLocale = (await this.database.fetch(`${guildID}.settings.dateLocale`))
             || this.options.dateLocale
 
-        const subtractOnBuy = this.database.fetch(`${guildID}.settings.subtractOnBuy`)
+        const subtractOnBuy = (await this.database.fetch(`${guildID}.settings.subtractOnBuy`))
             || this.options.subtractOnBuy
 
-        const savePurchasesHistory = this.database.fetch(`${guildID}.settings.savePurchasesHistory`)
+        const savePurchasesHistory = (await this.database.fetch(`${guildID}.settings.savePurchasesHistory`))
             || this.options.savePurchasesHistory
 
 
@@ -524,7 +440,7 @@ class ShopManager extends Emitter {
             message: 'item not found',
             item: null,
             quantity: 0,
-            totalPrice: 0,
+            totalPrice: 0
         }
 
 
@@ -546,7 +462,7 @@ class ShopManager extends Emitter {
         }
 
         if (subtractOnBuy) {
-            this.database.subtract(`${guildID}.${memberID}.money`, totalPrice)
+            await this.database.subtract(`${guildID}.${memberID}.money`, totalPrice)
 
             this.emit('balanceSubtract', {
                 type: 'subtract',
@@ -558,15 +474,16 @@ class ShopManager extends Emitter {
             })
         }
 
-        this.database.set(`${guildID}.${memberID}.inventory`, newInventory)
+        console.log(newInventory)
+        await this.database.set(`${guildID}.${memberID}.inventory`, newInventory)
 
         if (savePurchasesHistory) {
-            const shop = this.database.fetch(`${guildID}.shop`) || []
-            const history = this.database.fetch(`${guildID}.${memberID}.history`) || []
+            const shop = (await this.database.fetch(`${guildID}.shop`)) || []
+            const history = (await this.database.fetch(`${guildID}.${memberID}.history`)) || []
 
             const item = shop.find(item => item.id == itemID || item.name == itemID)
 
-            this.database.push(`${guildID}.${memberID}.history`, {
+            await this.database.push(`${guildID}.${memberID}.history`, {
                 id: history.length ? history[history.length - 1].id + 1 : 1,
                 memberID,
                 guildID,
@@ -604,219 +521,10 @@ class ShopManager extends Emitter {
      * @param {string} [reason='received the item from the shop'] 
      * The reason why the money was subtracted. Default: 'received the item from the shop'.
      * 
-     * @returns {ShopOperationInfo} Operation information object.
+     * @returns {Promise<ShopOperationInfo>} Operation information object.
      */
     buyItem(itemID, memberID, guildID, quantity, reason) {
         return this.buy(itemID, memberID, guildID, quantity, reason)
-    }
-
-    /**
-     * Shows all items in user's inventory.
-     * 
-     * [!!!] This method is deprecated.
-     * If you want to get all the bugfixes and
-     * use the newest inventory features, please
-     * switch to the usage of the new InventoryManager.
-     * 
-     * [!!!] No help will be provided for inventory
-     * related methods in ShopManager.
-     * @param {string} memberID Member ID.
-     * @param {string} guildID Guild ID.
-     * @returns {InventoryData[]} User's inventory array.
-     * @deprecated
-     */
-    inventory(memberID, guildID) {
-        if (this.options.deprecationWarnings) {
-            console.log(
-                errors.deprecationWarning(
-                    'ShopManager', 'inventory',
-                    'InventoryManager', 'get',
-                    ['memberID', 'guildID'],
-                    ['memberID', 'guildID']
-                )
-            )
-        }
-
-        const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`) || []
-
-        if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
-        }
-
-        if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
-        }
-
-        return inventory
-    }
-
-    /**
-     * Uses the item from user's inventory.
-     * 
-     * [!!!] This method is deprecated.
-     * If you want to get all the bugfixes and
-     * use the newest inventory features, please
-     * switch to the usage of the new InventoryManager.
-     * 
-     * [!!!] No help will be provided for inventory
-     * related methods in ShopManager.
-     * @param {number | string} itemID Item ID or name.
-     * @param {string} memberID Member ID.
-     * @param {string} guildID Guild ID.
-     * @param {Client} client The Discord Client. [Optional]
-     * @returns {String | boolean} Item message or null if item not found.
-     * @deprecated
-     */
-    useItem(itemID, memberID, guildID, client) {
-        if (this.options.deprecationWarnings) {
-            console.log(
-                errors.deprecationWarning(
-                    'ShopManager', 'useItem',
-                    'InventoryManager', 'useItem',
-                    ['itemID', 'memberID', 'guildID', '[client]'],
-                    ['itemID', 'memberID', 'guildID', '[client]']
-                )
-            )
-        }
-
-        /**
-         * @type {InventoryData[]}
-         */
-        const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`) || []
-        const itemIndex = inventory.findIndex(invItem => invItem.id == itemID || invItem.name == itemID)
-        const item = inventory[itemIndex]
-
-        if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
-        }
-
-        if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
-        }
-
-        if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
-        }
-
-        if (!item) return null
-
-        if (item.role) {
-            if (item.role && !client) {
-                throw new EconomyError(errors.noClient)
-            }
-
-            const guild = client.guilds.cache.get(guildID)
-            const roleID = item.role.replace('<@&', '').replace('>', '')
-
-            guild.roles.fetch(roleID).then(role => {
-                const member = guild.members.cache.get(memberID)
-
-                member.roles.add(role).catch(err => {
-                    if (!role) {
-                        return console.error(new EconomyError(errors.roleNotFound + roleID))
-                    }
-
-                    console.error(
-                        `\x1b[31mFailed to give a role "${guild.roles.cache.get(roleID)?.name}"` +
-                        `on guild "${guild.name}" to member ${guild.member(memberID).user.tag}:\x1b[36m`
-                    )
-
-                    console.error(err)
-                    console.error('\x1b[0m')
-                })
-            })
-
-            this.database.pop(`${guildID}.${memberID}.inventory`, itemIndex + 1)
-            this.emit('shopItemUse', item)
-
-            return item.message
-        }
-    }
-
-    /**
-     * Shows the user's purchase history.
-     * 
-     * [!!!] This method is deprecated.
-     * If you want to get all the bugfixes and
-     * use the newest history features, please
-     * switch to the usage of the new HistoryManager.
-     * 
-     * [!!!] No help will be provided for history
-     * related methods in ShopManager.
-     * @param {string} memberID Member ID
-     * @param {string} guildID Guild ID
-     * @returns {HistoryData[]} User's purchase history.
-     * @deprecated
-     */
-    history(memberID, guildID) {
-        if (this.options.deprecationWarnings) {
-            console.log(
-                errors.deprecationWarning(
-                    'ShopManager', 'history',
-                    'HistoryManager', 'fetch',
-                    ['memberID', 'guildID'],
-                    ['memberID', 'guildID']
-                )
-            )
-        }
-
-        const history = this.database.fetch(`${guildID}.${memberID}.history`)
-
-        if (!this.options.savePurchasesHistory) {
-            throw new EconomyError(errors.savingHistoryDisabled)
-        }
-
-        if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
-        }
-
-        if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
-        }
-
-        return history
-    }
-
-    /**
-    * Clears the user's purchases history.
-    * 
-    * [!!!] This method is deprecated.
-    * If you want to get all the bugfixes and
-    * use the newest history features, please
-    * switch to the usage of the new HistoryManager.
-    * 
-    * [!!!] No help will be provided for history
-    * related methods in ShopManager.
-    * @param {string} memberID Member ID.
-    * @param {string} guildID Guild ID.
-    * @returns {boolean} If cleared: true, else: false.
-    * @deprecated
-    */
-    clearHistory(memberID, guildID) {
-        if (this.options.deprecationWarnings) {
-            console.log(
-                errors.deprecationWarning(
-                    'ShopManager', 'clearHistory',
-                    'HistoryManager', 'clear',
-                    ['memberID', 'guildID'],
-                    ['memberID', 'guildID']
-                )
-            )
-        }
-
-        const history = this.database.fetch(`${guildID}.${memberID}.history`)
-
-        if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
-        }
-
-        if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
-        }
-
-        if (!history) return false
-
-        return this.database.remove(`${guildID}.${memberID}.history`)
     }
 }
 
@@ -868,8 +576,6 @@ class ShopManager extends Emitter {
 
 /**
  * @typedef {object} EconomyOptions Default Economy configuration.
- * @property {string} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
- * @property {boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
  * @property {number} [dailyCooldown=86400000]
  * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  *
@@ -891,7 +597,6 @@ class ShopManager extends Emitter {
  * @property {boolean} [subtractOnBuy=true]
  * If true, when someone buys the item, their balance will subtract by item price. Default: false
  *
- * @property {number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
  * @property {string} [dateLocale='en'] The region (example: 'ru' or 'en') to format the date and time. Default: 'en'.
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.

@@ -16,8 +16,9 @@ class Balance extends Emitter {
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {EconomyOptions} ecoOptions Economy configuration.
+     * @param {DatabaseManager} database Database manager.
      */
-    constructor(memberID, guildID, ecoOptions) {
+    constructor(memberID, guildID, ecoOptions, database) {
         super()
 
         /**
@@ -37,14 +38,14 @@ class Balance extends Emitter {
          * @type {DatabaseManager}
          * @private
          */
-        this.database = new DatabaseManager(ecoOptions)
+        this.database = database
     }
 
     /**
      * Sets the money amount on user's balance.
      * @param {number} amount Money amount
      * @param {string} [reason] The reason why you set the money.
-     * @returns {number} Money amount
+     * @returns {Promise<number>} Money amount
      */
     set(amount, reason) {
         const balance = this.get()
@@ -71,7 +72,7 @@ class Balance extends Emitter {
      * Adds the money amount on user's balance.
      * @param {number} amount Money amount.
      * @param {string} [reason] The reason why you add the money.
-     * @returns {number} Money amount.
+     * @returns {Promise<number>} Money amount.
      */
     add(amount, reason) {
         const balance = this.get()
@@ -98,7 +99,7 @@ class Balance extends Emitter {
      * Subtracts the money amount on user's balance.
      * @param {number} amount Money amount.
      * @param {string} [reason] The reason why you subtract the money.
-     * @returns {number} Money amount.
+     * @returns {Promise<number>} Money amount.
      */
     subtract(amount, reason) {
         const balance = this.get()
@@ -123,9 +124,7 @@ class Balance extends Emitter {
 
     /**
      * Fetches the user's balance.
-     * 
-     * This method is an alias for 'EconomyUser.balance.fetch()' method
-     * @returns {number} User's balance.
+     * @returns {Promise<number>} User's balance.
      */
     get() {
         return this.database.fetch(`${this.guildID}.${this.memberID}.money`) || 0
@@ -133,7 +132,9 @@ class Balance extends Emitter {
 
     /**
      * Fetches the user's balance.
-     * @returns {number} User's balance.
+     * 
+     * This method is an alias for 'Balance.get()' method
+     * @returns {Promise<number>} User's balance.
      */
     fetch() {
         return this.get()
@@ -142,7 +143,7 @@ class Balance extends Emitter {
     /**
      * Sends the money to a specified user.
      * @param {TransferingOptions} options Transfering options.
-     * @returns {number} Amount of money that was sent.
+     * @returns {Promise<number>} Amount of money that was sent.
      */
     transfer(options) {
         const {

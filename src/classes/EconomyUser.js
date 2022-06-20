@@ -11,6 +11,8 @@ const Rewards = require('./user/Rewards')
 
 const Items = require('./user/Items')
 
+const defaultUserObject = require('../structures/DefaultUserObject')
+
 
 /**
 * Economy user class.
@@ -23,7 +25,6 @@ class EconomyUser {
      * @param {string} guildID Guild ID.
      * @param {EconomyOptions} ecoOptions Economy configuration.
      * @param {RawEconomyUser} userObject Economy user object.
-     * @param {DatabaseManager} database Database Manager.
      */
     constructor(id, guildID, ecoOptions, userObject, database) {
 
@@ -58,43 +59,43 @@ class EconomyUser {
          * @type {ShopManager}
          * @private
          */
-        this._shop = new ShopManager(this.options)
+        this._shop = new ShopManager(this.options, database)
 
         /**
          * User cooldowns.
          * @type {Cooldowns}
          */
-        this.cooldowns = new Cooldowns(userObject, ecoOptions)
+        this.cooldowns = new Cooldowns(userObject, ecoOptions, database)
 
         /**
          * User history.
          * @type {History}
          */
-        this.history = new History(id, guildID, ecoOptions)
+        this.history = new History(id, guildID, ecoOptions, database)
 
         /**
          * User inventory.
          * @type {Inventory}
          */
-        this.inventory = new Inventory(id, guildID, ecoOptions)
+        this.inventory = new Inventory(id, guildID, ecoOptions, database)
 
         /**
          * User balance.
          * @type {Balance}
          */
-        this.balance = new Balance(id, guildID, ecoOptions)
+        this.balance = new Balance(id, guildID, ecoOptions, database)
 
         /**
          * User bank balance.
          * @type {Bank}
          */
-        this.bank = new Bank(id, guildID, ecoOptions)
+        this.bank = new Bank(id, guildID, ecoOptions, database)
 
         /**
          * User rewards.
          * @type {Rewards}
          */
-        this.rewards = new Rewards(id, guildID, ecoOptions)
+        this.rewards = new Rewards(id, guildID, ecoOptions, database)
 
         /**
          * User items.
@@ -108,28 +109,29 @@ class EconomyUser {
         for (const [key, value] of Object.entries(userObject || {})) {
             this[key] = value
         }
+
     }
 
     /**
      * Deletes the user from database.
-     * @returns {EconomyUser} Deleted user object.
+     * @returns {Promise<EconomyUser>} Deleted user object.
      */
-    delete() {
-        this._shop.database.remove(`${guildID}.${memberID}`)
+    async delete() {
+        await this._shop.database.remove(`${guildID}.${memberID}`)
         return this
     }
 
     /**
      * Sets the default user object for a specified member.
-     * @returns {boolean} If reset successfully: true; else: false.
+     * @returns {Promise<boolean>} If reset successfully: true; else: false.
      */
-    reset() {
+    async reset() {
         const defaultObj = defaultUserObject
 
         defaultObj.id = memberID
         defaultObj.guildID = guildID
 
-        const result = this._shop.database.set(`${guildID}.${memberID}`, defaultObj)
+        const result = await this._shop.database.set(`${guildID}.${memberID}`, defaultObj)
         return result
     }
 }
@@ -187,8 +189,6 @@ class EconomyUser {
 
 /**
  * @typedef {object} EconomyOptions Default Economy configuration.
- * @property {string} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
- * @property {boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
  * @property {number} [dailyCooldown=86400000] 
  * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  * 
@@ -210,7 +210,6 @@ class EconomyUser {
  * 
  * @property {boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
  * 
- * @property {number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
  * @property {string} [dateLocale='en'] The region (example: 'ru'; 'en') to format the date and time. Default: 'en'.
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.

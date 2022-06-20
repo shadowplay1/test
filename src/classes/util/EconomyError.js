@@ -1,6 +1,6 @@
 /**
  * EconomyError class.
- * @extends {Error}
+ * @extends Error
  */
 class EconomyError extends Error {
 

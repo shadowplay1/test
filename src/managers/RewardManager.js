@@ -26,16 +26,9 @@ class RewardManager {
     /**
       * Reward Manager.
       * @param {object} options Economy configuration.
-      * @param {string} options.storagePath Full path to a JSON file. Default: './storage.json'.
-      * @param {number} options.dailyCooldown Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
-      * @param {number} options.workCooldown Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
-      * @param {number} options.dailyAmount Amount of money for Daily Command. Default: 100.
-      * @param {number} options.weeklyCooldown
-      * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
-      * @param {number} options.weeklyAmount Amount of money for Weekly Command. Default: 1000.
-      * @param {Number | Array} options.workAmount Amount of money for Work Command. Default: [10, 50].
+      * @param {DatabaseManager} database Database manager.
      */
-    constructor(options) {
+    constructor(options, database) {
 
         /**
          * Economy configuration.
@@ -49,21 +42,21 @@ class RewardManager {
         * @type {DatabaseManager}
         * @private
         */
-        this.database = new DatabaseManager(options)
+        this.database = database
 
         /**
          * Cooldown manager methods object.
          * @type {CooldownManager}
          * @private
          */
-        this.cooldowns = new CooldownManager(options)
+        this.cooldowns = new CooldownManager(options, database)
 
         /**
          * Balance manager methods object.
          * @type {BalanceManager}
          * @private
          */
-        this.balance = new BalanceManager(options)
+        this.balance = new BalanceManager(options, database)
     }
 
     /**
@@ -71,16 +64,16 @@ class RewardManager {
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {string} reason The reason why the money was added. Default: 'claimed the daily reward'.
-     * @returns {RewardData} Daily reward object.
+     * @returns {Promise<RewardData>} Daily reward object.
     */
-    daily(memberID, guildID, reason = 'claimed the daily reward') {
+    async getDaily(memberID, guildID, reason = 'claimed the daily reward') {
         if (typeof memberID !== 'string') throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
         if (typeof guildID !== 'string') throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
 
-        const cooldown = this.database.get(`${guildID}.settings.dailyCooldown`)
+        const cooldown = await this.database.get(`${guildID}.settings.dailyCooldown`)
             || this.options.dailyCooldown
 
-        const defaultDailyReward = this.database.get(`${guildID}.settings.dailyCooldown`)
+        const defaultDailyReward = await this.database.get(`${guildID}.settings.dailyCooldown`)
             || this.options.dailyAmount
 
         let reward
@@ -95,7 +88,7 @@ class RewardManager {
 
         else reward = defaultDailyReward
 
-        const userCooldown = this.cooldowns.daily(memberID, guildID)
+        const userCooldown = await this.cooldowns.getDaily(memberID, guildID)
         const cooldownEnd = cooldown - (Date.now() - userCooldown)
 
         if (userCooldown !== null && cooldownEnd > 0) {
@@ -112,8 +105,8 @@ class RewardManager {
             }
         }
 
-        this.balance.add(reward, memberID, guildID, reason)
-        this.database.set(`${guildID}.${memberID}.dailyCooldown`, Date.now())
+        await this.balance.add(reward, memberID, guildID, reason)
+        await this.database.set(`${guildID}.${memberID}.dailyCooldown`, Date.now())
 
         return {
             type: 'daily',
@@ -129,16 +122,16 @@ class RewardManager {
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {string} reason The reason why the money was added. Default: 'claimed the work reward'.
-     * @returns {RewardData} Work reward object.
+     * @returns {Promise<RewardData>} Work reward object.
      */
-    work(memberID, guildID, reason = 'claimed the work reward') {
+    async getWork(memberID, guildID, reason = 'claimed the work reward') {
         if (typeof memberID !== 'string') throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
         if (typeof guildID !== 'string') throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
 
-        const cooldown = this.database.get(`${guildID}.settings.workCooldown`)
+        const cooldown = await this.database.get(`${guildID}.settings.workCooldown`)
             || this.options.workCooldown
 
-        const defaultWorkReward = this.database.get(`${guildID}.settings.workAmount`)
+        const defaultWorkReward = await this.database.get(`${guildID}.settings.workAmount`)
             || this.options.workAmount
 
         let reward
@@ -153,7 +146,7 @@ class RewardManager {
 
         else reward = defaultWorkReward
 
-        const userCooldown = this.cooldowns.work(memberID, guildID)
+        const userCooldown = await this.cooldowns.getWork(memberID, guildID)
         const cooldownEnd = cooldown - (Date.now() - userCooldown)
 
         if (userCooldown !== null && cooldownEnd > 0) {
@@ -170,8 +163,8 @@ class RewardManager {
             }
         }
 
-        this.balance.add(reward, memberID, guildID, reason)
-        this.database.set(`${guildID}.${memberID}.workCooldown`, Date.now())
+        await this.balance.add(reward, memberID, guildID, reason)
+        await this.database.set(`${guildID}.${memberID}.workCooldown`, Date.now())
 
         return {
             type: 'work',
@@ -187,16 +180,16 @@ class RewardManager {
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {string} reason The reason why the money was added. Default: 'claimed the weekly reward'.
-     * @returns {RewardData} Weekly reward object.
+     * @returns {Promise<RewardData>} Weekly reward object.
      */
-    weekly(memberID, guildID, reason = 'claimed the weekly reward') {
+    async getWeekly(memberID, guildID, reason = 'claimed the weekly reward') {
         if (typeof memberID !== 'string') throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
         if (typeof guildID !== 'string') throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
 
-        const cooldown = this.database.get(`${guildID}.settings.weeklyCooldown`)
+        const cooldown = await this.database.get(`${guildID}.settings.weeklyCooldown`)
             || this.options.weeklyCooldown
 
-        const defaultWeeklyReward = this.database.get(`${guildID}.settings.weeklyAmount`)
+        const defaultWeeklyReward = await this.database.get(`${guildID}.settings.weeklyAmount`)
             || this.options.weeklyAmount
 
         let reward
@@ -211,7 +204,7 @@ class RewardManager {
 
         else reward = defaultWeeklyReward
 
-        const userCooldown = this.cooldowns.weekly(memberID, guildID)
+        const userCooldown = await this.cooldowns.getWeekly(memberID, guildID)
         const cooldownEnd = cooldown - (Date.now() - userCooldown)
 
         if (userCooldown !== null && cooldownEnd > 0) {
@@ -228,8 +221,8 @@ class RewardManager {
             }
         }
 
-        this.balance.add(reward, memberID, guildID, reason)
-        this.database.set(`${guildID}.${memberID}.weeklyCooldown`, Date.now())
+        await this.balance.add(reward, memberID, guildID, reason)
+        await this.database.set(`${guildID}.${memberID}.weeklyCooldown`, Date.now())
 
         return {
             type: 'weekly',

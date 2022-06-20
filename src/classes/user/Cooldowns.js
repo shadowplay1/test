@@ -16,8 +16,9 @@ class Cooldowns {
      * Cooldowns class.
      * @param {RawEconomyUser} userObject User object from database.
      * @param {EconomyOptions} options Economy configuration.
+     * @param {DatabaseManager} database Database Manager.
      */
-    constructor(userObject, options) {
+    constructor(userObject, options, database) {
 
         /**
          * Economy configuration.
@@ -30,7 +31,7 @@ class Cooldowns {
          * @type {DatabaseManager}
          * @private
          */
-        this._database = new DatabaseManager(options)
+        this._database = database
 
         /**
          * Cooldowns object.
@@ -69,7 +70,7 @@ class Cooldowns {
     /**
      * Returns the cooldown of the specified type.
      * @param {'daily' | 'work' | 'weekly'} type Cooldown type.
-     * @returns {CooldownData} Cooldown object.
+     * @returns {Promise<CooldownData>} Cooldown object.
      */
     getCooldown(type) {
         const allCooldowns = this.getAll()
@@ -79,7 +80,7 @@ class Cooldowns {
 
     /**
      * Gets a user's daily cooldown.
-     * @returns {CooldownData} User's daily cooldown.
+     * @returns {Promise<CooldownData>} User's daily cooldown.
      */
     getDaily() {
         const allCooldowns = this.getAll()
@@ -89,7 +90,7 @@ class Cooldowns {
 
     /**
      * Gets a user's work cooldown.
-     * @returns {CooldownData} User's work cooldown.
+     * @returns {Promise<CooldownData>} User's work cooldown.
      */
     getWork() {
         const allCooldowns = this.getAll()
@@ -99,7 +100,7 @@ class Cooldowns {
 
     /**
      * Gets a user's weekly cooldown.
-     * @returns {CooldownData} User's weekly cooldown.
+     * @returns {Promise<CooldownData>} User's weekly cooldown.
      */
     getWeekly() {
         const allCooldowns = this.getAll()
@@ -109,7 +110,7 @@ class Cooldowns {
 
     /**
      * Gets all user's cooldowns
-     * @returns {CooldownsTimeObject} User's cooldowns object.
+     * @returns {Promise<CooldownsTimeObject>} User's cooldowns object.
      */
     getAll() {
         const result = {}
