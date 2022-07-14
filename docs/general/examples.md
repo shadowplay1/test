@@ -5,185 +5,167 @@
 
 <b>Discord Economy Super</b> - Easy and customizable economy framework for your [Discord Bot](https://discord.js.org/#/).
 
-## Simple Example
+## Initialation Example
+
 ```js
-const { Client } = require('discord.js')
+const { Client } = require("discord.js");
+const Economy = require("discord-economy-super");
+
 const client = new Client({
-    partials: ['CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION', 'USER'],
-    intents: [
-        'GUILDS', 'GUILD_BANS', 'GUILD_EMOJIS_AND_STICKERS', 'GUILD_INTEGRATIONS',
-        'GUILD_INVITES', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS',
-        'GUILD_MESSAGE_TYPING', 'GUILD_PRESENCES', 'GUILD_VOICE_STATES', 'GUILD_WEBHOOKS',
-        'DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'DIRECT_MESSAGE_TYPING'
-    ]
+  intents: ["GuildMembers", "GuildMessages"],
 });
 
-const Economy = require('discord-economy-super');
 const eco = new Economy();
 
-client.on('ready', () => {
+client.on("ready", () => {
   console.log(`${client.user.tag} is ready!`);
 });
 
-client.login('token')
+client.login("token");
 ```
 
-## Options Example
-```js
-const Economy = require('discord-economy-super');
-new Economy({
-  storagePath: './storage.json', // Full path to a JSON File. Default: './storage.json'.
-  checkStorage: true, // Checks the if database file exists and if it has errors. Default: true.
-  dailyCooldown: 60000 * 60 * 24, // Daily Cooldown, ms (24 Hours = 1 Day). Default: 24 hours (60000 * 60 * 24 ms).
-  workCooldown: 60000 * 60, // Work Cooldown, ms (1 Hour). Default: 1 hour (60000 * 60 ms).
-  weeklyCooldown: 60000 * 60 * 24 * 7, // Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
-  dailyAmount: 100, // Daily Amount. Default: 100.
-  workAmount: [10, 50], // Work Amount: first element is min value, second is max value (It also can be a Number). Default: [10, 50].
-  weeklyAmount: 1000, // Amount of money for Weekly Command. Default: 1000.
-  updateCountdown: 1000, // Checks for if storage file exists in specified time (in ms). Default: 1000.
-  dateLocale: 'ru', // The region (example: ru; en) to format date and time. Default: 'ru'.
-  updater: {
-        checkUpdates: true, // Sends the update state message in console on start. Default: true.
-        upToDateMessage: true // Sends the message in console on start if module is up to date. Default: true.
-    },
-    errorHandler: {
-        handleErrors: true, // Handles all errors on start. Default: true.
-        attempts: 5, // Amount of attempts to load the module. Use 'null' for infinity attempts. Default: 5.
-        time: 3000 // Time between every attempt to start the module. Default: 3000.
-    },
-    optionsChecker: {
-        ignoreInvalidTypes: false, // Allows the method to ignore the options with invalid types. Default: false.
-        ignoreUnspecifiedOptions: false, // Allows the method to ignore the unspecified options. Default: false.
-        ignoreInvalidOptions: false, // Allows the method to ignore the unexisting options. Default: false.
-        showProblems: false, // Allows the method to show all the problems in the console. Default: false.
-        sendLog: false, // Allows the method to send the result in the console. Default: false.
-        sendSuccessLog: false // Allows the method to send the result if no problems were found. Default: false.
-    }
-});
-```
-
-## Events Example
-```js
-// balance events
-eco.on('balanceSet', balance => {
-    console.log(`Someone's just set ${balance.amount} coins for balance for member ${balance.memberID} on guild ${balance.guildID}. their bank balance is ${balance.balance} coins now.\nReason: ${balance.reason}\nOperation type: '${balance.type}'`)
-})
-eco.on('balanceAdd', balance => {
-    console.log(`Someone's just added ${balance.amount} coins for balance for member ${balance.memberID} on guild ${balance.guildID}. their bank balance is ${balance.balance} coins now.\nReason: ${balance.reason}\nOperation type: '${balance.type}'`)
-})
-eco.on('balanceSubtract', balance => {
-    console.log(`Someone's just subtracted ${balance.amount} coins from balance for member ${balance.memberID} on guild ${balance.guildID}. their balance is ${balance.balance} coins now.\nReason: ${balance.reason}\nOperation type: '${balance.type}'.`)
-})
-
-
-// bank balance events
-eco.on('bankSet', balance => {
-    console.log(`Someone's just set ${balance.amount} coins in bank for member ${balance.memberID} on guild ${balance.guildID}. their bank balance is ${balance.balance} coins now.\nReason: ${balance.reason}\nOperation type: '${balance.type}'`)
-})
-eco.on('bankAdd', balance => {
-    console.log(`Someone's just added ${balance.amount} coins in bank for member ${balance.memberID} on guild ${balance.guildID}. their bank balance is ${balance.balance} coins now.\nReason: ${balance.reason}\nOperation type: '${balance.type}'`)
-})
-eco.on('bankSubtract', balance => {
-    console.log(`Someone's just subtracted ${balance.amount} coins from bank for member ${balance.memberID} on guild ${balance.guildID}. their bank balance is ${balance.balance} coins now.\nReason: ${balance.reason}\nOperation type: '${balance.type}'`)
-})
-
-// shop events
-eco.on('shopItemAdd', item => {
-    console.log(`Someone's just added an item in the shop!\nItem data:\nID: ${item.id}\nName: ${item.name}\nPrice: ${item.price}\nDescription: ${item.description}\nMessage on use: ${item.message}\nMax amount of item in inventory: ${item.maxAmount}\nRole ID: ${item.role || 'Not specified'}`)
-})
-eco.on('shopRemoveItem', item => {
-    console.log(`Someone's just removed an item from the shop!\nItem data:\nID: ${item.id}\nName: ${item.name}\nPrice: ${item.price}\nDescription: ${item.description}\nMessage on use: ${item.message}\nMax amount of item in inventory: ${item.maxAmount}\nRole ID: ${item.role || 'Not specified'}`)
-})
-eco.on('shopItemEdit', item => {
-    console.log(`Someone's just edited an item in the shop!\nID: ${item.id}\Guild ID: ${item.guildID}\nWhat changed: ${item.changed}\nBefore: ${item.oldValue}\nAfter: ${item.newValue}`)
-})
-eco.on('shopItemBuy', item => {
-    console.log(`Someone's just bought an item from the shop!\nItem data:\nID: ${item.id}\nName: ${item.name}\nPrice: ${item.price}\nDescription: ${item.description || 'Not specified'}\nMessage on use: ${item.message || 'Not specified'}\nMax amount of item in inventory: ${item.maxAmount || 'Any'}\nRole ID: ${item.role || 'Not specified'}`)
-})
-eco.on('shopItemUse', item => {
-    console.log(`Someone's just used an item!\nItem data:\nID: ${item.id}\nName: ${item.name}\nPrice: ${item.price}\nDescription: ${item.description || 'Not specified'}\nMessage on use: ${item.message || 'Not specified'}\nMax amount of item in inventory: ${item.maxAmount || 'Any'}\nRole ID: ${item.role || 'Not specified'}`)
-})
-eco.on('shopClear', cleared => {
-  if (cleared) console.log('The shop was cleared successfully!')
-  else console.log('Cannot clear the shop!')
-})
-
-
-// core events
-eco.on('ready', () => {
-    console.log('Economy is ready!')
-})
-eco.on('destroy', () => {
-    console.log('Economy was destroyed.')
-})
-```
 ## Balance Command
+
 ```js
-if (message.content.startsWith('+balance')) {
-    const member = message.guild.members.cache.get(message.mentions.members.first()?.id || message.author.id)
-        
-    const balance = eco.balance.fetch(member.id, message.guild.id)
-    const bank = eco.bank.fetch(member.user.id, message.guild.id)
-        
-    message.channel.send(`**${member.user.username}**'s Balance:\nCash: **${balance}** coins.\nBank: **${bank}** coins.`)
+if (command == prefix + 'balance') {
+  const [userID] = args
+  const guild = await eco.guilds.get(message.guild.id)
+
+  const user = await guild.users.get(
+      message.mentions.users.first()?.id ||
+      message.guild.users.get(userID) ||
+      message.author.id
+)
+
+  const [balance, bank] = [
+      await user.balance.get(),
+      await user.bank.get()
+  ]
+
+  message.channel.send(
+      `${message.author}'s balance:\n` +
+      `Coins: **${balance}**.\n` +
+      `Coins in bank: **${bank}**.`
+  )
 }
 ```
 
-## Daily & Work Commands
+## Daily, Work and Weekly Commands
+
 ```js
-if (message.content.startsWith('+daily')) {
-    const daily = eco.rewards.daily(message.author.id, message.guild.id)
-    if (!daily.status) return message.channel.send(`You have already claimed your daily reward! Time left until next claim: **${daily.value.days}** days, **${daily.value.hours}** hours, **${daily.value.minutes}** minutes and **${daily.value.seconds}** seconds.`)
-    message.channel.send(`You have received **${daily.reward}** daily coins!`)
+if (command == prefix + 'daily') {
+  const guild = await eco.guilds.get(message.guild.id)
+  const user = await guild.users.get(message.author.id)
+
+  const dailyResult = await user.rewards.getDaily<false>()
+
+  if (dailyResult.cooldown) {
+      return message.channel.send(
+          `${message.author}, you can claim your daily reward in ${dailyResult.cooldown.pretty}.`
+      )
+  }
+
+  message.channel.send(
+      `${message.author}, you claimed your **${dailyResult.reward}** daily coins!`
+  )
 }
 
-if (message.content.startsWith('+work')) {
-    const work = eco.rewards.work(message.author.id, message.guild.id)
-    if (!work.status) return message.channel.send(`You have already worked! Time left until next work: **${work.value.days}** days, **${work.value.hours}** hours, **${work.value.minutes}** minutes and **${work.value.seconds}** seconds.`)
-    message.channel.send(`You worked hard and earned **${work.pretty}** coins!`)
+
+if (command == prefix + 'work') {
+  const guild = await eco.guilds.get(message.guild.id)
+  const user = await guild.users.get(message.author.id)
+
+  const workResult = await user.rewards.getWork<true>()
+
+  if (workResult.cooldown) {
+      return message.channel.send(
+          `${message.author}, you can work again in ${workResult.cooldown.pretty}.`
+      )
+  }
+
+  message.channel.send(
+      `${message.author}, you worked hard and earned **${workResult.reward}** coins!`
+  )
+}
+
+
+if (command == prefix + 'weekly') {
+  const guild = await eco.guilds.get(message.guild.id)
+  const user = await guild.users.get(message.author.id)
+
+  const weeklyResult = await user.rewards.getWeekly<true>()
+
+  if (weeklyResult.cooldown) {
+      return message.channel.send(
+          `${message.author}, you can claim your weekly reward in ${weeklyResult.cooldown.pretty}.`
+      )
+  }
+
+  message.channel.send(
+      `${message.author}, you claimed your **${weeklyResult.reward}** weekly coins!`
+  )
 }
 ```
 
-## Cash & Deposit Commands
-```js
-const args = message.content.slice(1).trim().split(' ').slice(1)
-if (message.content.startsWith('+cash')) {
-    const amount = args[0]
-    const balance = eco.bank.fetch(message.author.id, message.guild.id)
+## Deposit & Withdraw Commands
 
-    if (!amount) return message.channel.send('Specify an amount.')
-    if (isNaN(amount)) return message.channel.send('Amount must be a number.')
-    if (amount > balance) return message.channel.send(`You don\'t have enough money in your bank to send **${amount}** coins on your balance.`)
-        
-    eco.balance.add(amount, message.author.id, message.guild.id)
-    eco.bank.subtract(amount, message.author.id, message.guild.id)
-        
-    message.channel.send(`Successfully sent **${amount}** on your balance!`)
+```js
+if (command == prefix + 'deposit') {
+  const guild = await eco.guilds.get(message.guild.id)
+  const user = await guild.users.get(message.author.id)
+
+  const userBalance = await user.balance.get()
+  const amount = parseInt(args[0])
+
+  if (userBalance < amount) {
+      return message.channel.send(
+          `${message.author}, you don't have enough coins` +
+          `to perform this deposit.`
+      )
+  }
+
+  await user.balance.subtract(amount, `depositted ${amount} coins`)
+  await user.bank.add(amount, `depositted ${amount} coins`)
+
+  message.channel.send(
+      `${message.author}, you deposited **${amount}** coins to your bank.`
+  )
 }
 
-if (message.content.startsWith('+deposit') || message.content.startsWith('+dep')) {
-    const amount = args[0]
-    const balance = eco.balance.fetch(message.author.id, message.guild.id)
 
-    if (!amount) return message.channel.send('Specify an amount.')
-    if (isNaN(amount)) return message.channel.send('Amount must be a number.')
-    if (amount > balance) return message.channel.send(`You don\'t have enough money on your balance to deposit **${amount}** coins.`)
-        
-    eco.balance.subtract(amount, message.author.id, message.guild.id)
-    eco.bank.add(amount, message.author.id, message.guild.id)
- 
-    message.channel.send(`Successfully deposited **${amount}** coins!`)
+if (command == prefix + 'withdraw') {
+  const guild = await eco.guilds.get(message.guild.id)
+  const user = await guild.users.get(message.author.id)
+
+  const userBankBalance = await user.bank.get()
+  const amount = parseInt(args[0])
+
+  if (userBankBalance < amount) {
+      return message.channel.send(
+          `${message.author}, you don't have enough coins` +
+          `in your bank to perform this withdraw.`
+      )
+  }
+
+  await user.bank.subtract(amount, `withdrew ${amount} coins`)
+  await user.balance.add(amount, `withdrew ${amount} coins`)
+
+  message.channel.send(
+      `${message.author}, you withdrew **${amount}** coins from your bank.`
+  )
 }
 ```
+See the full bot examples in both JavaScript and TypeScript on the [module's GitHub](https://github.com/shadowplay1/discord-economy-super/tree/main/examples).
 
 ## ❗ | Useful Links
+
 <ul>
-<li><b><a href = "https://www.npmjs.com/package/discord-economy-super">NPM</a></b></li>
-<li><b><a href = "https://github.com/shadowplay1/discord-economy-super">GitHub</a></b></li>
-<li><b><a href = "https://github.com/shadowplay1/discord-economy-super/tree/main/examples">Bot Examples</a></b></li>
-<li><b><a href = "https://discord.gg/4pWKq8vUnb">Discord Server</a></b></li>
+<li><b><a href = 'https://www.npmjs.com/package/discord-economy-super'>NPM</a></b></li>
+<li><b><a href = 'https://github.com/shadowplay1/discord-economy-super'>GitHub</a></b></li>
+<li><b><a href = 'https://github.com/shadowplay1/discord-economy-super/tree/main/examples'>Bot Examples</a></b></li>
+<li><b><a href = 'https://discord.gg/4pWKq8vUnb'>Discord Server</a></b></li>
 </ul>
-<b>If you found a bug, have any questions or need help, join the <a href = "https://discord.gg/4pWKq8vUnb">Support Server</a>.</b>
+<b>If you found a bug, have any questions or need help, join the <a href = 'https://discord.gg/4pWKq8vUnb'>Support Server</a>.</b>
 <br>
 <b>Module Created by ShadowPlay.</b>
 

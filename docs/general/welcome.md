@@ -6,31 +6,26 @@
 <b>Discord Economy Super</b> - Easy and customizable economy framework for your [Discord Bot](https://discord.js.org/#/).
 
 ## 🙋‍♂️ | Welcome!
-Welcome to the `discord-economy-super v1.6.0-dev` documentation.
-
-This is a development version with very latest feautures but not uploaded 
-to let everyone test them before the release of this big version. 
-
-In this type of versions anything can change in a moment.
-
-Feel free to submit an idea or bug as it would be easier to change eveything before the stable version!
+Welcome to the `discord-economy-super v1.6.0` documentation.
 
 ## 📂 | Installation
 <b>Note:<b>
 </br>
 <b>Node.js 14.0.0 or newer is required. Otherwise, the module won't work.</b><br>
 ```console
-npm i discord-economy-super
-yarn add discord-economy-super
-pnpm add discord-economy-super
+$ npm i discord-economy-super
+$ yarn add discord-economy-super
+$ pnpm add discord-economy-super
 ```
 
-## ❓ | About
-<b>Discord Economy Super is a powerful Node.js module that allows you to make an economy system in your bot very easily.</b><br>
-Module's features:
+## ❓ | What is Discord Economy Super?
+<b>Discord Economy Super is a powerful Node.js module that allows you to make an economy system in your bot very easily.</b>
+
+Features:
 <br>
 <ul>
-<li><b>TypeScript Support 📘</b></li>
+<li><b>Clean TypeScript Defenitions 📘</b></li>
+<li><b><a href="./migrating.md">MongoDB Support 🍃</a></b></li>
 <li><b>Object-oriented 📜</b></li>
 <li><b>Flexible and Customizable ⚙️</b></li>
 <li><b>Easy to use 👍</b></li>
