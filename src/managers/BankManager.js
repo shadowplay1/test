@@ -31,14 +31,14 @@ class BankManager extends Emitter {
         this.options = options
 
         /**
-         * Fetch manager methods object.
+         * Fetch manager.
          * @type {FetchManager}
          * @private
          */
         this.fetcher = new FetchManager(options)
 
         /**
-         * Fetch manager methods object.
+         * Database manager.
          * @type {DatabaseManager}
          * @private
          */
@@ -53,11 +53,11 @@ class BankManager extends Emitter {
     */
     fetch(memberID, guildID) {
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         return this.fetcher.fetchBank(memberID, guildID)
@@ -87,15 +87,15 @@ class BankManager extends Emitter {
         const bank = this.fetcher.fetchBank(memberID, guildID)
 
         if (isNaN(amount)) {
-            throw new EconomyError(errors.invalidTypes.amount + typeof amount)
+            throw new EconomyError(errors.invalidTypes.amount + typeof amount, 'INVALID_TYPE')
         }
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         this.database.set(`${guildID}.${memberID}.bank`, Number(amount))
@@ -124,15 +124,15 @@ class BankManager extends Emitter {
         const bank = this.fetcher.fetchBank(memberID, guildID)
 
         if (isNaN(amount)) {
-            throw new EconomyError(errors.invalidTypes.amount + typeof amount)
+            throw new EconomyError(errors.invalidTypes.amount + typeof amount, 'INVALID_TYPE')
         }
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         this.database.add(`${guildID}.${memberID}.bank`, Number(amount))
@@ -161,15 +161,15 @@ class BankManager extends Emitter {
         const bank = this.fetcher.fetchBank(memberID, guildID)
 
         if (isNaN(amount)) {
-            throw new EconomyError(errors.invalidTypes.amount + typeof amount)
+            throw new EconomyError(errors.invalidTypes.amount + typeof amount, 'INVALID_TYPE')
         }
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         this.database.subtract(`${guildID}.${memberID}.bank`, Number(amount))
@@ -196,7 +196,7 @@ class BankManager extends Emitter {
         const data = this.fetcher.fetchAll()
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         const guildData = data[guildID]
@@ -206,7 +206,6 @@ class BankManager extends Emitter {
         const ranks = Object.values(guildData).map(user => user.bank).filter(userID => !isNaN(userID))
 
         for (const rank in ranks) lb.push({
-            index: Number(rank) + 1,
             userID: users[rank],
             money: Number(ranks[rank])
         })

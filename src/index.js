@@ -27,6 +27,7 @@ const errors = require('./structures/errors')
 const GuildManager = require('./managers/GuildManager')
 
 const Logger = require('./classes/util/Logger')
+const ShopItem = require('./classes/ShopItem')
 
 
 /**
@@ -77,7 +78,7 @@ class Economy extends Emitter {
         this.docs = 'https://des-docs.tk'
 
         /**
-        * Utils manager methods object.
+        * Utils manager.
         * @type {UtilsManager}
         */
         this.utils = new UtilsManager(options, new DatabaseManager(options), new FetchManager(options))
@@ -119,55 +120,55 @@ class Economy extends Emitter {
         this.Emitter = Emitter
 
         /**
-        * Balance methods object.
+        * Balance.
         * @type {BalanceManager}
         */
         this.balance = null
 
         /**
-        * Bank balance methods object.
+        * Bank balance.
         * @type {BankManager}
         */
         this.bank = null
 
         /**
-        * Fetch manager methods object.
+        * Fetch manager.
         * @type {FetchManager}
         */
         this.fetcher = null
 
         /**
-        * Database manager methods object.
+        * Database manager.
         * @type {DatabaseManager}
         */
         this.database = null
 
         /**
-        * Shop manager methods object.
+        * Shop manager.
         * @type {ShopManager}
         */
         this.shop = null
 
         /**
-        * Inventory manager methods object.
+        * Inventory manager.
         * @type {InventoryManager}
         */
         this.inventory = null
 
         /**
-        * History manager methods object.
+        * History manager.
         * @type {HistoryManager}
         */
         this.history = null
 
         /**
-        * Bank balance methods object.
+        * Cooldowns manager.
         * @type {CooldownManager}
         */
         this.cooldowns = null
 
         /**
-        * Balance methods object.
+        * Rewards.
         * @type {RewardManager}
         */
         this.rewards = null
@@ -185,7 +186,7 @@ class Economy extends Emitter {
         this.guilds = new GuildManager(this.options)
 
         /**
-        * Settings manager methods object.
+        * Settings manager.
         * @type {SettingsManager}
         */
         this.settings = null
@@ -203,7 +204,7 @@ class Economy extends Emitter {
                 this.ready = true
 
                 this._logger.debug('Economy is ready!', 'green')
-                this.emit('ready')
+                this.emit('ready', this)
             }
         })
     }
@@ -232,7 +233,7 @@ class Economy extends Emitter {
 
     /**
      * Starts the module.
-     * @returns {Promise<boolean>} If started successfully: true; else: Error instance.
+     * @returns {Promise<boolean>} If started successfully: true.
      */
     init() {
         let attempt = 0
@@ -304,7 +305,7 @@ class Economy extends Emitter {
 
     /**
      * Initializes the module.
-     * @returns {Promise<boolean>} If started successfully: true; else: Error instance.
+     * @returns {Promise<boolean>} If started successfully: true.
      * @private
      */
     _init() {
@@ -327,7 +328,7 @@ class Economy extends Emitter {
                 if (this.ready) return
 
                 if (Number(process.version.split('.')[0].slice(1)) < 14) {
-                    return reject(new EconomyError('This module is only supporting Node.js v14 or newer.'))
+                    return reject(new EconomyError(errors.oldNodeVersion + process.version, 'OLD_NODE_VERSION'))
                 }
 
                 this._logger.debug('Checking for updates...')
@@ -335,6 +336,7 @@ class Economy extends Emitter {
                 /* eslint-disable max-len */
                 if (this.options.updater.checkUpdates) {
                     const version = await this.utils.checkUpdates()
+
                     if (!version.updated) {
 
                         console.log('\n\n')
@@ -378,12 +380,12 @@ class Economy extends Emitter {
 
                     try {
                         if (this.options.storagePath.includes('testStorage123') && isReservedPathUsed) {
-                            return reject(new EconomyError(errors.reservedName('testStorage123')))
+                            return reject(new EconomyError(errors.reservedName('testStorage123'), 'STORAGE_FILE_ERROR'))
                         }
 
                         for (const name of reservedNames) {
                             if (this.options.storagePath.endsWith(name)) {
-                                return reject(new EconomyError(errors.reservedName(name)))
+                                return reject(new EconomyError(errors.reservedName(name), 'STORAGE_FILE_ERROR'))
                             }
                         }
 
@@ -394,7 +396,7 @@ class Economy extends Emitter {
 
                     } catch (err) {
                         if (err.message.includes('Unexpected') && err.message.includes('JSON')) {
-                            return reject(new EconomyError(errors.wrongStorageData))
+                            return reject(new EconomyError(errors.wrongStorageData, 'STORAGE_FILE_ERROR'))
                         }
 
                         else return reject(err)
@@ -419,18 +421,18 @@ class Economy extends Emitter {
                                     !__dirname.includes('discord-economy-super\\tests')
 
                                 if (isReservedPathUsed) {
-                                    throw new EconomyError(errors.reservedName('testStorage123'))
+                                    throw new EconomyError(errors.reservedName('testStorage123'), 'STORAGE_FILE_ERROR')
                                 }
 
                                 for (const name of reservedNames) {
                                     if (this.options.storagePath.endsWith(name)) {
-                                        throw new EconomyError(errors.reservedName(name))
+                                        throw new EconomyError(errors.reservedName(name), 'STORAGE_FILE_ERROR')
                                     }
                                 }
 
                                 writeFileSync(this.options.storagePath, '{}', 'utf-8')
                             } catch (err) {
-                                throw new EconomyError(errors.notReady)
+                                throw new EconomyError(errors.notReady, 'MODULE_NOT_READY')
                             }
 
                             console.log(
@@ -448,7 +450,7 @@ class Economy extends Emitter {
                         } catch (err) {
                             if (err.message.includes('Unexpected token') ||
                                 err.message.includes('Unexpected end')) {
-                                reject(new EconomyError(errors.wrongStorageData))
+                                reject(new EconomyError(errors.wrongStorageData, 'STORAGE_FILE_ERROR'))
                             }
 
                             else {
@@ -647,7 +649,8 @@ class Economy extends Emitter {
 /**
 * Emits when someone's added an item in the shop.
 * @event Economy#shopItemAdd
-* @param {number} id Item ID.
+* @param {object} data Data object.
+* @param {number} data.id Item ID.
 * @param {string} data.name Item name.
 * @param {number} data.price Item price.
 * @param {string} data.message Item message that will be returned on item use.
@@ -660,7 +663,8 @@ class Economy extends Emitter {
 /**
 * Emits when someone's removed an item in the shop.
 * @event Economy#shopItemRemove
-* @param {number} id Item ID.
+* @param {object} data Data object.
+* @param {number} data.id Item ID.
 * @param {string} data.name Item name.
 * @param {number} data.price Item price.
 * @param {string} data.message Item message that will be returned on item use.
@@ -673,20 +677,14 @@ class Economy extends Emitter {
 /**
 * Emits when someone's added an item in the shop.
 * @event Economy#shopItemBuy
-* @param {number} id Item ID.
-* @param {string} data.name Item name.
-* @param {number} data.price Item price.
-* @param {string} data.message Item message that will be returned on item use.
-* @param {string} data.description Item description.
-* @param {number} data.maxAmount Max amount of the item that user can hold in their inventory.
-* @param {string} data.role Role ID from your Discord server.
-* @param {string} data.date Formatted date when the item was added to the shop.
+* @param {ShopItem} item Shop item that was bought.
 */
 
 /**
 * Emits when someone's used an item from their inventory.
 * @event Economy#shopItemUse
-* @param {number} id Item ID.
+* @param {object} data Data object.
+* @param {number} data.id Item ID.
 * @param {string} data.name Item name.
 * @param {number} data.price Item price.
 * @param {string} data.message Item message that will be returned on item use.
@@ -699,7 +697,8 @@ class Economy extends Emitter {
 /**
 * Emits when someone's edited an item in the shop.
 * @event Economy#shopItemEdit
-* @param {number} id Item ID.
+* @param {object} data Data object.
+* @param {number} data.id Item ID.
 * @param {string} data.guildID Guild ID.
 * @param {string} data.changedProperty The item property that was changed.
 * @param {string} data.oldValue Value before edit.
@@ -709,7 +708,7 @@ class Economy extends Emitter {
 /**
 * Emits when the module is ready.
 * @event Economy#ready
-* @param {void} data Void event.
+* @param {Economy} eco Economy instance that was initialized and could be used.
 */
 
 /**

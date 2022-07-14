@@ -55,7 +55,7 @@ class Inventory extends BaseManager {
      * @returns {InventoryItem} User's inventory item.
      */
     get(itemID) {
-        return this.fetch().find(item => item.id == itemID)
+        return this.fetch().find(item => item.id == itemID || item.name == itemID)
     }
 
     /**
@@ -71,7 +71,7 @@ class Inventory extends BaseManager {
     /**
      * Uses the item from user's inventory.
      * @param {string | number} itemID Item ID.
-     * @param {any} [client] Discord Client [Specify if the role will be given in a discord server].
+     * @param {any} [client] Discord Client [Specify if the role will be given in a Discord server].
      * @returns {string} Item message or null if item not found.
      */
     use(itemID, client) {
@@ -83,14 +83,14 @@ class Inventory extends BaseManager {
         const item = inventory[itemIndex]
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID, 'INVALID_TYPE')
         }
 
         if (!item) return null
 
         if (item.role) {
             if (item.role && !client) {
-                throw new EconomyError(errors.noClient)
+                throw new EconomyError(errors.noClient, 'NO_DISCORD_CLIENT')
             }
 
             const guild = client.guilds.cache.get(guildID)
@@ -101,7 +101,7 @@ class Inventory extends BaseManager {
 
                 member.roles.add(role).catch(err => {
                     if (!role) {
-                        return console.error(new EconomyError(errors.roleNotFound + roleID))
+                        return console.error(new EconomyError(errors.roleNotFound + roleID, 'ROLE_NOT_FOUND'))
                     }
 
                     console.error(
@@ -145,7 +145,13 @@ class Inventory extends BaseManager {
 
         else msg = string
 
-        this.emit('shopItemUse', item)
+        this.emit('shopItemUse', {
+            guildID: this.guildID,
+            usedBy: this.memberID,
+            item,
+            receivedMessage: msg
+        })
+
         return msg
     }
 
@@ -169,7 +175,7 @@ class Inventory extends BaseManager {
         const inventoryItems = inventory.filter(invItem => invItem.name == item.name)
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID, 'INVALID_TYPE')
         }
 
         if (!item) return false
@@ -201,7 +207,7 @@ class Inventory extends BaseManager {
         const itemIndex = inventory.findIndex(invItem => invItem.id == item?.id)
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID, 'INVALID_TYPE')
         }
 
         if (!item) return false
@@ -230,7 +236,7 @@ class Inventory extends BaseManager {
             inventoryItem => new InventoryItem(
                 this.guildID, this.memberID,
                 this.options, inventoryItem,
-		this.database
+                this.database
             )
         )
     }

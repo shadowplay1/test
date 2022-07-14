@@ -60,8 +60,13 @@ class FetchManager {
     fetchBalance(memberID, guildID) {
         const data = this.fetchAll()
 
-        if (typeof memberID !== 'string') throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
-        if (typeof guildID !== 'string') throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+        if (typeof memberID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
+        }
+
+        if (typeof guildID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+        }
 
         const guildData = data[guildID]
         const memberData = guildData?.[memberID]
@@ -83,8 +88,13 @@ class FetchManager {
     fetchBank(memberID, guildID) {
         const data = this.fetchAll()
 
-        if (typeof memberID !== 'string') throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
-        if (typeof guildID !== 'string') throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+        if (typeof memberID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
+        }
+
+        if (typeof guildID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+        }
 
         const guildData = data[guildID]
         const memberData = guildData?.[memberID]
@@ -106,8 +116,13 @@ class FetchManager {
     fetchInventory(memberID, guildID) {
         const data = this.fetchAll()
 
-        if (typeof memberID !== 'string') throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
-        if (typeof guildID !== 'string') throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+        if (typeof memberID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
+        }
+
+        if (typeof guildID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+        }
 
         const guildData = data[guildID]
         const memberData = guildData?.[memberID]
@@ -129,8 +144,13 @@ class FetchManager {
     fetchHistory(memberID, guildID) {
         const data = this.fetchAll()
 
-        if (typeof memberID !== 'string') throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
-        if (typeof guildID !== 'string') throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+        if (typeof memberID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
+        }
+
+        if (typeof guildID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+        }
 
         const guildData = data[guildID]
         const memberData = guildData?.[memberID]
@@ -152,8 +172,13 @@ class FetchManager {
     fetchCooldowns(memberID, guildID) {
         const data = this.fetchAll()
 
-        if (typeof memberID !== 'string') throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
-        if (typeof guildID !== 'string') throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+        if (typeof memberID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
+        }
+
+        if (typeof guildID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+        }
 
         const guildData = data[guildID]
         const memberData = guildData?.[memberID]
@@ -177,12 +202,14 @@ class FetchManager {
     fetchShop(guildID) {
         const data = this.fetchAll()
 
-        if (typeof guildID !== 'string') throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+        if (typeof guildID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+        }
 
         const guildData = data[guildID]
         const shop = guildData?.shop || []
 
-        return shop.map(item => new ShopItem(guildID, this.database, item))
+        return shop.map(item => new ShopItem(guildID, item, this.database))
     }
 }
 

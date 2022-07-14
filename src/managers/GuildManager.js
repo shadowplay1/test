@@ -25,7 +25,6 @@ class GuildManager extends BaseManager {
     constructor(options) {
         super(options, null, null, EconomyGuild)
 
-
         /**
          * Economy configuration.
          * @type {EconomyOptions}
@@ -45,7 +44,7 @@ class GuildManager extends BaseManager {
          * @type {UserManager}
          * @private
          */
-        this._users = new UserManager(options)
+        this._users = new UserManager(options, null)
 
         /**
          * Utils Manager.
@@ -69,26 +68,27 @@ class GuildManager extends BaseManager {
     /**
      * Creates an economy guild object in database.
      * @param {string} guildID The guild ID to set.
-     * @returns {EconomyGuild} Economy user object.
+     * @returns {Promise<EconomyGuild>} New guild instance.
      */
     create(guildID) {
-        this.reset(guildID)
-
-        return this.all().find(guild => guild.id == guildID)
+        return this.reset(guildID)
     }
 
     /**
-     * Sets the default guild object for a specified member.
+     * Resets the guild in database.
      * @param {string} guildID Guild ID.
-     * @returns {boolean} If reset successfully: true; else: false.
+     * @returns {Promise<EconomyGuild>} New guild instance.
      */
     reset(guildID) {
-        if (!guildID) throw new EconomyError(errors.invalidTypes.guildID)
-
-        return this.database.set(guildID, {
+        const emptyGuildObject = {
             shop: [],
             settings: []
-        })
+        }
+
+        if (!guildID) throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+
+        this.database.set(guildID, emptyGuildObject)
+        return new EconomyGuild(guildID, this.options, emptyGuildObject, this.database, this.cache)
     }
 
     /**
@@ -96,19 +96,23 @@ class GuildManager extends BaseManager {
      * @returns {EconomyGuild[]}
      */
     all() {
-        const guildsArray = []
-        const guildIDs = this.database.keyList('')
 
+        /**
+        * @type {EconomyGuild[]}
+        */
+        const guilds = []
 
-        for (const guildID of guildIDs) {
-            const guildObject = this.database.fetch(guildID) || []
+        const allDatabase = this.database.all()
+        const guildEntries = Object.entries(allDatabase)
 
+        for (const [guildID, guildObject] of guildEntries) {
             guildObject.id = guildID
-            guildsArray.push(guildObject)
+
+            const economyGuild = new EconomyGuild(guildID, this.options, guildObject)
+            guilds.push(economyGuild)
         }
 
-
-        return guildsArray.map(guild => new EconomyGuild(guild.id, this.options, guild))
+        return guilds
     }
 }
 

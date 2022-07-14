@@ -73,29 +73,34 @@ class RewardManager {
      * @param {string} reason The reason why the money was added. Default: 'claimed the daily reward'.
      * @returns {RewardData} Daily reward object.
     */
-    daily(memberID, guildID, reason = 'claimed the daily reward') {
-        if (typeof memberID !== 'string') throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
-        if (typeof guildID !== 'string') throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+    getDaily(memberID, guildID, reason = 'claimed the daily reward') {
+        if (typeof memberID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
+        }
+
+        if (typeof guildID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+        }
 
         const cooldown = this.database.get(`${guildID}.settings.dailyCooldown`)
             || this.options.dailyCooldown
 
-        const defaultDailyReward = this.database.get(`${guildID}.settings.dailyCooldown`)
+        const defaultDailyReward = this.database.get(`${guildID}.settings.dailyAmount`)
             || this.options.dailyAmount
 
         let reward
 
         if (Array.isArray(defaultDailyReward)) {
-            const min = defaultDailyReward[0]
-            const max = defaultDailyReward[1]
+            const [min, max] = defaultDailyReward
 
-            if (defaultDailyReward.length == 1) reward = defaultDailyReward[0]
+            if (defaultDailyReward.length == 1) reward = min
             else reward = Math.floor(Math.random() * (Number(min) - Number(max)) + Number(max))
         }
 
+
         else reward = defaultDailyReward
 
-        const userCooldown = this.cooldowns.daily(memberID, guildID)
+        const userCooldown = this.cooldowns.getDaily(memberID, guildID)
         const cooldownEnd = cooldown - (Date.now() - userCooldown)
 
         if (userCooldown !== null && cooldownEnd > 0) {
@@ -131,9 +136,14 @@ class RewardManager {
      * @param {string} reason The reason why the money was added. Default: 'claimed the work reward'.
      * @returns {RewardData} Work reward object.
      */
-    work(memberID, guildID, reason = 'claimed the work reward') {
-        if (typeof memberID !== 'string') throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
-        if (typeof guildID !== 'string') throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+    getWork(memberID, guildID, reason = 'claimed the work reward') {
+        if (typeof memberID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
+        }
+
+        if (typeof guildID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+        }
 
         const cooldown = this.database.get(`${guildID}.settings.workCooldown`)
             || this.options.workCooldown
@@ -144,16 +154,15 @@ class RewardManager {
         let reward
 
         if (Array.isArray(defaultWorkReward)) {
-            const min = defaultWorkReward[0]
-            const max = defaultWorkReward[1]
+            const [min, max] = defaultDailyReward
 
-            if (defaultWorkReward.length == 1) reward = defaultWorkReward[0]
+            if (defaultWorkReward.length == 1) reward = min
             else reward = Math.floor(Math.random() * (Number(min) - Number(max)) + Number(max))
         }
 
         else reward = defaultWorkReward
 
-        const userCooldown = this.cooldowns.work(memberID, guildID)
+        const userCooldown = this.cooldowns.getWork(memberID, guildID)
         const cooldownEnd = cooldown - (Date.now() - userCooldown)
 
         if (userCooldown !== null && cooldownEnd > 0) {
@@ -189,9 +198,14 @@ class RewardManager {
      * @param {string} reason The reason why the money was added. Default: 'claimed the weekly reward'.
      * @returns {RewardData} Weekly reward object.
      */
-    weekly(memberID, guildID, reason = 'claimed the weekly reward') {
-        if (typeof memberID !== 'string') throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
-        if (typeof guildID !== 'string') throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+    getWeekly(memberID, guildID, reason = 'claimed the weekly reward') {
+        if (typeof memberID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
+        }
+
+        if (typeof guildID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+        }
 
         const cooldown = this.database.get(`${guildID}.settings.weeklyCooldown`)
             || this.options.weeklyCooldown
@@ -202,16 +216,15 @@ class RewardManager {
         let reward
 
         if (Array.isArray(defaultWeeklyReward)) {
-            const min = defaultWeeklyReward[0]
-            const max = defaultWeeklyReward[1]
+            const [min, max] = defaultDailyReward
 
-            if (defaultWeeklyReward.length == 1) reward = defaultWeeklyReward[0]
+            if (defaultWeeklyReward.length == 1) reward = min
             else reward = Math.floor(Math.random() * (Number(min) - Number(max)) + Number(max))
         }
 
         else reward = defaultWeeklyReward
 
-        const userCooldown = this.cooldowns.weekly(memberID, guildID)
+        const userCooldown = this.cooldowns.getWeekly(memberID, guildID)
         const cooldownEnd = cooldown - (Date.now() - userCooldown)
 
         if (userCooldown !== null && cooldownEnd > 0) {

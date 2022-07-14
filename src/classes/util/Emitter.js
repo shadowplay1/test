@@ -40,7 +40,7 @@ class Emitter {
 
     /**
      * Emits the event.
-     * @param {ShopEvents} event Event name.
+     * @param {EconomyEvents} event Event name.
      * @param {any} data Any data to send.
      * @returns {boolean} If emitted: true; else: false.
      */
@@ -60,5 +60,5 @@ module.exports = Emitter
  * 'bankSet' | 'bankAdd' | 'bankSubtract' |
  * 'shopItemAdd' | 'shopItemEdit' | 'shopItemBuy' |
  * 'shopItemUse' | 'shopClear' |
- * 'ready' | 'destroy'} ShopEvents
+ * 'ready' | 'destroy'} EconomyEvents
  */

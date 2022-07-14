@@ -40,16 +40,6 @@ class Leaderboards {
      * Gets a money leaderboard for this guild.
      * @returns {BalanceLeaderboard[]} Balance leaderboard array.
      */
-    balance() {
-        return this._balance.leaderboard(this.guildID)
-    }
-
-    /**
-     * Gets a money leaderboard for this guild.
-     *
-     * This method is an alias for 'Leaderboards.balance()' method.
-     * @returns {BalanceLeaderboard[]} Balance leaderboard array.
-     */
     money() {
         return this.balance()
     }

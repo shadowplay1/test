@@ -5,6 +5,7 @@ const DatabaseManager = require('./DatabaseManager')
 
 const errors = require('../structures/errors')
 const ShopItem = require('../classes/ShopItem')
+const InventoryItem = require('../classes/InventoryItem')
 
 
 /**
@@ -78,35 +79,35 @@ class ShopManager extends Emitter {
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         if (typeof name !== 'string') {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.name + typeof name)
+            throw new EconomyError(errors.invalidTypes.addItemOptions.name + typeof name, 'INVALID_TYPE')
         }
 
         if (isNaN(price)) {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.price + typeof price)
+            throw new EconomyError(errors.invalidTypes.addItemOptions.price + typeof price, 'INVALID_TYPE')
         }
 
         if (message && typeof message !== 'string') {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.message + typeof message)
+            throw new EconomyError(errors.invalidTypes.addItemOptions.message + typeof message, 'INVALID_TYPE')
         }
 
         if (description && typeof description !== 'string') {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.description + typeof description)
+            throw new EconomyError(errors.invalidTypes.addItemOptions.description + typeof description, 'INVALID_TYPE')
         }
 
         if (maxAmount !== undefined && isNaN(maxAmount)) {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.maxAmount + typeof maxAmount)
+            throw new EconomyError(errors.invalidTypes.addItemOptions.maxAmount + typeof maxAmount, 'INVALID_TYPE')
         }
 
         if (role && typeof role !== 'string') {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.role + typeof role)
+            throw new EconomyError(errors.invalidTypes.addItemOptions.role + typeof role, 'INVALID_TYPE')
         }
 
         if (custom && typeof custom !== 'object' && !Array.isArray(custom)) {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.role + typeof role)
+            throw new EconomyError(errors.invalidTypes.addItemOptions.role + typeof role, 'INVALID_TYPE')
         }
 
         const itemInfo = {
@@ -121,8 +122,13 @@ class ShopManager extends Emitter {
             custom: custom || {}
         }
 
+
+        const newShopItem = new ShopItem(guildID, itemInfo, this.database)
+
         this.database.push(`${guildID}.shop`, itemInfo)
-        return new ShopItem(guildID, this.database, itemInfo)
+        this.emit('shopItemAdd', newShopItem)
+
+        return newShopItem
     }
 
     /**
@@ -151,26 +157,24 @@ class ShopManager extends Emitter {
         const itemProperties = ['description', 'price', 'name', 'message', 'maxAmount', 'role', 'custom']
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         if (!itemProperties.includes(itemProperty)) {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + itemProperty)
+            throw new EconomyError(
+                errors.invalidTypes.editItemArgs.itemProperty + itemProperty, 'ITEM_PROPERTY_INVALID'
+            )
         }
 
         if (value == undefined) {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + value)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + value, 'INVALID_TYPE')
         }
 
         const edit = (itemProperty, value) => {
-
-            /**
-             * @type {ShopItem[]}
-             */
             const shop = this.fetch(guildID)
 
             const itemIndex = shop.findIndex(item => item.id == itemID || item.name == itemID)
@@ -182,9 +186,9 @@ class ShopManager extends Emitter {
             this.database.pull(`${guildID}.shop`, itemIndex, item)
 
             this.emit('shopItemEdit', {
-                itemID,
+                item,
                 guildID,
-                changed: itemProperty,
+                changedProperty: itemProperty,
                 oldValue: item[itemProperty],
                 newValue: value
             })
@@ -261,11 +265,11 @@ class ShopManager extends Emitter {
         const item = shop[itemIndex]
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         this.database.pop(`${guildID}.shop`, itemIndex)
@@ -294,7 +298,7 @@ class ShopManager extends Emitter {
         const shop = this.fetch(guildID)
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         if (!shop && !shop?.length) {
@@ -339,11 +343,11 @@ class ShopManager extends Emitter {
         const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`) || []
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         if (!inventory) return false
@@ -358,11 +362,11 @@ class ShopManager extends Emitter {
      */
     fetch(guildID) {
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         const shop = this.database.fetch(`${guildID}.shop`)
-        return shop.map(item => new ShopItem(guildID, this.database, item))
+        return shop.map(item => new ShopItem(guildID, item, this.database))
     }
 
     /**
@@ -388,12 +392,12 @@ class ShopManager extends Emitter {
     }
 
     /**
-     * Searches for the item in the shop.
+     * Gets the item in the shop.
      * @param {number | string} itemID Item ID or name.
      * @param {string} guildID Guild ID.
      * @returns {ShopItem} If item not found: null; else: item info object.
      */
-    searchItem(itemID, guildID) {
+    getItem(itemID, guildID) {
 
         /**
         * @type {ShopItem[]}
@@ -402,31 +406,31 @@ class ShopManager extends Emitter {
         const item = shop.find(item => item.id == itemID || item.name == itemID)
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         if (!item) return null
-        return new ShopItem(guildID, this.database, item)
+        return new ShopItem(guildID, item, this.database)
     }
 
     /**
-     * Searches for the item in the shop.
+     * Gets the item in the shop.
      * 
-     * This method is an alias for the `ShopManager.searchItem()` method.
+     * This method is an alias for the `ShopManager.getItem()` method.
      * @param {number | string} itemID Item ID or name.
      * @param {string} guildID Guild ID.
      * @returns {ShopItem} If item not found: null; else: item info object.
      */
     findItem(itemID, guildID) {
-        return this.searchItem(itemID, guildID)
+        return this.getItem(itemID, guildID)
     }
 
     /**
-     * Searches for the item in the inventory.
+     * Gets the item in the inventory.
      *
      * [!!!] This method is deprecated.
      * If you want to get all the bugfixes and
@@ -446,7 +450,7 @@ class ShopManager extends Emitter {
             console.log(
                 errors.deprecationWarning(
                     'ShopManager', 'searchInventoryItem',
-                    'InventoryManager', 'searchItem',
+                    'InventoryManager', 'getItem',
                     ['itemID', 'memberID', 'guildID'],
                     ['itemID', 'memberID', 'guildID']
                 )
@@ -460,15 +464,15 @@ class ShopManager extends Emitter {
         const item = inventory.find(item => item.id == itemID || item.name == itemID)
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID, 'INVALID_TYPE')
         }
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         if (!item) return null
@@ -488,7 +492,7 @@ class ShopManager extends Emitter {
      * @returns {ShopOperationInfo} Operation information object.
      */
     buy(itemID, memberID, guildID, quantity = 1, reason = 'received the item from the shop') {
-        const balance = this.database.fetch(`${guildID}.${memberID}.money`)
+        const balance = this.database.fetch(`${guildID}.${memberID}.money`) || 0
 
         const shop = this.fetch(guildID)
         const item = shop.find(item => item.id == itemID || item.name == itemID)
@@ -508,15 +512,15 @@ class ShopManager extends Emitter {
 
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID, 'INVALID_TYPE')
         }
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         if (!item) return {
@@ -581,7 +585,11 @@ class ShopManager extends Emitter {
             })
         }
 
-        this.emit('shopItemBuy', item)
+        this.emit('shopItemBuy', {
+            guildID,
+            boughtBy: memberID,
+            item
+        })
 
         return {
             status: true,
@@ -640,11 +648,11 @@ class ShopManager extends Emitter {
         const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`) || []
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         return inventory
@@ -679,30 +687,32 @@ class ShopManager extends Emitter {
             )
         }
 
+
         /**
          * @type {InventoryData[]}
          */
         const inventory = this.database.fetch(`${guildID}.${memberID}.inventory`) || []
+
         const itemIndex = inventory.findIndex(invItem => invItem.id == itemID || invItem.name == itemID)
         const item = inventory[itemIndex]
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID, 'INVALID_TYPE')
         }
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         if (!item) return null
 
         if (item.role) {
             if (item.role && !client) {
-                throw new EconomyError(errors.noClient)
+                throw new EconomyError(errors.noClient, 'NO_DISCORD_CLIENT')
             }
 
             const guild = client.guilds.cache.get(guildID)
@@ -713,7 +723,7 @@ class ShopManager extends Emitter {
 
                 member.roles.add(role).catch(err => {
                     if (!role) {
-                        return console.error(new EconomyError(errors.roleNotFound + roleID))
+                        return console.error(new EconomyError(errors.roleNotFound + roleID, 'ROLE_NOT_FOUND'))
                     }
 
                     console.error(
@@ -727,9 +737,43 @@ class ShopManager extends Emitter {
             })
 
             this.database.pop(`${guildID}.${memberID}.inventory`, itemIndex + 1)
-            this.emit('shopItemUse', item)
 
-            return item.message
+            let msg
+            const string = item?.message || 'You have used this item!'
+
+            if (string?.includes('[random=')) {
+                const s = string.slice(string.indexOf('[')).replace('random=', '')
+
+                let errored = false
+                let arr
+
+                try {
+                    arr = JSON.parse(s.slice(0, s.indexOf(']') + 1))
+                } catch {
+                    errored = true
+                }
+
+                if (errored || !arr.length) msg = string
+                else {
+                    const randomString = arr[Math.floor(Math.random() * arr.length)]
+                    const replacingString = string.slice(string.indexOf('['))
+
+
+                    msg = string.replace(replacingString, randomString) +
+                        string.slice(string.indexOf('"]')).replace('"]', '')
+                }
+            }
+
+            else msg = string
+
+            this.emit('shopItemUse', {
+                guildID,
+                usedBy: memberID,
+                item: new InventoryItem(guildID, memberID, this.options, item, this.database),
+                receivedMessage: msg
+            })
+
+            return msg
         }
     }
 
@@ -763,15 +807,15 @@ class ShopManager extends Emitter {
         const history = this.database.fetch(`${guildID}.${memberID}.history`)
 
         if (!this.options.savePurchasesHistory) {
-            throw new EconomyError(errors.savingHistoryDisabled)
+            throw new EconomyError(errors.savingHistoryDisabled, 'PURCHASES_HISTORY_DISABLED')
         }
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         return history
@@ -804,14 +848,14 @@ class ShopManager extends Emitter {
             )
         }
 
-        const history = this.database.fetch(`${guildID}.${memberID}.history`)
+        const history = this.database.fetch(`${guildID}.${memberID}.history`) || []
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         if (!history) return false

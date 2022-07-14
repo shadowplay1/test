@@ -52,7 +52,7 @@ class Cooldowns {
 
         /**
          * Cooldowns configuration object.
-         * @type {Cooldown}
+         * @type {RewardCooldowns}
          */
         this._rewardCooldowns = {
             daily: this._database.get(`${this._rawUser.guildID}.settings.dailyCooldown`)
@@ -137,6 +137,12 @@ class Cooldowns {
  */
 module.exports = Cooldowns
 
+/**
+ * @typedef {object} RewardCooldowns
+ * @property {number} daily Daily cooldown.
+ * @property {number} work Work cooldown.
+ * @property {number} weekly Weekly cooldown.
+ */
 
 /**
  * @typedef {object} RawEconomyUser Raw economy user object from database.
@@ -147,7 +153,7 @@ module.exports = Cooldowns
  * @property {number} bank User's bank balance.
  * @property {InventoryData} inventory User's inventory.
  * @property {HistoryData} history User's purchases history.
- * @property {string} id User's ID.
+ * @property {string} id User ID.
  * @property {string} guildID Guild ID.
  */
 

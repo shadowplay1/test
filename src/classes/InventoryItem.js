@@ -18,10 +18,11 @@ class InventoryItem extends Emitter {
      * @param {string} guildID Guild ID.
      * @param {string} memberID Member ID.
      * @param {EconomyOptions} ecoOptions Economy configuration.
-     * @param {DatabaseManager} database Database Manager.
      * @param {InventoryData} itemObject Economy guild object.
+     * @param {DatabaseManager} database Database Manager.
      */
     constructor(guildID, memberID, ecoOptions, itemObject, database) {
+        super()
 
         /**
          * Economy configuration.
@@ -90,11 +91,6 @@ class InventoryItem extends Emitter {
          */
         this.date = itemObject.date
 
-
-        for (const [key, value] of Object.entries(itemObject || {})) {
-            this[key] = value
-        }
-
         /**
          * Settings manager methods object.
          * @type {SettingsManager}
@@ -108,18 +104,22 @@ class InventoryItem extends Emitter {
          * @private
          */
         this.database = database
+
+
+        for (const [key, value] of Object.entries(itemObject || {})) {
+            this[key] = value
+        }
     }
 
     /**
      * Removes an item from the shop.
      * @param {number} [quantity=1] Quantity of items to delete.
      * 
-     * This method is an alias for 'InventoryItem.removeItem()' method.
+     * This method is an alias for 'InventoryItem.remove()' method.
      * @returns {boolean} If removed: true, else: false.
      */
     delete(quantity = 1) {
-        const result = this.removeItem(quantity)
-        return result
+        return this.remove(quantity)
     }
 
     /**
@@ -127,9 +127,11 @@ class InventoryItem extends Emitter {
      * @param {number} [quantity=1] Quantity of items to delete.
      * @returns {boolean} If removed: true, else: false.
      */
-    removeItem(quantity = 1) {
+    remove(quantity = 1) {
         const inventory = this.database.fetch(`${this.guildID}.${this.memberID}.inventory`) || []
+
         const item = this
+        const itemQuantity = inventory.filter(item => item.id == item.id).length
 
         const newInventory = [
             ...inventory.filter(invItem => invItem.id != item.id),
@@ -142,7 +144,10 @@ class InventoryItem extends Emitter {
 
     /**
      * Uses the item from user's inventory.
-     * @param {Client} [client] Discord Client [Specify if the role will be given in a discord server].
+     * @param {number | string} itemID Item ID or name.
+     * @param {string} memberID Member ID.
+     * @param {string} guildID Guild ID.
+     * @param {Client} [client] Discord Client [Specify if the role will be given in a Discord server].
      * @returns {string} Item message.
      */
     use(client) {
@@ -156,7 +161,7 @@ class InventoryItem extends Emitter {
 
         if (item.role) {
             if (item.role && !client) {
-                throw new EconomyError(errors.noClient)
+                throw new EconomyError(errors.noClient, 'NO_DISCORD_CLIENT')
             }
 
             const guild = client.guilds.cache.get(this.guildID)
@@ -167,7 +172,7 @@ class InventoryItem extends Emitter {
 
                 member.roles.add(role).catch(err => {
                     if (!role) {
-                        return console.error(new EconomyError(errors.roleNotFound + roleID))
+                        return console.error(new EconomyError(errors.roleNotFound + roleID, 'ROLE_NOT_FOUND'))
                     }
 
                     console.error(
@@ -181,20 +186,19 @@ class InventoryItem extends Emitter {
             })
         }
 
-        this.delete(this.itemID, this.memberID, this.guildID)
-        this.emit('shopItemUse', item)
+        this.delete()
 
         let msg
         const string = item?.message || 'You have used this item!'
 
         if (string.includes('[random=')) {
-            const s = string.slice(string.indexOf('[')).replace('random=', '')
+            const str = string.slice(string.indexOf('[')).replace('random=', '')
 
             let errored = false
             let arr
 
             try {
-                arr = JSON.parse(s.slice(0, s.indexOf(']') + 1))
+                arr = JSON.parse(str.slice(0, str.indexOf(']') + 1))
             } catch {
                 errored = true
             }
@@ -210,6 +214,14 @@ class InventoryItem extends Emitter {
         }
 
         else msg = string
+
+        this.emit('shopItemUse', {
+            guildID: this.guildID,
+            usedBy: this.memberID,
+            item: this,
+            receivedMessage: msg
+        })
+
         return msg
     }
 
@@ -219,7 +231,7 @@ class InventoryItem extends Emitter {
      * This is the same as selling something.
      * 
      * @param {number} [quantity=1] Quantity of items to sell.
-     * @returns {ShopOperationInfo} Selling operation info.
+     * @returns {SellingOperationInfo} Selling operation info.
      */
     sell(quantity = 1) {
         const inventory = this.database.fetch(`${this.guildID}.${this.memberID}.inventory`) || []
@@ -227,7 +239,7 @@ class InventoryItem extends Emitter {
         const item = this
         const itemQuantity = inventory.filter(invItem => invItem.id == item.id).length
 
-        const percent = this.settings.get('sellingItemPercent', guildID)
+        const percent = (this.settings.get('sellingItemPercent', guildID))
             || this.options.sellingItemPercent
 
         const sellingPrice = Math.floor((item?.price / 100) * percent)
@@ -244,7 +256,7 @@ class InventoryItem extends Emitter {
         }
 
         this.database.add(`${this.guildID}.${this.memberID}.money`, totalSellingPrice)
-        this.removeItem(quantity)
+        this.remove(quantity)
 
         return {
             status: true,
@@ -302,6 +314,7 @@ class InventoryItem extends Emitter {
  * @property {CheckerOptions} [optionsChecker=CheckerOptions] Configuration for an 'Economy.utils.checkOptions' method.
  * @property {boolean} [debug=false] Enables or disables the debug mode.
  */
+
 
 /**
  * Inventory item class.

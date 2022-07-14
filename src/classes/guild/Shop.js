@@ -38,11 +38,11 @@ class Shop extends BaseManager {
         const item = shop.find(item => item.id == itemID || item.name == itemID)
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID, 'INVALID_TYPE')
         }
 
         if (!item) return null
-        return new ShopItem(this.guildID, this.database, item)
+        return new ShopItem(this.guildID, item, this.database)
     }
 
     /**
@@ -51,19 +51,19 @@ class Shop extends BaseManager {
      */
     all() {
         const items = this.database.fetch(`${this.guildID}.shop`) || []
-        return items.map(item => new ShopItem(this.guildID, this.database, item))
+        return items.map(item => new ShopItem(this.guildID, item, this.database))
     }
 
     /**
-     * Gets all the items in the shop.
+     * Gets all items in the shop.
      * 
-     * This method is an alias for the `Shop.all()` method.
-     * @returns {ShopItem[]} Guild shop array.
+     * This method is an alias for the `Shop.findItem()` method.
+     * @param {string | number} itemID Item ID.
+     * @returns {ShopItem} Shop item.
      */
-    get() {
-        return this.all()
+    get(itemID) {
+        return this.findItem(itemID)
     }
-
 
     /**
      * Creates an item in shop.
@@ -98,35 +98,35 @@ class Shop extends BaseManager {
         }
 
         if (typeof this.guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof this.guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof this.guildID, 'INVALID_TYPE')
         }
 
         if (typeof name !== 'string') {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.name + typeof name)
+            throw new EconomyError(errors.invalidTypes.addItemOptions.name + typeof name, 'INVALID_TYPE')
         }
 
         if (isNaN(price)) {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.price + typeof price)
+            throw new EconomyError(errors.invalidTypes.addItemOptions.price + typeof price, 'INVALID_TYPE')
         }
 
         if (message && typeof message !== 'string') {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.message + typeof message)
+            throw new EconomyError(errors.invalidTypes.addItemOptions.message + typeof message, 'INVALID_TYPE')
         }
 
         if (description && typeof description !== 'string') {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.description + typeof description)
+            throw new EconomyError(errors.invalidTypes.addItemOptions.description + typeof description, 'INVALID_TYPE')
         }
 
         if (maxAmount !== undefined && isNaN(maxAmount)) {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.maxAmount + typeof maxAmount)
+            throw new EconomyError(errors.invalidTypes.addItemOptions.maxAmount + typeof maxAmount, 'INVALID_TYPE')
         }
 
         if (role && typeof role !== 'string') {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.role + typeof role)
+            throw new EconomyError(errors.invalidTypes.addItemOptions.role + typeof role, 'INVALID_TYPE')
         }
 
         if (custom && typeof custom !== 'object' && !Array.isArray(custom)) {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.role + typeof role)
+            throw new EconomyError(errors.invalidTypes.addItemOptions.role + typeof role, 'INVALID_TYPE')
         }
 
         const itemInfo = {
@@ -141,8 +141,13 @@ class Shop extends BaseManager {
             custom: custom || {}
         }
 
+
+        const newShopItem = new ShopItem(this.guildID, itemInfo, this.database)
+
         this.database.push(`${this.guildID}.shop`, itemInfo)
-        return new ShopItem(this.guildID, this.database, itemInfo)
+        this.emit('shopItemAdd', newShopItem)
+
+        return newShopItem
     }
 
     /**
@@ -170,27 +175,23 @@ class Shop extends BaseManager {
         const itemProperties = ['description', 'price', 'name', 'message', 'maxAmount', 'role', 'custom']
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID, 'INVALID_TYPE')
         }
 
         if (typeof this.guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guilddID + typeof this.guildID)
+            throw new EconomyError(errors.invalidTypes.guilddID + typeof this.guildID, 'INVALID_TYPE')
         }
 
         if (!itemProperties.includes(itemProperty)) {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + itemProperty)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + itemProperty, 'INVALID_TYPE')
         }
 
         if (value == undefined) {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + value)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + value, 'INVALID_TYPE')
         }
 
         const edit = (itemProperty, value) => {
-
-            /**
-             * @type {ItemData[]}
-             */
-            const shop = this.list(this.guildID)
+            const shop = this.all(this.guildID)
 
             const itemIndex = shop.findIndex(item => item.id == itemID || item.name == itemID)
             const item = shop[itemIndex]
@@ -201,9 +202,9 @@ class Shop extends BaseManager {
             this.database.pull(`${this.guildID}.shop`, itemIndex, item)
 
             this.emit('shopItemEdit', {
-                itemID,
+                item,
                 guildID: this.guildID,
-                changed: itemProperty,
+                changedProperty: itemProperty,
                 oldValue: item[itemProperty],
                 newValue: value
             })

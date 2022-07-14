@@ -35,13 +35,13 @@ const availableItemProps = [
 
 module.exports = {
     notReady: 'The module is not ready to work.',
-    savingHistoryDisabled: 'Saving the purchases history is disabled.',
+    savingHistoryDisabled: 'Saving purchases history is disabled.',
 
     invalidTypes: {
         memberID: 'memberID must be a string. Received type: ',
         guildID: 'guildID must be a string. Received type: ',
         senderMemberID: 'senderMemberID must be a string. Received type: ',
-        recipientMemberID: 'recipientMemberID must be a string. Received type: ',
+        receiverMemberID: 'receiverMemberID must be a string. Received type: ',
         amount: 'amount must be a number. Received type: ',
         value: 'value must be specified. Received: ',
         id: 'id must be a string or a number. Received type: ',
@@ -111,6 +111,8 @@ module.exports = {
 
     invalidStorage: 'Storage file is not valid.',
     wrongStorageData: 'Storage file contains wrong data.',
+
+    invalidErrorCode: 'Invalid error code.',
 
     /**
      * Sends a deprecation warning log in the console.

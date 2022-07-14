@@ -28,7 +28,7 @@ class EconomyUser {
     constructor(id, guildID, ecoOptions, userObject, database) {
 
         /**
-         * User's ID.
+         * User ID.
          * @type {string}
          */
         this.id = id
@@ -115,7 +115,7 @@ class EconomyUser {
      * @returns {EconomyUser} Deleted user object.
      */
     delete() {
-        this._shop.database.remove(`${guildID}.${memberID}`)
+        this._shop.database.remove(`${this.guildID}.${this.id}`)
         return this
     }
 
@@ -126,10 +126,10 @@ class EconomyUser {
     reset() {
         const defaultObj = defaultUserObject
 
-        defaultObj.id = memberID
-        defaultObj.guildID = guildID
+        defaultObj.id = this.id
+        defaultObj.guildID = this.guildID
 
-        const result = this._shop.database.set(`${guildID}.${memberID}`, defaultObj)
+        const result = this._shop.database.set(`${this.guildID}.${this.id}`, defaultObj)
         return result
     }
 }

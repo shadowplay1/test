@@ -11,7 +11,6 @@ const errors = require('../structures/errors')
 const InventoryItem = require('../classes/InventoryItem')
 const ShopItem = require('../classes/ShopItem')
 
-
 /**
  * Inventory manager methods class.
  */
@@ -67,11 +66,11 @@ class InventoryManager extends Emitter {
         const inventory = this.fetch(memberID, guildID)
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         if (!inventory) return false
@@ -80,13 +79,13 @@ class InventoryManager extends Emitter {
     }
 
     /**
-     * Searches for the item in the inventory.
+     * Gets the item in the inventory.
      * @param {string | number} itemID Item ID or name.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @returns {InventoryItem} If item not found: null; else: item info object.
      */
-    searchItem(itemID, memberID, guildID) {
+    getItem(itemID, memberID, guildID) {
 
         /**
         * @type {InventoryItem[]}
@@ -95,15 +94,15 @@ class InventoryManager extends Emitter {
         const item = inventory.find(item => item.id == itemID || item.name == itemID)
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID, 'INVALID_TYPE')
         }
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         if (!item) return null
@@ -111,16 +110,16 @@ class InventoryManager extends Emitter {
     }
 
     /**
-     * Searches for the item in the inventory.
+     * Gets the item in the inventory.
      * 
-     * This method is an alias for the `InventoryManager.searchItem()` method.
+     * This method is an alias for the `InventoryManager.getItem()` method.
      * @param {number | string} itemID Item ID or name.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @returns {InventoryItem} If item not found: null; else: item info object.
      */
     findItem(itemID, memberID, guildID) {
-        return this.searchItem(itemID, memberID, guildID)
+        return this.getItem(itemID, memberID, guildID)
     }
 
     /**
@@ -133,11 +132,11 @@ class InventoryManager extends Emitter {
         const inventory = this.fetcher.fetchInventory(memberID, guildID)
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         return inventory.map(item => {
@@ -162,38 +161,34 @@ class InventoryManager extends Emitter {
      * @param {number | string} itemID Item ID or name.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
-     * @param {Client} [client] Discord Client [Specify if the role will be given in a discord server].
+     * @param {Client} [client] Discord Client [Specify if the role will be given in a Discord server].
      * @returns {string} Item message.
      */
     useItem(itemID, memberID, guildID, client) {
-
-        /**
-         * @type {InventoryItem[]}
-         */
         const inventory = this.fetch(memberID, guildID)
 
-        const itemObject = this.searchItem(itemID, memberID, guildID)
+        const itemObject = this.getItem(itemID, memberID, guildID)
         const itemIndex = inventory.findIndex(invItem => invItem.id == itemObject?.id)
 
         const item = inventory[itemIndex]
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID, 'INVALID_TYPE')
         }
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         if (!item) return null
 
         if (item.role) {
             if (item.role && !client) {
-                throw new EconomyError(errors.noClient)
+                throw new EconomyError(errors.noClient, 'NO_DISCORD_CLIENT')
             }
 
             const guild = client.guilds.cache.get(guildID)
@@ -204,7 +199,7 @@ class InventoryManager extends Emitter {
 
                 member.roles.add(role).catch(err => {
                     if (!role) {
-                        return console.error(new EconomyError(errors.roleNotFound + roleID))
+                        return console.error(new EconomyError(errors.roleNotFound + roleID, 'ROLE_NOT_FOUND'))
                     }
 
                     console.error(
@@ -219,7 +214,6 @@ class InventoryManager extends Emitter {
         }
 
         this.removeItem(itemID, memberID, guildID)
-        this.emit('shopItemUse', item)
 
         let msg
         const string = item?.message || 'You have used this item!'
@@ -248,6 +242,14 @@ class InventoryManager extends Emitter {
         }
 
         else msg = string
+
+        this.emit('shopItemUse', {
+            guildID,
+            usedBy: memberID,
+            item,
+            receivedMessage: msg
+        })
+
         return msg
     }
 
@@ -258,7 +260,7 @@ class InventoryManager extends Emitter {
      * @param {number | string} itemID Item ID or name.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
-     * @param {Client} [client] The Discord Client. [Specify if the role will be given in a discord server].
+     * @param {Client} [client] The Discord Client. [Specify if the role will be given in a Discord server].
      * @returns {string} Item message.
      */
     use(itemID, memberID, guildID, client) {
@@ -281,19 +283,22 @@ class InventoryManager extends Emitter {
         const inventory = this.fetch(memberID, guildID) || []
         const inventoryObjects = inventory.map(item => item.itemObject)
 
-        const item = this.findItem(itemID, memberID, guildID)
+        const item = inventory.find(invItem => invItem.id == itemID || invItem.name == itemID)
+        const itemQuantity = inventoryObjects.filter(item => item.id == itemID).length
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID, 'INVALID_TYPE')
         }
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
+
+        if (!item) return false
 
         const newInventory = [
             ...inventoryObjects.filter(invItem => invItem.id != item.id),
@@ -319,7 +324,7 @@ class InventoryManager extends Emitter {
         * @type {ShopItem[]}
         */
         const shop = this.fetcher.fetchShop(guildID).map(item => {
-            return new ShopItem(guildID, this.database, item)
+            return new ShopItem(guildID, item, this.database)
         })
 
         const item = shop.find(shopItem => shopItem.id == itemID || shopItem.name == itemID)
@@ -331,15 +336,15 @@ class InventoryManager extends Emitter {
         const inventoryItems = inventory.filter(invItem => invItem.name == item.name)
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID, 'INVALID_TYPE')
         }
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         if (!item) return {
@@ -404,14 +409,14 @@ class InventoryManager extends Emitter {
         const totalSellingPrice = sellingPrice * quantity
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID, 'INVALID_TYPE')
         }
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         if (!item) return {

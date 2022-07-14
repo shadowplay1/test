@@ -56,7 +56,7 @@ class DatabaseManager {
      * @param {string} key The key in database.
      * @returns {String[]} An array with all keys in database or 'null' if nothing found.
      */
-    keyList(key) {
+    keysList(key) {
         const storageData = this.all()
         const data = this.fetch(key)
 
@@ -79,7 +79,7 @@ class DatabaseManager {
         if (value == undefined) return false
 
         if (typeof key !== 'string') {
-            throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data)
+            throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data, 'INVALID_TYPE')
         }
 
         if (debug) this._logger.debug(`Performed "set" operation on key "${key}".`)
@@ -98,15 +98,15 @@ class DatabaseManager {
 
         if (!key) return false
         if (typeof key !== 'string') {
-            throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data)
+            throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data, 'INVALID_TYPE')
         }
 
         if (isNaN(value)) {
-            throw new EconomyError(errors.databaseManager.invalidTypes.value.number + typeof value)
+            throw new EconomyError(errors.databaseManager.invalidTypes.value.number + typeof value, 'INVALID_TYPE')
         }
 
         if (isNaN(data)) {
-            throw new EconomyError(errors.databaseManager.invalidTypes.target.number + typeof data)
+            throw new EconomyError(errors.databaseManager.invalidTypes.target.number + typeof data, 'INVALID_TYPE')
         }
 
         const numData = Number(data)
@@ -127,15 +127,15 @@ class DatabaseManager {
 
         if (!key) return false
         if (typeof key !== 'string') {
-            throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data)
+            throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data, 'INVALID_TYPE')
         }
 
         if (isNaN(value)) {
-            throw new EconomyError(errors.databaseManager.invalidTypes.value.number + typeof value)
+            throw new EconomyError(errors.databaseManager.invalidTypes.value.number + typeof value, 'INVALID_TYPE')
         }
 
         if (isNaN(data)) {
-            throw new EconomyError(errors.databaseManager.invalidTypes.target.number + typeof data)
+            throw new EconomyError(errors.databaseManager.invalidTypes.target.number + typeof data, 'INVALID_TYPE')
         }
 
         const numData = Number(data)
@@ -153,7 +153,7 @@ class DatabaseManager {
     fetch(key) {
         if (!key) return false
         if (typeof key !== 'string') {
-            throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data)
+            throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data, 'INVALID_TYPE')
         }
 
         return this.parser.parse(key)
@@ -190,7 +190,7 @@ class DatabaseManager {
         if (!key) return false
 
         if (typeof key !== 'string') {
-            throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data)
+            throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data, 'INVALID_TYPE')
         }
 
         this._logger.debug(`Performed "delete" operation on key "${key}".`)
@@ -219,12 +219,12 @@ class DatabaseManager {
         if (value == undefined) return false
 
         if (typeof key !== 'string') {
-            throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data)
+            throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data, 'INVALID_TYPE')
         }
 
         const data = this.fetch(key) || []
         if (!Array.isArray(data) && !data.length) {
-            throw new EconomyError(errors.databaseManager.invalidTypes.target.array + typeof data)
+            throw new EconomyError(errors.databaseManager.invalidTypes.target.array + typeof data, 'INVALID_TYPE')
         }
 
         this._logger.debug(`Performed "push" operation on key "${key}".`)
@@ -243,12 +243,12 @@ class DatabaseManager {
         if (!key) return false
         if (index == undefined) return false
         if (typeof key !== 'string') {
-            throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data)
+            throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data, 'INVALID_TYPE')
         }
 
         const data = this.fetch(key)
         if (!Array.isArray(data)) {
-            throw new EconomyError(errors.databaseManager.invalidTypes.target.array + typeof data)
+            throw new EconomyError(errors.databaseManager.invalidTypes.target.array + typeof data, 'INVALID_TYPE')
         }
 
         this._logger.debug(`Performed "pop" operation on key "${key}".`)
@@ -306,20 +306,22 @@ class DatabaseManager {
         if (!key) return false
         if (index == undefined) return false
         if (typeof key !== 'string') {
-            throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data)
+            throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data, 'INVALID_TYPE')
         }
 
         const data = this.fetch(key)
         if (!Array.isArray(data)) {
-            throw new EconomyError(errors.databaseManager.invalidTypes.target.array + typeof data)
+            throw new EconomyError(errors.databaseManager.invalidTypes.target.array + typeof data, 'INVALID_TYPE')
         }
 
         if (typeof key !== 'string') {
-            throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data)
+            throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof data, 'INVALID_TYPE')
         }
 
         if (newValue == undefined) {
-            throw new EconomyError(errors.databaseManager.invalidTypes.value.newValue + typeof newValue)
+            throw new EconomyError(
+                errors.databaseManager.invalidTypes.value.newValue + typeof newValue, 'INVALID_TYPE'
+            )
         }
 
         this._logger.debug(`Performed "pull" operation on key "${key}".`)

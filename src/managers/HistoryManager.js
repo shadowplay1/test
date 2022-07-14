@@ -49,18 +49,18 @@ class HistoryManager {
      * @returns {HistoryItem[]} User's purchases history.
      */
     fetch(memberID, guildID) {
-        const history = this.database.fetch(`${guildID}.${memberID}.history`)
+        const history = this.database.fetch(`${guildID}.${memberID}.history`) || []
 
         if (!this.options.savePurchasesHistory) {
-            throw new EconomyError(errors.savingHistoryDisabled)
+            throw new EconomyError(errors.savingHistoryDisabled, 'PURCHASES_HISTORY_DISABLED')
         }
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         return history.map(
@@ -91,11 +91,11 @@ class HistoryManager {
         const history = this.fetch(memberID, guildID)
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         if (!history) return false
@@ -107,39 +107,46 @@ class HistoryManager {
      * @param {string | number} itemID Item ID or name.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
+     * @param {number} [quantity=1] Quantity of the item.
      * @returns {boolean} If added: true, else: false.
      */
-    add(itemID, memberID, guildID) {
-        const shop = this.database.fetch(`${guildID}.shop`)
-        const history = this.database.fetch(`${guildID}.${memberID}.history`)
+    async add(itemID, memberID, guildID, quantity = 1) {
+        const shop = (await this.database.fetch(`${guildID}.shop`)) || []
+        const history = (await this.database.fetch(`${guildID}.${memberID}.history`)) || []
 
         const item = shop.find(item => item.id == itemID || item.name == itemID)
+        const totalPrice = item.price * quantity
 
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID, 'INVALID_TYPE')
         }
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         if (!item) return false
 
-        return this.database.push(`${guildID}.${memberID}.history`, {
+        const result = await this.database.push(`${guildID}.${memberID}.history`, {
             id: history.length ? history[history.length - 1].id + 1 : 1,
             memberID,
             guildID,
             name: item.name,
             price: item.price,
+            quantity,
+            totalPrice,
             role: item.role || null,
             maxAmount: item.maxAmount,
-            date: new Date().toLocaleString(this.options.dateLocale || 'en')
+            date: new Date().toLocaleString(this.options.dateLocale || 'en'),
+            custom: item.custom || {}
         })
+
+        return result
     }
 
     /**
@@ -151,20 +158,20 @@ class HistoryManager {
      */
     remove(id, memberID, guildID) {
         if (typeof id !== 'number' && typeof id !== 'string') {
-            throw new EconomyError(errors.invalidTypes.id + typeof id)
+            throw new EconomyError(errors.invalidTypes.id + typeof id, 'INVALID_TYPE')
         }
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         const history = this.fetch(memberID, guildID)
 
-        const historyItem = this.find(
+        const historyItem = this.findItem(
             historyItem =>
                 historyItem.id == id &&
                 historyItem.memberID == memberID &&
@@ -180,25 +187,25 @@ class HistoryManager {
     }
 
     /**
-     * Searches for the specified item from history.
+     * Gets the specified item from history.
      * @param {string | number} id History item ID.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @returns {HistoryItem} Purchases history item.
      */
-    find(id, memberID, guildID) {
+    findItem(id, memberID, guildID) {
         const history = this.fetch(memberID, guildID)
 
         if (typeof id !== 'number' && typeof id !== 'string') {
-            throw new EconomyError(errors.invalidTypes.id + typeof id)
+            throw new EconomyError(errors.invalidTypes.id + typeof id, 'INVALID_TYPE')
         }
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
 
@@ -207,16 +214,16 @@ class HistoryManager {
     }
 
     /**
-     * Searches for the specified item from history.
+     * Gets the specified item from history.
      * 
-     * This method is an alias for the `HistoryManager.find()` method.
+     * This method is an alias for `HistoryManager.findItem()` method.
      * @param {string | number} id History item ID.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @returns {HistoryItem} Purchases history item.
      */
-    search(id, memberID, guildID) {
-        return this.find(id, memberID, guildID)
+    getItem(id, memberID, guildID) {
+        return this.findItem(id, memberID, guildID)
     }
 }
 

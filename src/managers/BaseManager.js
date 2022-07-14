@@ -1,6 +1,4 @@
 const Emitter = require('../classes/util/Emitter')
-const EconomyUser = require('../classes/EconomyUser')
-
 const DatabaseManager = require('./DatabaseManager')
 
 /**
@@ -30,7 +28,7 @@ const DatabaseManager = require('./DatabaseManager')
  *  
  *  all() {
  *      const shop = this.database.fetch(`${this.guildID}.shop`) || []
-        return shop.map(item => new ShopItem(this.guildID, this.database, item))
+        return shop.map(item => new ShopItem(this.guildID, item, this.database))
  *  }
  * }
  */

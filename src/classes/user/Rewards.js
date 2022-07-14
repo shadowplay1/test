@@ -48,7 +48,7 @@ class Rewards {
     * @returns {RewardData} Reward object information.
     */
     getDaily(reason) {
-        return this._rewards.daily(this.memberID, this.guildID, reason)
+        return this._rewards.getDaily(this.memberID, this.guildID, reason)
     }
 
     /**
@@ -59,7 +59,7 @@ class Rewards {
     * @returns {RewardData} Reward object information.
     */
     getWork(reason) {
-        return this._rewards.work(this.memberID, this.guildID, reason)
+        return this._rewards.getWork(this.memberID, this.guildID, reason)
     }
 
     /**
@@ -70,7 +70,7 @@ class Rewards {
     * @returns {RewardData} Reward object information.
     */
     getWeekly(reason) {
-        return this._rewards.weekly(this.memberID, this.guildID, reason)
+        return this._rewards.getWeekly(this.memberID, this.guildID, reason)
     }
 }
 

@@ -96,7 +96,7 @@ class Items {
     /**
      * Uses the item from user's inventory.
      * @param {number | string} itemID Item ID or name.
-     * @param {Client} [client] Discord Client [Specify if the role will be given in a discord server].
+     * @param {Client} [client] Discord Client [Specify if the role will be given in a Discord server].
      * @returns {string} Item message.
      */
     use(itemID, client) {

@@ -1,4 +1,4 @@
-const EconomyConfig = {
+const economyConfig = {
     storagePath: './storage.json',
 
     dailyAmount: 100,
@@ -17,7 +17,7 @@ const EconomyConfig = {
 
     updater: {
         checkUpdates: true,
-        upToDateMessage: true
+        upToDateMessage: false
     },
 
     errorHandler: {
@@ -40,6 +40,6 @@ const EconomyConfig = {
 
 /**
  * Default Economy configuration.
- * @type {EconomyConfig}
+ * @type {economyConfig}
  */
-module.exports = EconomyConfig
+module.exports = economyConfig

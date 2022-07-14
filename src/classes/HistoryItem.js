@@ -10,6 +10,7 @@ class HistoryItem {
     /**
      * History item class.
      * @param {string} guildID Guild ID.
+     * @param {string} memberID Member ID.
      * @param {EconomyOptions} ecoOptions Economy configuration.
      * @param {HistoryData} itemObject User purchases history item object.
      * @param {DatabaseManager} database Database Manager.
@@ -71,6 +72,12 @@ class HistoryItem {
         this.role = itemObject.role
 
         /**
+         * Quantity of the item.
+         * @type {number}
+         */
+        this.quantity = itemObject.quantity
+
+        /**
          * Database Manager.
          * @type {DatabaseManager}
          * @private
@@ -100,15 +107,15 @@ class HistoryItem {
         const id = this.id
 
         if (typeof id !== 'number' && typeof id !== 'string') {
-            throw new EconomyError(errors.invalidTypes.id + typeof id)
+            throw new EconomyError(errors.invalidTypes.id + typeof id, 'INVALID_TYPE')
         }
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         const history = this.database
@@ -140,6 +147,7 @@ class HistoryItem {
  * @property {string} message The message that will be returned on item use.
  * @property {string} role ID of Discord Role that will be given to user on item use.
  * @property {string} date Date when the item was bought by a user.
+ * @property {number} quantity Quantity of the item.
  * @property {string} memberID Member ID.
  * @property {string} guildID Guild ID.
  */

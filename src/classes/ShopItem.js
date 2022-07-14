@@ -15,10 +15,11 @@ class ShopItem extends Emitter {
     /**
      * Shop item class.
      * @param {string} guildID Guild ID.
-     * @param {DatabaseManager} database Database Manager.
      * @param {ItemData} itemObject Shop item object.
+     * @param {DatabaseManager} database Database Manager.
      */
-    constructor(guildID, database, itemObject) {
+    constructor(guildID, itemObject, database) {
+        super()
 
         /**
          * Guild ID.
@@ -102,11 +103,12 @@ class ShopItem extends Emitter {
     /**
      * Checks for is the specified user has enough money to buy the item.
      * @param {string} userID User ID.
+     * @param {number} [quantity=1] Quantity of the items to buy.
      * @returns {boolean} Is the user has enough money to buy the item.
      */
-    isEnoughMoneyFor(userID) {
+    isEnoughMoneyFor(userID, quantity = 1) {
         const user = this.database.fetch(`${this.guildID}.${userID}`)
-        return user.money >= this.price
+        return user?.money >= this.price * quantity
     }
 
     /**
@@ -133,11 +135,13 @@ class ShopItem extends Emitter {
         const itemProperties = ['description', 'price', 'name', 'message', 'maxAmount', 'role', 'custom']
 
         if (!itemProperties.includes(itemProperty)) {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + itemProperty)
+            throw new EconomyError(
+                errors.invalidTypes.editItemArgs.itemProperty + itemProperty, 'ITEM_PROPERTY_INVALID'
+            )
         }
 
         if (value == undefined) {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + value)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + value, 'INVALID_TYPE')
         }
 
         const edit = (itemProperty, value) => {
@@ -153,13 +157,12 @@ class ShopItem extends Emitter {
             if (!item) return false
 
             item[itemProperty] = value
-
             this.database.pull(`${this.guildID}.shop`, itemIndex, item)
 
             this.emit('shopItemEdit', {
-                itemID: this.id,
+                item: this,
                 guildID: this.guildID,
-                changed: itemProperty,
+                changedProperty: itemProperty,
                 oldValue: item[itemProperty],
                 newValue: value
             })
@@ -195,28 +198,12 @@ class ShopItem extends Emitter {
     }
 
     /**
-     * Edits the item in the shop.
-     * 
-     * This method is an alias for 'ShopItem.edit()' method.
-     * 
-     * @param {"description" | "price" | "name" | "message" | "maxAmount" | "role"} itemProperty
-     * This argument means what thing in item you want to edit (item property). 
-     * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.
-     * 
-     * @param {any} value Any value to set.
-     * @returns {boolean} If edited successfully: true, else: false.
-     */
-    editItem(itemProperty, value) {
-        return this.edit(itemProperty, value)
-    }
-
-    /**
      * Sets a custom object for the item.
      * @param {object} custom Custom item data object.
      * @returns {boolean} If set successfully: true, else: false.
      */
     setCustom(customObject) {
-        return this.editItem('custom', customObject)
+        return this.edit('custom', customObject)
     }
 
     /**
@@ -238,7 +225,7 @@ class ShopItem extends Emitter {
         const itemIndex = shop.findIndex(item => item.id == this.id || item.name == this.id)
         const item = shop[itemIndex]
 
-        this.database.pop(`${guildID}.shop`, itemIndex)
+        this.database.pop(`${this.guildID}.shop`, itemIndex)
 
         this.emit('shopItemRemove', {
             id: item.id,

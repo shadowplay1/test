@@ -1,4 +1,4 @@
-module.exports = {
+const defaultUserObject = {
     dailyCooldown: null,
     workCooldown: null,
     weeklyCooldown: null,
@@ -7,3 +7,5 @@ module.exports = {
     inventory: [],
     history: []
 }
+
+module.exports = defaultUserObject
