@@ -1,9 +1,9 @@
 const EconomyUser = require('../classes/EconomyUser')
 
+const BaseManager = require('./BaseManager')
 const DatabaseManager = require('./DatabaseManager')
 
-const BaseManager = require('./BaseManager')
-const UtilsManager = require('./UtilsManager')
+const defaultUserObject = require('../structures/DefaultUserObject')
 
 
 /**
@@ -15,11 +15,10 @@ class UserManager extends BaseManager {
     /**
      * User Manager.
      * @param {EconomyOptions} options Economy configuration.
-     * @param {DatabaseManager} database Database manager.
      * @param {string} guildID Guild ID.
      */
-    constructor(options, database, guildID) {
-        super(options, null, guildID, EconomyUser, database)
+    constructor(options, guildID) {
+        super(options, null, guildID, EconomyUser)
 
         /**
          * Economy configuration.
@@ -33,88 +32,87 @@ class UserManager extends BaseManager {
          * @type {DatabaseManager}
          * @private
          */
-        this.database = database
-
-        /**
-         * Utils Manager.
-         * @type {UtilsManager}
-         * @private
-         */
-        this.utils = new UtilsManager(options, this.database)
+        this.database = new DatabaseManager(options)
     }
 
     /**
      * Gets the user by it's ID and guild ID.
      * @param {string} userID User ID.
      * @param {string} [guildID] Guild ID.
-     * @returns {Promise<EconomyUser>} User object.
+     * @returns {EconomyUser} User object.
      */
-    async get(userID, guildID) {
-        const allUsers = await this.all()
-        return allUsers.find(user => user.guildID == (guildID || this.guildID) && user.id == userID)
+    get(userID, guildID) {
+        const user = this.all()
+            .find(user => user.id == userID && user.guildID == (guildID || this.guildID))
+
+        return user
     }
 
     /**
      * Creates an economy user object in database.
      * @param {string} memberID The user ID to set.
      * @param {string} [guildID] Guild ID.
-     * @returns {Promise<EconomyUser>} Economy user object.
+     * @returns {EconomyUser} Economy user object.
      */
-    async create(memberID, guildID) {
-        const result = await this.utils.resetUser(memberID, guildID || this.guildID)
-        return result
+    create(memberID, guildID = this.guildID) {
+        if (!guildID) return null
+        if (!memberID) return null
+
+        const defaultObj = defaultUserObject
+
+        defaultObj.id = memberID
+        defaultObj.guildID = guildID
+
+        this.database.set(`${guildID}.${memberID}`, defaultObj)
+
+        const newUser = new EconomyUser(memberID, guildID, this.options, defaultObj, this.database)
+        return newUser
     }
 
     /**
      * Sets the default user object for a specified member.
      * @param {string} userID User ID.
      * @param {string} [guildID] Guild ID.
-     * @returns {Promise<boolean>} If reset successfully: true; else: false.
+     * @returns {EconomyUser} If reset successfully: true; else: false.
      */
-    async reset(userID, guildID) {
-        await this.utils.resetUser(userID, guildID || this.guildID)
-        return true
+    reset(userID, guildID = this.guildID) {
+        return this.create(userID, guildID)
     }
 
     /**
      * Gets the array of ALL users in database.
-     * @returns {Promise<EconomyUser[]>}
+     * @returns {EconomyUser[]}
      */
-    async all() {
-        const userArray = []
+    all() {
+
+        /**
+        * @type {EconomyUser[]}
+        */
         const users = []
 
-        const guildIDs = await this.database.keyList('')
+        const all = this.database.all()
+        const guildEntries = Object.entries(all)
 
-        for (const guildID of guildIDs) {
-            const usersObject = (await this.database.fetch(guildID)) || {}
-            const userEntries = Object.entries(usersObject)
+        for (const [guildID, guildObject] of guildEntries) {
+            const userEntries = Object.entries(guildObject).filter(entry => !isNaN(entry[0]))
 
-            for (const [key, value] of userEntries) {
-                if (!Array.isArray(value) && typeof value == 'object') {
-                    value.id = key
-                    value.guildID = guildID
+            for (const [userID, userObject] of userEntries) {
+                userObject.id = userID
+                userObject.guildID = guildID
 
-                    userArray.push(value)
-                }
+                delete userObject.history
+                delete userObject.inventory
+                delete userObject.bank
+
+                const economyUser = new EconomyUser(userID, guildID, this.options, userObject, this.database)
+
+                delete economyUser.connection
+                delete economyUser.database
+                delete economyUser.utils
+                delete economyUser.shop
+
+                users.push(economyUser)
             }
-        }
-
-        for (const user of userArray) {
-            const userObject = await this.database.fetch(`${user.guildID}.${user.id}`)
-
-            delete userObject.history
-            delete userObject.inventory
-            delete userObject.bank
-
-            const economyUser = new EconomyUser(user.id, user.guildID, this.options, userObject, this.database)
-
-            delete economyUser.connection
-            delete economyUser.database
-            delete economyUser.utils
-            delete economyUser.shop
-
-            users.push(economyUser)
         }
 
         return users
@@ -124,6 +122,8 @@ class UserManager extends BaseManager {
 
 /**
  * @typedef {object} EconomyOptions Default Economy configuration.
+ * @property {string} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
+ * @property {boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
  * @property {number} [dailyCooldown=86400000] 
  * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  * 
@@ -145,6 +145,7 @@ class UserManager extends BaseManager {
  * @property {boolean} [subtractOnBuy=true] 
  * If true, when someone buys the item, their balance will subtract by item price. Default: false
  * 
+ * @property {number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
  * @property {string} [dateLocale='en'] The region (example: 'ru' or 'en') to format the date and time. Default: 'en'.
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.

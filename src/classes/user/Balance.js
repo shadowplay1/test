@@ -1,15 +1,12 @@
-const Emitter = require('../util/Emitter')
-const EconomyError = require('../util/EconomyError')
-const errors = require('../../structures/errors')
 
 const DatabaseManager = require('../../managers/DatabaseManager')
+const BalanceManager = require('../../managers/BalanceManager')
 
 
 /**
  * User balance class.
- * @extends {Emitter}
  */
-class Balance extends Emitter {
+class Balance {
 
     /**
      * User balance class.
@@ -19,7 +16,6 @@ class Balance extends Emitter {
      * @param {DatabaseManager} database Database manager.
      */
     constructor(memberID, guildID, ecoOptions, database) {
-        super()
 
         /**
         * Member ID.
@@ -34,107 +30,56 @@ class Balance extends Emitter {
         this.guildID = guildID
 
         /**
-         * Databaase Manager.
-         * @type {DatabaseManager}
+         * Balance Manager.
+         * @type {BalanceManager}
          * @private
          */
-        this.database = database
+        this._balance = new BalanceManager(ecoOptions, database)
     }
 
     /**
      * Sets the money amount on user's balance.
      * @param {number} amount Money amount
      * @param {string} [reason] The reason why you set the money.
-     * @returns {Promise<number>} Money amount
+     * @returns {number} Money amount
      */
     set(amount, reason) {
-        const balance = this.get()
-
-        if (isNaN(amount)) {
-            throw new EconomyError(errors.invalidTypes.amount + typeof amount)
-        }
-
-        this.database.set(`${this.guildID}.${this.memberID}.money`, amount)
-
-        this.emit('balanceSet', {
-            type: 'set',
-            guildID: this.guildID,
-            memberID: this.memberID,
-            amount: Number(amount),
-            balance,
-            reason
-        })
-
-        return amount
+        return this._balance.set(amount, this.memberID, this.guildID, reason)
     }
 
     /**
      * Adds the money amount on user's balance.
      * @param {number} amount Money amount.
      * @param {string} [reason] The reason why you add the money.
-     * @returns {Promise<number>} Money amount.
+     * @returns {number} Money amount.
      */
     add(amount, reason) {
-        const balance = this.get()
-
-        if (isNaN(amount)) {
-            throw new EconomyError(errors.invalidTypes.amount + typeof amount)
-        }
-
-        this.database.add(`${this.guildID}.${this.memberID}.money`, amount)
-
-        this.emit('balanceAdd', {
-            type: 'add',
-            guildID: this.guildID,
-            memberID: this.memberID,
-            amount: Number(amount),
-            balance: balance + amount,
-            reason
-        })
-
-        return amount
+        return this._balance.add(amount, this.memberID, this.guildID, reason)
     }
 
     /**
      * Subtracts the money amount on user's balance.
      * @param {number} amount Money amount.
      * @param {string} [reason] The reason why you subtract the money.
-     * @returns {Promise<number>} Money amount.
+     * @returns {number} Money amount.
      */
     subtract(amount, reason) {
-        const balance = this.get()
-
-        if (isNaN(amount)) {
-            throw new EconomyError(errors.invalidTypes.amount + typeof amount)
-        }
-
-        this.database.subtract(`${this.guildID}.${this.memberID}.money`, amount)
-
-        this.emit('balanceSubtract', {
-            type: 'add',
-            guildID: this.guildID,
-            memberID: this.memberID,
-            amount: Number(amount),
-            balance: balance + amount,
-            reason
-        })
-
-        return amount
+        return this._balance.subtract(amount, this.memberID, this.guildID, reason)
     }
 
     /**
      * Fetches the user's balance.
-     * @returns {Promise<number>} User's balance.
+     * @returns {number} User's balance.
      */
     get() {
-        return this.database.fetch(`${this.guildID}.${this.memberID}.money`) || 0
+        return this._balance.get(this.memberID, this.guildID) || 0
     }
 
     /**
      * Fetches the user's balance.
      * 
      * This method is an alias for 'Balance.get()' method
-     * @returns {Promise<number>} User's balance.
+     * @returns {number} User's balance.
      */
     fetch() {
         return this.get()
@@ -142,38 +87,26 @@ class Balance extends Emitter {
 
     /**
      * Sends the money to a specified user.
-     * @param {TransferingOptions} options Transfering options.
-     * @returns {Promise<number>} Amount of money that was sent.
+     * @param {UserTransferringOptions} options Transferring options.
+     * @returns {TransferringResult} Transferring result object.
      */
     transfer(options) {
-        const {
-            amount, senderMemberID,
-            recipientMemberID,
-            sendingReason, receivingReason
-        } = options || {}
-
-        if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
-        }
-
-        if (isNaN(amount)) {
-            throw new EconomyError(errors.invalidTypes.amount + typeof amount)
-        }
-
-        if (typeof senderMemberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.senderMemberID + typeof memberID)
-        }
-
-        if (typeof recipientMemberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.recipientMemberID + typeof memberID)
-        }
-
-        this.add(amount, recipientMemberID, this.guildID, receivingReason || 'receiving money from user')
-        this.subtract(amount, senderMemberID, this.guildID, sendingReason || 'sending money to user')
-
-        return true
+        return this._balance.transfer(this.guildID, options)
     }
 }
+
+
+/**
+ * @typedef {Object} TransferringResult
+ * @property {boolean} success Whether the transfer was successful or not.
+ * @property {string} guildID Guild ID.
+ * @property {number} amount Amount of money that was sent.
+ * @property {string} senderMemberID Sender member ID.
+ * @property {string} sendingReason Sending reason.
+ * @property {string} receivingReason Receiving reason.
+ * @property {number} senderBalance New sender balance.
+ * @property {number} receiverBalance New receiver balance.
+ */
 
 /**
  * @typedef {object} EconomyOptions Default Economy configuration.
@@ -209,15 +142,14 @@ class Balance extends Emitter {
  */
 
 /**
- * Transfering options.
- * @typedef {object} TransferingOptions
+ * Transferring options.
+ * @typedef {object} UserTransferringOptions
  * @property {number} amount Amount of money to send.
  * @property {string} senderMemberID A member ID who will send the money.
- * @property {string} recipientMemberID A member ID who will receive the money.
  * @property {string} [sendingReason='sending money to user'] 
  * The reason of subtracting the money from sender. (example: "sending money to {user}")
  * @property {string} [receivingReason='receiving money from user']
- * The reason of adding a money to recipient. (example: "receiving money from {user}")
+ * The reason of adding a money to receiver. (example: "receiving money from {user}")
  */
 
 /**

@@ -1,10 +1,5 @@
-const EconomyConfig = {
-    connection: {
-        connectionURI: '',
-        collectionName: 'database',
-        dbName: 'db',
-        mongoClientProperties: {}
-    },
+const economyConfig = {
+    storagePath: './storage.json',
 
     dailyAmount: 100,
     updateCountdown: 1000,
@@ -22,7 +17,7 @@ const EconomyConfig = {
 
     updater: {
         checkUpdates: true,
-        upToDateMessage: true
+        upToDateMessage: false
     },
 
     errorHandler: {
@@ -45,6 +40,6 @@ const EconomyConfig = {
 
 /**
  * Default Economy configuration.
- * @type {EconomyConfig}
+ * @type {economyConfig}
  */
-module.exports = EconomyConfig
+module.exports = economyConfig

@@ -16,9 +16,8 @@ class Cooldowns {
      * Cooldowns class.
      * @param {RawEconomyUser} userObject User object from database.
      * @param {EconomyOptions} options Economy configuration.
-     * @param {DatabaseManager} database Database Manager.
      */
-    constructor(userObject, options, database) {
+    constructor(userObject, options) {
 
         /**
          * Economy configuration.
@@ -31,7 +30,7 @@ class Cooldowns {
          * @type {DatabaseManager}
          * @private
          */
-        this._database = database
+        this._database = new DatabaseManager(options)
 
         /**
          * Cooldowns object.
@@ -53,7 +52,7 @@ class Cooldowns {
 
         /**
          * Cooldowns configuration object.
-         * @type {Cooldown}
+         * @type {RewardCooldowns}
          */
         this._rewardCooldowns = {
             daily: this._database.get(`${this._rawUser.guildID}.settings.dailyCooldown`)
@@ -70,7 +69,7 @@ class Cooldowns {
     /**
      * Returns the cooldown of the specified type.
      * @param {'daily' | 'work' | 'weekly'} type Cooldown type.
-     * @returns {Promise<CooldownData>} Cooldown object.
+     * @returns {CooldownData} Cooldown object.
      */
     getCooldown(type) {
         const allCooldowns = this.getAll()
@@ -80,7 +79,7 @@ class Cooldowns {
 
     /**
      * Gets a user's daily cooldown.
-     * @returns {Promise<CooldownData>} User's daily cooldown.
+     * @returns {CooldownData} User's daily cooldown.
      */
     getDaily() {
         const allCooldowns = this.getAll()
@@ -90,7 +89,7 @@ class Cooldowns {
 
     /**
      * Gets a user's work cooldown.
-     * @returns {Promise<CooldownData>} User's work cooldown.
+     * @returns {CooldownData} User's work cooldown.
      */
     getWork() {
         const allCooldowns = this.getAll()
@@ -100,7 +99,7 @@ class Cooldowns {
 
     /**
      * Gets a user's weekly cooldown.
-     * @returns {Promise<CooldownData>} User's weekly cooldown.
+     * @returns {CooldownData} User's weekly cooldown.
      */
     getWeekly() {
         const allCooldowns = this.getAll()
@@ -110,7 +109,7 @@ class Cooldowns {
 
     /**
      * Gets all user's cooldowns
-     * @returns {Promise<CooldownsTimeObject>} User's cooldowns object.
+     * @returns {CooldownsTimeObject} User's cooldowns object.
      */
     getAll() {
         const result = {}
@@ -138,6 +137,12 @@ class Cooldowns {
  */
 module.exports = Cooldowns
 
+/**
+ * @typedef {object} RewardCooldowns
+ * @property {number} daily Daily cooldown.
+ * @property {number} work Work cooldown.
+ * @property {number} weekly Weekly cooldown.
+ */
 
 /**
  * @typedef {object} RawEconomyUser Raw economy user object from database.
@@ -148,7 +153,7 @@ module.exports = Cooldowns
  * @property {number} bank User's bank balance.
  * @property {InventoryData} inventory User's inventory.
  * @property {HistoryData} history User's purchases history.
- * @property {string} id User's ID.
+ * @property {string} id User ID.
  * @property {string} guildID Guild ID.
  */
 

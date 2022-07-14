@@ -1,5 +1,5 @@
 const EconomyError = require('../classes/util/EconomyError')
-const errors = require('../structures/errors')
+const errors = require('../../src/structures/errors')
 
 
 /**
@@ -10,6 +10,7 @@ class HistoryItem {
     /**
      * History item class.
      * @param {string} guildID Guild ID.
+     * @param {string} memberID Member ID.
      * @param {EconomyOptions} ecoOptions Economy configuration.
      * @param {HistoryData} itemObject User purchases history item object.
      * @param {DatabaseManager} database Database Manager.
@@ -71,6 +72,12 @@ class HistoryItem {
         this.role = itemObject.role
 
         /**
+         * Quantity of the item.
+         * @type {number}
+         */
+        this.quantity = itemObject.quantity
+
+        /**
          * Database Manager.
          * @type {DatabaseManager}
          * @private
@@ -86,33 +93,32 @@ class HistoryItem {
      * Removes the item from the history.
      * 
      * This method is an alias for 'HistoryItem.remove()' method.
-     * @returns {Promise<boolean>} If removed: true, else: false.
+     * @returns {boolean} If removed: true, else: false.
      */
-    async delete() {
-        const result = await this.remove()
-        return result
+    delete() {
+        return this.remove()
     }
 
     /**
      * Removes the item from the history.
-     * @returns {Promise<boolean>} If removed: true, else: false.
+     * @returns {boolean} If removed: true, else: false.
      */
-    async remove() {
+    remove() {
         const id = this.id
 
         if (typeof id !== 'number' && typeof id !== 'string') {
-            throw new EconomyError(errors.invalidTypes.id + typeof id)
+            throw new EconomyError(errors.invalidTypes.id + typeof id, 'INVALID_TYPE')
         }
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
-        const history = (await this._database.fetch(`${this.guildID}.${this.memberID}.history`)) || []
+        const history = this.database
 
         const historyItem = history.find(
             historyItem =>
@@ -126,8 +132,7 @@ class HistoryItem {
         if (!historyItem) return false
         history.splice(historyItemIndex, 1)
 
-        const result = await this.database.set(`${guildID}.${memberID}.history`, history)
-        return result
+        return this.database.set(`${guildID}.${memberID}.history`, history)
     }
 }
 
@@ -142,6 +147,7 @@ class HistoryItem {
  * @property {string} message The message that will be returned on item use.
  * @property {string} role ID of Discord Role that will be given to user on item use.
  * @property {string} date Date when the item was bought by a user.
+ * @property {number} quantity Quantity of the item.
  * @property {string} memberID Member ID.
  * @property {string} guildID Guild ID.
  */

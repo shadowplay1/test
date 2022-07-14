@@ -11,9 +11,8 @@ class Leaderboards {
      * Guild leaderboards class.
      * @param {string} guildID Guild ID.
      * @param {EconomyOptions} options Economy configuration.
-     * @param {DatabaseManager} database Database Manager.
      */
-    constructor(guildID, options, database) {
+    constructor(guildID, options) {
 
         /**
         * Guild ID.
@@ -27,29 +26,19 @@ class Leaderboards {
         * @type {BalanceManager}
         * @private
         */
-        this._balance = new BalanceManager(options, database)
+        this._balance = new BalanceManager(options)
 
         /**
         * Bank Manager.
         * @type {BankManager}
         * @private
         */
-        this._bank = new BankManager(options, database)
+        this._bank = new BankManager(options)
     }
 
     /**
      * Gets a money leaderboard for this guild.
-     * @returns {Promise<BalanceLeaderboard[]>} Balance leaderboard array.
-     */
-    balance() {
-        return this._balance.leaderboard(this.guildID)
-    }
-
-    /**
-     * Gets a money leaderboard for this guild.
-     *
-     * This method is an alias for 'Leaderboards.balance()' method.
-     * @returns {Promise<BalanceLeaderboard[]>} Balance leaderboard array.
+     * @returns {BalanceLeaderboard[]} Balance leaderboard array.
      */
     money() {
         return this.balance()
@@ -57,7 +46,7 @@ class Leaderboards {
 
     /**
      * Gets a bank balance leaderboard for this guild.
-     * @returns {Promise<BankLeaderboard[]>} Bank balance leaderboard array.
+     * @returns {BankLeaderboard[]} Bank balance leaderboard array.
      */
     bank() {
         return this._bank.leaderboard(this.guildID)

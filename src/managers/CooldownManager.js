@@ -13,9 +13,17 @@ class CooldownManager {
     /**
       * Cooldown Manager.
       * @param {object} options Economy configuration.
-      * @param {DatabaseManager} database Database manager.
+      * @param {string} options.storagePath Full path to a JSON file. Default: './storage.json'.
+      * @param {number} options.dailyCooldown Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
+      * @param {number} options.workCooldown Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
+      * @param {number} options.dailyAmount Amount of money for Daily Command. Default: 100.
+      * @param {number} options.weeklyCooldown 
+      * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
+      * 
+      * @param {number} options.weeklyAmount Amount of money for Weekly Command. Default: 1000.
+      * @param {Number | Array} options.workAmount Amount of money for Work Command. Default: [10, 50].
      */
-    constructor(options, database) {
+    constructor(options) {
 
 
         /**
@@ -26,29 +34,29 @@ class CooldownManager {
         this.options = options
 
         /**
-         * Database manager methods object.
+         * Database manager.
          * @private
          * @type {DatabaseManager}
          */
-        this.database = database
+        this.database = new DatabaseManager(options)
     }
 
     /**
      * Gets a user's daily cooldown.
      * @param {string} memberID Member ID
      * @param {string} guildID Guild ID
-     * @returns {Promise<number>} Cooldown end timestamp
+     * @returns {number} Cooldown end timestamp
      */
-    async getDaily(memberID, guildID) {
+    getDaily(memberID, guildID) {
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
-        const cooldown = await this.database.fetch(`${guildID}.${memberID}.dailyCooldown`)
+        const cooldown = this.database.fetch(`${guildID}.${memberID}.dailyCooldown`)
         return cooldown
     }
 
@@ -56,18 +64,18 @@ class CooldownManager {
      * Gets a user's work cooldown.
      * @param {string} memberID Member ID
      * @param {string} guildID Guild ID
-     * @returns {Promise<number>} Cooldown end timestamp
+     * @returns {number} Cooldown end timestamp
      */
-    async getWork(memberID, guildID) {
+    getWork(memberID, guildID) {
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
-        const cooldown = await this.database.fetch(`${guildID}.${memberID}.workCooldown`)
+        const cooldown = this.database.fetch(`${guildID}.${memberID}.workCooldown`)
         return cooldown
     }
 
@@ -75,18 +83,18 @@ class CooldownManager {
      * Gets a user's daily cooldown.
      * @param {string} memberID Member ID
      * @param {string} guildID Guild ID
-     * @returns {Promise<number>} Cooldown end timestamp
+     * @returns {number} Cooldown end timestamp
      */
-    async getWeekly(memberID, guildID) {
+    getWeekly(memberID, guildID) {
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
-        const cooldown = await this.database.fetch(`${guildID}.${memberID}.weeklyCooldown`)
+        const cooldown = this.database.fetch(`${guildID}.${memberID}.weeklyCooldown`)
         return cooldown
     }
 
@@ -94,57 +102,54 @@ class CooldownManager {
      * Clears user's daily cooldown.
      * @param {string} memberID Member ID
      * @param {string} guildID Guild ID
-     * @returns {Promise<boolean>} If cleared: true; else: false
+     * @returns {boolean} If cleared: true; else: false
      */
-    async clearDaily(memberID, guildID) {
+    clearDaily(memberID, guildID) {
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
-        const result = await this.database.remove(`${guildID}.${memberID}.dailyCooldown`)
-        return result
+        return this.database.remove(`${guildID}.${memberID}.dailyCooldown`)
     }
 
     /**
      * Clears user's work cooldown.
      * @param {string} memberID Member ID
      * @param {string} guildID Guild ID
-     * @returns {Promise<boolean>} If cleared: true; else: false
+     * @returns {boolean} If cleared: true; else: false
      */
-    async clearWork(memberID, guildID) {
+    clearWork(memberID, guildID) {
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
-        const result = await this.database.remove(`${guildID}.${memberID}.workCooldown`)
-        return result
+        return this.database.remove(`${guildID}.${memberID}.workCooldown`)
     }
 
     /**
      * Clears user's weekly cooldown.
      * @param {string} memberID Member ID
      * @param {string} guildID Guild ID
-     * @returns {Promise<boolean>} If cleared: true; else: false
+     * @returns {boolean} If cleared: true; else: false
      */
-    async clearWeekly(memberID, guildID) {
+    clearWeekly(memberID, guildID) {
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID)
+            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
-        const result = await this.database.remove(`${guildID}.${memberID}.weeklyCooldown`)
-        return result
+        return this.database.remove(`${guildID}.${memberID}.weeklyCooldown`)
     }
 }
 

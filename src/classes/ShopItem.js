@@ -15,10 +15,10 @@ class ShopItem extends Emitter {
     /**
      * Shop item class.
      * @param {string} guildID Guild ID.
-     * @param {DatabaseManager} database Database Manager.
      * @param {ItemData} itemObject Shop item object.
+     * @param {DatabaseManager} database Database Manager.
      */
-    constructor(guildID, database, itemObject) {
+    constructor(guildID, itemObject, database) {
         super()
 
         /**
@@ -103,20 +103,21 @@ class ShopItem extends Emitter {
     /**
      * Checks for is the specified user has enough money to buy the item.
      * @param {string} userID User ID.
-     * @returns {Promise<boolean>} Is the user has enough money to buy the item.
+     * @param {number} [quantity=1] Quantity of the items to buy.
+     * @returns {boolean} Is the user has enough money to buy the item.
      */
-    async isEnoughMoneyFor(userID) {
-        const user = await this.database.fetch(`${this.guildID}.${userID}`)
-        return user.money >= this.price
+    isEnoughMoneyFor(userID, quantity = 1) {
+        const user = this.database.fetch(`${this.guildID}.${userID}`)
+        return user?.money >= this.price * quantity
     }
 
     /**
      * Checks for is the specified user has the item in their inventory.
      * @param {string} userID User ID.
-     * @returns {Promise<boolean>} Is the user has the item in their inventory.
+     * @returns {boolean} Is the user has the item in their inventory.
      */
-    async isInInventory(userID) {
-        const user = await this.database.fetch(`${this.guildID}.${userID}`)
+    isInInventory(userID) {
+        const user = this.database.fetch(`${this.guildID}.${userID}`)
         return !!user.inventory.find(item => item.id == this.id)
     }
 
@@ -128,25 +129,27 @@ class ShopItem extends Emitter {
      * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.
      * 
      * @param {any} value Any value to set.
-     * @returns {Promise<boolean>} If edited successfully: true, else: false.
+     * @returns {boolean} If edited successfully: true, else: false.
      */
-    async edit(itemProperty, value) {
+    edit(itemProperty, value) {
         const itemProperties = ['description', 'price', 'name', 'message', 'maxAmount', 'role', 'custom']
 
         if (!itemProperties.includes(itemProperty)) {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + itemProperty)
+            throw new EconomyError(
+                errors.invalidTypes.editItemArgs.itemProperty + itemProperty, 'ITEM_PROPERTY_INVALID'
+            )
         }
 
         if (value == undefined) {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + value)
+            throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + value, 'INVALID_TYPE')
         }
 
-        const edit = async (itemProperty, value) => {
+        const edit = (itemProperty, value) => {
 
             /**
              * @type {ItemData[]}
              */
-            const shop = await this.database.fetch(`${this.guildID}.shop`)
+            const shop = this.database.fetch(`${this.guildID}.shop`)
 
             const itemIndex = shop.findIndex(item => item.id == this.id || item.name == this.id)
             const item = shop[itemIndex]
@@ -154,12 +157,12 @@ class ShopItem extends Emitter {
             if (!item) return false
 
             item[itemProperty] = value
-            await this.database.pull(`${this.guildID}.shop`, itemIndex, item)
+            this.database.pull(`${this.guildID}.shop`, itemIndex, item)
 
             this.emit('shopItemEdit', {
-                itemID: this.id,
+                item: this,
                 guildID: this.guildID,
-                changed: itemProperty,
+                changedProperty: itemProperty,
                 oldValue: item[itemProperty],
                 newValue: value
             })
@@ -169,32 +172,25 @@ class ShopItem extends Emitter {
 
         switch (itemProperty) {
             case itemProperties[0]:
-                const result = await edit(itemProperties[0], value)
-                return result
+                return edit(itemProperties[0], value)
 
             case itemProperties[1]:
-                const result1 = await edit(itemProperties[1], value)
-                return result1
+                return edit(itemProperties[1], value)
 
             case itemProperties[2]:
-                const result2 = await edit(itemProperties[2], value)
-                return result2
+                return edit(itemProperties[2], value)
 
             case itemProperties[3]:
-                const result3 = await edit(itemProperties[3], value)
-                return result3
+                return edit(itemProperties[3], value)
 
             case itemProperties[4]:
-                const result4 = await edit(itemProperties[4], value)
-                return result4
+                return edit(itemProperties[4], value)
 
             case itemProperties[5]:
-                const result5 = await edit(itemProperties[5], value)
-                return result5
+                return edit(itemProperties[5], value)
 
             case itemProperties[6]:
-                const result6 = await edit(itemProperties[6], value)
-                return result6
+                return edit(itemProperties[6], value)
 
             default:
                 return null
@@ -202,35 +198,19 @@ class ShopItem extends Emitter {
     }
 
     /**
-     * Edits the item in the shop.
-     * 
-     * This method is an alias for 'ShopItem.edit()' method.
-     * 
-     * @param {"description" | "price" | "name" | "message" | "maxAmount" | "role"} itemProperty
-     * This argument means what thing in item you want to edit (item property). 
-     * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.
-     * 
-     * @param {any} value Any value to set.
-     * @returns {Promise<boolean>} If edited successfully: true, else: false.
-     */
-    editItem(itemProperty, value) {
-        return this.edit(itemProperty, value)
-    }
-
-    /**
      * Sets a custom object for the item.
      * @param {object} custom Custom item data object.
-     * @returns {Promise<boolean>} If set successfully: true, else: false.
+     * @returns {boolean} If set successfully: true, else: false.
      */
     setCustom(customObject) {
-        return this.editItem('custom', customObject)
+        return this.edit('custom', customObject)
     }
 
     /**
      * Removes an item from the shop.
      * 
      * This method is an alias for 'ShopItem.remove()' method.
-     * @returns {Promise<boolean>} If removed: true, else: false.
+     * @returns {boolean} If removed: true, else: false.
      */
     delete() {
         return this.remove()
@@ -238,15 +218,14 @@ class ShopItem extends Emitter {
 
     /**
      * Removes an item from the shop.
-     * @returns {Promise<boolean>} If removed: true, else: false.
+     * @returns {boolean} If removed: true, else: false.
      */
-    async remove() {
-        const shop = await this.database.fetch(`${this.guildID}.shop`) || []
-
+    remove() {
+        const shop = this.database.fetch(`${this.guildID}.shop`) || []
         const itemIndex = shop.findIndex(item => item.id == this.id || item.name == this.id)
         const item = shop[itemIndex]
 
-        await this.database.pop(`${guildID}.shop`, itemIndex)
+        this.database.pop(`${this.guildID}.shop`, itemIndex)
 
         this.emit('shopItemRemove', {
             id: item.id,

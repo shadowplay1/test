@@ -27,14 +27,14 @@ function checkValueType(key, value) {
                 (Array.isArray(value) && typeof value[0] !== 'number' && typeof value[1] !== 'number')
                 || !Array.isArray(value) && typeof value !== 'number'
             ) {
-                throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value))
+                throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value), 'INVALID_TYPE')
             }
 
             break
 
         case 'dailyCooldown':
             if (typeof value !== 'number') {
-                throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value))
+                throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value), 'INVALID_TYPE')
             }
 
             break
@@ -45,14 +45,14 @@ function checkValueType(key, value) {
                 (Array.isArray(value) && typeof value[0] !== 'number' && typeof value[1] !== 'number')
                 || !Array.isArray(value) && typeof value !== 'number'
             ) {
-                throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value))
+                throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value), 'INVALID_TYPE')
             }
 
             break
 
         case 'workCooldown':
             if (typeof value !== 'number') {
-                throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value))
+                throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value), 'INVALID_TYPE')
             }
 
             break
@@ -63,14 +63,14 @@ function checkValueType(key, value) {
                 (Array.isArray(value) && typeof value[0] !== 'number' && typeof value[1] !== 'number')
                 || !Array.isArray(value) && typeof value !== 'number'
             ) {
-                throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value))
+                throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value), 'INVALID_TYPE')
             }
 
             break
 
         case 'weeklyCooldown':
             if (typeof value !== 'number') {
-                throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value))
+                throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value), 'INVALID_TYPE')
             }
 
             break
@@ -78,28 +78,28 @@ function checkValueType(key, value) {
 
         case 'dateLocale':
             if (typeof value !== 'string') {
-                throw new EconomyError(errors.settingsManager.invalidType(key, 'string', typeof value))
+                throw new EconomyError(errors.settingsManager.invalidType(key, 'string', typeof value), 'INVALID_TYPE')
             }
 
             break
 
         case 'subtractOnBuy':
             if (typeof value !== 'boolean') {
-                throw new EconomyError(errors.settingsManager.invalidType(key, 'boolean', typeof value))
+                throw new EconomyError(errors.settingsManager.invalidType(key, 'boolean', typeof value), 'INVALID_TYPE')
             }
 
             break
 
         case 'sellingItemPercent':
             if (typeof value !== 'number') {
-                throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value))
+                throw new EconomyError(errors.settingsManager.invalidType(key, 'number', typeof value), 'INVALID_TYPE')
             }
 
             break
 
         case 'savePurchasesHistory':
             if (typeof value !== 'boolean') {
-                throw new EconomyError(errors.settingsManager.invalidType(key, 'boolean', typeof value))
+                throw new EconomyError(errors.settingsManager.invalidType(key, 'boolean', typeof value), 'INVALID_TYPE')
             }
 
             break
@@ -117,7 +117,6 @@ class SettingsManager {
     /**
      * Settings Manager.
      * @param {EconomyOptions} options Economy configuration.
-     * @param {DatabaseManager} database Database manager.
      */
     constructor(options, database) {
 
@@ -147,13 +146,18 @@ class SettingsManager {
      * 
      * @param {Settings} key The setting to fetch.
      * @param {string} guildID Guild ID.
-     * @returns {Promise<any>} The setting from the database.
+     * @returns {any} The setting from the database.
      */
-    async get(key, guildID) {
-        if (typeof guildID !== 'string') throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
-        if (!settingsArray.includes(key)) throw new EconomyError(errors.settingsManager.invalidKey + key)
+    get(key, guildID) {
+        if (typeof guildID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+        }
 
-        const data = await this.all(guildID)
+        if (!settingsArray.includes(key)) {
+            throw new EconomyError(errors.settingsManager.invalidKey + key, 'INVALID_TYPE')
+        }
+
+        const data = this.all(guildID)
 
         const dbValue = data[key]
         return dbValue
@@ -169,20 +173,29 @@ class SettingsManager {
      * @param {Settings} key The setting to change.
      * @param {any} value The value to set.
      * @param {string} guildID Guild ID.
-     * @returns {Promise<SettingsTypes>} The server settings object.
+     * @returns {SettingsTypes} The server settings object.
      */
-    async set(key, value, guildID) {
-        if (value == undefined) throw new EconomyError(errors.invalidTypes.value + typeof value)
-        if (typeof key !== 'string') throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof key)
-        if (typeof guildID !== 'string') throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+    set(key, value, guildID) {
+        if (value == undefined) {
+            throw new EconomyError(errors.invalidTypes.value + typeof value, 'INVALID_TYPE')
+        }
 
-        if (!settingsArray.includes(key)) throw new EconomyError(errors.settingsManager.invalidKey + key)
+        if (typeof key !== 'string') {
+            throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof key, 'INVALID_TYPE')
+        }
+
+        if (typeof guildID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+        }
+
+        if (!settingsArray.includes(key)) {
+            throw new EconomyError(errors.settingsManager.invalidKey + key, 'INVALID_TYPE')
+        }
 
         checkValueType(key, value)
-        await this.database.set(`${guildID}.settings.${key}`, value)
 
-        const result = await this.all(guildID)
-        return result
+        this.database.set(`${guildID}.settings.${key}`, value)
+        return this.all(guildID)
     }
 
     /**
@@ -194,28 +207,36 @@ class SettingsManager {
      * 
      * @param {Settings} key The setting to remove.
      * @param {string} guildID Guild ID.
-     * @returns {Promise<SettingsTypes>} The server settings object.
+     * @returns {SettingsTypes} The server settings object.
      */
-    async remove(key, guildID) {
-        if (typeof key !== 'string') throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof key)
-        if (typeof guildID !== 'string') throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+    remove(key, guildID) {
+        if (typeof key !== 'string') {
+            throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof key, 'INVALID_TYPE')
+        }
 
-        if (!settingsArray.includes(key)) throw new EconomyError(errors.settingsManager.invalidKey + key)
+        if (typeof guildID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+        }
 
-        await this.database.remove(`${guildID}.settings.${key}`)
+        if (!settingsArray.includes(key)) {
+            throw new EconomyError(errors.settingsManager.invalidKey + key, 'INVALID_TYPE')
+        }
 
-        const result = await this.all(guildID)
-        return result
+        this.database.remove(`${guildID}.settings.${key}`)
+        return this.all(guildID)
     }
 
     /**
      * Fetches all the server's settings object.
      * @param {string} guildID Guild ID.
-     * @returns {Promise<SettingsTypes>} The server settings object.
+     * @returns {SettingsTypes} The server settings object.
      */
-    async all(guildID) {
-        if (typeof guildID !== 'string') throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
-        const settings = await this.database.fetch(`${guildID}.settings`)
+    all(guildID) {
+        if (typeof guildID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+        }
+
+        const settings = this.database.fetch(`${guildID}.settings`)
 
         return {
             dailyAmount: settings?.dailyAmount == null ? null : settings?.dailyAmount,
@@ -238,10 +259,12 @@ class SettingsManager {
     /**
      * Resets all the settings to setting that are in configuration.
      * @param {string} guildID Guild ID.
-     * @returns {Promise<SettingsTypes>} The server settings object.
+     * @returns {SettingsTypes} The server settings object.
      */
-    async reset(guildID) {
-        if (typeof guildID !== 'string') throw new EconomyError(errors.invalidTypes.guildID + typeof guildID)
+    reset(guildID) {
+        if (typeof guildID !== 'string') {
+            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+        }
 
         const defaultSettings = {
             dailyAmount: this.options.dailyAmount,
@@ -260,7 +283,7 @@ class SettingsManager {
             savePurchasesHistory: this.options.savePurchasesHistory
         }
 
-        await this.database.set(`${guildID}.settings`, defaultSettings)
+        this.database.set(`${guildID}.settings`, defaultSettings)
         return defaultSettings
     }
 }

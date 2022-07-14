@@ -18,16 +18,15 @@ class EconomyGuild {
      * @param {string} id Guild ID.
      * @param {EconomyOptions} ecoOptions Economy configuration.
      * @param {any} guildObject Economy guild object.
-     * @param {DatabaseManager} database Database manager.
      */
-    constructor(id, ecoOptions, guildObject, database) {
+    constructor(id, ecoOptions, guildObject) {
         delete guildObject.settings
 
         /**
          * Guild User Manager.
          * @type {UserManager}
          */
-        this.users = new UserManager(ecoOptions, database, id)
+        this.users = new UserManager(ecoOptions, id)
 
         /**
          * Guild ID.
@@ -40,32 +39,32 @@ class EconomyGuild {
          * @type {DatabaseManager}
          * @private
          */
-        this.database = database
+        this.database = new DatabaseManager(ecoOptions)
 
         /**
          * Utils Manager.
          * @type {UtilsManager}
          * @private
          */
-        this.utils = new UtilsManager(ecoOptions, database)
+        this.utils = new UtilsManager(ecoOptions, this.database)
 
         /**
          * Guild Shop.
          * @type {Shop}
          */
-        this.shop = new Shop(id, ecoOptions, database)
+        this.shop = new Shop(id, ecoOptions)
 
         /**
         * Guild Leaderboards.
         * @type {Leaderboards}
         */
-        this.leaderboards = new Leaderboards(id, ecoOptions, database)
+        this.leaderboards = new Leaderboards(id, ecoOptions)
 
         /**
          * Guild Settings.
          * @type {Settings}
          */
-        this.settings = new Settings(id, ecoOptions, database)
+        this.settings = new Settings(id, ecoOptions)
 
 
         delete guildObject.shop
@@ -77,24 +76,22 @@ class EconomyGuild {
 
     /**
      * Deletes the guild from database.
-     * @returns {Promise<EconomyGuild>} Deleted guild object.
+     * @returns {EconomyGuild} Deleted guild object.
      */
-    async delete() {
-        await this.database.delete(this.id)
+    delete() {
+        this.database.delete(this.id)
         return this
     }
 
     /**
      * Sets the default guild object for a specified member.
-     * @returns {Promise<boolean>} If reset successfully: true; else: false.
+     * @returns {boolean} If reset successfully: true; else: false.
      */
-    async reset() {
-        const result = await this.database.set(this.id, {
+    reset() {
+        return this.database.set(this.id, {
             shop: [],
             settings: []
         })
-
-        return result
     }
 }
 

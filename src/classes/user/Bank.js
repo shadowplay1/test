@@ -1,25 +1,20 @@
-const Emitter = require('../util/Emitter')
-const EconomyError = require('../util/EconomyError')
-const errors = require('../../structures/errors')
-
 const DatabaseManager = require('../../managers/DatabaseManager')
+const BankManager = require('../../managers/BankManager')
 
 
 /**
- * User bank class.
- * @extends {Emitter}
+ * User bank balance class.
  */
-class Bank extends Emitter {
+class Bank {
 
     /**
      * User balance class.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {EconomyOptions} ecoOptions Economy configuration.
-     * @param {DatabaseManager} database Database Manager.
+     * @param {DatabaseManager} database Database manager.
      */
-    constructor(memberID, guildID, options, database) {
-        super()
+    constructor(memberID, guildID, ecoOptions, database) {
 
         /**
         * Member ID.
@@ -34,118 +29,63 @@ class Bank extends Emitter {
         this.guildID = guildID
 
         /**
-         * Economy configuration.
-         * @type {EconomyOptions}
-         */
-        this.options = options
-
-        /**
-         * Databaase Manager.
-         * @type {DatabaseManager}
+         * Balance Manager.
+         * @type {BankManager}
          * @private
          */
-        this.database = database
+        this._bank = new BankManager(ecoOptions, database)
     }
 
     /**
-     * Sets the money amount on user's bank balance.
+     * Sets the money amount on user's balance.
      * @param {number} amount Money amount
      * @param {string} [reason] The reason why you set the money.
-     * @returns {Promise<number>} Money amount
+     * @returns {number} Money amount
      */
     set(amount, reason) {
-        const bank = this.get()
-
-        if (isNaN(amount)) {
-            throw new EconomyError(errors.invalidTypes.amount + typeof amount)
-        }
-
-        this.database.set(`${this.guildID}.${this.memberID}.bank`, Number(amount))
-
-        this.emit('bankSet', {
-            type: 'set',
-            guildID: this.guildID,
-            memberID: this.memberID,
-            amount: Number(amount),
-            bank,
-            reason
-        })
-
-        return amount
+        return this._bank.set(amount, this.memberID, this.guildID, reason)
     }
 
     /**
-     * Adds the money amount on user's bank balance.
+     * Adds the money amount on user's balance.
      * @param {number} amount Money amount.
      * @param {string} [reason] The reason why you add the money.
-     * @returns {Promise<number>} Money amount.
+     * @returns {number} Money amount.
      */
     add(amount, reason) {
-        const bank = this.get()
-
-        if (isNaN(amount)) {
-            throw new EconomyError(errors.invalidTypes.amount + typeof amount)
-        }
-
-        this.database.add(`${this.guildID}.${this.memberID}.bank`, Number(amount))
-
-        this.emit('bankAdd', {
-            type: 'add',
-            guildID: this.guildID,
-            memberID: this.memberID,
-            amount: Number(amount),
-            bank: bank + amount,
-            reason
-        })
-
-        return amount
+        return this._bank.add(amount, this.memberID, this.guildID, reason)
     }
 
     /**
-     * Subtracts the money amount on user's bank balance.
+     * Subtracts the money amount on user's balance.
      * @param {number} amount Money amount.
      * @param {string} [reason] The reason why you subtract the money.
-     * @returns {Promise<number>} Money amount.
+     * @returns {number} Money amount.
      */
     subtract(amount, reason) {
-        const bank = this.get()
-
-        if (isNaN(amount)) {
-            throw new EconomyError(errors.invalidTypes.amount + typeof amount)
-        }
-
-        this.database.subtract(`${this.guildID}.${this.memberID}.bank`, Number(amount))
-
-        this.emit('bankSubtract', {
-            type: 'subtract',
-            guildID: this.guildID,
-            memberID: this.memberID,
-            amount: Number(amount),
-            bank: bank - amount,
-            reason
-        })
-
-        return amount
+        return this._bank.subtract(amount, this.memberID, this.guildID, reason)
     }
 
     /**
-     * Fetches the user's bank balance.
-     * @returns {Promise<number>} User's bank balance.
-     */
-    fetch() {
-        return this.database.fetch(`${this.guildID}.${this.memberID}.bank`) || 0
-    }
-
-    /**
-     * Fetches the user's bank balance.
-     * 
-     * This method is an alias for 'EconomyUser.bank.fetch()' method.
-     * @returns {Promise<number>} User's bank balance.
+     * Fetches the user's balance.
+     * @returns {number} User's balance.
      */
     get() {
-        return this.fetch()
+        return this._bank.get(this.memberID, this.guildID) || 0
+    }
+
+    /**
+     * Fetches the user's balance.
+     * 
+     * This method is an alias for 'Balance.get()' method
+     * @returns {number} User's balance.
+     */
+    fetch() {
+        return this.get()
     }
 }
+
+
 
 /**
  * @typedef {object} EconomyOptions Default Economy configuration.
@@ -181,7 +121,7 @@ class Bank extends Emitter {
  */
 
 /**
- * User bank class.
+ * User bank balance class.
  * @type {Bank}
  */
 module.exports = Bank

@@ -3,8 +3,9 @@ const EconomyGuild = require('../classes/EconomyGuild')
 const BaseManager = require('./BaseManager')
 
 const DatabaseManager = require('./DatabaseManager')
-const UtilsManager = require('./UtilsManager')
+const FetchManager = require('./FetchManager')
 
+const UtilsManager = require('./UtilsManager')
 const UserManager = require('./UserManager')
 
 const EconomyError = require('../classes/util/EconomyError')
@@ -20,11 +21,9 @@ class GuildManager extends BaseManager {
     /**
      * Guild Manager.
      * @param {EconomyOptions} options Economy configuration.
-     * @param {DatabaseManager} database Database manager.
      */
-    constructor(options, database) {
-        super(options, null, null, EconomyGuild, database)
-
+    constructor(options) {
+        super(options, null, null, EconomyGuild)
 
         /**
          * Economy configuration.
@@ -38,31 +37,30 @@ class GuildManager extends BaseManager {
          * @type {DatabaseManager}
          * @private
          */
-        this.database = database
+        this.database = new DatabaseManager(options)
 
         /**
          * User Manager.
          * @type {UserManager}
          * @private
          */
-        this._users = new UserManager(options, database)
+        this._users = new UserManager(options, null)
 
         /**
          * Utils Manager.
          * @type {UtilsManager}
          * @private
          */
-        this.utils = new UtilsManager(options, this.database)
+        this.utils = new UtilsManager(options, this.database, new FetchManager(options))
     }
 
     /**
      * Gets the guild by it's ID.
      * @param {string} guildID Guild ID.
-     * @returns {Promise<EconomyGuild>} User object.
+     * @returns {EconomyGuild} User object.
      */
-    async get(guildID) {
-        const allUsers = await this.all()
-        const user = allUsers.find(guild => guild.id == guildID)
+    get(guildID) {
+        const user = this.all().find(guild => guild.id == guildID)
 
         return user
     }
@@ -70,52 +68,48 @@ class GuildManager extends BaseManager {
     /**
      * Creates an economy guild object in database.
      * @param {string} guildID The guild ID to set.
-     * @returns {Promise<EconomyGuild>} Economy user object.
+     * @returns {Promise<EconomyGuild>} New guild instance.
      */
-    async create(guildID) {
-        await this.reset(guildID)
-
-        const allGuilds = await this.all()
-        return allGuilds.find(guild => guild.id == guildID)
+    create(guildID) {
+        return this.reset(guildID)
     }
 
     /**
-     * Sets the default guild object for a specified member.
+     * Resets the guild in database.
      * @param {string} guildID Guild ID.
-     * @returns {Promise<boolean>} If reset successfully: true; else: false.
+     * @returns {Promise<EconomyGuild>} New guild instance.
      */
-    async reset(guildID) {
-        if (!guildID) throw new EconomyError(errors.invalidTypes.guildID)
-
-        const result = await this.database.set(guildID, {
+    reset(guildID) {
+        const emptyGuildObject = {
             shop: [],
             settings: []
-        })
+        }
 
-        return result
+        if (!guildID) throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+
+        this.database.set(guildID, emptyGuildObject)
+        return new EconomyGuild(guildID, this.options, emptyGuildObject, this.database, this.cache)
     }
 
     /**
      * Gets the array of ALL guilds in database.
-     * @returns {Promise<EconomyGuild[]>}
+     * @returns {EconomyGuild[]}
      */
-    async all() {
-        const guildsArray = []
+    all() {
+
+        /**
+        * @type {EconomyGuild[]}
+        */
         const guilds = []
 
-        const guildIDs = (await this.database.keyList('')) || []
+        const allDatabase = this.database.all()
+        const guildEntries = Object.entries(allDatabase)
 
-        for (const guildID of guildIDs) {
-            const guildObject = (await this.database.fetch(guildID)) || {}
+        for (const [guildID, guildObject] of guildEntries) {
+            guildObject.id = guildID
 
-            if (typeof guildObject == 'object') {
-                guildObject.id = guildID
-                guildsArray.push(guildObject)
-            }
-        }
-
-        for (const guild of guildsArray) {
-            guilds.push(new EconomyGuild(guild.id, this.options, guild, this.database))
+            const economyGuild = new EconomyGuild(guildID, this.options, guildObject)
+            guilds.push(economyGuild)
         }
 
         return guilds
@@ -124,6 +118,8 @@ class GuildManager extends BaseManager {
 
 /**
  * @typedef {object} EconomyOptions Default Economy configuration.
+ * @property {string} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
+ * @property {boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
  * @property {number} [dailyCooldown=86400000] 
  * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  * 
@@ -145,6 +141,7 @@ class GuildManager extends BaseManager {
  * @property {boolean} [subtractOnBuy=true] 
  * If true, when someone buys the item, their balance will subtract by item price. Default: false
  * 
+ * @property {number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
  * @property {string} [dateLocale='en'] The region (example: 'ru' or 'en') to format the date and time. Default: 'en'.
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.
