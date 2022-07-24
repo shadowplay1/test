@@ -8,20 +8,25 @@
 ## Initialation Example
 
 ```js
-const { Client } = require("discord.js");
-const Economy = require("discord-economy-super");
+const { Client } = require('discord.js');
+const Economy = require('discord-economy-super');
 
 const client = new Client({
-  intents: ["GuildMembers", "GuildMessages"],
+  intents: ['GuildMembers', 'GuildMessages'],
 });
 
-const eco = new Economy();
+let eco = new Economy();
 
-client.on("ready", () => {
+client.on('ready', () => {
   console.log(`${client.user.tag} is ready!`);
 });
 
-client.login("token");
+eco.on('ready', economy => {
+  console.log(`Economy is ready!`);
+  eco = economy
+})
+
+client.login('token');
 ```
 
 ## Balance Command
@@ -29,17 +34,17 @@ client.login("token");
 ```js
 if (command == prefix + 'balance') {
   const [userID] = args
-  const guild = await eco.guilds.get(message.guild.id)
+  const guild = eco.guilds.get(message.guild.id)
 
-  const user = await guild.users.get(
+  const user = guild.users.get(
       message.mentions.users.first()?.id ||
       message.guild.users.get(userID) ||
       message.author.id
 )
 
   const [balance, bank] = [
-      await user.balance.get(),
-      await user.bank.get()
+      user.balance.get(),
+      user.bank.get()
   ]
 
   message.channel.send(
@@ -54,10 +59,10 @@ if (command == prefix + 'balance') {
 
 ```js
 if (command == prefix + 'daily') {
-  const guild = await eco.guilds.get(message.guild.id)
-  const user = await guild.users.get(message.author.id)
+  const guild = eco.guilds.get(message.guild.id)
+  const user = guild.users.get(message.author.id)
 
-  const dailyResult = await user.rewards.getDaily<false>()
+  const dailyResult = user.rewards.getDaily<false>()
 
   if (dailyResult.cooldown) {
       return message.channel.send(
@@ -72,10 +77,10 @@ if (command == prefix + 'daily') {
 
 
 if (command == prefix + 'work') {
-  const guild = await eco.guilds.get(message.guild.id)
-  const user = await guild.users.get(message.author.id)
+  const guild = eco.guilds.get(message.guild.id)
+  const user = guild.users.get(message.author.id)
 
-  const workResult = await user.rewards.getWork<true>()
+  const workResult = user.rewards.getWork<true>()
 
   if (workResult.cooldown) {
       return message.channel.send(
@@ -90,10 +95,10 @@ if (command == prefix + 'work') {
 
 
 if (command == prefix + 'weekly') {
-  const guild = await eco.guilds.get(message.guild.id)
-  const user = await guild.users.get(message.author.id)
+  const guild = eco.guilds.get(message.guild.id)
+  const user = guild.users.get(message.author.id)
 
-  const weeklyResult = await user.rewards.getWeekly<true>()
+  const weeklyResult = user.rewards.getWeekly<true>()
 
   if (weeklyResult.cooldown) {
       return message.channel.send(
@@ -111,10 +116,10 @@ if (command == prefix + 'weekly') {
 
 ```js
 if (command == prefix + 'deposit') {
-  const guild = await eco.guilds.get(message.guild.id)
-  const user = await guild.users.get(message.author.id)
+  const guild = eco.guilds.get(message.guild.id)
+  const user = guild.users.get(message.author.id)
 
-  const userBalance = await user.balance.get()
+  const userBalance = user.balance.get()
   const amount = parseInt(args[0])
 
   if (userBalance < amount) {
@@ -124,8 +129,8 @@ if (command == prefix + 'deposit') {
       )
   }
 
-  await user.balance.subtract(amount, `depositted ${amount} coins`)
-  await user.bank.add(amount, `depositted ${amount} coins`)
+  user.balance.subtract(amount, `depositted ${amount} coins`)
+  user.bank.add(amount, `depositted ${amount} coins`)
 
   message.channel.send(
       `${message.author}, you deposited **${amount}** coins to your bank.`
@@ -134,10 +139,10 @@ if (command == prefix + 'deposit') {
 
 
 if (command == prefix + 'withdraw') {
-  const guild = await eco.guilds.get(message.guild.id)
-  const user = await guild.users.get(message.author.id)
+  const guild = eco.guilds.get(message.guild.id)
+  const user = guild.users.get(message.author.id)
 
-  const userBankBalance = await user.bank.get()
+  const userBankBalance = user.bank.get()
   const amount = parseInt(args[0])
 
   if (userBankBalance < amount) {
@@ -147,15 +152,15 @@ if (command == prefix + 'withdraw') {
       )
   }
 
-  await user.bank.subtract(amount, `withdrew ${amount} coins`)
-  await user.balance.add(amount, `withdrew ${amount} coins`)
+  user.bank.subtract(amount, `withdrew ${amount} coins`)
+  user.balance.add(amount, `withdrew ${amount} coins`)
 
   message.channel.send(
       `${message.author}, you withdrew **${amount}** coins from your bank.`
   )
 }
 ```
-See the full bot examples in both JavaScript and TypeScript on the [module's GitHub](https://github.com/shadowplay1/discord-economy-super/tree/main/examples).
+See the full bot examples for both MongoDB and JSON databases in both JavaScript and TypeScript [here](https://github.com/shadowplay1/discord-economy-super/tree/main/examples)!
 
 ## ❗ | Useful Links
 
