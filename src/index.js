@@ -75,7 +75,7 @@ class Economy extends Emitter {
          * Link to the module's documentation website.
          * @type {string}
          */
-        this.docs = 'https://des-docs.tk'
+        this.docs = 'https://des-docs.js.org'
 
         /**
         * Utils manager.
@@ -340,38 +340,38 @@ class Economy extends Emitter {
                     if (!version.updated) {
 
                         console.log('\n\n')
-                        console.log(this.colors.green + '╔══════════════════════════════════════════════════════════╗')
-                        console.log(this.colors.green + '║ @ discord-economy-super                           - [] X ║')
-                        console.log(this.colors.green + '║══════════════════════════════════════════════════════════║')
-                        console.log(this.colors.yellow + `║                 The module is ${this.colors.red}out of date!${this.colors.yellow}               ║`)
-                        console.log(this.colors.magenta + '║                  New version is available!               ║')
-                        console.log(this.colors.blue + `║                       ${version.installedVersion} --> ${version.packageVersion}                    ║`)
-                        console.log(this.colors.cyan + '║          Run "npm i discord-economy-super@latest"        ║')
-                        console.log(this.colors.cyan + '║                         to update!                       ║')
-                        console.log(this.colors.white + '║               View the full changelog here:              ║')
-                        console.log(this.colors.red + `║  https://des-docs.tk/#/docs/main/${version.packageVersion}/general/changelog ║`)
-                        console.log(this.colors.green + '╚══════════════════════════════════════════════════════════╝\x1b[37m')
+                        console.log(this.colors.green + '╔═══════════════════════════════════════════════════════════════╗')
+                        console.log(this.colors.green + '║ @ discord-economy-super                                - [] X ║')
+                        console.log(this.colors.green + '║═══════════════════════════════════════════════════════════════║')
+                        console.log(this.colors.yellow + `║                    The module is ${this.colors.red}out of date!${this.colors.yellow}                 ║`)
+                        console.log(this.colors.magenta + '║                     New version is available!                 ║')
+                        console.log(this.colors.blue + `║                          ${version.installedVersion} --> ${version.packageVersion}                      ║`)
+                        console.log(this.colors.cyan + '║             Run "npm i discord-economy-super@latest"          ║')
+                        console.log(this.colors.cyan + '║                            to update!                         ║')
+                        console.log(this.colors.white + '║                  View the full changelog here:                ║')
+                        console.log(this.colors.red + `║  https://des-docs.js.org/#/docs/main/${version.packageVersion}/general/changelog  ║`)
+                        console.log(this.colors.green + '╚═══════════════════════════════════════════════════════════════╝\x1b[37m')
                         console.log('\n\n')
 
                     } else {
                         if (this.options.updater.upToDateMessage) {
 
                             console.log('\n\n')
-                            console.log(this.colors.green + '╔══════════════════════════════════════════════════════════╗')
-                            console.log(this.colors.green + '║ @ discord-economy-super                           - [] X ║')
-                            console.log(this.colors.green + '║══════════════════════════════════════════════════════════║')
-                            console.log(this.colors.yellow + `║                  The module is ${this.colors.cyan}up to date!${this.colors.yellow}               ║`)
-                            console.log(this.colors.magenta + '║                  No updates are available.               ║')
-                            console.log(this.colors.blue + `║                  Current version is ${version.packageVersion}.               ║`)
-                            console.log(this.colors.cyan + '║                           Enjoy!                         ║')
-                            console.log(this.colors.white + '║               View the full changelog here:              ║')
-                            console.log(this.colors.red + `║  https://des-docs.tk/#/docs/main/${version.packageVersion}/general/changelog ║`)
-                            console.log(this.colors.green + '╚══════════════════════════════════════════════════════════╝\x1b[37m')
+                            console.log(this.colors.green + '╔═══════════════════════════════════════════════════════════════╗')
+                            console.log(this.colors.green + '║ @ discord-economy-super                                - [] X ║')
+                            console.log(this.colors.green + '║═══════════════════════════════════════════════════════════════║')
+                            console.log(this.colors.yellow + `║                     The module is ${this.colors.cyan}up to date!${this.colors.yellow}                 ║`)
+                            console.log(this.colors.magenta + '║                     No updates are available.                 ║')
+                            console.log(this.colors.blue + `║                     Current version is ${version.packageVersion}.                 ║`)
+                            console.log(this.colors.cyan + '║                              Enjoy!                           ║')
+                            console.log(this.colors.white + '║                  View the full changelog here:                ║')
+                            console.log(this.colors.red + `║  https://des-docs.js.org/#/docs/main/${version.packageVersion}/general/changelog  ║`)
+                            console.log(this.colors.green + '╚═══════════════════════════════════════════════════════════════╝\x1b[37m')
                             console.log('\n\n')
 
                         }
                     }
-                } else this._logger.debug('Skipped the updates checking...')
+                } else this._logger.debug('Skipped updates checking...')
 
                 if (this.options.checkStorage == undefined ? true : this.options.checkStorage) {
                     this._logger.debug('Checking for reserved words in a storage file path...')

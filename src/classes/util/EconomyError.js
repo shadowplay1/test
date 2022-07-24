@@ -1,18 +1,18 @@
 const errors = require('../../structures/errors')
 
-const errorCodes = {
-    INVALID_TYPE: 'INVALID_TYPE',
-    UNKNOWN_ERROR: 'UNKNOWN_ERROR',
-    PARAMETER_NOT_SPECIFIED: 'PARAMETER_NOT_SPECIFIED',
-    OLD_NODE_VERSION: 'OLD_NODE_VERSION',
-    NO_DISCORD_CLIENT: 'NO_DISCORD_CLIENT',
-    ROLE_NOT_FOUND: 'ROLE_NOT_FOUND',
-    PURCHASES_HISTORY_DISABLED: 'PURCHASES_HISTORY_DISABLED',
-    SETTINGS_KEY_INVALID: 'SETTINGS_KEY_INVALID',
-    INVALID_ERROR_CODE: 'INVALID_ERROR_CODE',
-    MODULE_NOT_READY: 'MODULE_NOT_READY',
-    STORAGE_FILE_ERROR: 'STORAGE_FILE_ERROR',
-}
+const errorCodes = [
+    'INVALID_TYPE',
+    'UNKNOWN_ERROR',
+    'PARAMETER_NOT_SPECIFIED',
+    'OLD_NODE_VERSION',
+    'NO_DISCORD_CLIENT',
+    'ROLE_NOT_FOUND',
+    'PURCHASES_HISTORY_DISABLED',
+    'SETTINGS_KEY_INVALID',
+    'INVALID_ERROR_CODE',
+    'MODULE_NOT_READY',
+    'STORAGE_FILE_ERROR'
+]
 
 /**
  * EconomyError class.
@@ -49,7 +49,7 @@ class EconomyError extends Error {
             code = 'UNKNOWN_ERROR'
         }
 
-        if (code && !errorCodes[code]) {
+        if (code && !errorCodes.includes(code)) {
             throw new EconomyError(errors.invalidErrorCode, 'INVALID_ERROR_CODE')
         }
 
