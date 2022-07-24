@@ -9,7 +9,7 @@
 
 <div>
 
-<b>1.6.0</b>
+<b>1.6.1</b>
 
 <ul>
 <li><b>Added a MongoDB support!</b></li>
