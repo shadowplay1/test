@@ -16,6 +16,12 @@
 <li><b>Fixed lots of bugs.</b></li>
 <li><b>Improved typings and now they use generics!</b></li>
 <li><b>Improved JSDocs.</b></li>
+
+<li><b>
+
+Removed the `./tests` directory from the module as nobody uses it
+
+</b></li>
 <br>
 <li><b>
 
@@ -475,8 +481,8 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>Added an 'optionsChecker' object property in constructor options.</b></li>
 <li><b>Added a 'subtractOnBuy' property in constructor options.</b></li>
 <li><b>All typings were separated into files.</b></li>
-<li><b><a href="https://des-docs.tk">Documentation</a> update: now you can view the docs for a multiple module versions.</b></li>
-<li><b><a href="https://des-docs.tk">Documentation</a> update: now you can view the weekly downloads of the module on it's main page.</b></li>
+<li><b><a href="https://des-docs.js.org">Documentation</a> update: now you can view the docs for a multiple module versions.</b></li>
+<li><b><a href="https://des-docs.js.org">Documentation</a> update: now you can view the weekly downloads of the module on it's main page.</b></li>
 <li><b>... and more!</b></li>
 </ul>
 
@@ -496,7 +502,7 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>Updated README.md.</b></li>
 <li><b>Updated documentation.</b></li>
 <li><b>Added a bank example in module files.</b></li>
-<li><b>Added more examples on <a href="https://des-docs.tk">documentation website</a>.</b></li>
+<li><b>Added more examples on <a href="https://des-docs.js.org">documentation website</a>.</b></li>
 <li><b>The entire module structure was rewritten on Managers.</b></li>
 <li><b>Added a new Database Manager that allows you to interact with module's storage file.</b></li>
 
@@ -506,7 +512,7 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>Fixed typos.</b></li>
 <li><b>Fixed minor bugs.</b></li>
 <li><b>Updated README.md.</b></li>
-<li><b>Now this module has a <a href="https://des-docs.tk">documentation website</a>!</b></li>
+<li><b>Now this module has a <a href="https://des-docs.js.org">documentation website</a>!</b></li>
 <li><b>Added an 'Economy.docs' property that contains a link to the documentation website.</b></li>
 </ul>
 
@@ -700,7 +706,7 @@ The test will look like this:
 <li><b>Now every balance and bank-balance event object is including 'type' and 'balance' properties. The first property is type of the operation ('set', 'add', 'subtract', 'bankSet', 'bankAdd', 'bankSubtract') and the second is user's new balance after the operation was completed successfully.</b></li>
 <li><b>Now you can manually check the module updates using the new 'Economy.checkUpdates()' method.</b></li>
 <li><b>Added an additional 'Economy.ready' and 'Economy.errored' properties to check the module state.</b></li>
-<li><b>Now you can add a role to users on your Discord server. Click <a href="https://des-docs.tk/#/docs/main/1.4.1/class/ShopManager">here</a> for more info.</b></li>
+<li><b>Now you can add a role to users on your Discord server. Click <a href="https://des-docs.js.org/#/docs/main/1.4.1/class/ShopManager">here</a> for more info.</b></li>
 <li><b>Added a new 'shopItemBuy' and 'shopItemUse' events.</b></li>
 <li><b>Now if user try to buy an item when he reached the max amount of item in their inventory, the method will return a 'max' string.</b></li>
 <li><b>Now this module has a Support Server. Click <b><a href = "https://discord.gg/4pWKq8vUnb">here</a></b> to join!</b></li>

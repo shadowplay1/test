@@ -15,8 +15,9 @@ This version takes much approach on object-orience. The most important changes a
 - separated classes for every Economy entity (`ShopItem`, `InventoryItem`, `EconomyGuild`, `EconomyUser`, etc)
 - separated classes for every Economy action on users and guilds (`Shop`, `Inventory`, `Rewards`, etc)
 - some of the methods' names and/or return values were changed to make them sound better and more natural. (for example: `BalanceManager.pay(...)` → `BalanceManager.transfer(...)`)
-- some of the getter methods and theire aliases' names were changed.
-- ... and many more! You can see the full [changelog](./changelog.md) to see all the changes: it will help you on migrating to v1.6.0.
+- some of the getter methods and their aliases' names were changed.
+- powerful database caching system for MongoDB
+- ... and many more! You can see the full [changelog](https://des-docs.js.org/#/docs/main/1.6.0/general/changelog) to see all the changes: it will help you on migrating to v1.6.0.
 
 These changes does not mean you will have to stop using the managers directly. You can use them as you normally would. Classes were provided as another way to use the Economy and make the code cleaner and more readable and understandable. Usage of managers is not deprecated or removed in this update. So, it means, you don't have to do much changes to make your code working again. 
 
@@ -29,7 +30,7 @@ console.log(balance)
 console.log(inventory)
 ```
 
-If you're looking for MongoDB migration guide, see the [MongoDB Migration Guide](./migrating.md).
+If you're looking for MongoDB migration guide, see the [MongoDB Migration Guide](https://des-docs.js.org/#/docs/main/1.6.0/general/migrating).
 
 ## Version 1.5.0
 
@@ -39,7 +40,7 @@ It's highly recommended to switch to the new HistoryManager:
 - `ShopManager.history()` ==> `HistoryManager.fetch()`
 - `ShopManager.clearHistory()` ==> `HistoryManager.clear()`
 
-See the [changelog](https://des-docs.tk/#/docs/main/1.5.2general/changelog) for the full list of changes.
+See the [changelog](https://des-docs.js.org/#/docs/main/1.5.2general/changelog) for the full list of changes.
 
 ## Version 1.4.7
 
@@ -55,7 +56,7 @@ It's highly recommended to switch to the new InventoryManager:
 - `ShopManager.useItem()` ==> `InventoryManager.useItem()`
 - `ShopManager.searchInventoryItem()` ==> `InventoryManager.searchItem()`
 
-See the [changelog](https://des-docs.tk/#/docs/main/1.4.7/general/changelog) for the full list of changes.
+See the [changelog](https://des-docs.js.org/#/docs/main/1.4.7/general/changelog) for the full list of changes.
 
 ## Version 1.3.2
 
@@ -74,7 +75,7 @@ So you have to change your code like this:
 - `eco.getDailyCooldown()` ==> `eco.cooldowns.daily()`
 - `eco.all()` ==> `eco.utils.all()`
 
-See the [changelog](https://des-docs.tk/#/docs/main/1.3.2/general/changelog) for the full list of changes.
+See the [changelog](https://des-docs.js.org/#/docs/main/1.3.2/general/changelog) for the full list of changes.
 
 ## Version 1.2.5
 
