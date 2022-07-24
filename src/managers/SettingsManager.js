@@ -117,6 +117,7 @@ class SettingsManager {
     /**
      * Settings Manager.
      * @param {EconomyOptions} options Economy configuration.
+     * @param {DatabaseManager} database Database manager.
      */
     constructor(options, database) {
 
@@ -146,18 +147,18 @@ class SettingsManager {
      * 
      * @param {Settings} key The setting to fetch.
      * @param {string} guildID Guild ID.
-     * @returns {any} The setting from the database.
+     * @returns {Promise<any>} The setting from the database.
      */
-    get(key, guildID) {
+    async get(key, guildID) {
         if (typeof guildID !== 'string') {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
         if (!settingsArray.includes(key)) {
-            throw new EconomyError(errors.settingsManager.invalidKey + key, 'INVALID_TYPE')
+            throw new EconomyError(errors.settingsManager.invalidKey + key, 'SETTINGS_KEY_INVALID')
         }
 
-        const data = this.all(guildID)
+        const data = await this.all(guildID)
 
         const dbValue = data[key]
         return dbValue
@@ -173,9 +174,9 @@ class SettingsManager {
      * @param {Settings} key The setting to change.
      * @param {any} value The value to set.
      * @param {string} guildID Guild ID.
-     * @returns {SettingsTypes} The server settings object.
+     * @returns {Promise<SettingsTypes>} The server settings object.
      */
-    set(key, value, guildID) {
+    async set(key, value, guildID) {
         if (value == undefined) {
             throw new EconomyError(errors.invalidTypes.value + typeof value, 'INVALID_TYPE')
         }
@@ -189,13 +190,14 @@ class SettingsManager {
         }
 
         if (!settingsArray.includes(key)) {
-            throw new EconomyError(errors.settingsManager.invalidKey + key, 'INVALID_TYPE')
+            throw new EconomyError(errors.settingsManager.invalidKey + key, 'SETTINGS_KEY_INVALID')
         }
 
         checkValueType(key, value)
+        await this.database.set(`${guildID}.settings.${key}`, value)
 
-        this.database.set(`${guildID}.settings.${key}`, value)
-        return this.all(guildID)
+        const result = await this.all(guildID)
+        return result
     }
 
     /**
@@ -207,9 +209,9 @@ class SettingsManager {
      * 
      * @param {Settings} key The setting to remove.
      * @param {string} guildID Guild ID.
-     * @returns {SettingsTypes} The server settings object.
+     * @returns {Promise<SettingsTypes>} The server settings object.
      */
-    remove(key, guildID) {
+    async remove(key, guildID) {
         if (typeof key !== 'string') {
             throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof key, 'INVALID_TYPE')
         }
@@ -219,24 +221,26 @@ class SettingsManager {
         }
 
         if (!settingsArray.includes(key)) {
-            throw new EconomyError(errors.settingsManager.invalidKey + key, 'INVALID_TYPE')
+            throw new EconomyError(errors.settingsManager.invalidKey + key, 'SETTINGS_KEY_INVALID')
         }
 
-        this.database.remove(`${guildID}.settings.${key}`)
-        return this.all(guildID)
+        await this.database.remove(`${guildID}.settings.${key}`)
+
+        const result = await this.all(guildID)
+        return result
     }
 
     /**
      * Fetches all the server's settings object.
      * @param {string} guildID Guild ID.
-     * @returns {SettingsTypes} The server settings object.
+     * @returns {Promise<SettingsTypes>} The server settings object.
      */
-    all(guildID) {
+    async all(guildID) {
         if (typeof guildID !== 'string') {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
-        const settings = this.database.fetch(`${guildID}.settings`)
+        const settings = await this.database.fetch(`${guildID}.settings`)
 
         return {
             dailyAmount: settings?.dailyAmount == null ? null : settings?.dailyAmount,
@@ -259,9 +263,9 @@ class SettingsManager {
     /**
      * Resets all the settings to setting that are in configuration.
      * @param {string} guildID Guild ID.
-     * @returns {SettingsTypes} The server settings object.
+     * @returns {Promise<SettingsTypes>} The server settings object.
      */
-    reset(guildID) {
+    async reset(guildID) {
         if (typeof guildID !== 'string') {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }

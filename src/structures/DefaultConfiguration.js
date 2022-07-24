@@ -1,5 +1,10 @@
 const economyConfig = {
-    storagePath: './storage.json',
+    connection: {
+        connectionURI: '',
+        collectionName: 'database',
+        dbName: 'db',
+        mongoClientProperties: {}
+    },
 
     dailyAmount: 100,
     updateCountdown: 1000,

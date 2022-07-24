@@ -1,8 +1,8 @@
-const { existsSync, readFileSync, writeFileSync } = require('fs')
 const { promisify } = require('util')
 
+
 const DatabaseManager = require('./managers/DatabaseManager')
-const FetchManager = require('./managers/FetchManager')
+const CacheManager = require('./managers/CacheManager')
 
 const UtilsManager = require('./managers/UtilsManager')
 
@@ -43,168 +43,242 @@ class Economy extends Emitter {
         super()
 
         /**
-         * Module ready status.
-         * @type {?boolean}
-         */
-        this.ready = false
-
-        /**
-         * Economy errored status.
-         * @type {?boolean}
-         */
-        this.errored = false
-
-        /**
-        * Module version.
-        * @type {string}
-        */
-        this.version = require('../package.json').version
-
-        /**
          * The Logger class.
          * @type {Logger}
          * @private
          */
         this._logger = new Logger(options)
 
-        if (options.debug) {
-            this._logger.debug('Economy version: ' + this.version, 'lightcyan')
-        }
-
         /**
-         * Link to the module's documentation website.
-         * @type {string}
-         */
-        this.docs = 'https://des-docs.tk'
-
-        /**
-        * Utils manager.
-        * @type {UtilsManager}
-        */
-        this.utils = new UtilsManager(options, new DatabaseManager(options), new FetchManager(options))
-
-        /**
-         * Economy configuration.
-         * @type {?EconomyOptions}
-         */
-        this.options = this.utils.checkOptions(options.optionsChecker, options)
-
-        /**
-         * Econoomy managers list. Made for optimization purposes.
-         * @type {Manager[]}
-         */
-        this.managers = []
-
-        /**
-         * Colors object.
+         * Logger colors.
          * @type {LoggerColors}
+         * @private
          */
         this.colors = this._logger.colors
 
-        /**
-         * Database checking interval.
-         * @type {?NodeJS.Timeout}
-        */
-        this.interval = null
 
-        /**
-         * Economy error class.
-         * @type {EconomyError}
-         */
-        this.EconomyError = EconomyError
+        const connectionStartDate = Date.now()
 
-        /**
-         * Emitter class.
-         * @type {Emitter}
-         */
-        this.Emitter = Emitter
+        const QuickMongo = require('quick-mongo-super')
+        const mongo = new QuickMongo(options.connection)
 
-        /**
-        * Balance.
-        * @type {BalanceManager}
-        */
-        this.balance = null
+        if (!options.connection) {
+            throw new EconomyError(errors.noConnectionData, 'NO_CONNECTION_DATA')
+        }
 
-        /**
-        * Bank balance.
-        * @type {BankManager}
-        */
-        this.bank = null
+        this._logger.debug('Connecting to MongoDB...', 'lightgreen')
 
-        /**
-        * Fetch manager.
-        * @type {FetchManager}
-        */
-        this.fetcher = null
+        mongo.connect().then(() => {
+            const connectionTime = Date.now() - connectionStartDate
+            this._logger.debug(`MongoDB connection is established in ${connectionTime} ms.`, 'lightgreen')
 
-        /**
-        * Database manager.
-        * @type {DatabaseManager}
-        */
-        this.database = null
+            /**
+             * The QuickMongo instance.
+             * @type {QuickMongo}
+             * @private
+             */
+            this._mongo = mongo
 
-        /**
-        * Shop manager.
-        * @type {ShopManager}
-        */
-        this.shop = null
+            /**
+             * Module ready status.
+             * @type {?boolean}
+             */
+            this.ready = false
 
-        /**
-        * Inventory manager.
-        * @type {InventoryManager}
-        */
-        this.inventory = null
+            /**
+             * Economy errored status.
+             * @type {?boolean}
+             */
+            this.errored = false
 
-        /**
-        * History manager.
-        * @type {HistoryManager}
-        */
-        this.history = null
+            /**
+            * Module version.
+            * @type {string}
+            */
+            this.version = require('../package.json').version
 
-        /**
-        * Cooldowns manager.
-        * @type {CooldownManager}
-        */
-        this.cooldowns = null
+            if (options.debug) {
+                this._logger.debug('Economy version: ' + this.version, 'lightcyan')
+            }
 
-        /**
-        * Rewards.
-        * @type {RewardManager}
-        */
-        this.rewards = null
+            /**
+             * Link to the module's documentation website.
+             * @type {string}
+             */
+            this.docs = 'https://des-docs.js.org'
 
-        /**
-        * Economy users.
-        * @type {UserManager}
-        */
-        this.users = new UserManager(this.options)
+            /**
+            * Utils manager methods object.
+            * @type {UtilsManager}
+            */
+            this.utils = new UtilsManager(options)
 
-        /**
-        * Economy guilds.
-        * @type {GuildManager}
-        */
-        this.guilds = new GuildManager(this.options)
+            /**
+             * Economy configuration.
+             * @type {?EconomyOptions}
+             */
+            this.options = this.utils.checkOptions(options.optionsChecker, options)
 
-        /**
-        * Settings manager.
-        * @type {SettingsManager}
-        */
-        this.settings = null
+            /**
+             * Econoomy managers list. Made for optimization purposes.
+             * @type {Manager[]}
+             */
+            this.managers = []
 
-        /**
-         * Economy instance.
-         * @type {Economy}
-         */
-        this.economy = this
+            /**
+             * Database checking interval.
+             * @type {?NodeJS.Timeout}
+            */
+            this.interval = null
 
-        this._logger.debug('Economy starting process launched.')
+            /**
+             * Economy error class.
+             * @type {EconomyError}
+             */
+            this.EconomyError = EconomyError
 
-        this.init().then(status => {
-            if (status) {
-                this.ready = true
+            /**
+             * Emitter class.
+             * @type {Emitter}
+             */
+            this.Emitter = Emitter
 
-                this._logger.debug('Economy is ready!', 'green')
-                this.emit('ready', this)
+            /**
+            * Balance methods object.
+            * @type {BalanceManager}
+            */
+            this.balance = null
+
+            /**
+            * Bank balance methods object.
+            * @type {BankManager}
+            */
+            this.bank = null
+
+            /**
+            * Database manager methods object.
+            * @type {DatabaseManager}
+            */
+            this.database = null
+
+            /**
+            * Shop manager methods object.
+            * @type {ShopManager}
+            */
+            this.shop = null
+
+            /**
+            * Inventory manager methods object.
+            * @type {InventoryManager}
+            */
+            this.inventory = null
+
+            /**
+            * History manager methods object.
+            * @type {HistoryManager}
+            */
+            this.history = null
+
+            /**
+            * Cooldowns methods object.
+            * @type {CooldownManager}
+            */
+            this.cooldowns = null
+
+            /**
+            * Rewards methods object.
+            * @type {RewardManager}
+            */
+            this.rewards = null
+
+            /**
+            * Cache Manager.
+            * @type {CacheManager}
+            */
+            this.cache = null
+
+            /**
+            * Economy users.
+            * @type {UserManager}
+            */
+            this.users = null
+
+            /**
+            * Economy guilds.
+            * @type {GuildManager}
+            */
+            this.guilds = null
+
+            /**
+            * Settings manager methods object.
+            * @type {SettingsManager}
+            */
+            this.settings = null
+
+            /**
+             * Economy instance.
+             * @type {Economy}
+             */
+            this.economy = this
+
+            this._logger.debug('Economy starting process launched.')
+
+            this.init().then(async status => {
+                if (status) {
+                    const usersCache = {}
+                    const cooldownsCache = {}
+
+                    const inventoryCache = {}
+                    const historyCache = {}
+
+                    this._logger.debug('Caching the database...', 'cyan')
+
+                    const database = await this.database.all()
+                    const guildEntries = Object.entries(database).filter(entry => !isNaN(entry[0]))
+
+                    for (const [guildID, guildObject] of guildEntries) {
+                        const userEntries = Object.entries(guildObject).filter(entry => !isNaN(entry[0]))
+
+                        for (const [userID, userObject] of userEntries) {
+
+                            usersCache[userID] = userObject
+
+                            cooldownsCache[userID] = {
+                                daily: userObject.dailyCooldown,
+                                work: userObject.workCooldown,
+                                weekly: userObject.weeklyCooldown
+                            }
+
+                            inventoryCache[userID] = userObject.inventory
+                            historyCache[userID] = userObject.history
+
+                            this.cache.users.set(guildID, usersCache)
+                            this.cache.cooldowns.set(guildID, cooldownsCache)
+
+                            this.cache.inventory.set(guildID, inventoryCache)
+                            this.cache.history.set(guildID, historyCache)
+                        }
+
+                        this.cache.guilds.set(guildID, guildObject)
+                        this.cache.shop.set(guildID, guildObject.shop)
+                    }
+
+                    this.ready = true
+
+                    this._logger.debug('Economy is ready!', 'green')
+                    this.emit('ready', this)
+                }
+            })
+
+        }).catch(err => {
+            if (err.message.includes('Command failed:')) {
+                console.log(
+                    `${this.colors.cyan}[Economy] ${this.colors.red}Failed to install ` +
+                    `${this.colors.yellow}'quick-mongo-super'${this.colors.red}. ` +
+                    `See the error details above.${this.colors.reset}`
+                )
+
+                process.exit(1)
             }
         })
     }
@@ -309,19 +383,6 @@ class Economy extends Emitter {
      * @private
      */
     _init() {
-        const reservedNames = ['package.json', 'package-lock.json', 'node_modules', 'mongo', 'mongodb']
-        const updateCountdown = this.options.updateCountdown
-
-        const isReservedStorage =
-            !this.options.storagePath.includes('testStorage123') &&
-            !__dirname.includes('discord-economy-super\\tests')
-
-        const isReservedPathUsed =
-            !__dirname.includes('discord-economy-super\\tests') &&
-            !__dirname.includes('discord-economy-super/tests')
-
-        const isFileExist = existsSync(this.options.storagePath)
-
         return new Promise(async (resolve, reject) => {
             try {
                 if (this.errored) return
@@ -340,128 +401,39 @@ class Economy extends Emitter {
                     if (!version.updated) {
 
                         console.log('\n\n')
-                        console.log(this.colors.green + '╔══════════════════════════════════════════════════════════╗')
-                        console.log(this.colors.green + '║ @ discord-economy-super                           - [] X ║')
-                        console.log(this.colors.green + '║══════════════════════════════════════════════════════════║')
-                        console.log(this.colors.yellow + `║                 The module is ${this.colors.red}out of date!${this.colors.yellow}               ║`)
-                        console.log(this.colors.magenta + '║                  New version is available!               ║')
-                        console.log(this.colors.blue + `║                       ${version.installedVersion} --> ${version.packageVersion}                    ║`)
-                        console.log(this.colors.cyan + '║          Run "npm i discord-economy-super@latest"        ║')
-                        console.log(this.colors.cyan + '║                         to update!                       ║')
-                        console.log(this.colors.white + '║               View the full changelog here:              ║')
-                        console.log(this.colors.red + `║  https://des-docs.tk/#/docs/main/${version.packageVersion}/general/changelog ║`)
-                        console.log(this.colors.green + '╚══════════════════════════════════════════════════════════╝\x1b[37m')
+                        console.log(this.colors.green + '╔═══════════════════════════════════════════════════════════════╗')
+                        console.log(this.colors.green + '║ @ discord-economy-super                                - [] X ║')
+                        console.log(this.colors.green + '║═══════════════════════════════════════════════════════════════║')
+                        console.log(this.colors.yellow + `║                    The module is ${this.colors.red}out of date!${this.colors.yellow}                 ║`)
+                        console.log(this.colors.magenta + '║                     New version is available!                 ║')
+                        console.log(this.colors.blue + `║                          ${version.installedVersion} --> ${version.packageVersion}                      ║`)
+                        console.log(this.colors.cyan + '║             Run "npm i discord-economy-super@latest"          ║')
+                        console.log(this.colors.cyan + '║                            to update!                         ║')
+                        console.log(this.colors.white + '║                  View the full changelog here:                ║')
+                        console.log(this.colors.red + `║  https://des-docs.js.org/#/docs/main/${version.packageVersion}/general/changelog  ║`)
+                        console.log(this.colors.green + '╚═══════════════════════════════════════════════════════════════╝\x1b[37m')
                         console.log('\n\n')
 
                     } else {
                         if (this.options.updater.upToDateMessage) {
 
                             console.log('\n\n')
-                            console.log(this.colors.green + '╔══════════════════════════════════════════════════════════╗')
-                            console.log(this.colors.green + '║ @ discord-economy-super                           - [] X ║')
-                            console.log(this.colors.green + '║══════════════════════════════════════════════════════════║')
-                            console.log(this.colors.yellow + `║                  The module is ${this.colors.cyan}up to date!${this.colors.yellow}               ║`)
-                            console.log(this.colors.magenta + '║                  No updates are available.               ║')
-                            console.log(this.colors.blue + `║                  Current version is ${version.packageVersion}.               ║`)
-                            console.log(this.colors.cyan + '║                           Enjoy!                         ║')
-                            console.log(this.colors.white + '║               View the full changelog here:              ║')
-                            console.log(this.colors.red + `║  https://des-docs.tk/#/docs/main/${version.packageVersion}/general/changelog ║`)
-                            console.log(this.colors.green + '╚══════════════════════════════════════════════════════════╝\x1b[37m')
+                            console.log(this.colors.green + '╔═══════════════════════════════════════════════════════════════╗')
+                            console.log(this.colors.green + '║ @ discord-economy-super                                - [] X ║')
+                            console.log(this.colors.green + '║═══════════════════════════════════════════════════════════════║')
+                            console.log(this.colors.yellow + `║                     The module is ${this.colors.cyan}up to date!${this.colors.yellow}                 ║`)
+                            console.log(this.colors.magenta + '║                     No updates are available.                 ║')
+                            console.log(this.colors.blue + `║                     Current version is ${version.packageVersion}.                 ║`)
+                            console.log(this.colors.cyan + '║                              Enjoy!                           ║')
+                            console.log(this.colors.white + '║                  View the full changelog here:                ║')
+                            console.log(this.colors.red + `║  https://des-docs.js.org/#/docs/main/${version.packageVersion}/general/changelog  ║`)
+                            console.log(this.colors.green + '╚═══════════════════════════════════════════════════════════════╝\x1b[37m')
                             console.log('\n\n')
 
                         }
                     }
-                } else this._logger.debug('Skipped the updates checking...')
+                } else this._logger.debug('Skipped updates checking...')
 
-                if (this.options.checkStorage == undefined ? true : this.options.checkStorage) {
-                    this._logger.debug('Checking for reserved words in a storage file path...')
-
-                    if (!isFileExist && isReservedStorage) writeFileSync(this.options.storagePath, '{}')
-
-                    try {
-                        if (this.options.storagePath.includes('testStorage123') && isReservedPathUsed) {
-                            return reject(new EconomyError(errors.reservedName('testStorage123'), 'STORAGE_FILE_ERROR'))
-                        }
-
-                        for (const name of reservedNames) {
-                            if (this.options.storagePath.endsWith(name)) {
-                                return reject(new EconomyError(errors.reservedName(name), 'STORAGE_FILE_ERROR'))
-                            }
-                        }
-
-                        this._logger.debug('Checking the data in a storage file...')
-
-                        const data = readFileSync(this.options.storagePath)
-                        JSON.parse(data.toString())
-
-                    } catch (err) {
-                        if (err.message.includes('Unexpected') && err.message.includes('JSON')) {
-                            return reject(new EconomyError(errors.wrongStorageData, 'STORAGE_FILE_ERROR'))
-                        }
-
-                        else return reject(err)
-                    }
-
-                    this._logger.debug(
-                        `Using storage file: ${this.options.storagePath}` +
-                        `${this.options.checkStorage ? `, checking every ${updateCountdown}ms.` : '.'}`, 'cyan'
-                    )
-                }
-
-                if (this.options.checkStorage == undefined ? true : this.options.checkStorage) {
-                    const storageExists = existsSync(this.options.storagePath)
-
-                    const interval = setInterval(() => {
-                        if (!storageExists) {
-                            this._logger.debug('Checking for reserved words in a storage file path...')
-
-                            try {
-                                const isReservedPathUsed =
-                                    this.options.storagePath.includes('testStorage123') &&
-                                    !__dirname.includes('discord-economy-super\\tests')
-
-                                if (isReservedPathUsed) {
-                                    throw new EconomyError(errors.reservedName('testStorage123'), 'STORAGE_FILE_ERROR')
-                                }
-
-                                for (const name of reservedNames) {
-                                    if (this.options.storagePath.endsWith(name)) {
-                                        throw new EconomyError(errors.reservedName(name), 'STORAGE_FILE_ERROR')
-                                    }
-                                }
-
-                                writeFileSync(this.options.storagePath, '{}', 'utf-8')
-                            } catch (err) {
-                                throw new EconomyError(errors.notReady, 'MODULE_NOT_READY')
-                            }
-
-                            console.log(
-                                `${this.colors.red}failed to find a database file;` +
-                                `created another one...${this.colors.reset}`
-                            )
-                        }
-
-                        try {
-                            if (!storageExists) writeFileSync(this.options.storagePath, '{}', 'utf-8')
-
-                            const data = readFileSync(this.options.storagePath)
-                            JSON.parse(data.toString())
-
-                        } catch (err) {
-                            if (err.message.includes('Unexpected token') ||
-                                err.message.includes('Unexpected end')) {
-                                reject(new EconomyError(errors.wrongStorageData, 'STORAGE_FILE_ERROR'))
-                            }
-
-                            else {
-                                reject(err)
-                                throw err
-                            }
-                        }
-
-                    }, updateCountdown)
-                    this.interval = interval
-                }
 
                 this._logger.debug('Starting the managers...', 'lightyellow')
                 this.start()
@@ -497,14 +469,6 @@ class Economy extends Emitter {
                 manager: BankManager
             },
             {
-                name: 'fetcher',
-                manager: FetchManager
-            },
-            {
-                name: 'database',
-                manager: DatabaseManager
-            },
-            {
                 name: 'shop',
                 manager: ShopManager
             },
@@ -525,10 +489,6 @@ class Economy extends Emitter {
                 manager: CooldownManager
             },
             {
-                name: 'users',
-                manager: UserManager
-            },
-            {
                 name: 'guilds',
                 manager: GuildManager
             },
@@ -546,7 +506,8 @@ class Economy extends Emitter {
             'bankSet',
             'bankAdd',
             'bankSubtract',
-            'shopItemAd',
+            'shopItemAdd',
+            'shopItemRemove',
             'shopClear',
             'shopItemEdit',
             'shopItemBuy',
@@ -556,8 +517,18 @@ class Economy extends Emitter {
         ]
 
 
+        this.database = new DatabaseManager(this.options, this._mongo)
+        this._logger.debug('DatabaseManager is started.')
+
+        this.cache = new CacheManager(this.options, this.database)
+        this._logger.debug('CacheManager is started.')
+
+        this.users = new UserManager(this.options, this.database, null, this.cache)
+        this._logger.debug('UserManager is started.')
+
+
         for (const manager of managers) {
-            this[manager.name] = new manager.manager(this.options, new DatabaseManager(this.options))
+            this[manager.name] = new manager.manager(this.options, this.database, this.cache)
             this._logger.debug(`${manager.manager.name} is started.`)
         }
 
@@ -573,6 +544,28 @@ class Economy extends Emitter {
         return true
     }
 }
+
+
+/**
+ * @typedef {object} LoggerColors
+ * @property {string} red Red color.
+ * @property {string} green Green color.
+ * @property {string} yellow Yellow color.
+ * @property {string} blue Blue color.
+ * @property {string} magenta Magenta color.
+ * @property {string} cyan Cyan color.
+ * @property {string} white White color.
+ * @property {string} reset Reset color.
+ * @property {string} black Black color.
+ * @property {string} lightgray Light gray color.
+ * @property {string} darkgray Dark gray color.
+ * @property {string} lightred Light red color.
+ * @property {string} lightgreen Light green color.
+ * @property {string} lightyellow Light yellow color.
+ * @property {string} lightblue Light blue color.
+ * @property {string} lightmagenta Light magenta color.
+ * @property {string} lightcyan Light cyan color.
+ */
 
 /**
 * Emits when someone's set the money on the balance.

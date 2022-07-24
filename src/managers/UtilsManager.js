@@ -1,10 +1,11 @@
-const { readFileSync, writeFileSync, existsSync } = require('fs')
-
-const fetch = require('node-fetch')
+const { existsSync } = require('fs')
 const { dirname } = require('path')
 
-const FetchManager = require('./FetchManager')
+const fetch = require('node-fetch')
+
+
 const DatabaseManager = require('./DatabaseManager')
+const CacheManager = require('./CacheManager')
 
 const DefaultConfiguration = require('../structures/DefaultConfiguration')
 const errors = require('../structures/errors')
@@ -47,11 +48,11 @@ class UtilsManager {
 
     /**
      * Utils Manager.
-     * 
      * @param {object} options Economy configuration.
-     * @param {string} options.storagePath Full path to a JSON file. Default: './storage.json'.
+     * @param {DatabaseManager} database Database manager.
+     * @param {CacheManager} cache Cache manager.
      */
-    constructor(options = {}, database, fetcher) {
+    constructor(options = {}, database, cache) {
 
         /**
          * Economy configuration.
@@ -68,25 +69,18 @@ class UtilsManager {
         this._logger = new Logger(options)
 
         /**
-        * Full path to a JSON file.
-        * @private
-        * @type {string}
-        */
-        this.storagePath = options.storagePath || './storage.json'
-
-        /**
-         * Fetch manager methods object.
-         * @type {FetchManager}
-         * @private
-         */
-        this.fetcher = fetcher
-
-        /**
          * Database manager methods object.
          * @type {DatabaseManager}
          * @private
          */
         this.database = database
+
+        /**
+         * Cache Manager.
+         * @type {CacheManager}
+         * @private
+         */
+        this.cache = cache
     }
 
     /**
@@ -114,56 +108,44 @@ class UtilsManager {
 
     /**
     * Fetches the entire database.
-    * @returns {object} Database contents
+    * @returns {Promise<DatabaseProperties>} Database contents
     */
     all() {
         return this.database.all()
     }
 
     /**
-     * Writes the data to file.
-     * @param {string} path File path to write.
-     * @param {any} data Any data to write
-     * @returns {boolean} If successfully written: true; else: false.
+     * Clears the database.
+     * @returns {Promise<boolean>} If cleared successfully: true.
      */
-    write(path, data) {
-        if (!path) return false
-        if (!data) return false
+    async clearDatabase() {
+        const keys = await this.database.keysList('')
 
-        const fileData = readFileSync(path).toString()
-        if (fileData == data) return false
+        for (const key of keys) {
+            this.database.remove(key)
+        }
 
-        writeFileSync(this.options.storagePath, JSON.stringify(data, null, '\t'))
-        return true
-    }
-
-    /**
-     * Clears the storage file.
-     * @returns {boolean} If cleared successfully: true; else: false
-     */
-    clearDatabase() {
-        const data = this.all()
-        const stringData = String(data)
-
-        if (stringData == '{}') return false
-
-        this.write(this.options.storagePath, '{}')
+        this.cache.clearAll()
         return true
     }
 
     /**
     * Fully removes the guild from database.
     * @param {string} guildID Guild ID
-    * @returns {boolean} If cleared successfully: true; else: false
+    * @returns {Promise<boolean>} If cleared successfully: true; else: false
     */
-    removeGuild(guildID) {
-        const data = this.fetcher.fetchAll()
-        const guild = data[guildID]
+    async removeGuild(guildID) {
+        const guild = await this.database.fetch(guildID)
 
         if (!guildID) return false
         if (!guild) return false
 
         this.database.remove(guildID)
+
+        this.cache.guilds.remove({
+            guildID
+        })
+
         return true
     }
 
@@ -171,29 +153,33 @@ class UtilsManager {
      * Removes the user from database.
      * @param {string} memberID Member ID
      * @param {string} guildID Guild ID
-     * @returns {boolean} If cleared successfully: true; else: false
+     * @returns {Promise<boolean>} If cleared successfully: true; else: false
      */
-    removeUser(memberID, guildID) {
-        const data = this.fetcher.fetchAll()
-
-        const guild = data[guildID]
-        const user = guild?.[memberID]
+    async removeUser(memberID, guildID) {
+        const user = await this.database.fetch(`${guildID}.${memberID}`)
 
         if (!guildID) return false
-        if (!guild) return false
+        if (!memberID) return false
+
         if (!user) return false
 
-        this.database.remove(`${guildID}.${memberID}`)
-        return true
+        await this.database.remove(`${guildID}.${memberID}`)
+
+        this.cache.updateAll({
+            guildID,
+            memberID
+        })
+
+        return result
     }
 
     /**
      * Sets the default user object for the specified member.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
-     * @returns {EconomyUser} If reset successfully: new user object
+     * @returns {Promise<EconomyUser>} If reset successfully: new user object.
      */
-    resetUser(memberID, guildID) {
+    async resetUser(memberID, guildID) {
         if (!guildID) return null
         if (!memberID) return null
 
@@ -202,9 +188,15 @@ class UtilsManager {
         defaultObj.id = memberID
         defaultObj.guildID = guildID
 
-        this.database.set(`${guildID}.${memberID}`, defaultObj)
 
-        const newUser = new EconomyUser(memberID, guildID, this.options, defaultObj, this.database)
+        await this.database.set(`${guildID}.${memberID}`, defaultObj)
+
+        this.cache.users.update({
+            guildID,
+            memberID
+        })
+
+        const newUser = new EconomyUser(memberID, guildID, this.options, defaultObj, this.database, this.cache)
         return newUser
     }
 
@@ -393,8 +385,6 @@ class UtilsManager {
 
 /**
  * @typedef {object} EconomyOptions Default Economy configuration.
- * @property {string} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
- * @property {boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
  * @property {number} [dailyCooldown=86400000] 
  * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  * 
@@ -416,7 +406,6 @@ class UtilsManager {
  * 
  * @property {boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
  * 
- * @property {number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
  * @property {string} [dateLocale='en'] The region (example: 'ru'; 'en') to format the date and time. Default: 'en'.
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.

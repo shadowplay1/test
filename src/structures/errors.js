@@ -34,7 +34,7 @@ const availableItemProps = [
 ]
 
 module.exports = {
-    notReady: 'The module is not ready to work.',
+    noConnectionData: 'No connection data is provided.',
     savingHistoryDisabled: 'Saving purchases history is disabled.',
 
     invalidTypes: {
@@ -61,6 +61,7 @@ module.exports = {
             itemProperty: '\'itemProperty\' parameter must be one of these values: ' +
                 availableItemProps.map(prop => `'${prop}'`).join(', ') +
                 '. Received: ',
+
             noValue: 'no value specified. Received: '
         },
     },
@@ -100,19 +101,30 @@ module.exports = {
         }
     },
 
+    cache: {
+        noIdentifiersProvided: 'No identifiers provided.',
+        invalidCacheNames: 'Specified array of cache item names contains invalid name(s).',
+
+        /**
+         * Returns a string for an 'INVALID_CACHE_IDENTIFIERS' error.
+         * @param {string} constructorName Constructor name.
+         * @param {string[]} requiredIdentifiers Required identifiers for the constructor.
+         * @param {string[]} receivedIdentifiers Received identifiers.
+         * @returns {string} Message to be sent in the error.
+         */
+        invalidIdentifiers(constructorName, requiredIdentifiers, receivedIdentifiers) {
+            return `${constructorName} requires ${requiredIdentifiers.join(', ')} to be specified, ` +
+                `but received ${receivedIdentifiers.join(', ')}.`
+        }
+    },
+
     noClient: 'You need to specify your bot client to give roles to members.',
     roleNotFound: 'Could not find a role with ID ',
 
     oldNodeVersion: 'This module is supporting only Node.js v14 or newer. Installed version is ',
 
-    reservedName(name = 'testStorage123') {
-        return `'${name}' is a reserved storage file name.You cannot use it.`
-    },
-
-    invalidStorage: 'Storage file is not valid.',
-    wrongStorageData: 'Storage file contains wrong data.',
-
     invalidErrorCode: 'Invalid error code.',
+
 
     /**
      * Sends a deprecation warning log in the console.

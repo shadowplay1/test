@@ -1,10 +1,7 @@
-const EconomyError = require('../util/EconomyError')
-const errors = require('../../structures/errors')
-
 const BaseManager = require('../../managers/BaseManager')
+const ShopManager = require('../../managers/ShopManager')
 
 const ShopItem = require('../ShopItem')
-
 
 /**
  * Guild shop class.
@@ -16,9 +13,11 @@ class Shop extends BaseManager {
      * Guild shop constructor.
      * @param {string} guildID Guild ID.
      * @param {EconomyOptions} options Economy configuration.
+     * @param {object} database Database object.
+     * @param {CacheManager} cache Cache Manager.
      */
-    constructor(guildID, options) {
-        super(options, null, guildID, ShopItem)
+    constructor(guildID, options, database, cache) {
+        super(options, null, guildID, ShopItem, database, cache)
 
         /**
          * Guild ID.
@@ -26,128 +25,38 @@ class Shop extends BaseManager {
          * @private
          */
         this.guildID = guildID
+
+        /**
+         * Database Manager.
+         * @type {ShopManager}
+         * @private
+         */
+        this.database = database
+
+        /**
+         * Shop manager.
+         * @type {ShopManager}
+         * @private
+         */
+        this._shop = new ShopManager(options, database, cache)
     }
 
     /**
     * Gets the item in the shop.
     * @param {string | number} itemID Item ID.
-    * @returns {ShopItem} Shop item.
+    * @returns {Promise<ShopItem>} Shop item.
     */
     findItem(itemID) {
-        const shop = this.all()
-        const item = shop.find(item => item.id == itemID || item.name == itemID)
-
-        if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID, 'INVALID_TYPE')
-        }
-
-        if (!item) return null
-        return new ShopItem(this.guildID, item, this.database)
-    }
-
-    /**
-     * Gets all the items in the shop.
-     * @returns {ShopItem[]} Guild shop array.
-     */
-    all() {
-        const items = this.database.fetch(`${this.guildID}.shop`) || []
-        return items.map(item => new ShopItem(this.guildID, item, this.database))
-    }
-
-    /**
-     * Gets all items in the shop.
-     * 
-     * This method is an alias for the `Shop.findItem()` method.
-     * @param {string | number} itemID Item ID.
-     * @returns {ShopItem} Shop item.
-     */
-    get(itemID) {
-        return this.findItem(itemID)
+        return this._shop.findItem(itemID, this.guildID)
     }
 
     /**
      * Creates an item in shop.
      * @param {AddItemOptions} options Configuration with item info.
-     * @returns {ItemData} Item info.
+     * @returns {Promise<ItemData>} Item info.
      */
     addItem(options = {}) {
-        let name = options.name
-
-        const {
-            itemName, price, message, custom,
-            description, maxAmount, role
-        } = options
-
-        const dateLocale = this.database.fetch(`${this.guildID}.settings.dateLocale`)
-            || this.options.dateLocale
-
-        const date = new Date().toLocaleString(dateLocale)
-        const shop = this.database.fetch(`${this.guildID}.shop`)
-
-        if (!name && itemName) {
-            name = itemName
-
-            console.log(
-                errors.propertyDeprecationWarning('Shop', 'itemName', 'name', {
-                    method: 'addItem',
-                    argumentName: 'options',
-                    argumentsList: ['options'],
-                    example: 'banana'
-                })
-            )
-        }
-
-        if (typeof this.guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof this.guildID, 'INVALID_TYPE')
-        }
-
-        if (typeof name !== 'string') {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.name + typeof name, 'INVALID_TYPE')
-        }
-
-        if (isNaN(price)) {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.price + typeof price, 'INVALID_TYPE')
-        }
-
-        if (message && typeof message !== 'string') {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.message + typeof message, 'INVALID_TYPE')
-        }
-
-        if (description && typeof description !== 'string') {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.description + typeof description, 'INVALID_TYPE')
-        }
-
-        if (maxAmount !== undefined && isNaN(maxAmount)) {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.maxAmount + typeof maxAmount, 'INVALID_TYPE')
-        }
-
-        if (role && typeof role !== 'string') {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.role + typeof role, 'INVALID_TYPE')
-        }
-
-        if (custom && typeof custom !== 'object' && !Array.isArray(custom)) {
-            throw new EconomyError(errors.invalidTypes.addItemOptions.role + typeof role, 'INVALID_TYPE')
-        }
-
-        const itemInfo = {
-            id: shop?.length ? shop[shop.length - 1].id + 1 : 1,
-            name,
-            price,
-            message: message || 'You have used this item!',
-            description: description || 'Very mysterious item.',
-            maxAmount: maxAmount == undefined ? null : Number(maxAmount),
-            role: role || null,
-            date,
-            custom: custom || {}
-        }
-
-
-        const newShopItem = new ShopItem(this.guildID, itemInfo, this.database)
-
-        this.database.push(`${this.guildID}.shop`, itemInfo)
-        this.emit('shopItemAdd', newShopItem)
-
-        return newShopItem
+        return this._shop.addItem(this.guildID, options)
     }
 
     /**
@@ -155,7 +64,7 @@ class Shop extends BaseManager {
      * 
      * This method is an alias for the `Shop.addItem()` method.
      * @param {AddItemOptions} options Configuration with item info.
-     * @returns {ItemData} Item info.
+     * @returns {Promise<ItemData>} Item info.
      */
     add(options = {}) {
         return this.addItem(options)
@@ -169,71 +78,10 @@ class Shop extends BaseManager {
      * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.
      * 
      * @param {any} value Any value to set.
-     * @returns {boolean} If edited successfully: true, else: false.
+     * @returns {Promise<boolean>} If edited successfully: true, else: false.
      */
     editItem(itemID, itemProperty, value) {
-        const itemProperties = ['description', 'price', 'name', 'message', 'maxAmount', 'role', 'custom']
-
-        if (typeof itemID !== 'number' && typeof itemID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemID + typeof itemID, 'INVALID_TYPE')
-        }
-
-        if (typeof this.guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guilddID + typeof this.guildID, 'INVALID_TYPE')
-        }
-
-        if (!itemProperties.includes(itemProperty)) {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + itemProperty, 'INVALID_TYPE')
-        }
-
-        if (value == undefined) {
-            throw new EconomyError(errors.invalidTypes.editItemArgs.itemProperty + value, 'INVALID_TYPE')
-        }
-
-        const edit = (itemProperty, value) => {
-            const shop = this.all(this.guildID)
-
-            const itemIndex = shop.findIndex(item => item.id == itemID || item.name == itemID)
-            const item = shop[itemIndex]
-
-            if (!item) return false
-
-            item[itemProperty] = value
-            this.database.pull(`${this.guildID}.shop`, itemIndex, item)
-
-            this.emit('shopItemEdit', {
-                item,
-                guildID: this.guildID,
-                changedProperty: itemProperty,
-                oldValue: item[itemProperty],
-                newValue: value
-            })
-
-            return true
-        }
-
-        switch (itemProperty) {
-            case itemProperties[0]:
-                return edit(itemProperties[0], value)
-
-            case itemProperties[1]:
-                return edit(itemProperties[1], value)
-
-            case itemProperties[2]:
-                return edit(itemProperties[2], value)
-
-            case itemProperties[3]:
-                return edit(itemProperties[3], value)
-
-            case itemProperties[4]:
-                return edit(itemProperties[4], value)
-
-            case itemProperties[5]:
-                return edit(itemProperties[5], value)
-
-            default:
-                return null
-        }
+        return this._shop.editItem(itemID, this.guildID, itemProperty, value)
     }
 
     /**
@@ -245,7 +93,7 @@ class Shop extends BaseManager {
      * This argument means what thing in item you want to edit (item property). 
      * Available item properties are 'description', 'price', 'name', 'message', 'amount', 'role', 'custom'.
      * 
-     * @returns {boolean} If edited successfully: true, else: false.
+     * @returns {Promise<boolean>} If edited successfully: true, else: false.
      */
     edit(itemID, itemProperty, value) {
         return this.editItem(itemID, itemProperty, value)
@@ -255,28 +103,38 @@ class Shop extends BaseManager {
      * Sets a custom object for the item.
      * @param {string | number} itemID Item ID or name.
      * @param {object} custom Custom item data object.
-     * @returns {boolean} If set successfully: true, else: false.
+     * @returns {Promise<boolean>} If set successfully: true, else: false.
      */
     setCustom(itemID, customObject) {
-        return this.editItem(itemID, this.guildID, 'custom', customObject)
+        return this._shop.setCustom(itemID, this.guildID, customObject)
     }
 
     /**
      * Clears the shop.
-     * @returns {boolean} If cleared: true, else: false.
+     * @returns {Promise<boolean>} If cleared: true, else: false.
      */
     clear() {
-        const shop = this.all(this.guildID)
+        return this._shop.clear(this.guildID)
+    }
 
-        if (!shop && !shop?.length) {
-            this.emit('shopClear', false)
-            return false
-        }
+    /**
+     * Gets all items in the shop.
+     * @returns {Promise<ShopItem[]>} Guild shop array.
+     */
+    async all() {
+        const shop = (await this.database.fetch(`${this.guildID}.shop`)) || []
+        return shop.map(item => new ShopItem(this.guildID, item, this.database, this.cache))
+    }
 
-        this.database.remove(`${this.guildID}.shop`)
-        this.emit('shopClear', true)
-
-        return true
+    /**
+     * Gets all items in the shop.
+     * 
+     * This method is an alias for the `Shop.findItem()` method.
+     * @param {string | number} itemID Item ID.
+     * @returns {Promise<ShopItem>} Shop item.
+     */
+    get(itemID) {
+        return this.findItem(itemID)
     }
 }
 
@@ -310,7 +168,6 @@ module.exports = Shop
  * @property {string | number} [maxAmount=null] Max amount of the item that user can hold in their inventory.
  * @property {string} [role=null] Role ID from your Discord server.
  * @property {object} [custom] Custom item properties object.
- * @returns {ItemData} Item info.
  */
 
 /**

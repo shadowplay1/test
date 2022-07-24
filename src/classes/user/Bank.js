@@ -13,8 +13,9 @@ class Bank {
      * @param {string} guildID Guild ID.
      * @param {EconomyOptions} ecoOptions Economy configuration.
      * @param {DatabaseManager} database Database manager.
+     * @param {CacheManager} cache Cache Manager.
      */
-    constructor(memberID, guildID, ecoOptions, database) {
+    constructor(memberID, guildID, ecoOptions, database, cache) {
 
         /**
         * Member ID.
@@ -33,14 +34,14 @@ class Bank {
          * @type {BankManager}
          * @private
          */
-        this._bank = new BankManager(ecoOptions, database)
+        this._bank = new BankManager(ecoOptions, database, cache)
     }
 
     /**
      * Sets the money amount on user's balance.
      * @param {number} amount Money amount
      * @param {string} [reason] The reason why you set the money.
-     * @returns {number} Money amount
+     * @returns {Promise<number>} Money amount
      */
     set(amount, reason) {
         return this._bank.set(amount, this.memberID, this.guildID, reason)
@@ -50,7 +51,7 @@ class Bank {
      * Adds the money amount on user's balance.
      * @param {number} amount Money amount.
      * @param {string} [reason] The reason why you add the money.
-     * @returns {number} Money amount.
+     * @returns {Promise<number>} Money amount.
      */
     add(amount, reason) {
         return this._bank.add(amount, this.memberID, this.guildID, reason)
@@ -60,7 +61,7 @@ class Bank {
      * Subtracts the money amount on user's balance.
      * @param {number} amount Money amount.
      * @param {string} [reason] The reason why you subtract the money.
-     * @returns {number} Money amount.
+     * @returns {Promise<number>} Money amount.
      */
     subtract(amount, reason) {
         return this._bank.subtract(amount, this.memberID, this.guildID, reason)
@@ -68,7 +69,7 @@ class Bank {
 
     /**
      * Fetches the user's balance.
-     * @returns {number} User's balance.
+     * @returns {Promise<number>} User's balance.
      */
     get() {
         return this._bank.get(this.memberID, this.guildID) || 0
@@ -78,7 +79,7 @@ class Bank {
      * Fetches the user's balance.
      * 
      * This method is an alias for 'Balance.get()' method
-     * @returns {number} User's balance.
+     * @returns {Promise<number>} User's balance.
      */
     fetch() {
         return this.get()

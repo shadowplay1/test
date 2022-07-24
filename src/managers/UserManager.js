@@ -1,7 +1,9 @@
 const EconomyUser = require('../classes/EconomyUser')
 
-const BaseManager = require('./BaseManager')
 const DatabaseManager = require('./DatabaseManager')
+const CacheManager = require('./CacheManager')
+
+const BaseManager = require('./BaseManager')
 
 const defaultUserObject = require('../structures/DefaultUserObject')
 
@@ -15,10 +17,12 @@ class UserManager extends BaseManager {
     /**
      * User Manager.
      * @param {EconomyOptions} options Economy configuration.
+     * @param {DatabaseManager} database Database manager.
      * @param {string} guildID Guild ID.
+     * @param {CacheManager} cache Cache manager.
      */
-    constructor(options, guildID) {
-        super(options, null, guildID, EconomyUser)
+    constructor(options, database, guildID, cache) {
+        super(options, null, guildID, EconomyUser, database, cache)
 
         /**
          * Economy configuration.
@@ -32,29 +36,34 @@ class UserManager extends BaseManager {
          * @type {DatabaseManager}
          * @private
          */
-        this.database = new DatabaseManager(options)
+        this.database = database
+
+        /**
+         * Cache Manager.
+         * @type {CacheManager}
+         * @private
+         */
+        this.cache = cache
     }
 
     /**
      * Gets the user by it's ID and guild ID.
      * @param {string} userID User ID.
      * @param {string} [guildID] Guild ID.
-     * @returns {EconomyUser} User object.
+     * @returns {Promise<EconomyUser>} User object.
      */
-    get(userID, guildID) {
-        const user = this.all()
-            .find(user => user.id == userID && user.guildID == (guildID || this.guildID))
-
-        return user
+    async get(userID, guildID) {
+        const allUsers = await this.all()
+        return allUsers.find(user => user.guildID == (guildID || this.guildID) && user.id == userID)
     }
 
     /**
      * Creates an economy user object in database.
      * @param {string} memberID The user ID to set.
      * @param {string} [guildID] Guild ID.
-     * @returns {EconomyUser} Economy user object.
+     * @returns {Promise<EconomyUser>} Economy user object.
      */
-    create(memberID, guildID = this.guildID) {
+    async create(memberID, guildID = this.guildID) {
         if (!guildID) return null
         if (!memberID) return null
 
@@ -63,9 +72,14 @@ class UserManager extends BaseManager {
         defaultObj.id = memberID
         defaultObj.guildID = guildID
 
-        this.database.set(`${guildID}.${memberID}`, defaultObj)
+        await this.database.set(`${guildID}.${memberID}`, defaultObj)
 
-        const newUser = new EconomyUser(memberID, guildID, this.options, defaultObj, this.database)
+        this.cache.updateSpecified(['users', 'guilds'], {
+            guildID,
+            memberID
+        })
+
+        const newUser = new EconomyUser(memberID, guildID, this.options, defaultObj, this.database, this.cache)
         return newUser
     }
 
@@ -73,24 +87,24 @@ class UserManager extends BaseManager {
      * Sets the default user object for a specified member.
      * @param {string} userID User ID.
      * @param {string} [guildID] Guild ID.
-     * @returns {EconomyUser} If reset successfully: true; else: false.
+     * @returns {Promise<EconomyUser>} If reset successfully: true; else: false.
      */
     reset(userID, guildID = this.guildID) {
         return this.create(userID, guildID)
     }
 
     /**
-     * Gets the array of ALL users in database.
-     * @returns {EconomyUser[]}
+     * Gets the array of all users in database.
+     * @returns {Promise<EconomyUser[]>}
      */
-    all() {
+    async all() {
 
         /**
-        * @type {EconomyUser[]}
-        */
+         * @type {EconomyUser[]}
+         */
         const users = []
 
-        const all = this.database.all()
+        const all = await this.database.all()
         const guildEntries = Object.entries(all)
 
         for (const [guildID, guildObject] of guildEntries) {
@@ -104,7 +118,9 @@ class UserManager extends BaseManager {
                 delete userObject.inventory
                 delete userObject.bank
 
-                const economyUser = new EconomyUser(userID, guildID, this.options, userObject, this.database)
+                const economyUser = new EconomyUser(
+                    userID, guildID, this.options, userObject, this.database, this.cache
+                )
 
                 delete economyUser.connection
                 delete economyUser.database
@@ -122,8 +138,6 @@ class UserManager extends BaseManager {
 
 /**
  * @typedef {object} EconomyOptions Default Economy configuration.
- * @property {string} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
- * @property {boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
  * @property {number} [dailyCooldown=86400000] 
  * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  * 
@@ -145,7 +159,6 @@ class UserManager extends BaseManager {
  * @property {boolean} [subtractOnBuy=true] 
  * If true, when someone buys the item, their balance will subtract by item price. Default: false
  * 
- * @property {number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
  * @property {string} [dateLocale='en'] The region (example: 'ru' or 'en') to format the date and time. Default: 'en'.
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
  * @property {ErrorHandlerOptions} [errorHandler=ErrorHandlerOptions] Error handler configuration.

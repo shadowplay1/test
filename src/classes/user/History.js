@@ -2,9 +2,9 @@ const EconomyError = require('../util/EconomyError')
 const errors = require('../../structures/errors')
 
 const DatabaseManager = require('../../managers/DatabaseManager')
-const FetchManager = require('../../managers/FetchManager')
-
 const BaseManager = require('../../managers/BaseManager')
+
+const CacheManager = require('../../managers/CacheManager')
 
 const HistoryItem = require('../HistoryItem')
 
@@ -20,9 +20,11 @@ class History extends BaseManager {
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {EconomyOptions} options Economy configuration.
+     * @param {DatabaseManager} database Database Manager.
+     * @param {CacheManager} cache Cache Manager.
      */
-    constructor(memberID, guildID, options) {
-        super(options, memberID, guildID, HistoryItem)
+    constructor(memberID, guildID, options, database, cache) {
+        super(options, memberID, guildID, HistoryItem, database, cache)
 
         /**
         * Member ID.
@@ -37,25 +39,25 @@ class History extends BaseManager {
         this.guildID = guildID
 
         /**
-         * Fetch Manager.
-         * @type {FetchManager}
-         * @private
-         */
-        this._fetcher = new FetchManager(options)
-
-        /**
          * Database Manager.
          * @type {DatabaseManager}
          * @private
          */
-        this.database = new DatabaseManager(options)
+        this.database = database
+
+        /**
+         * Cache Manager.
+         * @type {CacheManager}
+         * @private
+         */
+        this.cache = cache
     }
 
     /**
     * Gets all the items in user's purchases history.
     * 
     * This method is an alias for `History.all()` method.
-    * @returns {HistoryItem[]} User's history item.
+    * @returns {Promise<HistoryItem[]>} User's history item.
     */
     get() {
         return this.all()
@@ -63,21 +65,25 @@ class History extends BaseManager {
 
     /**
      * Gets all the items in user's purchases history.
-     * @returns {HistoryItem[]} User's purchases history.
+     * @returns {Promise<HistoryItem[]>} User's purchases history.
      */
-    all() {
-        const results = this.database.fetch(`${this.guildID}.${this.memberID}.history`) || []
-        return results.map(historyItem => new HistoryItem(this.guildID, this.memberID, this.options, historyItem))
+    async all() {
+        const results = await this.database.fetch(`${this.guildID}.${this.memberID}.history`) || []
+
+        return results.map(
+            historyItem =>
+                new HistoryItem(this.guildID, this.memberID, this.options, historyItem, this.database, this.cache)
+        )
     }
 
     /**
      * Adds the item from the shop to the purchases history.
      * @param {string | number} itemID Shop item ID.
-     * @returns {boolean} If added: true, else: false.
+     * @returns {Promise<boolean>} If added: true, else: false.
      */
-    add(itemID) {
-        const shop = this.database.fetch(`${this.guildID}.shop`)
-        const history = this.database.fetch(`${this.guildID}.${this.memberID}.history`)
+    async add(itemID) {
+        const shop = await this.database.fetch(`${this.guildID}.shop`)
+        const history = await this.database.fetch(`${this.guildID}.${this.memberID}.history`)
 
         const item = shop.find(item => item.id == itemID || item.name == itemID)
 
@@ -88,7 +94,7 @@ class History extends BaseManager {
 
         if (!item) return false
 
-        return this.database.push(`${this.guildID}.${this.memberID}.history`, {
+        const result = await this.database.push(`${this.guildID}.${this.memberID}.history`, {
             id: history.length ? history[history.length - 1].id + 1 : 1,
             memberID: this.memberID,
             guildID: this.guildID,
@@ -98,21 +104,28 @@ class History extends BaseManager {
             maxAmount: item.maxAmount,
             date: new Date().toLocaleString(this.options.dateLocale || 'en')
         })
+
+        this.cache.history.update({
+            guildID: this.guildID,
+            memberID: this.memberID
+        })
+
+        return result
     }
 
     /**
      * Removes the specified item from purchases history.
      * @param {string | number} id History item ID.
-     * @returns {boolean} If removed: true, else: false.
+     * @returns {Promise<boolean>} If removed: true, else: false.
      */
-    remove(id) {
+    async remove(id) {
         if (typeof id !== 'number' && typeof id !== 'string') {
             throw new EconomyError(errors.invalidTypes.id + typeof id, 'INVALID_TYPE')
         }
 
-        const history = this.fetch(memberID, guildID)
+        const history = (await this.fetch(memberID, guildID)) || []
 
-        const historyItem = this.find(
+        const historyItem = await this.find(
             historyItem =>
                 historyItem.id == id &&
                 historyItem.memberID == memberID &&
@@ -124,7 +137,14 @@ class History extends BaseManager {
         if (!historyItem) return false
         history.splice(historyItemIndex, 1)
 
-        return this.database.set(`${this.guildID}.${this.memberID}.history`, history)
+        const result = await this.database.set(`${this.guildID}.${this.memberID}.history`, history)
+
+        this.cache.history.update({
+            guildID: this.guildID,
+            memberID: this.memberID
+        })
+
+        return result
     }
 
     /**
@@ -132,7 +152,7 @@ class History extends BaseManager {
      * 
      * This method is an alias for `History.remove()` method.
      * @param {string | number} id History item ID.
-     * @returns {boolean} If removed: true, else: false.
+     * @returns {Promise<boolean>} If removed: true, else: false.
      */
     delete(id) {
         return this.remove(id)
@@ -140,22 +160,30 @@ class History extends BaseManager {
 
     /**
      * Clears the user's purchases history.
-     * @returns {boolean} If cleared: true, else: false.
+     * @returns {Promise<boolean>} If cleared: true, else: false.
      */
-    clear() {
-        const history = this.all()
+    async clear() {
+        const history = await this.all()
+
         if (!history) return false
 
-        return this.database.remove(`${this.guildID}.${this.memberID}.history`)
+        const result = await this.database.remove(`${this.guildID}.${this.memberID}.history`)
+
+        this.cache.history.update({
+            guildID: this.guildID,
+            memberID: this.memberID
+        })
+
+        return result
     }
 
     /**
     * Gets the item from user's purchases history.
     * @param {string | number} id History item ID.
-    * @returns {HistoryItem} User's history item.
+    * @returns {Promise<HistoryItem>} User's history item.
     */
-    getItem(id) {
-        const allHistory = this.all()
+    async getItem(id) {
+        const allHistory = await this.all()
         return allHistory.find(item => item.id == id)
     }
 
@@ -164,7 +192,7 @@ class History extends BaseManager {
      * 
      * This method is an alias for `History.getItem()` method.
      * @param {string | number} id History item ID.
-     * @returns {HistoryItem} Purchases history item.
+     * @returns {Promise<HistoryItem>} Purchases history item.
      */
     findItem(id) {
         return this.getItem(id)

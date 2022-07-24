@@ -1,5 +1,8 @@
 const UtilsManager = require('../managers/UtilsManager')
+
 const DatabaseManager = require('../managers/DatabaseManager')
+const CacheManager = require('../managers/CacheManager')
+
 const UserManager = require('../managers/UserManager')
 
 const Shop = require('./guild/Shop')
@@ -18,15 +21,17 @@ class EconomyGuild {
      * @param {string} id Guild ID.
      * @param {EconomyOptions} ecoOptions Economy configuration.
      * @param {any} guildObject Economy guild object.
+     * @param {DatabaseManager} database Database manager.
+     * @param {CacheManager} cache Cache manager.
      */
-    constructor(id, ecoOptions, guildObject) {
+    constructor(id, ecoOptions, guildObject, database, cache) {
         delete guildObject.settings
 
         /**
          * Guild User Manager.
          * @type {UserManager}
          */
-        this.users = new UserManager(ecoOptions, id)
+        this.users = new UserManager(ecoOptions, database, id, cache)
 
         /**
          * Guild ID.
@@ -39,33 +44,39 @@ class EconomyGuild {
          * @type {DatabaseManager}
          * @private
          */
-        this.database = new DatabaseManager(ecoOptions)
+        this.database = database
 
         /**
          * Utils Manager.
          * @type {UtilsManager}
          * @private
          */
-        this.utils = new UtilsManager(ecoOptions, this.database)
+        this.utils = new UtilsManager(ecoOptions, database, cache)
 
         /**
          * Guild Shop.
          * @type {Shop}
          */
-        this.shop = new Shop(id, ecoOptions)
+        this.shop = new Shop(id, ecoOptions, database, cache)
 
         /**
         * Guild Leaderboards.
         * @type {Leaderboards}
         */
-        this.leaderboards = new Leaderboards(id, ecoOptions)
+        this.leaderboards = new Leaderboards(id, ecoOptions, database, cache)
 
         /**
          * Guild Settings.
          * @type {Settings}
          */
-        this.settings = new Settings(id, ecoOptions)
+        this.settings = new Settings(id, ecoOptions, database)
 
+        /**
+         * Cache Manager.
+         * @type {CacheManager}
+         * @private
+         */
+        this._cache = cache
 
         delete guildObject.shop
 
@@ -76,22 +87,33 @@ class EconomyGuild {
 
     /**
      * Deletes the guild from database.
-     * @returns {EconomyGuild} Deleted guild object.
+     * @returns {Promise<EconomyGuild>} Deleted guild object.
      */
-    delete() {
-        this.database.delete(this.id)
+    async delete() {
+        await this.database.delete(this.id)
+
+        this._cache.guilds.update({
+            guildID: this.id,
+        })
+
         return this
     }
 
     /**
      * Sets the default guild object for a specified member.
-     * @returns {boolean} If reset successfully: true; else: false.
+     * @returns {Promise<boolean>} If reset successfully: true; else: false.
      */
-    reset() {
-        return this.database.set(this.id, {
+    async reset() {
+        const result = await this.database.set(this.id, {
             shop: [],
             settings: []
         })
+
+        this._cache.guilds.update({
+            guildID: this.id,
+        })
+
+        return result
     }
 }
 

@@ -1,18 +1,19 @@
 const errors = require('../../structures/errors')
 
-const errorCodes = {
-    INVALID_TYPE: 'INVALID_TYPE',
-    UNKNOWN_ERROR: 'UNKNOWN_ERROR',
-    PARAMETER_NOT_SPECIFIED: 'PARAMETER_NOT_SPECIFIED',
-    OLD_NODE_VERSION: 'OLD_NODE_VERSION',
-    NO_DISCORD_CLIENT: 'NO_DISCORD_CLIENT',
-    ROLE_NOT_FOUND: 'ROLE_NOT_FOUND',
-    PURCHASES_HISTORY_DISABLED: 'PURCHASES_HISTORY_DISABLED',
-    SETTINGS_KEY_INVALID: 'SETTINGS_KEY_INVALID',
-    INVALID_ERROR_CODE: 'INVALID_ERROR_CODE',
-    MODULE_NOT_READY: 'MODULE_NOT_READY',
-    STORAGE_FILE_ERROR: 'STORAGE_FILE_ERROR',
-}
+const errorCodes = [
+    'INVALID_TYPE',
+    'NO_CACHE_IDENTIFIERS',
+    'INVALID_CACHE_ITEM_NAME',
+    'UNKNOWN_ERROR',
+    'PARAMETER_NOT_SPECIFIED',
+    'OLD_NODE_VERSION',
+    'NO_DISCORD_CLIENT',
+    'ROLE_NOT_FOUND',
+    'PURCHASES_HISTORY_DISABLED',
+    'SETTINGS_KEY_INVALID',
+    'INVALID_ERROR_CODE',
+    'NO_CONNECTION_DATA'
+]
 
 /**
  * EconomyError class.
@@ -23,7 +24,9 @@ class EconomyError extends Error {
     /**
      * Creates an 'EconomyError' instance.
      * @param {string | Error} message Error message.
-     * @param {'INVALID_TYPE' |
+     * @param {'INVALID_TYPE' | 
+     * 'INVALID_CACHING_IDENTIFIERS' | 
+     * 'INVALID_CACHE_ITEM_NAME' |
      * 'UNKNOWN_ERROR' | 
      * 'PARAMETER_NOT_SPECIFIED' |
      * 'OLD_NODE_VERSION' |
@@ -32,8 +35,7 @@ class EconomyError extends Error {
      * 'PURCHASES_HISTORY_DISABLED' |
      * 'SETTINGS_KEY_INVALID' |
      * 'INVALID_ERROR_CODE' |
-     * 'MODULE_NOT_READY' |
-     * 'STORAGE_FILE_ERROR'} code Error code.
+     * 'NO_CONNECTION_DATA'} code Error code.
      */
     constructor(message = '', code = '') {
         if (message instanceof Error == 'Error') {
@@ -49,13 +51,15 @@ class EconomyError extends Error {
             code = 'UNKNOWN_ERROR'
         }
 
-        if (code && !errorCodes[code]) {
+        if (code && !errorCodes.includes(code)) {
             throw new EconomyError(errors.invalidErrorCode, 'INVALID_ERROR_CODE')
         }
 
         /**
          * Error code.
-         * @type {'INVALID_TYPE' |
+         * @type {'INVALID_TYPE' | 
+         * 'INVALID_CACHING_IDENTIFIERS' | 
+         * 'INVALID_CACHE_ITEM_NAME' |
          * 'UNKNOWN_ERROR' | 
          * 'PARAMETER_NOT_SPECIFIED' |
          * 'OLD_NODE_VERSION' |
@@ -63,9 +67,8 @@ class EconomyError extends Error {
          * 'ROLE_NOT_FOUND' |
          * 'PURCHASES_HISTORY_DISABLED' |
          * 'SETTINGS_KEY_INVALID' |
-         * 'INVALID_ERROR_CODE' |
-         * 'MODULE_NOT_READY' |
-         * 'STORAGE_FILE_ERROR'} 
+         * 'INVALID_ERROR_CODE' | 
+         * 'NO_CONNECTION_DATA'}
          */
         this.code = code
 

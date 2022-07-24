@@ -1,7 +1,5 @@
 const ShopManager = require('../../managers/ShopManager')
 const InventoryManager = require('../../managers/InventoryManager')
-const DatabaseManager = require('../../managers/DatabaseManager')
-
 
 /**
  * User Items.
@@ -14,8 +12,9 @@ class Items {
      * @param {string} guildID Guild ID.
      * @param {EconomyOptions} ecoOptions Economy configuratuion.
      * @param {DatabaseManager} database Database Manager.
+     * @param {CacheManager} cache Cache Manager.
      */
-    constructor(memberID, guildID, ecoOptions, database) {
+    constructor(memberID, guildID, ecoOptions, database, cache) {
 
         /**
          * Member ID.
@@ -36,14 +35,14 @@ class Items {
          * @type {ShopManager}
          * @private
          */
-        this._shop = new ShopManager(ecoOptions)
+        this._shop = new ShopManager(ecoOptions, database, cache)
 
         /**
          * Inventory Manager.
          * @type {InventoryManager}
          * @private
          */
-        this._inventory = new InventoryManager(ecoOptions, database)
+        this._inventory = new InventoryManager(ecoOptions, database, cache)
     }
 
     /**
@@ -54,7 +53,7 @@ class Items {
      * @param {string} [reason='received the item from the shop'] 
      * The reason why the money was subtracted. Default: 'received the item from the shop'.
      * 
-     * @returns {ShopOperationInfo} Operation information object.
+     * @returns {Promise<ShopOperationInfo>} Operation information object.
      */
     buy(itemID, quantity, reason) {
         return this._shop.buyItem(itemID, this.memberID, this.guildID, quantity, reason)
@@ -64,10 +63,19 @@ class Items {
      * Adds the item from the shop to user's inventory.
      * @param {string | number} itemID Item ID or name.
      * @param {number} [quantity=1] Quantity of items to add. Default: 1.
-     * @returns {boolean} If added successfully: true, else: false.
+     * @returns {Promise<ShopOperationInfo>} Operation information object.
      */
     add(itemID, quantity) {
         return this._inventory.addItem(itemID, this.memberID, this.guildID, quantity)
+    }
+
+    /**
+     * Gets the specified item from the user's inventory.
+     * @param {string | number} itemID Item ID or name.
+     * @returns {Promise<InventoryData[]>} User's inventory array.
+     */
+    get(itemID) {
+        return this._inventory.findItem(itemID, this.memberID, this.guildID)
     }
 
     /**
@@ -78,26 +86,17 @@ class Items {
      * @param {string} [reason='sold the item to the shop']
      * The reason why the money was added. Default: 'sold the item to the shop'.
      * 
-     * @returns {SellingOperationInfo} Selling operation info.
+     * @returns {Promise<ShopOperationInfo>} Selling operation info.
      */
     sell(itemID, quantity, reason) {
         return this._inventory.sellItem(itemID, this.memberID, this.guildID, quantity, reason)
     }
 
     /**
-     * Gets the specified item from the user's inventory.
-     * @param {string | number} itemID Item ID or name.
-     * @returns {InventoryData[]} User's inventory array.
-     */
-    get(itemID) {
-        return this._inventory.findItem(itemID, this.memberID, this.guildID)
-    }
-
-    /**
      * Uses the item from user's inventory.
      * @param {number | string} itemID Item ID or name.
      * @param {Client} [client] Discord Client [Specify if the role will be given in a Discord server].
-     * @returns {string} Item message.
+     * @returns {Promise<string>} Item message.
      */
     use(itemID, client) {
         return this._inventory.useItem(itemID, this.memberID, this.guildID, client)
@@ -106,7 +105,7 @@ class Items {
     /**
      * Removes the item from user's inventory.
      * @param {string | number} itemID Item ID or name.
-     * @returns {boolean} If removed successfully: true, else: false.
+     * @returns {Promise<boolean>} If removed successfully: true, else: false.
      */
     remove(itemID) {
         return this._inventory.removeItem(itemID, this.memberID, this.guildID)
@@ -117,13 +116,20 @@ class Items {
      *
      * This method is an alias for 'Items.remove' method
      * @param {string | number} itemID Item ID or name.
-     * @returns {boolean} If removed successfully: true, else: false.
+     * @returns {Promise<boolean>} If removed successfully: true, else: false.
      */
     delete(itemID) {
         return this.remove(itemID)
     }
 }
 
+/**
+ * @typedef {object} ShopOperationInfo
+ * @property {boolean} status Operation status.
+ * @property {string} message Operation message.
+ * @property {ShopItem | InventoryItem} item Item object.
+ * @property {number} quantity Item quantity.
+ */
 
 /**
  * @typedef {object} EconomyOptions Default Economy configuration.

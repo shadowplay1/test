@@ -1,4 +1,6 @@
+const CacheManager = require('../managers/CacheManager')
 const DatabaseManager = require('../managers/DatabaseManager')
+
 const SettingsManager = require('../managers/SettingsManager')
 
 const errors = require('../structures/errors')
@@ -20,8 +22,9 @@ class InventoryItem extends Emitter {
      * @param {EconomyOptions} ecoOptions Economy configuration.
      * @param {InventoryData} itemObject Economy guild object.
      * @param {DatabaseManager} database Database Manager.
+     * @param {CacheManager} cache Cache manager.
      */
-    constructor(guildID, memberID, ecoOptions, itemObject, database) {
+    constructor(guildID, memberID, ecoOptions, itemObject, database, cache) {
         super()
 
         /**
@@ -92,6 +95,17 @@ class InventoryItem extends Emitter {
         this.date = itemObject.date
 
         /**
+         * Quantity of the item.
+         * @type {number}
+         */
+        this.quantity = itemObject.quantity
+
+
+        for (const [key, value] of Object.entries(itemObject || {})) {
+            this[key] = value
+        }
+
+        /**
          * Settings manager methods object.
          * @type {SettingsManager}
          * @private
@@ -105,10 +119,12 @@ class InventoryItem extends Emitter {
          */
         this.database = database
 
-
-        for (const [key, value] of Object.entries(itemObject || {})) {
-            this[key] = value
-        }
+        /**
+         * Cache Manager.
+         * @type {CacheManager}
+         * @private
+         */
+        this.cache = cache
     }
 
     /**
@@ -116,7 +132,7 @@ class InventoryItem extends Emitter {
      * @param {number} [quantity=1] Quantity of items to delete.
      * 
      * This method is an alias for 'InventoryItem.remove()' method.
-     * @returns {boolean} If removed: true, else: false.
+     * @returns {Promise<boolean>} If removed: true, else: false.
      */
     delete(quantity = 1) {
         return this.remove(quantity)
@@ -125,10 +141,10 @@ class InventoryItem extends Emitter {
     /**
      * Removes an item from the shop.
      * @param {number} [quantity=1] Quantity of items to delete.
-     * @returns {boolean} If removed: true, else: false.
+     * @returns {Promise<boolean>} If removed: true, else: false.
      */
-    remove(quantity = 1) {
-        const inventory = this.database.fetch(`${this.guildID}.${this.memberID}.inventory`) || []
+    async remove(quantity = 1) {
+        const inventory = (await this.database.fetch(`${this.guildID}.${this.memberID}.inventory`) || [])
 
         const item = this
         const itemQuantity = inventory.filter(item => item.id == item.id).length
@@ -138,7 +154,13 @@ class InventoryItem extends Emitter {
             ...Array(itemQuantity - quantity).fill(item.itemObject)
         ]
 
-        const result = this.database.set(`${this.guildID}.${this.memberID}.inventory`, newInventory)
+        const result = await this.database.set(`${this.guildID}.${this.memberID}.inventory`, newInventory)
+
+        this.cache.inventory.update({
+            guildID: this.guildID,
+            memberID: this.memberID
+        })
+
         return result
     }
 
@@ -148,12 +170,12 @@ class InventoryItem extends Emitter {
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {Client} [client] Discord Client [Specify if the role will be given in a Discord server].
-     * @returns {string} Item message.
+     * @returns {Promise<string>} Item message.
      */
-    use(client) {
-        const inventory = this.database.fetch(`${this.guildID}.${this.memberID}.inventory`) || []
+    async use(client) {
+        const inventory = (await this.database.fetch(`${this.guildID}.${this.memberID}.inventory`)) || []
 
-        const itemObject = this
+        const itemObject = this.itemObject
         const itemIndex = inventory.findIndex(invItem => invItem.id == itemObject?.id)
 
         const item = inventory[itemIndex]
@@ -186,7 +208,12 @@ class InventoryItem extends Emitter {
             })
         }
 
-        this.delete()
+        await this.delete()
+
+        this.cache.inventory.update({
+            guildID: this.guildID,
+            memberID: this.memberID
+        })
 
         let msg
         const string = item?.message || 'You have used this item!'
@@ -231,15 +258,15 @@ class InventoryItem extends Emitter {
      * This is the same as selling something.
      * 
      * @param {number} [quantity=1] Quantity of items to sell.
-     * @returns {SellingOperationInfo} Selling operation info.
+     * @returns {Promise<SellingOperationInfo>} Selling operation info.
      */
-    sell(quantity = 1) {
-        const inventory = this.database.fetch(`${this.guildID}.${this.memberID}.inventory`) || []
+    async sell(quantity = 1) {
+        const inventory = (await this.database.fetch(`${this.guildID}.${this.memberID}.inventory`)) || []
 
         const item = this
         const itemQuantity = inventory.filter(invItem => invItem.id == item.id).length
 
-        const percent = (this.settings.get('sellingItemPercent', guildID))
+        const percent = (await this.settings.get('sellingItemPercent', guildID))
             || this.options.sellingItemPercent
 
         const sellingPrice = Math.floor((item?.price / 100) * percent)
@@ -256,7 +283,12 @@ class InventoryItem extends Emitter {
         }
 
         this.database.add(`${this.guildID}.${this.memberID}.money`, totalSellingPrice)
-        this.remove(quantity)
+        await this.remove(quantity)
+
+        this.cache.updateSpecified(['users', 'inventory'], {
+            guildID: this.guildID,
+            memberID: this.memberID
+        })
 
         return {
             status: true,

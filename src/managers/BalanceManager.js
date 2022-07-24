@@ -1,11 +1,10 @@
 const Emitter = require('../classes/util/Emitter')
 
 const EconomyError = require('../classes/util/EconomyError')
-
-const FetchManager = require('./FetchManager')
-const DatabaseManager = require('./DatabaseManager')
-
 const errors = require('../structures/errors')
+
+const DatabaseManager = require('./DatabaseManager')
+const CacheManager = require('./CacheManager')
 
 
 /**
@@ -16,13 +15,12 @@ class BalanceManager extends Emitter {
 
     /**
      * Balance Manager.
-     * 
      * @param {object} options Economy configuration.
-     * @param {string} options.storagePath Full path to a JSON file. Default: './storage.json'.
+     * @param {DatabaseManager} database Database manager.
+     * @param {DatabaseManager} cache Cache manager.
      */
-    constructor(options = {}) {
+    constructor(options = {}, database, cache) {
         super(options)
-
 
         /**
          * Economy configuration.
@@ -32,27 +30,27 @@ class BalanceManager extends Emitter {
         this.options = options
 
         /**
-         * Fetch manager.
-         * @type {FetchManager}
-         * @private
-         */
-        this.fetcher = new FetchManager(options)
-
-        /**
          * Database manager.
          * @type {DatabaseManager}
          * @private
          */
-        this.database = new DatabaseManager(options)
+        this.database = database
+
+        /**
+         * Cache manager.
+         * @type {CacheManager}
+         * @private
+         */
+        this.cache = cache
     }
 
     /**
     * Fetches the user's balance.
     * @param {string} memberID Member ID
     * @param {string} guildID Guild ID
-    * @returns {number} User's balance
+    * @returns {Promise<number>} User's balance
     */
-    fetch(memberID, guildID) {
+    async fetch(memberID, guildID) {
         if (typeof memberID !== 'string') {
             throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
         }
@@ -61,7 +59,8 @@ class BalanceManager extends Emitter {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
-        return this.fetcher.fetchBalance(memberID, guildID)
+        const result = await this.database.fetch(`${guildID}.${memberID}.money`) || 0
+        return result
     }
 
     /**
@@ -70,7 +69,7 @@ class BalanceManager extends Emitter {
     * This method is an alias of `BalanceManager.fetch()` method.
     * @param {string} memberID Member ID
     * @param {string} guildID Guild ID
-    * @returns {number} User's balance
+    * @returns {Promise<number>} User's balance
     */
     get(memberID, guildID) {
         return this.fetch(memberID, guildID)
@@ -82,10 +81,10 @@ class BalanceManager extends Emitter {
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {string} reason The reason why you set the money.
-     * @returns {number} Money amount.
+     * @returns {Promise<number>} Money amount.
      */
-    set(amount, memberID, guildID, reason = null) {
-        const balance = this.fetcher.fetchBalance(memberID, guildID)
+    async set(amount, memberID, guildID, reason = null) {
+        const balance = await this.fetch(memberID, guildID)
 
         if (isNaN(amount)) {
             throw new EconomyError(errors.invalidTypes.amount + typeof amount, 'INVALID_TYPE')
@@ -99,7 +98,12 @@ class BalanceManager extends Emitter {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
-        this.database.set(`${guildID}.${memberID}.money`, amount)
+        await this.database.set(`${guildID}.${memberID}.money`, amount)
+
+        this.cache.users.update({
+            memberID,
+            guildID
+        })
 
         this.emit('balanceSet', {
             type: 'set',
@@ -119,10 +123,10 @@ class BalanceManager extends Emitter {
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {string} reason The reason why you add the money.
-     * @returns {number} Money amount.
+     * @returns {Promise<number>} Money amount.
      */
-    add(amount, memberID, guildID, reason = null) {
-        const balance = this.fetcher.fetchBalance(memberID, guildID)
+    async add(amount, memberID, guildID, reason = null) {
+        const balance = await this.fetch(memberID, guildID)
 
         if (isNaN(amount)) {
             throw new EconomyError(errors.invalidTypes.amount + typeof amount, 'INVALID_TYPE')
@@ -136,7 +140,12 @@ class BalanceManager extends Emitter {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
-        this.database.add(`${guildID}.${memberID}.money`, amount)
+        await this.database.add(`${guildID}.${memberID}.money`, amount)
+
+        this.cache.users.update({
+            memberID,
+            guildID
+        })
 
         this.emit('balanceAdd', {
             type: 'add',
@@ -156,10 +165,10 @@ class BalanceManager extends Emitter {
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {string} reason The reason why you add the money.
-     * @returns {number} Money amount.
+     * @returns {Promise<number>} Money amount.
      */
-    subtract(amount, memberID, guildID, reason = null) {
-        const balance = this.fetcher.fetchBalance(memberID, guildID)
+    async subtract(amount, memberID, guildID, reason = null) {
+        const balance = await this.fetch(memberID, guildID)
 
         if (isNaN(amount)) {
             throw new EconomyError(errors.invalidTypes.amount + typeof amount, 'INVALID_TYPE')
@@ -173,7 +182,12 @@ class BalanceManager extends Emitter {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
-        this.database.subtract(`${guildID}.${memberID}.money`, amount)
+        await this.database.subtract(`${guildID}.${memberID}.money`, amount)
+
+        this.cache.users.update({
+            memberID,
+            guildID
+        })
 
         this.emit('balanceSubtract', {
             type: 'subtract',
@@ -190,11 +204,11 @@ class BalanceManager extends Emitter {
     /**
      * Shows a money leaderboard for your server.
      * @param {string} guildID Guild ID.
-     * @returns {BalanceLeaderboard[]} Sorted leaderboard array.
+     * @returns {Promise<BalanceLeaderboard[]>} Sorted leaderboard array.
      */
-    leaderboard(guildID) {
+    async leaderboard(guildID) {
         const lb = []
-        const data = this.fetcher.fetchAll()
+        const data = await this.database.all()
 
         if (typeof guildID !== 'string') {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
@@ -203,7 +217,7 @@ class BalanceManager extends Emitter {
         const guildData = data[guildID]
         if (!guildData) return []
 
-        const users = Object.keys(guildData)
+        const users = Object.keys(guildData).filter(key => key !== 'settings' && key !== 'shop')
         const ranks = Object.values(guildData).map(user => user.money).filter(userID => !isNaN(userID))
 
         for (const rank in ranks) lb.push({
@@ -218,9 +232,9 @@ class BalanceManager extends Emitter {
      * Sends the money to a specified user.
      * @param {string} guildID Guild ID.
      * @param {TransferringOptions} options Transferring options.
-     * @returns {TransferringResult} Transferring result object.
+     * @returns {Promise<TransferringResult>} Transferring result object.
      */
-    transfer(guildID, options) {
+    async transfer(guildID, options) {
         const {
             amount, senderMemberID,
             receiverMemberID,
@@ -244,14 +258,27 @@ class BalanceManager extends Emitter {
         }
 
         this.add(amount, receiverMemberID, guildID, receivingReason || 'receiving money from user')
-        this.subtract(amount, senderMemberID, guildID, sendingReason || 'sending money to user')
+        await this.subtract(amount, senderMemberID, guildID, sendingReason || 'sending money to user')
+
+        await this.cache.users.updateMany({
+            senderMemberID,
+            guildID
+        }, {
+            receiverMemberID,
+            guildID
+        })
+
+        const [senderBalance, receiverBalance] = [
+            this.cache.users.cache[guildID][senderMemberID].money,
+            this.cache.users.cache[guildID][receiverMemberID].money
+        ]
 
         return {
             success: true,
             guildID,
 
-            senderBalance: this.fetch(senderMemberID, guildID),
-            receiverBalance: this.fetch(receiverMemberID, guildID),
+            senderBalance,
+            receiverBalance,
 
             amount,
 

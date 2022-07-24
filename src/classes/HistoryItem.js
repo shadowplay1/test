@@ -1,5 +1,8 @@
 const EconomyError = require('../classes/util/EconomyError')
-const errors = require('../../src/structures/errors')
+
+const CacheManager = require('../managers/CacheManager')
+
+const errors = require('../structures/errors')
 
 
 /**
@@ -14,8 +17,9 @@ class HistoryItem {
      * @param {EconomyOptions} ecoOptions Economy configuration.
      * @param {HistoryData} itemObject User purchases history item object.
      * @param {DatabaseManager} database Database Manager.
+     * @param {CacheManager} cache Cache manager.
      */
-    constructor(guildID, memberID, ecoOptions, itemObject, database) {
+    constructor(guildID, memberID, ecoOptions, itemObject, database, cache) {
 
         /**
          * Guild ID.
@@ -72,17 +76,18 @@ class HistoryItem {
         this.role = itemObject.role
 
         /**
-         * Quantity of the item.
-         * @type {number}
-         */
-        this.quantity = itemObject.quantity
-
-        /**
          * Database Manager.
          * @type {DatabaseManager}
          * @private
          */
         this._database = database
+
+        /**
+         * Cache Manager.
+         * @type {CacheManager}
+         * @private
+         */
+        this.cache = cache
 
         for (const [key, value] of Object.entries(itemObject || {})) {
             this[key] = value
@@ -93,7 +98,7 @@ class HistoryItem {
      * Removes the item from the history.
      * 
      * This method is an alias for 'HistoryItem.remove()' method.
-     * @returns {boolean} If removed: true, else: false.
+     * @returns {Promise<boolean>} If removed: true, else: false.
      */
     delete() {
         return this.remove()
@@ -101,9 +106,9 @@ class HistoryItem {
 
     /**
      * Removes the item from the history.
-     * @returns {boolean} If removed: true, else: false.
+     * @returns {Promise<boolean>} If removed: true, else: false.
      */
-    remove() {
+    async remove() {
         const id = this.id
 
         if (typeof id !== 'number' && typeof id !== 'string') {
@@ -118,7 +123,7 @@ class HistoryItem {
             throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
         }
 
-        const history = this.database
+        const history = (await this._database.fetch(`${this.guildID}.${this.memberID}.history`)) || []
 
         const historyItem = history.find(
             historyItem =>
@@ -132,7 +137,14 @@ class HistoryItem {
         if (!historyItem) return false
         history.splice(historyItemIndex, 1)
 
-        return this.database.set(`${guildID}.${memberID}.history`, history)
+        const result = await this.database.set(`${guildID}.${memberID}.history`, history)
+
+        this.cache.history.update({
+            guildID: this.guildID,
+            memberID: this.memberID
+        })
+
+        return result
     }
 }
 
