@@ -7,7 +7,7 @@
 
 ## ✍ | Updating your code
 
-## Version 1.6.0
+## Version 1.6.1
 
 This version takes much approach on object-orience. The most important changes are:
 
@@ -17,7 +17,7 @@ This version takes much approach on object-orience. The most important changes a
 - some of the methods' names and/or return values were changed to make them sound better and more natural. (for example: `BalanceManager.pay(...)` → `BalanceManager.transfer(...)`)
 - some of the getter methods and their aliases' names were changed.
 - powerful database caching system for MongoDB
-- ... and many more! You can see the full [changelog](https://des-docs.js.org/#/docs/main/1.6.0/general/changelog) to see all the changes: it will help you on migrating to v1.6.0.
+- ... and many more! You can see the full [changelog](https://des-docs.js.org/#/docs/main/1.6.1/general/changelog) to see all the changes: it will help you on migrating to v1.6.1.
 
 These changes does not mean you will have to stop using the managers directly. You can use them as you normally would. Classes were provided as another way to use the Economy and make the code cleaner and more readable and understandable. Usage of managers is not deprecated or removed in this update. So, it means, you don't have to do much changes to make your code working again. 
 
@@ -30,7 +30,7 @@ console.log(balance)
 console.log(inventory)
 ```
 
-If you're looking for MongoDB migration guide, see the [MongoDB Migration Guide](https://des-docs.js.org/#/docs/main/1.6.0/general/migrating).
+If you're looking for MongoDB migration guide, see the [MongoDB Migration Guide](https://des-docs.js.org/#/docs/main/1.6.1/general/migrating).
 
 ## Version 1.5.0
 
