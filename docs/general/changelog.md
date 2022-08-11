@@ -11,7 +11,12 @@
 
 <b>1.6.2</b>
 
-<ul><b>Fixed bugs.</b></ul>
+- New `Empty-` classes for `EconomyUser` and `EconomyGuild` that will be returned if the user or guild does not exists
+- Added a new `exists` property for `EconomyUser` and `EconomyGuild` classes to check if the user/guild exists in database
+- Balance caching!
+- Fixed bugs
+- Major typings fixes
+- Minor changes in documentation, JSDoc and in main README file
 
 <b>1.6.1</b>
 
