@@ -9,6 +9,10 @@
 
 <div>
 
+<b>1.6.2</b>
+
+<ul><b>Fixed bugs.</b></ul>
+
 <b>1.6.1</b>
 
 <ul>

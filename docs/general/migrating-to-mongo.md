@@ -83,9 +83,9 @@ Version 1.6.1 has A LOT of changes (including breaking ones), it got a lot of ne
 
 Also the typings are now way better with the power of **generic** methods and generic types!
 
-I suggest you to read the [changelog](https://des-docs.js.org/#/docs/main/1.6.1/general/changelog) and the [documentation](https://des-docs.js.org/#/docs/main/1.6.1/general/welcome) to know what's new, what's changed and how to update your code.
+I suggest you to read the [changelog](https://des-docs.js.org/#/docs/main/1.6.2/general/changelog) and the [documentation](https://des-docs.js.org/#/docs/main/1.6.2/general/welcome) to know what's new, what's changed and how to update your code.
 
-Also you can check the [summary](https://des-docs.js.org/#/docs/main/1.6.1/general/updating) to see the main changes in this update.
+Also you can check the [summary](https://des-docs.js.org/#/docs/main/1.6.2/general/updating) to see the main changes in this update.
 
 Now, remove the usage all the deprecated methods (in MongoDB version, all deprecated methods were removed), change your code to async/awaits and you're ready to go!
 
@@ -117,7 +117,7 @@ eco.on('ready', async () => {
 })
 ```
 
-All the bot examples and TypeScript examples are available on [GitHub](https://github.com/shadowplay1/discord-economy-super/tree/main/examples).
+All the examples for both JavaScript and TypeScript are available on [GitHub](https://github.com/shadowplay1/discord-economy-super/tree/main/examples).
 
 ## ❗ | Useful Links
 
