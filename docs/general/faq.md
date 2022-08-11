@@ -9,7 +9,7 @@
 
 ### **Q:** How can I use MongoDB in Economy?
 
-#### **A:** Of course! Just follow the [migration guide](https://des-docs.js.org/#/docs/main/1.6.1/general/migrating) to start using Economy with MongoDB.
+#### **A:** Of course! Just follow the [migration guide](https://des-docs.js.org/#/docs/main/1.6.2/general/migrating) to start using Economy with MongoDB.
 
 <br>
 
@@ -54,10 +54,10 @@ const economyUsers1 = bot.eco.users.all()
 
 ### **Q:** Can I use the module globally?
 
-#### **A:** Yes! Just use a static value (such as 'global', '123', etc.) as guildID in all methods, and the module will work like with only one guild. For example: 
+#### **A:** Yes! Just use a static value (such as 'global', '123', etc.) as guildID in all methods, and the module will work like with only one guild. 
+#### For example, we have this database: 
 
 ```js
-// example eco database
 {
     "global": {
 	    "123": {
@@ -82,6 +82,7 @@ const economyUsers1 = bot.eco.users.all()
 }
 ```
 
+And here's the example code with that database:
 ```js
 const STATIC_GUILD_ID = 'global'
 const OTHER_GUILD_ID = 'other_guild_id'
@@ -96,6 +97,8 @@ const balance = user.balance.get() // 1150
 const balance1 = user1.balance.get() // 2000
 ```
 In this code, `global` and `other_guild_id` are different values. It means, that the module will search for the data in different guilds. Using the same value will search for the data in the same guild. So, the data from every Discord guild will be stored in the same Economy guild and the data will be accessible on every Discord guild.
+
+See [this page](https://des-docs.js.org/#/docs/main/1.6.2/general/global) for additional info about using the module globally.
 
 <br>
 
