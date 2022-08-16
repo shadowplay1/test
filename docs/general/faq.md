@@ -9,7 +9,7 @@
 
 ### **Q:** How can I use MongoDB in Economy?
 
-#### **A:** Of course! Just follow the [migration guide](https://des-docs.js.org/#/docs/main/1.6.3/general/migrating) to start using Economy with MongoDB.
+#### **A:** Of course! Just follow the [migration guide](https://des-docs.js.org/#/docs/main/1.6.3/general/migrating-to-mongo) to start using Economy with MongoDB.
 
 <br>
 

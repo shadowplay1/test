@@ -25,7 +25,7 @@ Features:
 <br>
 <ul>
 <li><b>Clean TypeScript Defenitions 📘</b></li>
-<li><b><a href="https://des-docs.js.org/#/docs/main/1.6.3/general/migrating">MongoDB Support 🍃</a></b></li>
+<li><b><a href="https://des-docs.js.org/#/docs/main/1.6.3/general/migrating-to-mongo">MongoDB Support 🍃</a></b></li>
 <li><b>Object-oriented 📜</b></li>
 <li><b>Flexible and Customizable ⚙️</b></li>
 <li><b>Easy to use 👍</b></li>
