@@ -5,7 +5,7 @@
 
 <b>Discord Economy Super</b> - Easy and customizable economy framework for your [Discord Bot](https://discord.js.org/#/).
 
-# Economy v1.6.1 MongoDB Migration Guide
+# MongoDB Migration Guide
 
 ## Introduction
 
