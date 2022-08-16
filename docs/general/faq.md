@@ -9,7 +9,7 @@
 
 ### **Q:** How can I use MongoDB in Economy?
 
-#### **A:** Of course! Just follow the [migration guide](https://des-docs.js.org/#/docs/main/1.6.2/general/migrating) to start using Economy with MongoDB.
+#### **A:** Of course! Just follow the [migration guide](https://des-docs.js.org/#/docs/main/1.6.3/general/migrating) to start using Economy with MongoDB.
 
 <br>
 
@@ -98,7 +98,7 @@ const balance1 = user1.balance.get() // 2000
 ```
 In this code, `global` and `other_guild_id` are different values. It means, that the module will search for the data in different guilds. Using the same value will search for the data in the same guild. So, the data from every Discord guild will be stored in the same Economy guild and the data will be accessible on every Discord guild.
 
-See [this page](https://des-docs.js.org/#/docs/main/1.6.2/general/global) for additional info about using the module globally.
+See [this page](https://des-docs.js.org/#/docs/main/1.6.3/general/global) for additional info about using the module globally.
 
 <br>
 
