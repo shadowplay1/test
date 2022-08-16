@@ -30,7 +30,7 @@ console.log(balance)
 console.log(inventory)
 ```
 
-If you're looking for MongoDB migration guide, see the [MongoDB Migration Guide](https://des-docs.js.org/#/docs/main/1.6.3/general/migrating).
+If you're looking for MongoDB migration guide, see the [MongoDB Migration Guide](https://des-docs.js.org/#/docs/main/1.6.3/general/migrating-to-mongo).
 
 ## Version 1.5.0
 
