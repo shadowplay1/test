@@ -9,6 +9,13 @@
 
 <div>
 
+<b>1.6.3</b>
+
+- Major bug fixes
+- Typings fixes
+- Examples bug fixes
+- Linting improvements
+
 <b>1.6.2</b>
 
 - New `Empty-` classes for `EconomyUser` and `EconomyGuild` that will be returned if the user or guild does not exists
