@@ -9,6 +9,11 @@
 
 <div>
 
+<b>1.6.4</b>
+
+- Bug fixes
+- Typings fixes
+
 <b>1.6.3</b>
 
 - Major bug fixes
