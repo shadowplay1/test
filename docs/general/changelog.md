@@ -9,6 +9,11 @@
 
 <div>
 
+<b>1.6.5</b>
+
+- Fixed the balance not caching correctly
+- Fixed the `INVALID_CACHE_ITEM_NAME` error in MongoDB version that caused a hard crash on any `RewardManager` method.
+
 <b>1.6.4</b>
 
 - Bug fixes
