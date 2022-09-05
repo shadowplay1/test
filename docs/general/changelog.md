@@ -9,6 +9,11 @@
 
 <div>
 
+<b>1.6.6</b>
+
+- Fixed the bug where `guildID` was `undefined` in `EmptyEconomyUser`, resulting hard crashes on lots of methods (if the user was not found).
+- Removed unnecessary things.
+
 <b>1.6.5</b>
 
 - Fixed the balance not caching correctly

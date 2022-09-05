@@ -19,7 +19,7 @@ For example: `eco.users.get(message.author.id, 'global')`, where `'global'` is a
 It means, the module will work with `'global'` guild, where all the data will be stored. 
 
 All the operations will be performed only to this "guild", so the data won't be lost on any other server!
-See the [FAQ page](https://des-docs.js.org/#/docs/main/1.6.5/general/faq) to see the full example of global economy usage.
+See the [FAQ page](https://des-docs.js.org/#/docs/main/1.6.6/general/faq) to see the full example of global economy usage.
 
 ## How do I move the data from the guilds to the Global one?
 Use the loop, where you iterate all the database entries, getting the object of every guild, then getting all the guild users and pushing them into the Global guild.
