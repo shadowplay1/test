@@ -9,6 +9,14 @@
 
 <div>
 
+<b>1.6.8</b>
+
+- Fixed bugs.
+- Fixed typings bugs.
+- Bank balance caching!
+- Fixed the hard crash in MongoDB version when trying to obtain a balance data for the user from the cache.
+- Added an `updateMany` alias for `updateSpecified` method in `CacheManager`.
+
 <b>1.6.7</b>
 
 - Fixed leaderboard bugs.
