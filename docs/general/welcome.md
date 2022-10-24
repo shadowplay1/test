@@ -6,7 +6,7 @@
 <b>Discord Economy Super</b> - Easy and customizable economy framework for your [Discord Bot](https://discord.js.org/#/).
 
 ## 🙋‍♂️ | Welcome!
-Welcome to the `discord-economy-super v1.6.1` documentation!
+Welcome to the `discord-economy-super v1.6.8` documentation!
 
 ## 📂 | Installation
 <b>Note:<b>
@@ -25,7 +25,7 @@ Features:
 <br>
 <ul>
 <li><b>Clean TypeScript Defenitions 📘</b></li>
-<li><b><a href="https://des-docs.js.org/#/docs/main/1.6.3/general/migrating-to-mongo">MongoDB Support 🍃</a></b></li>
+<li><b><a href="https://des-docs.js.org/#/docs/main/1.6.7/general/migrating-to-mongo">MongoDB Support 🍃</a></b></li>
 <li><b>Object-oriented 📜</b></li>
 <li><b>Flexible and Customizable ⚙️</b></li>
 <li><b>Easy to use 👍</b></li>
