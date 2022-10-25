@@ -15,7 +15,45 @@ const client = new Client({
   intents: ['GuildMembers', 'GuildMessages'],
 });
 
-let eco = new Economy();
+
+// these options are optional (and these values are default in the module),
+// they were made to configure the module.
+
+// to change these values for specific guilds, use SettingsManager:
+// https://des-docs.js.org/#/docs/main/1.6.9/class/SettingsManager
+
+let eco = new Economy({
+    storagePath: './storage.json',
+    updateCountdown: 1000,
+    checkStorage: true,
+    deprecationWarnings: true,
+    sellingItemPercent: 75,
+    savePurchasesHistory: true,
+    dailyAmount: 100,
+    workAmount: [10, 50],
+    weeklyAmount: 1000,
+    dailyCooldown: 60000 * 60 * 24,
+    workCooldown: 60000 * 60,
+    weeklyCooldown: 60000 * 60 * 24 * 7,
+    dateLocale: 'en',
+    updater: {
+        checkUpdates: true,
+        upToDateMessage: true
+    },
+    errorHandler: {
+        handleErrors: true,
+        attempts: 5,
+        time: 3000
+    },
+    optionsChecker: {
+        ignoreInvalidTypes: false,
+        ignoreUnspecifiedOptions: true,
+        ignoreInvalidOptions: false,
+        showProblems: true,
+        sendLog: true,
+        sendSuccessLog: false
+    }
+});
 
 client.on('ready', () => {
   console.log(`${client.user.tag} is ready!`);
