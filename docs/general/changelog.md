@@ -9,6 +9,13 @@
 
 <div>
 
+<b>1.6.9</b>
+
+- Fixed bugs.
+- Fixed typings bugs.
+- Added missing JSDocs for `CacheManager` and all the `CachedItem`s!
+- Added a configuration example in *Initialation Example* on the [Examples](https://des-docs.js.org/#/docs/main/1.6.9/general/examples) page of the module. 
+
 <b>1.6.8</b>
 
 - Fixed bugs.
