@@ -9,12 +9,20 @@
 
 <div>
 
+<b>1.7.0</b>
+
+- Major bug/typings/JSDoc fixes!
+- Fixed all the caching issues in MongoDB version! 
+- Added a `create()` methods in `EconomyUser` and `EconomyGuild` classes to match the `User-` and `Guild-` managers.
+- Added a new `deposit()` method in `Balance-` and `Bank-` managers and in `Balance` and `Bank` user classes.
+- Added a `clearMany()` alias for `clearSpecified()` method in `CacheManager`.
+
 <b>1.6.9</b>
 
 - Fixed bugs.
 - Fixed typings bugs.
 - Added missing JSDocs for `CacheManager` and all the `CachedItem`s!
-- Added a configuration example in *Initialation Example* on the [Examples](https://des-docs.js.org/#/docs/main/1.6.9/general/examples) page of the module. 
+- Added a configuration example in *Initialation Example* on the [Examples](https://des-docs.js.org/#/docs/main/1.7.0/general/examples) page of the module. 
 
 <b>1.6.8</b>
 
@@ -172,7 +180,7 @@ All reward methods' returning values in `RewardManager` were changed from this:
 
 <li><b>
 
-`BalanceManager.transfer(...)` now returns a transferring result object instead of amount of money that was sent.
+`BalanceManager.transfer(...)` now returns a transfering result object instead of amount of money that was sent.
 
 </b></li>
 
