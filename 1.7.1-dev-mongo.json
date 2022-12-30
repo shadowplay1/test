@@ -2,7 +2,7 @@
     "meta": {
         "generator": "0.11.1",
         "format": 20,
-        "date": 1672354283258
+        "date": 1672406455167
     },
     "custom": {
         "general": {
@@ -9857,12 +9857,12 @@
                             "type": [
                                 [
                                     [
-                                        "number"
+                                        "string"
                                     ]
                                 ],
                                 [
                                     [
-                                        "string"
+                                        "number"
                                     ]
                                 ]
                             ]
@@ -9952,12 +9952,12 @@
                             "type": [
                                 [
                                     [
-                                        "number"
+                                        "string"
                                     ]
                                 ],
                                 [
                                     [
-                                        "string"
+                                        "number"
                                     ]
                                 ]
                             ]
@@ -11874,12 +11874,12 @@
                             "type": [
                                 [
                                     [
-                                        "number"
+                                        "string"
                                     ]
                                 ],
                                 [
                                     [
-                                        "string"
+                                        "number"
                                     ]
                                 ]
                             ]
@@ -11936,7 +11936,7 @@
                         "description": "Item message."
                     },
                     "meta": {
-                        "line": 175,
+                        "line": 183,
                         "file": "InventoryItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -11976,7 +11976,7 @@
                         "description": "Selling operation info."
                     },
                     "meta": {
-                        "line": 263,
+                        "line": 271,
                         "file": "InventoryItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12001,7 +12001,7 @@
                         "description": "Inventory item instance."
                     },
                     "meta": {
-                        "line": 306,
+                        "line": 322,
                         "file": "InventoryItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12020,7 +12020,7 @@
                         "description": "String representation of inventory item."
                     },
                     "meta": {
-                        "line": 329,
+                        "line": 345,
                         "file": "InventoryItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12239,7 +12239,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 30,
+                        "line": 32,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12255,7 +12255,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 36,
+                        "line": 38,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12271,7 +12271,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 42,
+                        "line": 44,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12287,7 +12287,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 48,
+                        "line": 50,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12304,7 +12304,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 55,
+                        "line": 57,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12320,7 +12320,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 61,
+                        "line": 63,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12336,7 +12336,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 67,
+                        "line": 69,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12352,7 +12352,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 73,
+                        "line": 75,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12368,7 +12368,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 79,
+                        "line": 81,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12384,7 +12384,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 85,
+                        "line": 87,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12400,7 +12400,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 91,
+                        "line": 93,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12416,7 +12416,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 97,
+                        "line": 99,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12432,7 +12432,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 103,
+                        "line": 105,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12449,7 +12449,23 @@
                         ]
                     ],
                     "meta": {
-                        "line": 110,
+                        "line": 112,
+                        "file": "ShopItem.js",
+                        "path": "mongodb/src/classes"
+                    }
+                },
+                {
+                    "name": "currencies",
+                    "description": "Currency Manager.",
+                    "type": [
+                        [
+                            [
+                                "CurrencyManager"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 118,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12502,7 +12518,7 @@
                         "description": "Is the user has enough money to buy the item."
                     },
                     "meta": {
-                        "line": 124,
+                        "line": 132,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12540,7 +12556,7 @@
                         "description": "Is the user has the item in their inventory."
                     },
                     "meta": {
-                        "line": 134,
+                        "line": 151,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12626,7 +12642,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 149,
+                        "line": 166,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12652,6 +12668,24 @@
                             "optional": true,
                             "default": 1,
                             "type": [
+                                [
+                                    [
+                                        "number"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "currency",
+                            "description": "The currency to subtract the money from. \rCan be omitted by specifying 'null' or ignoring this parameter.\rRequires the `subtractOnBuy` option to be enabled. Default: null.",
+                            "optional": true,
+                            "default": null,
+                            "type": [
+                                [
+                                    [
+                                        "string"
+                                    ]
+                                ],
                                 [
                                     [
                                         "number"
@@ -12690,7 +12724,7 @@
                         "description": "Operation information object."
                     },
                     "meta": {
-                        "line": 234,
+                        "line": 256,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12727,7 +12761,7 @@
                         "description": "If set successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 366,
+                        "line": 415,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12751,7 +12785,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 376,
+                        "line": 425,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12776,7 +12810,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 384,
+                        "line": 433,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12801,7 +12835,7 @@
                         "description": "Shop item instance."
                     },
                     "meta": {
-                        "line": 415,
+                        "line": 464,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12820,7 +12854,7 @@
                         "description": "String representation of shop item."
                     },
                     "meta": {
-                        "line": 437,
+                        "line": 486,
                         "file": "ShopItem.js",
                         "path": "mongodb/src/classes"
                     }
@@ -12962,7 +12996,7 @@
                 }
             ],
             "meta": {
-                "line": 14,
+                "line": 16,
                 "file": "ShopItem.js",
                 "path": "mongodb/src/classes"
             }
@@ -17218,6 +17252,24 @@
                             ]
                         },
                         {
+                            "name": "currency",
+                            "description": "The currency to subtract the money from. \rCan be omitted by specifying 'null' or ignoring this parameter.\rRequires the `subtractOnBuy` option to be enabled. Default: null.",
+                            "optional": true,
+                            "default": null,
+                            "type": [
+                                [
+                                    [
+                                        "string"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "number"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
                             "name": "reason",
                             "description": "The reason why the money was subtracted. Default: 'received the item from the shop'.",
                             "optional": true,
@@ -17247,7 +17299,7 @@
                         "description": "Operation information object."
                     },
                     "meta": {
-                        "line": 58,
+                        "line": 63,
                         "file": "Items.js",
                         "path": "mongodb/src/classes/user"
                     }
@@ -17302,7 +17354,7 @@
                         "description": "Operation information object."
                     },
                     "meta": {
-                        "line": 68,
+                        "line": 73,
                         "file": "Items.js",
                         "path": "mongodb/src/classes/user"
                     }
@@ -17348,7 +17400,7 @@
                         "description": "User's inventory array."
                     },
                     "meta": {
-                        "line": 77,
+                        "line": 82,
                         "file": "Items.js",
                         "path": "mongodb/src/classes/user"
                     }
@@ -17416,7 +17468,7 @@
                         "description": "Selling operation info."
                     },
                     "meta": {
-                        "line": 91,
+                        "line": 96,
                         "file": "Items.js",
                         "path": "mongodb/src/classes/user"
                     }
@@ -17431,12 +17483,12 @@
                             "type": [
                                 [
                                     [
-                                        "number"
+                                        "string"
                                     ]
                                 ],
                                 [
                                     [
-                                        "string"
+                                        "number"
                                     ]
                                 ]
                             ]
@@ -17470,7 +17522,7 @@
                         "description": "Item message."
                     },
                     "meta": {
-                        "line": 101,
+                        "line": 106,
                         "file": "Items.js",
                         "path": "mongodb/src/classes/user"
                     }
@@ -17498,7 +17550,7 @@
                         "description": "User's inventory array."
                     },
                     "meta": {
-                        "line": 109,
+                        "line": 114,
                         "file": "Items.js",
                         "path": "mongodb/src/classes/user"
                     }
@@ -17540,7 +17592,7 @@
                         "description": "If removed successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 118,
+                        "line": 123,
                         "file": "Items.js",
                         "path": "mongodb/src/classes/user"
                     }
@@ -17564,7 +17616,7 @@
                         "description": "If cleared successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 126,
+                        "line": 131,
                         "file": "Items.js",
                         "path": "mongodb/src/classes/user"
                     }
@@ -17606,7 +17658,7 @@
                         "description": "If removed successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 137,
+                        "line": 142,
                         "file": "Items.js",
                         "path": "mongodb/src/classes/user"
                     }
@@ -18443,8 +18495,15 @@
                             ]
                         }
                     ],
+                    "returns": [
+                        [
+                            [
+                                "void"
+                            ]
+                        ]
+                    ],
                     "meta": {
-                        "line": 50,
+                        "line": 51,
                         "file": "Logger.js",
                         "path": "mongodb/src/classes/util"
                     }
@@ -18478,8 +18537,15 @@
                             ]
                         }
                     ],
+                    "returns": [
+                        [
+                            [
+                                "void"
+                            ]
+                        ]
+                    ],
                     "meta": {
-                        "line": 59,
+                        "line": 61,
                         "file": "Logger.js",
                         "path": "mongodb/src/classes/util"
                     }
@@ -18513,8 +18579,15 @@
                             ]
                         }
                     ],
+                    "returns": [
+                        [
+                            [
+                                "void"
+                            ]
+                        ]
+                    ],
                     "meta": {
-                        "line": 68,
+                        "line": 71,
                         "file": "Logger.js",
                         "path": "mongodb/src/classes/util"
                     }
@@ -18548,8 +18621,66 @@
                             ]
                         }
                     ],
+                    "returns": [
+                        [
+                            [
+                                "void"
+                            ]
+                        ]
+                    ],
                     "meta": {
-                        "line": 78,
+                        "line": 82,
+                        "file": "Logger.js",
+                        "path": "mongodb/src/classes/util"
+                    }
+                },
+                {
+                    "name": "optionalParamNotSpecified",
+                    "description": "Sends a debug log for the optional parameter in method not specified.",
+                    "params": [
+                        {
+                            "name": "method",
+                            "description": "The method (e.g. \"ShopItem.use\") to set.",
+                            "type": [
+                                [
+                                    [
+                                        "string"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "parameterName",
+                            "description": "Parameter name to set.",
+                            "type": [
+                                [
+                                    [
+                                        "string"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "defaultValue",
+                            "description": "Default value to set.",
+                            "type": [
+                                [
+                                    [
+                                        "any"
+                                    ]
+                                ]
+                            ]
+                        }
+                    ],
+                    "returns": [
+                        [
+                            [
+                                "void"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 93,
                         "file": "Logger.js",
                         "path": "mongodb/src/classes/util"
                     }
@@ -23055,9 +23186,8 @@
                     }
                 },
                 {
-                    "name": "_logger",
+                    "name": "logger",
                     "description": "Economy Logger.",
-                    "access": "private",
                     "type": [
                         [
                             [
@@ -23066,7 +23196,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 29,
+                        "line": 28,
                         "file": "DatabaseManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -23083,7 +23213,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 36,
+                        "line": 35,
                         "file": "DatabaseManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -23122,7 +23252,7 @@
                         "description": "An array with all keys in database or 'null' if nothing found."
                     },
                     "meta": {
-                        "line": 44,
+                        "line": 43,
                         "file": "DatabaseManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -23130,6 +23260,7 @@
                 {
                     "name": "_getPromiseResult",
                     "description": "Returns a boolean value that indicates whether the Promise is resolved or rejected.",
+                    "access": "private",
                     "params": [
                         {
                             "name": "promise",
@@ -25672,7 +25803,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 171,
+                        "line": 178,
                         "file": "HistoryManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -25737,7 +25868,7 @@
                         "description": "Purchases history item."
                     },
                     "meta": {
-                        "line": 215,
+                        "line": 222,
                         "file": "HistoryManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -25801,7 +25932,7 @@
                         "description": "Purchases history item."
                     },
                     "meta": {
-                        "line": 244,
+                        "line": 251,
                         "file": "HistoryManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -26058,12 +26189,12 @@
                             "type": [
                                 [
                                     [
-                                        "number"
+                                        "string"
                                     ]
                                 ],
                                 [
                                     [
-                                        "string"
+                                        "number"
                                     ]
                                 ]
                             ]
@@ -26227,12 +26358,12 @@
                             "type": [
                                 [
                                     [
-                                        "number"
+                                        "string"
                                     ]
                                 ],
                                 [
                                     [
-                                        "string"
+                                        "number"
                                     ]
                                 ]
                             ]
@@ -26304,12 +26435,12 @@
                             "type": [
                                 [
                                     [
-                                        "number"
+                                        "string"
                                     ]
                                 ],
                                 [
                                     [
-                                        "string"
+                                        "number"
                                     ]
                                 ]
                             ]
@@ -26521,7 +26652,7 @@
                         "description": "Shop operation info."
                     },
                     "meta": {
-                        "line": 340,
+                        "line": 348,
                         "file": "InventoryManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -26612,7 +26743,7 @@
                         "description": "Selling operation info."
                     },
                     "meta": {
-                        "line": 420,
+                        "line": 435,
                         "file": "InventoryManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -26702,7 +26833,7 @@
                         "description": "Selling operation info."
                     },
                     "meta": {
-                        "line": 491,
+                        "line": 522,
                         "file": "InventoryManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -27806,7 +27937,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 31,
+                        "line": 33,
                         "file": "ShopManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -27823,7 +27954,7 @@
                         ]
                     ],
                     "meta": {
-                        "line": 38,
+                        "line": 40,
                         "file": "ShopManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -27840,7 +27971,23 @@
                         ]
                     ],
                     "meta": {
-                        "line": 45,
+                        "line": 47,
+                        "file": "ShopManager.js",
+                        "path": "mongodb/src/managers"
+                    }
+                },
+                {
+                    "name": "currencies",
+                    "description": "Currency Manager.",
+                    "type": [
+                        [
+                            [
+                                "CurrencyManager"
+                            ]
+                        ]
+                    ],
+                    "meta": {
+                        "line": 53,
                         "file": "ShopManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -27891,7 +28038,7 @@
                         "description": "Item info."
                     },
                     "meta": {
-                        "line": 54,
+                        "line": 62,
                         "file": "ShopManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -27939,7 +28086,7 @@
                         "description": "Item info."
                     },
                     "meta": {
-                        "line": 146,
+                        "line": 154,
                         "file": "ShopManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -27954,12 +28101,12 @@
                             "type": [
                                 [
                                     [
-                                        "number"
+                                        "string"
                                     ]
                                 ],
                                 [
                                     [
-                                        "string"
+                                        "number"
                                     ]
                                 ]
                             ]
@@ -28052,7 +28199,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 161,
+                        "line": 169,
                         "file": "ShopManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -28067,12 +28214,12 @@
                             "type": [
                                 [
                                     [
-                                        "number"
+                                        "string"
                                     ]
                                 ],
                                 [
                                     [
-                                        "string"
+                                        "number"
                                     ]
                                 ]
                             ]
@@ -28164,7 +28311,7 @@
                         "description": "If edited successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 255,
+                        "line": 263,
                         "file": "ShopManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -28228,7 +28375,7 @@
                         "description": "If set successfully: true, else: false."
                     },
                     "meta": {
-                        "line": 266,
+                        "line": 274,
                         "file": "ShopManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -28243,12 +28390,12 @@
                             "type": [
                                 [
                                     [
-                                        "number"
+                                        "string"
                                     ]
                                 ],
                                 [
                                     [
-                                        "string"
+                                        "number"
                                     ]
                                 ]
                             ]
@@ -28282,7 +28429,7 @@
                         "description": "If removed: true, else: false."
                     },
                     "meta": {
-                        "line": 276,
+                        "line": 284,
                         "file": "ShopManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -28320,7 +28467,7 @@
                         "description": "If cleared: true, else: false."
                     },
                     "meta": {
-                        "line": 320,
+                        "line": 328,
                         "file": "ShopManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -28362,7 +28509,7 @@
                         "description": "The shop array."
                     },
                     "meta": {
-                        "line": 347,
+                        "line": 355,
                         "file": "ShopManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -28403,7 +28550,7 @@
                         "description": "The shop array."
                     },
                     "meta": {
-                        "line": 366,
+                        "line": 374,
                         "file": "ShopManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -28444,7 +28591,7 @@
                         "description": "The shop array."
                     },
                     "meta": {
-                        "line": 377,
+                        "line": 385,
                         "file": "ShopManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -28459,12 +28606,12 @@
                             "type": [
                                 [
                                     [
-                                        "number"
+                                        "string"
                                     ]
                                 ],
                                 [
                                     [
-                                        "string"
+                                        "number"
                                     ]
                                 ]
                             ]
@@ -28498,7 +28645,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 387,
+                        "line": 395,
                         "file": "ShopManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -28513,12 +28660,12 @@
                             "type": [
                                 [
                                     [
-                                        "number"
+                                        "string"
                                     ]
                                 ],
                                 [
                                     [
-                                        "string"
+                                        "number"
                                     ]
                                 ]
                             ]
@@ -28551,7 +28698,7 @@
                         "description": "If item not found: null; else: item info object."
                     },
                     "meta": {
-                        "line": 415,
+                        "line": 423,
                         "file": "ShopManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -28566,12 +28713,12 @@
                             "type": [
                                 [
                                     [
-                                        "number"
+                                        "string"
                                     ]
                                 ],
                                 [
                                     [
-                                        "string"
+                                        "number"
                                     ]
                                 ]
                             ]
@@ -28604,6 +28751,24 @@
                             "optional": true,
                             "default": 1,
                             "type": [
+                                [
+                                    [
+                                        "number"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
+                            "name": "currency",
+                            "description": "The currency to subtract the money from. \rCan be omitted by specifying 'null' or ignoring this parameter.\rRequires the `subtractOnBuy` option to be enabled. Default: null.",
+                            "optional": true,
+                            "default": null,
+                            "type": [
+                                [
+                                    [
+                                        "string"
+                                    ]
+                                ],
                                 [
                                     [
                                         "number"
@@ -28642,7 +28807,7 @@
                         "description": "Operation information object."
                     },
                     "meta": {
-                        "line": 431,
+                        "line": 444,
                         "file": "ShopManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -28657,12 +28822,12 @@
                             "type": [
                                 [
                                     [
-                                        "number"
+                                        "string"
                                     ]
                                 ],
                                 [
                                     [
-                                        "string"
+                                        "number"
                                     ]
                                 ]
                             ]
@@ -28703,6 +28868,24 @@
                             ]
                         },
                         {
+                            "name": "currency",
+                            "description": "The currency to subtract the money from. \rCan be omitted by specifying 'null' or ignoring this parameter.\rRequires the `subtractOnBuy` option to be enabled. Default: null.",
+                            "optional": true,
+                            "default": null,
+                            "type": [
+                                [
+                                    [
+                                        "string"
+                                    ]
+                                ],
+                                [
+                                    [
+                                        "number"
+                                    ]
+                                ]
+                            ]
+                        },
+                        {
                             "name": "reason",
                             "description": "The reason why the money was subtracted. Default: 'received the item from the shop'.",
                             "optional": true,
@@ -28732,7 +28915,7 @@
                         "description": "Operation information object."
                     },
                     "meta": {
-                        "line": 581,
+                        "line": 627,
                         "file": "ShopManager.js",
                         "path": "mongodb/src/managers"
                     }
@@ -28874,7 +29057,7 @@
                 }
             ],
             "meta": {
-                "line": 15,
+                "line": 17,
                 "file": "ShopManager.js",
                 "path": "mongodb/src/managers"
             }
@@ -30859,7 +31042,7 @@
                 }
             ],
             "meta": {
-                "line": 96,
+                "line": 114,
                 "file": "Logger.js",
                 "path": "mongodb/src/classes/util"
             }
@@ -31693,7 +31876,7 @@
                 }
             ],
             "meta": {
-                "line": 586,
+                "line": 632,
                 "file": "ShopManager.js",
                 "path": "mongodb/src/managers"
             }
@@ -31810,7 +31993,7 @@
                 }
             ],
             "meta": {
-                "line": 506,
+                "line": 537,
                 "file": "InventoryManager.js",
                 "path": "mongodb/src/managers"
             }
@@ -31916,7 +32099,7 @@
                 }
             ],
             "meta": {
-                "line": 619,
+                "line": 665,
                 "file": "ShopManager.js",
                 "path": "mongodb/src/managers"
             }
@@ -32022,7 +32205,7 @@
                 }
             ],
             "meta": {
-                "line": 606,
+                "line": 652,
                 "file": "ShopManager.js",
                 "path": "mongodb/src/managers"
             }
@@ -33108,7 +33291,7 @@
                 }
             ],
             "meta": {
-                "line": 597,
+                "line": 643,
                 "file": "ShopManager.js",
                 "path": "mongodb/src/managers"
             }
@@ -33327,7 +33510,7 @@
                 }
             ],
             "meta": {
-                "line": 91,
+                "line": 109,
                 "file": "Logger.js",
                 "path": "mongodb/src/classes/util"
             }
