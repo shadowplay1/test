@@ -33,6 +33,7 @@
 
 - Added a `save()` method for `Shop-`, `Inventory-` and `History-` **items** that allows you to edit the item's object properties save the edited objext in database!
 - Added a `.toString()` method for some classes.
+
 - `Shop-`, `Inventory-` and `History-` **items'** `itemObject` property was changed to `rawObject` so it could make sense in the code 
 - Now a warning will be displayed in console if using a dev version in both MongoDB and JSON versions (see the screenshot below).
 
