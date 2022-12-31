@@ -20,7 +20,7 @@ const client = new Client({
 // they were made to configure the module.
 
 // to change these values for specific guilds, use SettingsManager:
-// https://des-docs.js.org/#/docs/main/1.7.0/class/SettingsManager
+// https://des-docs.js.org/#/docs/main/1.7.1/class/SettingsManager
 
 let eco = new Economy({
     storagePath: './storage.json',
@@ -196,6 +196,75 @@ if (command == prefix + 'withdraw') {
   message.channel.send(
       `${message.author}, you withdrew **${amount}** coins from your bank.`
   )
+}
+```
+
+# Currencies
+
+```js
+// Create a currency
+if (command == prefix + 'createCurrency') {
+    const [name, symbol] = args
+    
+    eco.currencies.create(name, symbol, message.guild.id)
+    message.channel.send(`Successfully created a new **${name} (${symbol})** currency!`)
+}
+
+// Check the currency balance
+if (command == prefix + 'currencyBalance') {
+    const [userID] = args
+    const guild = eco.guilds.get(message.guild.id)
+
+    const guildUser = guild.users.get(
+        message.mentions.users.first()?.id ||
+        message.guild.users.get(userID) ||
+        message.author.id
+    )
+
+    const user = guild.users.get(guildUser.id)
+
+    const [currencyBalance, currency] = [
+        user.balance.currency('currencyID/currencyName/currencySymbol').get(),
+        user.balance.currency('currencyID/currencyName/currencySymbol').getCurrency()
+    ]
+
+    message.channel.send(
+        `${message.author}'s balance: **${currencyBalance}** ${currency.symbol}`
+    )
+}
+
+// Add the money on currency balance
+if (command == prefix + 'currencyBalance') {
+    const [userID, amount] = args
+    const guild = eco.guilds.get(message.guild.id)
+
+    const guildUser = guild.users.get(
+        message.mentions.users.first()?.id ||
+        message.guild.users.get(userID) ||
+        message.author.id
+    )
+
+    const user = guild.users.get(guildUser.id)
+
+    user.balance.currency('currencyID/currencyName/currencySymbol').add(amount)
+    message.channel.send('Adding successful!')
+}
+
+// Subtract the money from currency balance
+if (command == prefix + 'currencyBalance') {
+    const [userID, amount] = args
+    const guild = eco.guilds.get(message.guild.id)
+
+    const guildUser = guild.users.get(
+        message.mentions.users.first()?.id ||
+        message.guild.users.get(userID) ||
+        message.author.id
+    )
+
+    const user = guild.users.get(guildUser.id)
+
+    user.balance.currency('currencyID/currencyName/currencySymbol').subtract(amount)
+    message.channel.send('Subtracting successful!')
 }
 ```
 See the full bot examples for both MongoDB and JSON databases in both JavaScript and TypeScript [here](https://github.com/shadowplay1/discord-economy-super/tree/main/examples)!

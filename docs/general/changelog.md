@@ -9,22 +9,55 @@
 
 <div>
 
-<b>1.7.0</b>
+<b>v1.7.1</b>
 
-- Major bug/typings/JSDoc fixes!
+- Major bug fixes!
+- Major typings fixes!
+- Major JSDoc fixes!
+- Improved error handling and debugging.
+- Update checker fixes.
+- Fixed broken inventory cache issue on startup in MongoDB version!
+
+<br>
+
+- **Custom currencies system! 🔥**
+- Added a new `customCurrencySet`, `customCurrencyAdd` and `customCurrencySubtract` events so the changes in any custom currencies could be tracked!
+- Added a new optional `currency` argument in **all item buying methods** that takes eaither *currency ID*, *name* or its *symbol* so the currency balance will be subtracted instead of core balance. Requires the `subtractOnBuy` option to be enabled.
+
+<br>
+
+- Added a `stack()` method for **_inventory items_** that returns the **number of specific item (quantity)** and the **total price** of it in the inventory!
+- Added a new `clearDaily`, `clearWork` and `clearWeekly` methods in `CooldownItem` and `Cooldowns` classes to clear the specific cooldowns.
+
+<br>
+
+- Added a `save()` method for `Shop-`, `Inventory-` and `History-` **items** that allows you to edit the item's object properties save the edited objext in database!
+- Added a `.toString()` method for some classes.
+- `Shop-`, `Inventory-` and `History-` **items'** `itemObject` property was changed to `rawObject` so it could make sense in the code 
+- Now a warning will be displayed in console if using a dev version in both MongoDB and JSON versions (see the screenshot below).
+
+![Development Version Usage Warning](https://cdn.discordapp.com/attachments/837068831725846568/1058154982748213359/Screenshot_27.jpg)
+
+- Added the missing `buy()` method in `ShopItem` class.
+- Added the missing `clear()` method in `Items` class.
+- Fixed return values in database operations methods.
+
+<b>v1.7.0</b>
+
+- Major bugs/typings/JSDoc fixes!
 - Fixed all the caching issues in MongoDB version! 
 - Added a `create()` methods in `EconomyUser` and `EconomyGuild` classes to match the `User-` and `Guild-` managers.
 - Added a new `deposit()` method in `Balance-` and `Bank-` managers and in `Balance` and `Bank` user classes.
 - Added a `clearMany()` alias for `clearSpecified()` method in `CacheManager`.
 
-<b>1.6.9</b>
+<b>v1.6.9</b>
 
 - Fixed bugs.
 - Fixed typings bugs.
 - Added missing JSDocs for `CacheManager` and all the `CachedItem`s!
-- Added a configuration example in *Initialation Example* on the [Examples](https://des-docs.js.org/#/docs/main/1.7.0/general/examples) page of the module. 
+- Added a configuration example in *Initialation Example* on the [Examples](https://des-docs.js.org/#/docs/main/1.7.1/general/examples) page of the module. 
 
-<b>1.6.8</b>
+<b>v1.6.8</b>
 
 - Fixed bugs.
 - Fixed typings bugs.
@@ -32,33 +65,33 @@
 - Fixed the hard crash in MongoDB version when trying to obtain a balance data for the user from the cache.
 - Added an `updateMany` alias for `updateSpecified` method in `CacheManager`.
 
-<b>1.6.7</b>
+<b>v1.6.7</b>
 
 - Fixed leaderboard bugs.
 
-<b>1.6.6</b>
+<b>v1.6.6</b>
 
 - Fixed the bug where `guildID` was `undefined` in `EmptyEconomyUser`, resulting hard crashes on lots of methods (if the user was not found).
 - Removed unnecessary things.
 
-<b>1.6.5</b>
+<b>v1.6.5</b>
 
 - Fixed the balance not caching correctly
 - Fixed the `INVALID_CACHE_ITEM_NAME` error in MongoDB version that caused a hard crash on any `RewardManager` method.
 
-<b>1.6.4</b>
+<b>v1.6.4</b>
 
 - Bug fixes
 - Typings fixes
 
-<b>1.6.3</b>
+<b>v1.6.3</b>
 
 - Major bug fixes
 - Typings fixes
 - Examples bug fixes
 - Linting improvements
 
-<b>1.6.2</b>
+<b>v1.6.2</b>
 
 - New `Empty-` classes for `EconomyUser` and `EconomyGuild` that will be returned if the user or guild does not exists
 - Added a new `exists` property for `EconomyUser` and `EconomyGuild` classes to check if the user/guild exists in database
@@ -67,7 +100,7 @@
 - Major typings fixes
 - Minor changes in documentation, JSDoc and in main README file
 
-<b>1.6.1</b>
+<b>v1.6.1</b>
 
 <ul>
 <li><b>Added a MongoDB support!</b></li>
@@ -280,21 +313,21 @@ const cachedUser = eco.cache.users.get({
 
 </ul>
 
-<b>1.5.2</b>
+<b>v1.5.2</b>
 
 <ul>
 <li><b>Fixed bugs.</b></li>
 <li><b>Added a 'ShopManager.add()' method as alias for 'InventoryManager.addItem()' method.</b></li>
 </ul>
 
-<b>1.5.1</b>
+<b>v1.5.1</b>
 
 <ul>
 <li><b>Fixed bugs.</b></li>
 <li><b>Fixed issues with InventoryManager.</b></li>
 </ul>
 
-<b>1.5.0</b>
+<b>v1.5.0</b>
 
 <ul>
 <li><b>Fixed bugs.</b></li>
@@ -356,7 +389,7 @@ eco.inventory.useItem(1, "memberID", "guildID"); // What a sunny day!
 // the words "wonderful", "great" or "sunny".
 ```
 
-<b>1.4.9</b>
+<b>v1.4.9</b>
 
 <ul>
 <li><b>Fixed bugs.</b></li>
@@ -365,7 +398,7 @@ eco.inventory.useItem(1, "memberID", "guildID"); // What a sunny day!
 <li><b>The module will now send a message in console on startup if there's a problem with user's economy configuration.</b></li>
 </ul>
 
-<b>1.4.8</b>
+<b>v1.4.8</b>
 
 <ul>
 <li><b>Fixed bugs.</b></li>
@@ -378,7 +411,7 @@ eco.inventory.useItem(1, "memberID", "guildID"); // What a sunny day!
 <li><b>Added an 'InventoryManager.addItem()' method that adds the specified item to the user's inventory from the shop.</b></li>
 </ul>
 
-<b>1.4.7</b>
+<b>v1.4.7</b>
 
 <ul>
 <li><b>Fixed bugs.</b></li>
@@ -430,7 +463,7 @@ please switch to the new InventoryManager.<br>
 You can disable it by setting the `deprecationWarnings` constructor option to `false`.</b></li>
 </ul>
 
-<b>1.4.6</b>
+<b>v1.4.6</b>
 
 <ul>
 <li><b>Fixed bugs.</b></li>
@@ -438,7 +471,7 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>Fixed typings.</b></li>
 </ul>
 
-<b>1.4.5</b>
+<b>v1.4.5</b>
 
 <ul>
 <li><b>Fixed bugs.</b></li>
@@ -451,20 +484,20 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>TypeScript Examples!</b></li>
 </ul>
 
-<b>1.4.4</b>
+<b>v1.4.4</b>
 
 <ul>
 <li><b>Fixed bugs.</b></li>
 <li><b>Code optimization.</b></li>
 </ul>
 
-<b>1.4.3</b>
+<b>v1.4.3</b>
 
 <ul>
 <li><b>Fixed bugs.</b></li>
 </ul>
 
-<b>1.4.2</b>
+<b>v1.4.2</b>
 
 <ul>
 <li><b>Fixed bugs.</b></li>
@@ -473,13 +506,13 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 
 </ul>
 
-<b>1.4.1</b>
+<b>v1.4.1</b>
 
 <ul>
 <li><b>Fixed bugs.</b></li>
 </ul>
 
-<b>1.4.0</b>
+<b>v1.4.0</b>
 
 <ul>
 <li><b>Fixed bugs.</b></li>
@@ -490,27 +523,27 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>Made a function that checks the Node.js version on the start.</b></li>
 </ul>
 
-<b>1.3.9</b>
+<b>v1.3.9</b>
 
 <ul>
 <li><b>Fixed typings.</b></li>
 </ul>
 
-<b>1.3.8</b>
+<b>v1.3.8</b>
 
 <ul>
 <li><b>Fixed typings.</b></li>
 <li><b>Fixed a hard crash with 'Economy.rewards.work()' method.</b></li>
 </ul>
 
-<b>1.3.7</b>
+<b>v1.3.7</b>
 
 <ul>
 <li><b>Fixed bugs.</b></li>
 <li><b>Fixed the hard crash if economy configuration is not specified.</b></li>
 </ul>
 
-<b>1.3.6</b>
+<b>v1.3.6</b>
 
 <ul>
 <li><b>Fixed bugs.</b></li>
@@ -519,14 +552,14 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>Fixed the economy options resetting to default.</b></li>
 </ul>
 
-<b>1.3.5</b>
+<b>v1.3.5</b>
 
 <ul>
 <li><b>Fixed the 'Cannot find module `structures/Errors`' error.</b></li>
 <li><b>Fixed bugs in typings.</b></li>
 </ul>
 
-<b>1.3.4</b>
+<b>v1.3.4</b>
 
 <ul>
 <li><b>Full code rewrite.</b></li>
@@ -544,14 +577,14 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>... and more!</b></li>
 </ul>
 
-<b>1.3.3</b>
+<b>v1.3.3</b>
 
 <ul>
 <li><b>Fixed minor bugs.</b></li>
 <li><b>Fixed bugs with Database Manager.</b></li>
 </ul>
 
-<b>1.3.2</b>
+<b>v1.3.2</b>
 
 <ul>
 <li><b>Fixed typos.</b></li>
@@ -564,7 +597,7 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>The entire module structure was rewritten on Managers.</b></li>
 <li><b>Added a new Database Manager that allows you to interact with module's storage file.</b></li>
 
-<b>1.3.0</b>
+<b>v1.3.0</b>
 
 <ul>
 <li><b>Fixed typos.</b></li>
@@ -574,7 +607,7 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>Added an 'Economy.docs' property that contains a link to the documentation website.</b></li>
 </ul>
 
-<b>1.2.8</b>
+<b>v1.2.8</b>
 
 <ul>
 <li><b>Fixed typos.</b></li>
@@ -582,7 +615,7 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>Item IDs in shop and inventory are now synced with the last element of array. It fixes the bug with similar item IDs in the shop and inventory.</b></li>
 </ul>
 
-<b>1.2.6</b>
+<b>v1.2.6</b>
 
 <ul>
 <li><b>Fixed typos.</b></li>
@@ -590,7 +623,7 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>Now 'ready' and 'destroy' events will return nothing (Void) instead of Boolean.</b></li>
 </ul>
 
-<b>1.2.5</b>
+<b>v1.2.5</b>
 
 <ul>
 <li><b>Fixed bugs.</b></li>
@@ -632,7 +665,7 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>'Economy.balance.leaderboard()' and 'Economy.bank.leaderboard()' methods arrays are now have an 'index' property in object.</b></li>
 </ul>
 
-<b>1.2.4</b>
+<b>v1.2.4</b>
 
 <ul>
 <li><b>Fixed minor bugs.</b></li>
@@ -658,7 +691,7 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 }
 ```
 
-<b>1.2.3</b>
+<b>v1.2.3</b>
 
 <ul>
 <li><b>Fixed minor bugs.</b></li>
@@ -668,7 +701,7 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>Fixed typos</b></li>
 </ul>
 
-<b>1.2.2</b>
+<b>v1.2.2</b>
 
 <ul>
 <li><b>Fixed minor bugs.</b></li>
@@ -676,7 +709,7 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>Fixed another issues with 'Economy.work()' method...</b></li>
 </ul>
 
-<b>1.2.1</b>
+<b>v1.2.1</b>
 
 <ul>
 <li><b>Fixed minor bugs.</b></li>
@@ -686,7 +719,7 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>Added an 'Economy.removeUser()' method to to remove the user from database.</b></li>
 </ul>
 
-<b>1.2.0</b>
+<b>v1.2.0</b>
 
 <ul>
 <li><b>Fixed bugs.</b></li>
@@ -695,7 +728,7 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>'Economy.shop.clearInventory()' method is working fine now.</b></li>
 </ul>
 
-<b>1.1.9</b>
+<b>v1.1.9</b>
 
 <ul>
 <li><b>Fixed bugs.</b></li>
@@ -704,7 +737,7 @@ You can disable it by setting the `deprecationWarnings` constructor option to `f
 <li><b>Fixed type defenitions.</b></li>
 </ul>
 
-<b>1.1.8</b>
+<b>v1.1.8</b>
 
 <ul>
 <li><b>Fixed bugs.</b></li>
@@ -730,7 +763,7 @@ The test will look like this:
 
 </ul>
 
-<b>1.1.7</b>
+<b>v1.1.7</b>
 
 <ul>
 <li><b>Fixed bugs.</b></li>
@@ -738,7 +771,7 @@ The test will look like this:
 <li><b>TypeScript support is finally here! Created a type defenitions for this module.</b></li>
 </ul>
 
-<b>1.1.6</b>
+<b>v1.1.6</b>
 
 <ul>
 <li><b>Code optimization.</b></li>
@@ -746,7 +779,7 @@ The test will look like this:
 <li><b>Removed an accidentaly added "discord.js" module from dependencies.</b></li>
 </ul>
 
-<b>1.1.5</b>
+<b>v1.1.5</b>
 
 <ul>
 <li><b>Edted README.md</b></li>
@@ -770,7 +803,7 @@ The test will look like this:
 <li><b>Now this module has a Support Server. Click <b><a href = "https://discord.gg/4pWKq8vUnb">here</a></b> to join!</b></li>
 </ul>
 
-<b>1.1.4</b>
+<b>v1.1.4</b>
 
 <ul>
 <li><b>Edted README.md</b></li>
@@ -780,7 +813,7 @@ The test will look like this:
 <li><b>Added a 'checkUpdates' property for economy configuration.</b></li>
 </ul>
 
-<b>1.0.8</b>
+<b>v1.0.8</b>
 
 <ul>
 <li><b>Edted README.md</b></li>
@@ -789,13 +822,13 @@ The test will look like this:
 <li><b>Now this module is including Events. They are listed above.</b></li>
 </ul>
 
-<b>1.0.7</b>
+<b>v1.0.7</b>
 
 <ul>
   <li><b>Fixed bugs</b></li>
 </ul>
 
-<b>1.0.6</b>
+<b>v1.0.6</b>
 
 <ul>
   <li><b>Edited README.md</b></li>
@@ -806,31 +839,31 @@ The test will look like this:
   <li><b>Added a 'dateLocale' property for economy configuration.</b></li>
 </ul>
 
-<b>1.0.5</b>
+<b>v1.0.5</b>
 
 <ul>
   <li><b>Fixed bugs.</b></li>
 </ul>
 
-<b>1.0.4</b>
+<b>v1.0.4</b>
 
 <ul>
   <li><b>Fixed bugs.</b></li>
 </ul>
 
-<b>1.0.3</b>
+<b>v1.0.3</b>
 
 <ul>
   <li><b>Fixed bugs.</b></li>
 </ul>
 
-<b>1.0.2</b>
+<b>v1.0.2</b>
 
 <ul>
   <li><b>Edited README.md</b></li>
 </ul>
 
-<b>1.0.1</b>
+<b>v1.0.1</b>
 
 <ul>
   <li><b>The first version of the module: added a basic methods: 'Economy.fetch()', 'Economy.set()', 'Economy.add()', 'Economy.subtract()', 'Economy.daily()', 'Economy.work()', 'Economy.getDailyCooldown()', 'Economy.getWorkCooldown()', 'Economy.all()' and 'Economy.leaderboard()'. Also added an EconomyError class, but you couldn't use it yourself.</b></li>
