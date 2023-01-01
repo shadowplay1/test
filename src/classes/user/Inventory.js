@@ -1,9 +1,7 @@
 const EconomyError = require('../util/EconomyError')
 const errors = require('../../structures/errors')
 
-const DatabaseManager = require('../../managers/DatabaseManager')
 const BaseManager = require('../../managers/BaseManager')
-
 const InventoryItem = require('../InventoryItem')
 
 
@@ -76,9 +74,9 @@ class Inventory extends BaseManager {
      * @returns {string} Item message or null if item not found.
      */
     use(itemID, client) {
-        const inventory = this.fetch(memberID, guildID)
+        const inventory = this.fetch(this.memberID, this.guildID)
 
-        const itemObject = this.searchItem(itemID, memberID, guildID)
+        const itemObject = this.searchItem(itemID, this.memberID, this.guildID)
         const itemIndex = inventory.findIndex(invItem => invItem.id == itemObject?.id)
 
         const item = inventory[itemIndex]
@@ -94,11 +92,11 @@ class Inventory extends BaseManager {
                 throw new EconomyError(errors.noClient, 'NO_DISCORD_CLIENT')
             }
 
-            const guild = client.guilds.cache.get(guildID)
+            const guild = client.guilds.cache.get(this.guildID)
             const roleID = item.role.replace('<@&', '').replace('>', '')
 
             guild.roles.fetch(roleID).then(role => {
-                const member = guild.members.cache.get(memberID)
+                const member = guild.members.cache.get(this.memberID)
 
                 member.roles.add(role).catch(err => {
                     if (!role) {
@@ -107,7 +105,7 @@ class Inventory extends BaseManager {
 
                     console.error(
                         `\x1b[31mFailed to give a role "${guild.roles.cache.get(roleID)?.name}"` +
-                        `on guild "${guild.name}" to member ${guild.member(memberID).user.tag}:\x1b[36m`
+                        `on guild "${guild.name}" to member ${guild.member(this.memberID).user.tag}:\x1b[36m`
                     )
 
                     console.error(err)
@@ -116,7 +114,7 @@ class Inventory extends BaseManager {
             })
         }
 
-        this.removeItem(itemID, memberID, guildID)
+        this.removeItem(itemID, this.memberID, this.guildID)
 
         let msg
         const string = item?.message || 'You have used this item!'
@@ -172,7 +170,7 @@ class Inventory extends BaseManager {
         /**
         * @type {InventoryData[]}
         */
-        const inventory = this.fetcher.fetchInventory(memberID, guildID)
+        const inventory = this.fetcher.fetchInventory(this.memberID, this.guildID)
         const inventoryItems = inventory.filter(invItem => invItem.name == item.name)
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
@@ -193,7 +191,7 @@ class Inventory extends BaseManager {
             date: new Date().toLocaleString(this.options.dateLocale || 'en')
         }
 
-        return this.database.push(`${guildID}.${memberID}.inventory`, itemData)
+        return this.database.push(`${this.guildID}.${this.memberID}.inventory`, itemData)
     }
 
     /**
@@ -202,9 +200,9 @@ class Inventory extends BaseManager {
      * @returns {boolean} If removed successfully: true, else: false.
      */
     removeItem(itemID) {
-        const inventory = this.fetch(memberID, guildID)
+        const inventory = this.fetch(this.memberID, this.guildID)
 
-        const item = this.searchItem(itemID, memberID, guildID)
+        const item = this.searchItem(itemID, this.memberID, this.guildID)
         const itemIndex = inventory.findIndex(invItem => invItem.id == item?.id)
 
         if (typeof itemID !== 'number' && typeof itemID !== 'string') {
@@ -212,7 +210,7 @@ class Inventory extends BaseManager {
         }
 
         if (!item) return false
-        return this.database.pop(`${guildID}.${memberID}.inventory`, itemIndex)
+        return this.database.pop(`${this.guildID}.${this.memberID}.inventory`, itemIndex)
     }
 
     /**
@@ -220,7 +218,7 @@ class Inventory extends BaseManager {
      * @returns {boolean} If cleared: true, else: false.
      */
     clear() {
-        const inventory = this.fetch(this.memberID, this.guildID)
+        const inventory = this.fetch(this.memberID, this.this.guildID)
         if (!inventory) return false
 
         return this.database.delete(`${this.guildID}.${this.memberID}.inventory`)

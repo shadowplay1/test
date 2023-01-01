@@ -6,8 +6,6 @@ const errors = require('../structures/errors')
 const BalanceManager = require('./BalanceManager')
 const CooldownManager = require('./CooldownManager')
 
-const DatabaseManager = require('./DatabaseManager')
-
 const RewardType = {
     DAILY: 0,
     WORK: 1,

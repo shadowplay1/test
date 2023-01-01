@@ -11,6 +11,8 @@ const Rewards = require('./user/Rewards')
 
 const Items = require('./user/Items')
 
+const defaultUserObject = require('../structures/DefaultUserObject')
+
 
 /**
 * Economy user class.

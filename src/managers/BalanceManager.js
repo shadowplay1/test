@@ -207,7 +207,6 @@ class BalanceManager extends Emitter {
      */
     subtract(amount, memberID, guildID, reason = null) {
         const balance = this.fetcher.fetchBalance(memberID, guildID)
-        const bank = this.fetcher.fetchBank(memberID, guildID)
 
         if (isNaN(amount)) {
             throw new EconomyError(errors.invalidTypes.amount + typeof amount, 'INVALID_TYPE')

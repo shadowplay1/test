@@ -1,4 +1,3 @@
-const DatabaseManager = require('../../managers/DatabaseManager')
 const ms = require('../../structures/ms')
 
 const parse = ms => ({
@@ -20,6 +19,20 @@ class Cooldowns {
      */
     constructor(userObject, options, database) {
         const settings = database.get(`${userObject.guildID}.settings`)
+
+        /**
+        * Guild ID.
+        * @type {string}
+        * @private
+        */
+        this.guildID = userObject.guildID
+
+        /**
+         * Member ID.
+         * @type {string}
+         * @private
+         */
+        this.memberID = userObject.id
 
         /**
          * Economy configuration.
@@ -120,7 +133,7 @@ class Cooldowns {
       * @returns {boolean} If cleared: true; else: false
       */
     clearDaily() {
-        const result = this.database.delete(`${guildID}.${memberID}.dailyCooldown`)
+        const result = this.database.delete(`${this.guildID}.${this.memberID}.dailyCooldown`)
         return result
     }
 
@@ -129,7 +142,7 @@ class Cooldowns {
      * @returns {boolean} If cleared: true; else: false
      */
     clearWork() {
-        const result = this.database.delete(`${guildID}.${memberID}.workCooldown`)
+        const result = this.database.delete(`${this.guildID}.${this.memberID}.workCooldown`)
         return result
     }
 
@@ -138,7 +151,7 @@ class Cooldowns {
      * @returns {boolean} If cleared: true; else: false
      */
     clearWeekly() {
-        const result = this.database.delete(`${guildID}.${memberID}.weeklyCooldown`)
+        const result = this.database.delete(`${this.guildID}.${this.memberID}.weeklyCooldown`)
         return result
     }
 }

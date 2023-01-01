@@ -1,4 +1,3 @@
-const DatabaseManager = require('../managers/DatabaseManager')
 const CurrencyManager = require('../managers/CurrencyManager')
 
 const errors = require('../structures/errors')

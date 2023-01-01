@@ -1,7 +1,6 @@
 const EconomyError = require('../classes/util/EconomyError')
 const errors = require('../../src/structures/errors')
 
-
 /**
 * History item class.
 */
@@ -129,8 +128,8 @@ class HistoryItem {
         const historyItem = history.find(
             historyItem =>
                 historyItem.id == id &&
-                historyItem.memberID == memberID &&
-                historyItem.guildID == guildID
+                historyItem.memberID == this.memberID &&
+                historyItem.guildID == this.guildID
         )
 
         const historyItemIndex = history.findIndex(histItem => histItem.id == historyItem.id)
@@ -138,7 +137,7 @@ class HistoryItem {
         if (!historyItem) return false
         history.splice(historyItemIndex, 1)
 
-        return this.database.set(`${guildID}.${memberID}.history`, history)
+        return this.database.set(`${this.guildID}.${this.memberID}.history`, history)
     }
 
     /**

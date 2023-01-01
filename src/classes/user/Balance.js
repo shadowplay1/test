@@ -1,5 +1,3 @@
-
-const DatabaseManager = require('../../managers/DatabaseManager')
 const BalanceManager = require('../../managers/BalanceManager')
 
 const CurrencyManager = require('../../managers/CurrencyManager')

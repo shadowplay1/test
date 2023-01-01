@@ -8,7 +8,6 @@ const errors = require('../structures/errors')
 const ShopItem = require('../classes/ShopItem')
 const InventoryItem = require('../classes/InventoryItem')
 
-
 /**
  * Shop manager methods class.
  * @extends {Emitter}

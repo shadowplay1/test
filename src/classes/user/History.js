@@ -110,13 +110,13 @@ class History extends BaseManager {
             throw new EconomyError(errors.invalidTypes.id + typeof id, 'INVALID_TYPE')
         }
 
-        const history = this.fetch(memberID, guildID)
+        const history = this.fetch(this.memberID, this.guildID)
 
         const historyItem = this.find(
             historyItem =>
                 historyItem.id == id &&
-                historyItem.memberID == memberID &&
-                historyItem.guildID == guildID
+                historyItem.memberID == this.memberID &&
+                historyItem.guildID == this.guildID
         )
 
         const historyItemIndex = history.findIndex(histItem => histItem.id == historyItem.id)

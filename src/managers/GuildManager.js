@@ -2,8 +2,6 @@ const EconomyGuild = require('../classes/EconomyGuild')
 const EmptyEconomyGuild = require('../classes/EmptyEconomyGuild')
 
 const BaseManager = require('./BaseManager')
-
-const DatabaseManager = require('./DatabaseManager')
 const FetchManager = require('./FetchManager')
 
 const UtilsManager = require('./UtilsManager')

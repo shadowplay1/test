@@ -1,7 +1,4 @@
 const EconomyError = require('../classes/util/EconomyError')
-
-const DatabaseManager = require('./DatabaseManager')
-
 const errors = require('../structures/errors')
 
 
