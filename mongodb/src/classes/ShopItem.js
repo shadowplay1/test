@@ -1,6 +1,3 @@
-const CacheManager = require('../managers/CacheManager')
-const DatabaseManager = require('../managers/DatabaseManager')
-
 const CurrencyManager = require('../managers/CurrencyManager')
 
 const errors = require('../structures/errors')
@@ -205,33 +202,40 @@ class ShopItem extends Emitter {
         }
 
         switch (itemProperty) {
-            case itemProperties[0]:
+            case itemProperties[0]: {
                 const result = await edit(itemProperties[0], value)
                 return result
+            }
 
-            case itemProperties[1]:
-                const result1 = await edit(itemProperties[1], value)
-                return result1
+            case itemProperties[1]: {
+                const result = await edit(itemProperties[1], value)
+                return result
+            }
 
-            case itemProperties[2]:
-                const result2 = await edit(itemProperties[2], value)
-                return result2
+            case itemProperties[2]: {
+                const result = await edit(itemProperties[2], value)
+                return result
+            }
 
-            case itemProperties[3]:
-                const result3 = await edit(itemProperties[3], value)
-                return result3
+            case itemProperties[3]: {
+                const result = await edit(itemProperties[3], value)
+                return result
+            }
 
-            case itemProperties[4]:
-                const result4 = await edit(itemProperties[4], value)
-                return result4
+            case itemProperties[4]: {
+                const result = await edit(itemProperties[4], value)
+                return result
+            }
 
-            case itemProperties[5]:
-                const result5 = await edit(itemProperties[5], value)
-                return result5
+            case itemProperties[5]: {
+                const result = await edit(itemProperties[5], value)
+                return result
+            }
 
-            case itemProperties[6]:
-                const result6 = await edit(itemProperties[6], value)
-                return result6
+            case itemProperties[6]: {
+                const result = await edit(itemProperties[6], value)
+                return result
+            }
 
             default:
                 return null
