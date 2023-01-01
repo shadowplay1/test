@@ -9,6 +9,15 @@
 
 <div>
 
+<b>v1.7.2</b>
+
+- Code refactoring.
+- Major bug fixes.
+- Fixed a hard crash on startup in JSON version.
+- Fixed JSDocs.
+- Fixed typings in some managers.
+- Improved debugging.
+
 <b>v1.7.1</b>
 
 - Major bug fixes!
@@ -56,7 +65,7 @@
 - Fixed bugs.
 - Fixed typings bugs.
 - Added missing JSDocs for `CacheManager` and all the `CachedItem`s!
-- Added a configuration example in *Initialation Example* on the [Examples](https://des-docs.js.org/#/docs/main/1.7.1/general/examples) page of the module. 
+- Added a configuration example in *Initialation Example* on the [Examples](https://des-docs.js.org/#/docs/main/1.7.2/general/examples) page of the module. 
 
 <b>v1.6.8</b>
 
