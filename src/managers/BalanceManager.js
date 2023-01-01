@@ -19,7 +19,7 @@ class BalanceManager extends Emitter {
 
     /**
      * Balance Manager.
-     * 
+     *
      * @param {object} options Economy configuration.
      * @param {string} options.storagePath Full path to a JSON file. Default: './storage.json'.
      */
@@ -53,7 +53,7 @@ class BalanceManager extends Emitter {
          * @type {CurrencyManager}
          * @private
          */
-        this._currencies = new CurrencyManager(options, database)
+        this._currencies = new CurrencyManager(options, this.database)
     }
 
     /**
@@ -65,7 +65,6 @@ class BalanceManager extends Emitter {
      */
     currency(currencyID, memberID, guildID) {
         const currencies = this._currencies
-
         const database = this.database
 
         const options = this.options
@@ -114,7 +113,7 @@ class BalanceManager extends Emitter {
 
     /**
     * Gets the user's balance.
-    * 
+    *
     * This method is an alias of `BalanceManager.fetch()` method.
     * @param {string} memberID Member ID.
     * @param {string} guildID Guild ID.
@@ -427,7 +426,7 @@ class BalanceManager extends Emitter {
  * @property {number} amount Amount of money to send.
  * @property {string} senderMemberID A member ID who will send the money.
  * @property {string} receiverMemberID A member ID who will receive the money.
- * @property {string} [sendingReason='sending money to user'] 
+ * @property {string} [sendingReason='sending money to user']
  * The reason of subtracting the money from sender. (example: "sending money to {user}")
  * @property {string} [receivingReason='receiving money from user']
  * The reason of adding a money to receiver. (example: "receiving money from {user}")

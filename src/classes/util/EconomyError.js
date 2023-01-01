@@ -29,12 +29,12 @@ class EconomyError extends Error {
      * Creates an 'EconomyError' instance.
      * @param {string | Error} errorMessage Error message.
      * @param {'INVALID_TYPE' |
-     * 'UNKNOWN_ERROR' | 
+     * 'UNKNOWN_ERROR' |
      * 'PARAMETER_NOT_SPECIFIED' |
      * 'OLD_NODE_VERSION' |
      * 'ITEM_PROPERTY_INVALID' |
      * 'INVALID_INPUT' |
-     * 'NO_DISCORD_CLIENT' | 
+     * 'NO_DISCORD_CLIENT' |
      * 'ROLE_NOT_FOUND' |
      * 'PURCHASES_HISTORY_DISABLED' |
      * 'SETTINGS_KEY_INVALID' |
@@ -66,12 +66,12 @@ class EconomyError extends Error {
         /**
          * Error code.
          * @type {'INVALID_TYPE' |
-         * 'UNKNOWN_ERROR' | 
+         * 'UNKNOWN_ERROR' |
          * 'PARAMETER_NOT_SPECIFIED' |
          * 'OLD_NODE_VERSION' |
          * 'ITEM_PROPERTY_INVALID' |
          * 'INVALID_INPUT' |
-         * 'NO_DISCORD_CLIENT' | 
+         * 'NO_DISCORD_CLIENT' |
          * 'ROLE_NOT_FOUND' |
          * 'PURCHASES_HISTORY_DISABLED' |
          * 'SETTINGS_KEY_INVALID' |

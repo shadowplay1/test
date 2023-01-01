@@ -568,24 +568,13 @@ class Economy extends Emitter {
         ]
 
         const events = [
-            'balanceSet',
-            'balanceAdd',
-            'balanceSubtract',
-            'bankSet',
-            'bankAdd',
-            'bankSubtract',
-            'customCurrencySet',
-            'customCurrencyAdd',
-            'customCurrencySubtract',
-            'shopItemAd',
-            'shopClear',
-            'shopItemEdit',
-            'shopItemBuy',
-            'shopItemUse',
-            'ready',
-            'destroy'
+            'balanceSet', 'balanceAdd', 'balanceSubtract',
+            'bankSet', 'bankAdd', 'bankSubtract',
+            'customCurrencySet', 'customCurrencyAdd', 'customCurrencySubtract',
+            'shopItemAdd', 'shopClear', 'shopItemEdit',
+            'shopItemBuy', 'shopItemUse',
+            'ready', 'destroy'
         ]
-
 
         for (const manager of managers) {
             this[manager.name] = new manager.manager(this.options, new DatabaseManager(this.options))
@@ -836,24 +825,24 @@ class Economy extends Emitter {
  * @property {number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
  * @property {number | number[]} [dailyAmount=100] Amount of money for Daily Command. Default: 100.
  * @property {number} [weeklyCooldown=604800000] Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
- * @property {number} [sellingItemPercent=75] 
+ * @property {number} [sellingItemPercent=75]
  * Percent of the item's price it will be sold for. Default: 75.
- * 
- * @property {boolean} [deprecationWarnings=true] 
+ *
+ * @property {boolean} [deprecationWarnings=true]
  * If true, the deprecation warnings will be sent in the console. Default: true.
- * 
+ *
  * @property {boolean} [savePurchasesHistory=true] If true, the module will save all the purchases history.
- * 
+ *
  * @property {number | number[]} [weeklyAmount=100] Amount of money for Weekly Command. Default: 1000.
  * @property {number | number[]} [workAmount=[10, 50]] Amount of money for Work Command. Default: [10, 50].
  * @property {boolean} [subtractOnBuy=true] If true, when someone buys the item, their balance will subtract by item price. Default: false
- * 
+ *
  * @property {number} [updateCountdown=1000] Checks for if storage file exists in specified time (in ms). Default: 1000.
  * @property {string} [dateLocale='en'] The region (example: 'ru' or 'en') to format the date and time. Default: 'en'.
  * @property {UpdaterOptions} [updater=UpdaterOptions] Update checker configuration.
  * @property {ErrorHandlerConfiguration} [errorHandler=ErrorHandlerConfiguration] Error handler configuration.
 
- * @property {CheckerConfiguration} [optionsChecker=CheckerConfiguration] 
+ * @property {CheckerConfiguration} [optionsChecker=CheckerConfiguration]
  * Configuration for an 'Economy.utils.checkOptions' method.
  * @property {boolean} [debug=false] Enables or disables the debug mode.
  */
@@ -876,11 +865,11 @@ class Economy extends Emitter {
  * @property {boolean} [ignoreInvalidTypes=false] Allows the method to ignore the options with invalid types. Default: false.
  * @property {boolean} [ignoreUnspecifiedOptions=false] Allows the method to ignore the unspecified options. Default: false.
  * @property {boolean} [ignoreInvalidOptions=false] Allows the method to ignore the unexisting options. Default: false.
- * @property {boolean} [showProblems=false] Allows the method to show all the problems in the console. Default: false. 
- * 
- * @property {boolean} [sendLog=false] Allows the method to send the result in the console. 
+ * @property {boolean} [showProblems=false] Allows the method to show all the problems in the console. Default: false.
+ *
+ * @property {boolean} [sendLog=false] Allows the method to send the result in the console.
  * Requires the 'showProblems' or 'sendLog' options to set. Default: false.
- * 
+ *
  * @property {boolean} [sendSuccessLog=false] Allows the method to send the result if no problems were found. Default: false.
  */
 

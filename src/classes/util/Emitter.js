@@ -20,7 +20,7 @@ class Emitter {
 
     /**
      * Listens to the event.
-     * @param {ShopEvents} event Event name. 
+     * @param {ShopEvents} event Event name.
      * @param {Function} listener Callback function.
      * @returns {Emitter} Economy Emitter.
      */

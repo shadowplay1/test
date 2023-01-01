@@ -78,7 +78,7 @@ class CurrencyManager extends Emitter {
 
     /**
      * Finds the info for the specified currency.
-     * 
+     *
      * This method is an alias for `CurrencyManager.find()` method.
      * @param {string | number} currencyID Currency ID, its name or its symbol.
      * @param {string} guildID Guild ID.
