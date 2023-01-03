@@ -3,10 +3,10 @@
 [![Downloads](https://img.shields.io/npm/dt/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)
 [![Stable Version](https://img.shields.io/npm/v/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)
 
-<b>Discord Economy Super</b> - Easy and customizable economy framework for your [Discord Bot](https://discord.js.org/#/).
+<b>Discord Economy Super</b> - Easy and customizable economy module for your [Discord Bot](https://discord.js.org/#/).
 
 ## 🙋‍♂️ | Welcome!
-Welcome to the `discord-economy-super v1.7.2` documentation!
+Welcome to the `discord-economy-super v1.7.3` documentation!
 
 ## 📂 | Installation
 <b>Note:<b>
@@ -25,7 +25,7 @@ Features:
 <br>
 <ul>
 <li><b>Clean TypeScript Defenitions 📘</b></li>
-<li><b><a href="https://des-docs.js.org/#/docs/main/1.7.2/general/migrating-to-mongo">MongoDB Support 🍃</a></b></li>
+<li><b><a href="https://des-docs.js.org/#/docs/main/1.7.3/general/migrating-to-mongo">MongoDB Support 🍃</a></b></li>
 <li><b>Object-oriented 📜</b></li>
 <li><b>Flexible and Customizable ⚙️</b></li>
 <li><b>Easy to use 👍</b></li>

@@ -3,11 +3,23 @@
 [![Downloads](https://img.shields.io/npm/dt/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)
 [![Stable Version](https://img.shields.io/npm/v/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)
 
-<b>Discord Economy Super</b> - Easy and customizable economy framework for your [Discord Bot](https://discord.js.org/#/).
+<b>Discord Economy Super</b> - Easy and customizable economy module for your [Discord Bot](https://discord.js.org/#/).
 
 ## ⏰ | Changelog
 
+
 <div>
+
+<b>v1.7.3</b>
+
+- Fixed typings.
+- JSDoc changes.
+- Fixed the missing configuration bug and hard crash on startup.
+- Removed unnecessary things.
+- Updated `EconomyItems` files.
+- Added a `stacked()` method in `InventoryManager` to get the array of stacked items in the inventory.
+- `InventoryItem.stack()` is no longer async! You can run it inside `Array.map()` safely now!
+- `UtilsManager.checkOptions()` method was renamed to `UtilsManager.checkConfiguration()` so it could make sense.
 
 <b>v1.7.2</b>
 
@@ -32,6 +44,10 @@
 - **Custom currencies system! 🔥**
 - Added a new `customCurrencySet`, `customCurrencyAdd` and `customCurrencySubtract` events so the changes in any custom currencies could be tracked!
 - Added a new optional `currency` argument in **all item buying methods** that takes eaither *currency ID*, *name* or its *symbol* so the currency balance will be subtracted instead of core balance. Requires the `subtractOnBuy` option to be enabled.
+```ts
+eco.shop.buy(itemID, 'memberID', 'guildID', quantity, currency, 'reason')
+```
+
 
 <br>
 
@@ -43,7 +59,7 @@
 - Added a `save()` method for `Shop-`, `Inventory-` and `History-` **items** that allows you to edit the item's object properties save the edited objext in database!
 - Added a `.toString()` method for some classes.
 
-- `Shop-`, `Inventory-` and `History-` **items'** `itemObject` property was changed to `rawObject` so it could make sense in the code 
+- `Shop-`, `Inventory-` and `History-` **items'** `itemObject` property was renamed to `rawObject` so it could make sense in the code.
 - Now a warning will be displayed in console if using a dev version in both MongoDB and JSON versions (see the screenshot below).
 
 ![Development Version Usage Warning](https://cdn.discordapp.com/attachments/837068831725846568/1058154982748213359/Screenshot_27.jpg)
@@ -65,7 +81,7 @@
 - Fixed bugs.
 - Fixed typings bugs.
 - Added missing JSDocs for `CacheManager` and all the `CachedItem`s!
-- Added a configuration example in *Initialation Example* on the [Examples](https://des-docs.js.org/#/docs/main/1.7.2/general/examples) page of the module. 
+- Added a configuration example in *Initialation Example* on the [Examples](https://des-docs.js.org/#/docs/main/1.7.3/general/examples) page of the module. 
 
 <b>v1.6.8</b>
 
