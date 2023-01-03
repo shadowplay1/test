@@ -3,7 +3,7 @@
 [![Downloads](https://img.shields.io/npm/dt/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)
 [![Stable Version](https://img.shields.io/npm/v/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)
 
-<b>Discord Economy Super</b> - Easy and customizable economy framework for your [Discord Bot](https://discord.js.org/#/).
+<b>Discord Economy Super</b> - Easy and customizable economy module for your [Discord Bot](https://discord.js.org/#/).
 
 ## Introduction
 So, `discord-economy-super` is built with multi-guild support, but many of the users were asking me how to create a __global__ economy, where all the data is cross-guild, where all the data is available on all the guilds.
@@ -19,7 +19,7 @@ For example: `eco.users.get(message.author.id, 'global')`, where `'global'` is a
 It means, the module will work with `'global'` guild, where all the data will be stored. 
 
 All the operations will be performed only to this "guild", so the data won't be lost on any other server!
-See the [FAQ page](https://des-docs.js.org/#/docs/main/1.7.2/general/faq) to see the full example of global economy usage.
+See the [FAQ page](https://des-docs.js.org/#/docs/main/1.7.3/general/faq) to see the full example of global economy usage.
 
 ## How do I move the data from the guilds to the Global one?
 Use the loop, where you iterate all the database entries, getting the object of every guild, then getting all the guild users and pushing them into the Global guild.

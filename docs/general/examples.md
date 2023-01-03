@@ -3,7 +3,7 @@
 [![Downloads](https://img.shields.io/npm/dt/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)
 [![Stable Version](https://img.shields.io/npm/v/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)
 
-<b>Discord Economy Super</b> - Easy and customizable economy framework for your [Discord Bot](https://discord.js.org/#/).
+<b>Discord Economy Super</b> - Easy and customizable economy module for your [Discord Bot](https://discord.js.org/#/).
 
 ## Initialation Example
 
@@ -20,7 +20,7 @@ const client = new Client({
 // they were made to configure the module.
 
 // to change these values for specific guilds, use SettingsManager:
-// https://des-docs.js.org/#/docs/main/1.7.2/class/SettingsManager
+// https://des-docs.js.org/#/docs/main/1.7.3/class/SettingsManager
 
 let eco = new Economy({
     storagePath: './storage.json',
