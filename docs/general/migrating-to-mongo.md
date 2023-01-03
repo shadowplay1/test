@@ -3,7 +3,7 @@
 [![Downloads](https://img.shields.io/npm/dt/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)
 [![Stable Version](https://img.shields.io/npm/v/discord-economy-super?style=for-the-badge)](https://www.npmjs.com/package/discord-economy-super)
 
-<b>Discord Economy Super</b> - Easy and customizable economy framework for your [Discord Bot](https://discord.js.org/#/).
+<b>Discord Economy Super</b> - Easy and customizable economy module for your [Discord Bot](https://discord.js.org/#/).
 
 # MongoDB Migration Guide
 
@@ -83,9 +83,9 @@ Version 1.6.1 has A LOT of changes (including breaking ones), it got a lot of ne
 
 Also the typings are now way better with the power of **generic** methods and generic types!
 
-I suggest you to read the [changelog](https://des-docs.js.org/#/docs/main/1.7.2/general/changelog) and the [documentation](https://des-docs.js.org/#/docs/main/1.7.2/general/welcome) to know what's new, what's changed and how to update your code.
+I suggest you to read the [changelog](https://des-docs.js.org/#/docs/main/1.7.3/general/changelog) and the [documentation](https://des-docs.js.org/#/docs/main/1.7.3/general/welcome) to know what's new, what's changed and how to update your code.
 
-Also you can check the [summary](https://des-docs.js.org/#/docs/main/1.7.2/general/updating) to see the main changes in this update.
+Also you can check the [summary](https://des-docs.js.org/#/docs/main/1.7.3/general/updating) to see the main changes in this update.
 
 Now, remove the usage all the deprecated methods (in MongoDB version, all deprecated methods were removed), change your code to async/awaits and you're ready to go!
 
