@@ -20,7 +20,7 @@ const client = new Client({
 // they were made to configure the module.
 
 // to change these values for specific guilds, use SettingsManager:
-// https://des-docs.js.org/#/docs/main/1.7.3/class/SettingsManager
+// https://des-docs.js.org/#/docs/main/1.7.4/class/SettingsManager
 
 let eco = new Economy({
     storagePath: './storage.json',

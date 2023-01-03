@@ -10,7 +10,7 @@
 
 <div>
 
-<b>v1.7.3</b>
+<b>v1.7.4h</b>
 
 - Fixed typings.
 - JSDoc changes.
@@ -81,7 +81,7 @@ eco.shop.buy(itemID, 'memberID', 'guildID', quantity, currency, 'reason')
 - Fixed bugs.
 - Fixed typings bugs.
 - Added missing JSDocs for `CacheManager` and all the `CachedItem`s!
-- Added a configuration example in *Initialation Example* on the [Examples](https://des-docs.js.org/#/docs/main/1.7.3/general/examples) page of the module. 
+- Added a configuration example in *Initialation Example* on the [Examples](https://des-docs.js.org/#/docs/main/1.7.4/general/examples) page of the module. 
 
 <b>v1.6.8</b>
 
