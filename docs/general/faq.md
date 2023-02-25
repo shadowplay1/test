@@ -7,9 +7,32 @@
 
 ## ❓ | Frequently Asked Questions
 
-### **Q:** How can I use MongoDB in Economy?
+### **Q:** Is it possible to use MongoDB in Economy?
 
-#### **A:** Of course! Just follow the [migration guide](https://des-docs.js.org/#/docs/main/1.7.4/general/migrating-to-mongo) to start using Economy with MongoDB.
+#### **A:** Of course! Just follow the [migration guide](https://des-docs.js.org/#/docs/main/1.7.5/general/migrating-to-mongo) to start using Economy with MongoDB.
+
+<br>
+
+### **Q:** I have dublicate items in my inventory. How do I filter them out?
+
+#### **A:** There's a `stack()` method in `InventoryItem` that allows you to do this easliy:
+```js
+// Assuming that `inventory` variable is inventory array (e. g. array of `InventoryItem`s):
+
+message.channel.send(
+	`${message.author} - User Inventory [**${inventory.length}** items]:\n\n` +
+
+	inventory.map((item, index) => {
+    	const stackedItem = item.stack()
+
+    	const entry =
+        	`${index + 1} - **x${stackedItem.quantity} ${stackedItem.item.name}** - ` +
+        	`${stackedItem.totalPrice} coins in total`
+
+    	return entry
+	}).join('\n')
+)
+```
 
 <br>
 
@@ -98,7 +121,7 @@ const balance1 = user1.balance.get() // 2000
 ```
 In this code, `global` and `other_guild_id` are different values. It means, that the module will search for the data in different guilds. Using the same value will search for the data in the same guild. So, the data from every Discord guild will be stored in the same Economy guild and the data will be accessible on every Discord guild.
 
-See [this page](https://des-docs.js.org/#/docs/main/1.7.4/general/global) for additional info about using the module globally.
+See [this page](https://des-docs.js.org/#/docs/main/1.7.5/general/global) for additional info about using the module globally.
 
 <br>
 
@@ -144,4 +167,4 @@ eco.inventory.useItem(1, "memberID", "guildID"); // What a sunny day!
 <br>
 <b>Module Created by ShadowPlay.</b>
 
-# ❤️ Thanks for using Discord Economy Super ❤️
+# ❤️ Thanks for choosing Discord Economy Super ❤️

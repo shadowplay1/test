@@ -16,48 +16,21 @@ const client = new Client({
 });
 
 
-// these options are optional (and these values are default in the module),
+// all options are optional (and values below are default vales if not specified),
 // they were made to configure the module.
 
-// to change these values for specific guilds, use SettingsManager:
-// https://des-docs.js.org/#/docs/main/1.7.4/class/SettingsManager
+// learn more about configuring Economy and see the full options list and full configuring example here:
+// https://des-docs.js.org/#/docs/main/1.7.5/general/configuring
 
 let eco = new Economy({
     storagePath: './storage.json',
     updateCountdown: 1000,
     checkStorage: true,
-    deprecationWarnings: true,
-    sellingItemPercent: 75,
-    savePurchasesHistory: true,
-    dailyAmount: 100,
-    workAmount: [10, 50],
-    weeklyAmount: 1000,
-    dailyCooldown: 60000 * 60 * 24,
-    workCooldown: 60000 * 60,
-    weeklyCooldown: 60000 * 60 * 24 * 7,
-    dateLocale: 'en',
-    updater: {
-        checkUpdates: true,
-        upToDateMessage: true
-    },
-    errorHandler: {
-        handleErrors: true,
-        attempts: 5,
-        time: 3000
-    },
-    optionsChecker: {
-        ignoreInvalidTypes: false,
-        ignoreUnspecifiedOptions: true,
-        ignoreInvalidOptions: false,
-        showProblems: true,
-        sendLog: true,
-        sendSuccessLog: false
-    }
-});
+})
 
 client.on('ready', () => {
   console.log(`${client.user.tag} is ready!`);
-});
+})
 
 eco.on('ready', economy => {
   console.log(`Economy is ready!`);
@@ -199,10 +172,141 @@ if (command == prefix + 'withdraw') {
 }
 ```
 
-# Currencies
+# Shop Add & Display, Item Buy & Item Use
 
 ```js
-// Create a currency
+// Display the guild shop
+if (command == prefix + 'shop') {
+    const guildShop = eco.shop.all()
+
+    if (!guildShop.length) {
+        return message.channel.send(`${message.author}, there are no items in the shop.`)
+    }
+
+    message.channel.send(
+        `**${message.guild.name}** - Guild Shop **[${guildShop.length} items]**:\n\n` +
+
+        `${guildShop
+            .map((item, index) => `${index + 1} - **${item.name}** (ID: **${item.id}**) - **${item.price}** coins`)
+            .join('\n')}`
+    )
+}
+
+// Add the item to the shop
+if (command == prefix + 'shop_add') {
+    const guild = eco.guilds.get(message.guild.id)
+    const user = guild.users.get(message.author.id)
+
+    const [name, emoji, priceString] = args
+
+    const price = parseInt(priceString)
+    const messageOnUse = args.slice(3).join(' ') 
+    
+    // message on use is optional and defaults to `You have used this item!`
+
+    // supports choosing a random string from a specified strings list with following syntax:
+    // [random="str", "str1", "str2"]
+
+    // for example, if specifying `What a [random="wonderful", "great", "sunny"] day!` as message on use
+    // then in returned message, `[random="wonderful", "great", "sunny"]` will be replaced with either
+    // "wonderful", "great" or "sunny".
+
+    if (!name) {
+        return message.channel.send(`${message.author}, please provide a name for the item.`)
+    }
+
+    if (!price) {
+        return message.channel.send(`${message.author}, please provide a price for the item.`)
+    }
+
+    // see all the available item options here:
+    // https://des-docs.js.org/#/docs/main/1.7.5/typedef/AddItemOptions
+
+    // learn more about custom item data:
+    // https://des-docs.js.org/#/docs/main/1.7.5/general/custom-data
+
+    const newItem = guild.shop.addItem({
+        name,
+        price,
+        message: messageOnUse || ''
+    })
+
+    message.channel.send(
+        `${message.author}, you added **${newItem.name}** for **${newItem.price}** coins to the shop.`
+    )
+}
+
+// Buy an item from the shop
+// (adds the item to user's inventory and 
+// subtracts its price from the user's balance if `subtractOnBuy` option is `true`)
+
+// Learn more about configuring Economy:
+// https://des-docs.js.org/#/docs/main/1.7.5/general/configuring
+if (command == prefix + 'shop_buy') {
+    const guild = eco.guilds.get(message.guild.id)
+    const user = guild.users.get(message.author.id)
+
+    const [itemID, quantityString] = args
+    const quantity = parseInt(quantityString) || 1
+
+    const item = shop.find(item => item.id == parseInt(itemID) || item.name == itemID)
+
+    if (!itemID) {
+        return message.channel.send(`${message.author}, please specify an item.`)
+    }
+
+    if (!item) {
+        return message.channel.send(`${message.author}, item not found.`)
+    }
+
+    if (!item.isEnoughMoneyFor(message.author.id, quantity)) {
+        return message.channel.send(
+            `${message.author}, you don't have enough coins to buy ` +
+            `**x${quantity} ${item.custom.emoji} ${item.name}**.`
+        )
+    }
+
+    const buyingResult = user.items.buy(item.id, quantity)
+
+    if (!buyingResult.status) {
+        return message.channel.send(`${message.author}, failed to buy the item: ${buyingResult.message}`)
+    }
+
+    message.channel.send(
+         `${message.author}, you bought **x${buyingResult.quantity} ` +
+        `${item.custom.emoji} ${item.name}** for **${buyingResult.totalPrice}** coins.`
+    )
+}
+
+// Use the item from user inventory
+if (command == prefix + 'shop_use') {
+    const [itemID] = args
+    const item = inventory.find(item => item.id == parseInt(itemID) || item.name == itemID)
+
+    if (!itemID) {
+        return message.channel.send(`${message.author}, please specify an item in your inventory.`)
+    }
+
+    if (!item) {
+        return message.channel.send(`${message.author}, item not found in your inventory.`)
+    }
+
+    // client is an optional parameter in `use` methods for items
+    
+    // the module does not depend on discord.js so it cannot do anything from your bot
+    // specifying your bot client here allows automatically add the role whose ID was specified when creating the item
+
+    // `use` method returns a message to be sent on using the item
+
+    const resultMessage = item.use(client)
+    message.channel.send(resultMessage)
+}
+```
+
+# Custom Currencies
+
+```js
+// Create a currency for the guild
 if (command == prefix + 'createCurrency') {
     const [name, symbol] = args
     
@@ -210,8 +314,14 @@ if (command == prefix + 'createCurrency') {
     message.channel.send(`Successfully created a new **${name} (${symbol})** currency!`)
 }
 
-// Check the currency balance
+// Check the currency balance on the guild
 if (command == prefix + 'currencyBalance') {
+    // (currency ID, currency name or currency symbol) means that
+    // either currency ID (currency's unique ID), currency name or currency symbol
+    // could be provided in `currency` methods.
+
+    // currency names and symbols are NOT case sensetive!
+
     const [userID] = args
     const guild = eco.guilds.get(message.guild.id)
 
@@ -223,9 +333,12 @@ if (command == prefix + 'currencyBalance') {
 
     const user = guild.users.get(guildUser.id)
 
+    // here, the `get()` method fetches the user balance for specified currency and
+    // `getCurrency()` method fetches the info object about specified currency
+
     const [currencyBalance, currency] = [
-        user.balance.currency('currencyID/currencyName/currencySymbol').get(),
-        user.balance.currency('currencyID/currencyName/currencySymbol').getCurrency()
+        user.balance.currency('(currency ID, currency name or currency symbol)').get(),
+        user.balance.currency('(currency ID, currency name or currency symbol)').getCurrency()
     ]
 
     message.channel.send(
@@ -233,8 +346,8 @@ if (command == prefix + 'currencyBalance') {
     )
 }
 
-// Add the money on currency balance
-if (command == prefix + 'currencyBalance') {
+// Add the money on currency balance on the guild
+if (command == prefix + 'currencyAdd') {
     const [userID, amount] = args
     const guild = eco.guilds.get(message.guild.id)
 
@@ -246,12 +359,12 @@ if (command == prefix + 'currencyBalance') {
 
     const user = guild.users.get(guildUser.id)
 
-    user.balance.currency('currencyID/currencyName/currencySymbol').add(amount)
+    user.balance.currency('(currency ID, currency name or currency symbol)').add(amount)
     message.channel.send('Adding successful!')
 }
 
-// Subtract the money from currency balance
-if (command == prefix + 'currencyBalance') {
+// Subtract the money from currency balance on the guild
+if (command == prefix + 'currencySubtract') {
     const [userID, amount] = args
     const guild = eco.guilds.get(message.guild.id)
 
@@ -263,7 +376,7 @@ if (command == prefix + 'currencyBalance') {
 
     const user = guild.users.get(guildUser.id)
 
-    user.balance.currency('currencyID/currencyName/currencySymbol').subtract(amount)
+    user.balance.currency('(currency ID, currency name or currency symbol)').subtract(amount)
     message.channel.send('Subtracting successful!')
 }
 ```
@@ -281,4 +394,4 @@ See the full bot examples for both MongoDB and JSON databases in both JavaScript
 <br>
 <b>Module Created by ShadowPlay.</b>
 
-# ❤️ Thanks for using Discord Economy Super ❤️
+# ❤️ Thanks for choosing Discord Economy Super ❤️
