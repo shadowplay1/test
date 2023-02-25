@@ -33,7 +33,8 @@ Features:
 <li><b>Shop System 🛒</b></li>
 <li><b>Bank Balance System 🏦</b></li>
 <li><b>Custom Currencies System 💵</b></li>
-<li><b>Multi-Server Setup 🔧</b></li>
+<li><b><a href="https://des-docs.js.org/#/docs/main/1.7.5/general/custom-data">Custom Item Data 📝</a></b></li>
+<li><b><a href="https://des-docs.js.org/#/docs/main/1.7.5/general/configuring">Multi-Server Setup 🔧</a></b></li>
 </ul>
 
 ## 🤔 | Help
