@@ -10,7 +10,28 @@
 
 <div>
 
-<b>v1.7.4h</b>
+<b>v1.7.5</b>
+
+- Fixed JSDoc typos/mismatches.
+- Fixed the hard crash in **JSON** version when trying to claim `daily`, `work` or `weekly` rewards.
+- Fixed the INVALID_TYPE error when getting the currencies by ID.
+- **Updated the documentation** - updated the [FAQ](https://des-docs.js.org/#/docs/main/1.7.5/general/faq), added **shop** examples and more explanations of the code on [Examples](https://des-docs.js.org/#/docs/main/1.7.5/general/examples) page in the documentation + added the [Configuring Economy](https://des-docs.js.org/#/docs/main/1.7.5/general/configuring) page that explains everything about configuring the module and [Custom Item Data](https://des-docs.js.org/#/docs/main/1.7.5/general/custom-data) page explaining the `custom` property  - check them out!
+- Minor bug fixes.
+- Added an option for `package.json` to disable the post-install greeting logs. To disable them, you need to add this in your `package.json`:
+```json
+"discord-economy-super": {
+    "postinstall": false
+}
+```
+To enable them back, you need to set the `"postinstall"` property of `"discord-economy-super"` object to `true`:
+```json
+"discord-economy-super": {
+    "postinstall": true
+}
+```
+(or simply remove this object from your `package.json`)
+
+<b>v1.7.4</b>
 
 - Fixed typings.
 - JSDoc changes.
@@ -81,7 +102,7 @@ eco.shop.buy(itemID, 'memberID', 'guildID', quantity, currency, 'reason')
 - Fixed bugs.
 - Fixed typings bugs.
 - Added missing JSDocs for `CacheManager` and all the `CachedItem`s!
-- Added a configuration example in *Initialation Example* on the [Examples](https://des-docs.js.org/#/docs/main/1.7.4/general/examples) page of the module. 
+- Added a configuration example in *Initialation Example* on the [Examples](https://des-docs.js.org/#/docs/main/1.7.5/general/examples) page of the module. 
 
 <b>v1.6.8</b>
 
@@ -911,4 +932,4 @@ The test will look like this:
 <br>
 <b>Module Created by ShadowPlay.</b>
 
-# ❤️ Thanks for using Discord Economy Super ❤️
+# ❤️ Thanks for choosing Discord Economy Super ❤️
