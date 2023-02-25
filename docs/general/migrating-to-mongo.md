@@ -63,7 +63,7 @@ Please note that `storagePath`, `checkStorage` and `updateCountdown` options wer
 ```js
 const eco = new Economy({
     connection: {
-        connectionURI: '...', // mongodb connection uri
+        connectionURI: '...', // mongodb connection URI
         collectionName: 'collection', // optional
         dbName: 'db' // optional
         mongoClientOptions: { ... } // optional
@@ -83,9 +83,9 @@ Version 1.6.1 has A LOT of changes (including breaking ones), it got a lot of ne
 
 Also the typings are now way better with the power of **generic** methods and generic types!
 
-I suggest you to read the [changelog](https://des-docs.js.org/#/docs/main/1.7.4/general/changelog) and the [documentation](https://des-docs.js.org/#/docs/main/1.7.4/general/welcome) to know what's new, what's changed and how to update your code.
+I suggest you to read the [changelog](https://des-docs.js.org/#/docs/main/1.7.5/general/changelog) and the [documentation](https://des-docs.js.org/#/docs/main/1.7.5/general/welcome) to know what's new, what's changed and how to update your code.
 
-Also you can check the [summary](https://des-docs.js.org/#/docs/main/1.7.4/general/updating) to see the main changes in this update.
+Also you can check the [summary](https://des-docs.js.org/#/docs/main/1.7.5/general/updating) to see the main changes in this update.
 
 Now, remove the usage all the deprecated methods (in MongoDB version, all deprecated methods were removed), change your code to async/awaits and you're ready to go!
 
@@ -131,4 +131,4 @@ All the examples for both JavaScript and TypeScript are available on [GitHub](ht
 <br>
 <b>Module Created by ShadowPlay.</b>
 
-# ❤️ Thanks for using Discord Economy Super ❤️
+# ❤️ Thanks for choosing Discord Economy Super ❤️
