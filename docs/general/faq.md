@@ -15,7 +15,10 @@
 
 ### **Q:** I have dublicate items in my inventory. How do I filter them out?
 
-#### **A:** There's a `stack()` method in `InventoryItem` that allows you to do this easliy:
+#### **A:** There's a `stack()` method in `InventoryItem` that allows you to do this easliy.
+
+It transforms the normal inventory array into array of unique objects that includes the number of specific item in inventory (quantity), the item itself and the total price of all of the specific item *(totalItemPrice = itemPrice \* quantity)*
+
 ```js
 // Assuming that `inventory` variable is inventory array (e. g. array of `InventoryItem`s):
 
