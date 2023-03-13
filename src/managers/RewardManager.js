@@ -149,17 +149,15 @@ class RewardManager {
         else reward = defaultDailyReward
 
         const userCooldown = this.cooldowns.getDaily(memberID, guildID)
-        const cooldownEndTimestamp = cooldown - (Date.now() - userCooldown)
+        const cooldownEnd = cooldown - (Date.now() - userCooldown)
 
-        if (userCooldown !== null && cooldownEndTimestamp > 0) {
+        if (userCooldown !== null && cooldownEnd > 0) {
             return {
                 type: 'daily',
-                claimed: false,
-
+                status: false,
                 cooldown: {
-                    time: parse(cooldownEndTimestamp),
-                    pretty: ms(cooldownEndTimestamp),
-                    timestamp: cooldownEndTimestamp
+                    time: parse(cooldownEnd),
+                    pretty: ms(cooldownEnd)
                 },
 
                 reward: null,
@@ -172,7 +170,7 @@ class RewardManager {
 
         return {
             type: 'daily',
-            claimed: true,
+            status: true,
             cooldown: null,
             reward,
             defaultReward: defaultDailyReward
@@ -213,17 +211,15 @@ class RewardManager {
         else reward = defaultWorkReward
 
         const userCooldown = this.cooldowns.getWork(memberID, guildID)
-        const cooldownEndTimestamp = cooldown - (Date.now() - userCooldown)
+        const cooldownEnd = cooldown - (Date.now() - userCooldown)
 
-        if (userCooldown !== null && cooldownEndTimestamp > 0) {
+        if (userCooldown !== null && cooldownEnd > 0) {
             return {
                 type: 'work',
-                claimed: false,
-
+                status: false,
                 cooldown: {
-                    time: parse(cooldownEndTimestamp),
-                    pretty: ms(cooldownEndTimestamp),
-                    timestamp: cooldownEndTimestamp,
+                    time: parse(cooldownEnd),
+                    pretty: ms(cooldownEnd),
                 },
 
                 reward: null,
@@ -236,7 +232,7 @@ class RewardManager {
 
         return {
             type: 'work',
-            claimed: true,
+            status: true,
             cooldown: null,
             reward,
             defaultReward: defaultWorkReward
@@ -277,17 +273,15 @@ class RewardManager {
         else reward = defaultWeeklyReward
 
         const userCooldown = this.cooldowns.getWeekly(memberID, guildID)
-        const cooldownEndTimestamp = cooldown - (Date.now() - userCooldown)
+        const cooldownEnd = cooldown - (Date.now() - userCooldown)
 
-        if (userCooldown !== null && cooldownEndTimestamp > 0) {
+        if (userCooldown !== null && cooldownEnd > 0) {
             return {
                 type: 'weekly',
-                claimed: false,
-
+                status: false,
                 cooldown: {
-                    time: parse(cooldownEndTimestamp),
-                    pretty: ms(cooldownEndTimestamp),
-                    timestamp: cooldownEndTimestamp,
+                    time: parse(cooldownEnd),
+                    pretty: ms(cooldownEnd),
                 },
 
                 reward: null,
@@ -300,7 +294,7 @@ class RewardManager {
 
         return {
             type: 'weekly',
-            claimed: true,
+            status: true,
             cooldown: null,
             reward,
             defaultReward: defaultWeeklyReward
@@ -311,7 +305,7 @@ class RewardManager {
 /**
  * @typedef {object} RewardData
  * @property {'daily' | 'work' | 'weekly'} type Type of the operation.
- * @property {boolean} claimed Whether the reward was claimed.
+ * @property {boolean} status The status of operation.
  * @property {CooldownData} cooldown Cooldown object.
  * @property {number} reward Amount of money that the user received.
  * @property {number} defaultReward Reward that was specified in a module configuration.
@@ -330,7 +324,6 @@ class RewardManager {
  * @typedef {object} CooldownData
  * @property {TimeData} time A time object with the remaining time until the cooldown ends.
  * @property {string} pretty A formatted string with the remaining time until the cooldown ends.
- * @property {number} timestamp Cooldown end timestamp.
  */
 
 /**
