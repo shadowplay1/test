@@ -115,11 +115,12 @@ class Cooldowns {
 
         for (const [rewardType, userCooldown] of Object.entries(rawCooldownsObject)) {
             const rewardCooldown = this._rewardCooldowns[rewardType]
-            const cooldownEnd = rewardCooldown - (Date.now() - userCooldown)
+            const cooldownEndTimestamp = rewardCooldown - (Date.now() - userCooldown)
 
             const cooldownObject = userCooldown ? {
-                time: parse(cooldownEnd),
-                pretty: ms(cooldownEnd)
+                time: parse(cooldownEndTimestamp),
+                pretty: ms(cooldownEndTimestamp),
+                timestamp: cooldownEndTimestamp
             } : null
 
             result[rewardType] = cooldownObject
@@ -230,6 +231,7 @@ module.exports = Cooldowns
  * @typedef {object} CooldownData
  * @property {TimeData} time A time object with the remaining time until the cooldown ends.
  * @property {string} pretty A formatted string with the remaining time until the cooldown ends.
+ * @property {number} timestamp Cooldown end timestamp.
  */
 
 /**
