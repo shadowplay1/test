@@ -67,11 +67,11 @@ class FetchManager {
         const data = this.fetchAll()
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
+            throw new EconomyError(errors.invalidType('memberID', 'string', memberID), 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+            throw new EconomyError(errors.invalidType('guildID', 'string', guildID), 'INVALID_TYPE')
         }
 
         const guildData = data[guildID]
@@ -91,11 +91,11 @@ class FetchManager {
         const data = this.fetchAll()
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
+            throw new EconomyError(errors.invalidType('memberID', 'string', memberID), 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+            throw new EconomyError(errors.invalidType('guildID', 'string', guildID), 'INVALID_TYPE')
         }
 
         const guildData = data[guildID]
@@ -115,11 +115,11 @@ class FetchManager {
         const data = this.fetchAll()
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
+            throw new EconomyError(errors.invalidType('memberID', 'string', memberID), 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+            throw new EconomyError(errors.invalidType('guildID', 'string', guildID), 'INVALID_TYPE')
         }
 
         const guildData = data[guildID]
@@ -139,11 +139,11 @@ class FetchManager {
         const data = this.fetchAll()
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
+            throw new EconomyError(errors.invalidType('memberID', 'string', memberID), 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+            throw new EconomyError(errors.invalidType('guildID', 'string', guildID), 'INVALID_TYPE')
         }
 
         const guildData = data[guildID]
@@ -163,11 +163,11 @@ class FetchManager {
         const data = this.fetchAll()
 
         if (typeof memberID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.memberID + typeof memberID, 'INVALID_TYPE')
+            throw new EconomyError(errors.invalidType('memberID', 'string', memberID), 'INVALID_TYPE')
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+            throw new EconomyError(errors.invalidType('guildID', 'string', guildID), 'INVALID_TYPE')
         }
 
         const guildData = data[guildID]
@@ -176,11 +176,15 @@ class FetchManager {
         const dailyCooldown = memberData?.dailyCooldown || 0
         const workCooldown = memberData?.workCooldown || 0
         const weeklyCooldown = memberData?.weeklyCooldown || 0
+        const monthlyCooldown = memberData?.monthlyCooldown || 0
+        const hourlyCooldown = memberData?.hourlyCooldown || 0
 
         return {
             dailyCooldown,
             workCooldown,
-            weeklyCooldown
+            weeklyCooldown,
+            monthlyCooldown,
+            hourlyCooldown
         }
     }
 
@@ -193,7 +197,7 @@ class FetchManager {
         const data = this.fetchAll()
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+            throw new EconomyError(errors.invalidType('guildID', 'string', guildID), 'INVALID_TYPE')
         }
 
         const guildData = data[guildID]
@@ -208,6 +212,8 @@ class FetchManager {
  * @property {number} dailyCooldown User's daily cooldown.
  * @property {number} workCooldown User's work cooldown.
  * @property {number} weeklyCooldown User's weekly cooldown.
+ * @property {number} monthlyCooldown User's monthly cooldown.
+ * @property {number} hourlyCooldown User's hourly cooldown.
  */
 
 /**

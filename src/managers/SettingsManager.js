@@ -11,6 +11,12 @@ const settingsArray = [
     'weeklyAmount',
     'weeklyCooldown',
 
+    'monthlyAmount',
+    'monthlyCooldown',
+
+    'hourlyAmount',
+    'hourlyCooldown',
+
     'dateLocale',
     'subtractOnBuy',
 
@@ -18,6 +24,8 @@ const settingsArray = [
     'savePurchasesHistory'
 ]
 
+
+/* eslint-disable indent */
 function checkValueType(key, value) {
     switch (key) {
         case 'dailyAmount':
@@ -120,18 +128,17 @@ class SettingsManager {
 
 
         /**
-        * Economy configuration.
-        * @type {EconomyConfiguration}
-        * @private
-        */
+         * Economy configuration.
+         * @type {EconomyConfiguration}
+         * @private
+         */
         this.options = options
 
-
         /**
-        * Database manager methods class.
-        * @type {DatabaseManager}
-        * @private
-        */
+         * Database manager methods class.
+         * @type {DatabaseManager}
+         * @private
+         */
         this.database = database
     }
 
@@ -148,7 +155,7 @@ class SettingsManager {
      */
     get(key, guildID) {
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+            throw new EconomyError(errors.invalidType('guildID', 'string', guildID), 'INVALID_TYPE')
         }
 
         if (!settingsArray.includes(key)) {
@@ -174,16 +181,16 @@ class SettingsManager {
      * @returns {SettingsTypes} The server settings object.
      */
     set(key, value, guildID) {
-        if (value == undefined) {
-            throw new EconomyError(errors.invalidTypes.value + typeof value, 'INVALID_TYPE')
-        }
-
         if (typeof key !== 'string') {
             throw new EconomyError(errors.databaseManager.invalidTypes.key + typeof key, 'INVALID_TYPE')
         }
 
+        if (value == undefined) {
+            throw new EconomyError(errors.invalidTypes.value + typeof value, 'INVALID_TYPE')
+        }
+
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+            throw new EconomyError(errors.invalidType('guildID', 'string', guildID), 'INVALID_TYPE')
         }
 
         if (!settingsArray.includes(key)) {
@@ -213,7 +220,7 @@ class SettingsManager {
         }
 
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+            throw new EconomyError(errors.invalidType('guildID', 'string', guildID), 'INVALID_TYPE')
         }
 
         if (!settingsArray.includes(key)) {
@@ -248,7 +255,7 @@ class SettingsManager {
      */
     all(guildID) {
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+            throw new EconomyError(errors.invalidType('guildID', 'string', guildID), 'INVALID_TYPE')
         }
 
         const settings = this.database.fetch(`${guildID}.settings`)
@@ -262,6 +269,12 @@ class SettingsManager {
 
             weeklyAmount: settings?.weeklyAmount == null ? null : settings?.weeklyAmount,
             weeklyCooldown: settings?.weeklyCooldown == null ? null : settings?.weeklyCooldown,
+
+            monthlyAmount: settings?.monthlyAmount == null ? null : settings?.monthlyAmount,
+            monthlyCooldown: settings?.monthlyCooldown == null ? null : settings?.monthlyCooldown,
+
+            hourlyAmount: settings?.hourlyAmount == null ? null : settings?.hourlyAmount,
+            hourlyCooldown: settings?.hourlyCooldown == null ? null : settings?.hourlyCooldown,
 
             dateLocale: settings?.dateLocale == null ? null : settings?.dateLocale,
             subtractOnBuy: settings?.subtractOnBuy == null ? null : settings?.subtractOnBuy,
@@ -278,7 +291,7 @@ class SettingsManager {
      */
     reset(guildID) {
         if (typeof guildID !== 'string') {
-            throw new EconomyError(errors.invalidTypes.guildID + typeof guildID, 'INVALID_TYPE')
+            throw new EconomyError(errors.invalidType('guildID', 'string', guildID), 'INVALID_TYPE')
         }
 
         const defaultSettings = {
@@ -290,6 +303,12 @@ class SettingsManager {
 
             weeklyAmount: this.options.weeklyAmount,
             weeklyCooldown: this.options.weeklyCooldown,
+
+            monthlyAmount: this.options.monthlyAmount,
+            monthlyCooldown: this.options.monthlyCooldown,
+
+            hourlyAmount: this.options.hourlyAmount,
+            hourlyCooldown: this.options.hourlyCooldown,
 
             dateLocale: this.options.dateLocale,
             subtractOnBuy: this.options.subtractOnBuy,
@@ -305,15 +324,21 @@ class SettingsManager {
 
 /**
  * @typedef {object} SettingsTypes Settings object.
- * @property {number | number[]} dailyAmount Amount of money for Daily Command. Default: 100.
- * @property {number} dailyCooldown Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
+ * @property {number | number[]} dailyAmount Amount of money for Daily Reward. Default: 100.
+ * @property {number} dailyCooldown Cooldown for Daily Reward (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  *
- * @property {number | number[]} workAmount Amount of money for Work Command. Default: [10, 50].
- * @property {number} workCooldown Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
+ * @property {number | number[]} workAmount Amount of money for Work Reward. Default: [10, 50].
+ * @property {number} workCooldown Cooldown for Work Reward (in ms). Default: 1 hour (60000 * 60 ms)
  *
- * @property {number | number[]} weeklyAmount Amount of money for Weekly Command. Default: 1000.
- * @property {number} weeklyCooldown Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
+ * @property {number | number[]} weeklyAmount Amount of money for Weekly Reward. Default: 1000.
+ * @property {number} weeklyCooldown Cooldown for Weekly Reward (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
  *
+ * @property {number | number[]} monthlyAmount Amount of money for Monthly Reward. Default: 10000.
+ * @property {number} monthlyCooldown Cooldown for Weekly Reward (in ms). Default: 1 month (2629746000 ms).
+ * 
+ * @property {number | number[]} hourlyAmount Amount of money for Hourly Reward. Default: 20.
+ * @property {number} hourlyCooldown Cooldown for Hourly Reward (in ms). Default: 1 hour (3600000 ms).
+ * *
  * @property {string} dateLocale The region (example: 'ru' or 'en') to format the date and time. Default: 'en'
  * @property {boolean} subtractOnBuy
  * If true, when someone buys the item, their balance will subtract by item price. Default: false.
@@ -326,12 +351,12 @@ class SettingsManager {
  * @property {string} [storagePath='./storage.json'] Full path to a JSON file. Default: './storage.json'
  * @property {boolean} [checkStorage=true] Checks the if database file exists and if it has errors. Default: true
  * @property {number} [dailyCooldown=86400000]
- * Cooldown for Daily Command (in ms). Default: 24 hours (60000 * 60 * 24 ms)
+ * Cooldown for Daily Reward (in ms). Default: 24 hours (60000 * 60 * 24 ms)
  *
- * @property {number} [workCooldown=3600000] Cooldown for Work Command (in ms). Default: 1 hour (60000 * 60 ms)
- * @property {number | number[]} [dailyAmount=100] Amount of money for Daily Command. Default: 100.
+ * @property {number} [workCooldown=3600000] Cooldown for Work Reward (in ms). Default: 1 hour (60000 * 60 ms)
+ * @property {number | number[]} [dailyAmount=100] Amount of money for Daily Reward. Default: 100.
  * @property {number} [weeklyCooldown=604800000]
- * Cooldown for Weekly Command (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
+ * Cooldown for Weekly Reward (in ms). Default: 7 days (60000 * 60 * 24 * 7 ms)
  *
  * @property {boolean} [deprecationWarnings=true]
  * If true, the deprecation warnings will be sent in the console. Default: true.
@@ -341,8 +366,15 @@ class SettingsManager {
  * @property {number} [sellingItemPercent=75]
  * Percent of the item's price it will be sold for. Default: 75.
  *
- * @property {number | number[]} [weeklyAmount=100] Amount of money for Weekly Command. Default: 1000.
- * @property {number | number[]} [workAmount=[10, 50]] Amount of money for Work Command. Default: [10, 50].
+ * @property {number | number[]} [weeklyAmount=100] Amount of money for Weekly Reward. Default: 1000.
+ * @property {number | number[]} [workAmount=[10, 50]] Amount of money for Work Reward. Default: [10, 50].
+ *
+ * @property {number | number[]} [monthlyAmount=10000] Amount of money for Monthly Reward. Default: 10000.
+ * @property {number} [monthlyCooldown=2629746000] Cooldown for Weekly Reward (in ms). Default: 1 month (2629746000 ms).
+ * 
+ * @property {number | number[]} [hourlyAmount=20] Amount of money for Hourly Reward. Default: 20.
+ * @property {number} [hourlyCooldown=3600000] Cooldown for Hourly Reward (in ms). Default: 1 hour (3600000 ms).
+ *
  * @property {boolean} [subtractOnBuy=true]
  * If true, when someone buys the item, their balance will subtract by item price. Default: false
  *
@@ -393,6 +425,8 @@ class SettingsManager {
  * @typedef {'dailyAmount' | 'dailyCooldown' |
  * 'workAmount' | 'workCooldown' |
  * 'weeklyAmount' | 'weeklyCooldown' |
+ * 'monthlyAmount' | 'monthlyCooldown' |
+ * 'hourlyAmount' | 'hourlyCooldown' |
  * 'dateLocale' | 'subtractOnBuy' |
  * 'sellingItemPercent' | 'savePurchasesHistory'} Settings
  */
