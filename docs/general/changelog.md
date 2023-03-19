@@ -10,6 +10,19 @@
 
 <div>
 
+<b>v1.7.6</b>
+
+- Fixed TONS of bugs.
+- Fixed JSDoc typos/mismatches.
+- Fixed typings.
+- Removed unnecessary things.
+- Code optimization.
+- Added the `endTimestamp` property to the cooldown object in `RewardCooldownData` object of **rewards result object**.
+- **BREAKING CHANGE**: **Renamed** the `status` property to `claimed` in **rewards result object** so it will make sense.
+- Added a `getAll()` and `clearAll()` to `CooldownsManager` and `getAll()` to Cooldowns as they all were missing.
+- Added a `transfer()` method to `Currency` class.
+- Added **monthly** and **hourly** rewards! 🔥
+
 <b>v1.7.5</b>
 
 - Fixed JSDoc typos/mismatches.

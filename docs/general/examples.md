@@ -66,7 +66,7 @@ if (command == prefix + 'balance') {
 }
 ```
 
-## Daily, Work and Weekly Commands
+## Reward Commands (Daily, Work, Weekly, Monthly & Hourly)
 
 ```js
 if (command == prefix + 'daily') {
@@ -75,7 +75,7 @@ if (command == prefix + 'daily') {
 
   const dailyResult = user.rewards.getDaily<false>()
 
-  if (dailyResult.cooldown) {
+  if (!dailyResult.claimed) {
       return message.channel.send(
           `${message.author}, you can claim your daily reward in ${dailyResult.cooldown.pretty}.`
       )
@@ -93,7 +93,7 @@ if (command == prefix + 'work') {
 
   const workResult = user.rewards.getWork<true>()
 
-  if (workResult.cooldown) {
+  if (!workResult.claimed) {
       return message.channel.send(
           `${message.author}, you can work again in ${workResult.cooldown.pretty}.`
       )
@@ -111,7 +111,7 @@ if (command == prefix + 'weekly') {
 
   const weeklyResult = user.rewards.getWeekly<true>()
 
-  if (weeklyResult.cooldown) {
+  if (!weeklyResult.claimed) {
       return message.channel.send(
           `${message.author}, you can claim your weekly reward in ${weeklyResult.cooldown.pretty}.`
       )
@@ -119,6 +119,40 @@ if (command == prefix + 'weekly') {
 
   message.channel.send(
       `${message.author}, you claimed your **${weeklyResult.reward}** weekly coins!`
+  )
+}
+
+if (command == prefix + 'monthly') {
+  const guild = eco.guilds.get(message.guild.id)
+  const user = guild.users.get(message.author.id)
+
+  const monthlyResult = user.rewards.getMonthly<true>()
+
+  if (!monthlyResult.claimed) {
+      return message.channel.send(
+          `${message.author}, you can claim your monthly reward in ${monthlyResult.cooldown.pretty}.`
+      )
+  }
+
+  message.channel.send(
+      `${message.author}, you claimed your **${monthlyResult.reward}** monthly coins!`
+  )
+}
+
+if (command == prefix + 'hourly') {
+  const guild = eco.guilds.get(message.guild.id)
+  const user = guild.users.get(message.author.id)
+
+  const hourlyResult = user.rewards.getHourly<true>()
+
+  if (!hourlyResult.claimed) {
+      return message.channel.send(
+          `${message.author}, you can claim your hourly reward in ${hourlyResult.cooldown.pretty}.`
+      )
+  }
+
+  message.channel.send(
+      `${message.author}, you claimed your **${hourlyResult.reward}** hourly coins!`
   )
 }
 ```
