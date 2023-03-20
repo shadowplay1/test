@@ -20,7 +20,7 @@ const client = new Client({
 // they were made to configure the module.
 
 // learn more about configuring Economy and see the full options list and full configuring example here:
-// https://des-docs.js.org/#/docs/main/1.7.5/general/configuring
+// https://des-docs.js.org/#/docs/main/1.7.7/general/configuring
 
 let eco = new Economy({
     storagePath: './storage.json',
@@ -254,10 +254,10 @@ if (command == prefix + 'shop_add') {
     }
 
     // see all the available item options here:
-    // https://des-docs.js.org/#/docs/main/1.7.5/typedef/AddItemOptions
+    // https://des-docs.js.org/#/docs/main/1.7.7/typedef/AddItemOptions
 
     // learn more about custom item data:
-    // https://des-docs.js.org/#/docs/main/1.7.5/general/custom-data
+    // https://des-docs.js.org/#/docs/main/1.7.7/general/custom-data
 
     const newItem = guild.shop.addItem({
         name,
@@ -275,7 +275,7 @@ if (command == prefix + 'shop_add') {
 // subtracts its price from the user's balance if `subtractOnBuy` option is `true`)
 
 // Learn more about configuring Economy:
-// https://des-docs.js.org/#/docs/main/1.7.5/general/configuring
+// https://des-docs.js.org/#/docs/main/1.7.7/general/configuring
 if (command == prefix + 'shop_buy') {
     const guild = eco.guilds.get(message.guild.id)
     const user = guild.users.get(message.author.id)
