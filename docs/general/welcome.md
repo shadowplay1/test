@@ -25,7 +25,7 @@ Features:
 <br>
 <ul>
 <li><b>Clean TypeScript Defenitions 📘</b></li>
-<li><b><a href="https://des-docs.js.org/#/docs/main/1.7.5/general/migrating-to-mongo">MongoDB Support 🍃</a></b></li>
+<li><b><a href="https://des-docs.js.org/#/docs/main/1.7.7/general/migrating-to-mongo">MongoDB Support 🍃</a></b></li>
 <li><b>Object-oriented 📜</b></li>
 <li><b>Flexible and Customizable ⚙️</b></li>
 <li><b>Easy to use 👍</b></li>
@@ -33,8 +33,8 @@ Features:
 <li><b>Shop System 🛒</b></li>
 <li><b>Bank Balance System 🏦</b></li>
 <li><b>Custom Currencies System 💵</b></li>
-<li><b><a href="https://des-docs.js.org/#/docs/main/1.7.5/general/custom-data">Custom Item Data 📝</a></b></li>
-<li><b><a href="https://des-docs.js.org/#/docs/main/1.7.5/general/configuring">Multi-Server Setup 🔧</a></b></li>
+<li><b><a href="https://des-docs.js.org/#/docs/main/1.7.7/general/custom-data">Custom Item Data 📝</a></b></li>
+<li><b><a href="https://des-docs.js.org/#/docs/main/1.7.7/general/configuring">Multi-Server Setup 🔧</a></b></li>
 </ul>
 
 ## 🤔 | Help

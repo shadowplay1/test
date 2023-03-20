@@ -9,11 +9,11 @@
 You know that the module has a lot of different settings and you can set them up like you want. In this article, we will go through everything about configuring the Economy system and how to set it up for different guilds!
 
 ## Available Options
-Full list of available Economy options is available [here](https://des-docs.js.org/#/docs/main/1.7.5/typedef/EconomyConfiguration).
+Full list of available Economy options is available [here](https://des-docs.js.org/#/docs/main/1.7.7/typedef/EconomyConfiguration).
 
 Please note: 
 1. For JSON version, all the options for are **optional** 
-2. For MongoDB version, `connection` object is required to be specified in the configuration for MongoDB version. [Learn more about connecting MongoDB to Economy](https://des-docs.js.org/#/docs/main/1.7.5/general/migrating-to-mongo)
+2. For MongoDB version, `connection` object is required to be specified in the configuration for MongoDB version. [Learn more about connecting MongoDB to Economy](https://des-docs.js.org/#/docs/main/1.7.7/general/migrating-to-mongo)
 
 ## Passing Configuration to the Module
 There are 2 ways of passing the configuration object to the module:
@@ -70,7 +70,7 @@ weeklyAmount: 1000 // static value - 1000 will be added to the user's balance on
 ```
 
 ## Configuring Economy for Different Guilds
-To edit the configuration keys for a specific guild, you may use the [SettingsManager](https://des-docs.js.org/#/docs/main/1.7.5/class/SettingsManager) for this:
+To edit the configuration keys for a specific guild, you may use the [SettingsManager](https://des-docs.js.org/#/docs/main/1.7.7/class/SettingsManager) for this:
 ```js
 eco.settings.set('key', value, 'guildID')
 ```
@@ -89,50 +89,118 @@ This example will contain default values for each setting.
 Note that all settings (except `connection` for MongoDB version) are **optional** and you won't have to specify them all!
 
 ```js
+// all options and additional configs are optional and default values are specified in this example config
+// see the '[!!!]' comments for different database cases
+// '[!]' comments are important ones
+
 const economyConfigExample = {
-    storagePath: './storage.json', // specify if using JSON version (optional)
+    // [!!!] `storagePath`, `updateCountdown`, `checkStorage` database config properties:
+    // [!!!] specify them if using JSON version (all of these props are optional)
+
+    storagePath: './storage.json', // [!] specify if using JSON version (all are optional)
     updateCountdown: 1000, // specify if using JSON version (optional)
     checkStorage: true, // specify if using JSON version (optional)
 
-    connection: { // specify if using MongoDB version (required)
+
+    // [!!!] mongodb connection config: specify if using MongoDB version 
+    // [!!!] (required for MongoDB version)
+    connection: {
         connectionURI: '...', // mongodb connection URI
         collectionName: 'database', // specify if using MongoDB version (optional)
         dbName: 'db', // specify if using MongoDB version (optional)
         mongoClientProperties: {} // specify if using MongoDB version (optional)
     },
 
-    dailyAmount: 100, // [min, max] array allowed
-    workAmount: [10, 50], // [min, max] array allowed
-    weeklyAmount: 1000, // [min, max] array allowed
+
+    // [!] reward amounts: specifying either [min, max] array or a single number is allowed
+    dailyAmount: 100,
+    workAmount: [10, 50],
+    weeklyAmount: 1000,
+    monthlyAmount: 10000,
+    hourlyAmount: 10,
+
+    // [!] all cooldown times are in milliseconds
     dailyCooldown: 86400000,
     workCooldown: 3600000,
     weeklyCooldown: 604800000,
-    sellingItemPercent: 75,
-    savePurchasesHistory: true,
-    deprecationWarnings: true,
+    monthlyCooldown: 2629746000,
+    hourlyCooldown: 3600000,
+
+    // the region to format the dates and times
     dateLocale: 'en',
+
+
+    // the percent of item price that is adding to user when selling the item
+
+    // learn more about selling the items:
+    // https://des-docs.js.org/#/docs/main/1.7.6/class/InventoryItem?scrollTo=sell
+    sellingItemPercent: 75,
+
+    // enable or disable saving the purchases history
+    savePurchasesHistory: true,
+
+    // eanable or disable subtracting the item price when buying the item
     subtractOnBuy: true,
 
+    // enable or disable deprecation warnings in the console
+    deprecationWarnings: true,
+
+
+    // updates checker config
     updater: {
+
+        // enable or disable the console message
+        // when the module is out of date
+        // (when using the older version and newer is available)
         checkUpdates: true,
+
+        // enable or disable the console message when the module is up to date
+        // (when using the latest version)
         upToDateMessage: false
     },
 
+
+    // error hanler config
     errorHandler: {
+
+        // enable or disable module start up errors handling
         handleErrors: true,
+
+        // number of attempts to start the module up
         attempts: 5,
+
+        // time between each aattempt (in milliseconds)
         time: 5000
     },
 
+
+    // economy configuration checker config
     optionsChecker: {
+
+        // ignore the incorrect types specified in the config
+        // (for example: specifying boolean types in reward amount or cooldowns options)
         ignoreInvalidTypes: false,
+
+        // ignore the options that are not specified
         ignoreUnspecifiedOptions: true,
+
+        // ignore the options that don't exist
         ignoreInvalidOptions: false,
+
+        // output the number of problems in the config object
+        // (every invalid type, invalid option and unspecified option (if not ignored) is couted as a problem)
         showProblems: true,
+
+        // output the config checking result
         sendLog: true,
+
+        // output the successful config checking result (when found no problems)
+        // [!] requires the `sendLog` property to be `true`
         sendSuccessLog: false
     },
 
+    // enable or disablea debug logs in the console
+    // for better and easier troubleshooting
     debug: false
 }
 ```
