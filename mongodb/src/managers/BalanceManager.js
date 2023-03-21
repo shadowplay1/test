@@ -157,7 +157,7 @@ class BalanceManager extends Emitter {
             type: 'set',
             guildID,
             memberID,
-            amount: Number(amount),
+            amount: parseInt(amount),
             balance,
             reason
         })
@@ -199,7 +199,7 @@ class BalanceManager extends Emitter {
             type: 'add',
             guildID,
             memberID,
-            amount: Number(amount),
+            amount: parseInt(amount),
             balance: balance + amount,
             reason
         })
@@ -241,7 +241,7 @@ class BalanceManager extends Emitter {
             type: 'subtract',
             guildID,
             memberID,
-            amount: Number(amount),
+            amount: parseInt(amount),
             balance: balance - amount,
             reason
         })
@@ -289,7 +289,7 @@ class BalanceManager extends Emitter {
             type: 'subtract',
             guildID,
             memberID,
-            amount: Number(amount),
+            amount: parseInt(amount),
             balance: balance - amount,
             reason
         })
@@ -298,7 +298,7 @@ class BalanceManager extends Emitter {
             type: 'add',
             guildID,
             memberID,
-            amount: Number(amount),
+            amount: parseInt(amount),
             balance: bank + amount,
             reason
         })
@@ -327,7 +327,7 @@ class BalanceManager extends Emitter {
 
         for (const rank in ranks) lb.push({
             userID: users[rank],
-            money: Number(ranks[rank])
+            money: parseInt(ranks[rank])
         })
 
         return lb
@@ -415,7 +415,7 @@ class BalanceManager extends Emitter {
 
 
 /**
- * @typedef {Object} TransferingResult
+ * @typedef {object} TransferingResult
  * @property {boolean} success Whether the transfer was successful or not.
  * @property {string} guildID Guild ID.
  * @property {number} amount Amount of money that was sent.
@@ -435,6 +435,7 @@ class BalanceManager extends Emitter {
  * @property {string} receiverMemberID A member ID who will receive the money.
  * @property {string} [sendingReason='sending money to user'] 
  * The reason of subtracting the money from sender. (example: "sending money to {user}")
+ *
  * @property {string} [receivingReason='receiving money from user']
  * The reason of adding a money to receiver. (example: "receiving money from {user}")
  */
@@ -448,7 +449,7 @@ class BalanceManager extends Emitter {
  */
 
 /**
- * @typedef {Object} CurrencyObject
+ * @typedef {object} CurrencyObject
  * @property {number} id Currency ID.
  * @property {string} guildID Guild ID.
  * @property {string} name Currency name.
@@ -465,6 +466,15 @@ class BalanceManager extends Emitter {
  * @property {FactoryAdd} add Adds the money on the currency balance.
  * @property {FactorySubtract} subtract Subtracts the money from the currency balance.
  */
+
+/**
+ * @typedef {object} CurrencyTransactionInfo
+ * @property {boolean} status Status of the transaction.
+ * @property {number} amount Amount of currency used in the transaction.
+ * @property {number} newBalance New currency balance after completing the transaction.
+ * @property {Currency} currency The currency that was used in the transaction.
+ */
+
 /**
  * @callback FactoryGet
  * @returns {Promise<number>} Currency balance.
@@ -479,23 +489,22 @@ class BalanceManager extends Emitter {
  * @callback FactorySet
  * @param {number} amount Amount of money to set.
  * @param {string} [reason] The reason why the money was set.
- * @returns {Promise<number>} Updated currency balance.
+ * @returns {Promise<CurrencyTransactionInfo>} Currency transaction info object.
  */
 
 /**
  * @callback FactoryAdd
  * @param {number} amount Amount of money to add.
  * @param {string} [reason] The reason why the money was added.
- * @returns {Promise<number>} Updated currency balance.
+ * @returns {Promise<CurrencyTransactionInfo>} Currency transaction info object.
  */
 
 /**
  * @callback FactorySubtract
  * @param {number} amount Amount of money to subtract.
  * @param {string} [reason] The reason why the money was subtracted.
- * @returns {Promise<number>} Updated currency balance.
+ * @returns {Promise<CurrencyTransactionInfo>} Currency transaction info object.
  */
-
 
 /**
  * Balance manager class.
