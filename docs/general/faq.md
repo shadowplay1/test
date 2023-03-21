@@ -13,7 +13,7 @@
 
 <br>
 
-### **Q:** I have dublicate items in my inventory. How do I filter them out?
+### **Q:** I have duplicate items in my inventory. How do I filter them out?
 
 #### **A:** There's a `stack()` method in `InventoryItem` that allows you to do this easliy.
 
