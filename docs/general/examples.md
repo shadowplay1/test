@@ -167,6 +167,10 @@ if (command == prefix + 'deposit') {
   const userBalance = user.balance.get()
   const amount = parseInt(args[0])
 
+  if (!name) {
+      return message.channel.send(`${message.author}, currency name is not specified.`)
+  }
+    
   if (userBalance < amount) {
       return message.channel.send(
           `${message.author}, you don't have enough coins` +
@@ -174,8 +178,7 @@ if (command == prefix + 'deposit') {
       )
   }
 
-  user.balance.subtract(amount, `depositted ${amount} coins`)
-  user.bank.add(amount, `depositted ${amount} coins`)
+  user.balance.deposit(amount, `depositted ${amount} coins`)
 
   message.channel.send(
       `${message.author}, you deposited **${amount}** coins to your bank.`
@@ -190,6 +193,10 @@ if (command == prefix + 'withdraw') {
   const userBankBalance = user.bank.get()
   const amount = parseInt(args[0])
 
+  if (!name) {
+      return message.channel.send(`${message.author}, currency name is not specified.`)
+  } 
+
   if (userBankBalance < amount) {
       return message.channel.send(
           `${message.author}, you don't have enough coins` +
@@ -197,12 +204,48 @@ if (command == prefix + 'withdraw') {
       )
   }
 
-  user.bank.subtract(amount, `withdrew ${amount} coins`)
-  user.balance.add(amount, `withdrew ${amount} coins`)
+  user.bank.withdraw(amount, `withdrew ${amount} coins`)
 
   message.channel.send(
       `${message.author}, you withdrew **${amount}** coins from your bank.`
   )
+}
+```
+
+# Transfer Money To Another User
+
+```js
+// Transfer specified amount of money to another user
+if (command == prefix + 'transfer') {
+    const [userID, amount] = args
+    const guild = eco.guilds.get(message.guild.id)
+
+    const guildUser = guild.users.get(
+        message.mentions.users.first()?.id ||
+        message.guild.users.get(userID) ||
+        message.author.id
+    )
+
+    if (!amount) {
+        return message.channel.send(`${message.author}, amount is not specified.`)
+    }
+
+    if (!guildUser) {
+        return message.channel.send(`${message.author}, user not found.`)
+    }
+
+    const user = guild.users.get(guildUser.id)
+
+    // 'user' is the money receiver so we don't specify
+    // the receiver user ID here
+    const transferingResult = user.balance.transfer({
+        amount,
+        senderMemberID: message.author.id,
+        sendingReason: `sent money to ${guildUser.tag}`, // optional property
+        receivingReason: `received money from ${guildUser.tag}` // optional property
+    })
+
+    message.channel.send(`Successfully transfered **${amount}** coins to ${guildUser}!`)
 }
 ```
 
@@ -270,12 +313,14 @@ if (command == prefix + 'shop_add') {
     )
 }
 
+
 // Buy an item from the shop
 // (adds the item to user's inventory and 
 // subtracts its price from the user's balance if `subtractOnBuy` option is `true`)
 
 // Learn more about configuring Economy:
 // https://des-docs.js.org/#/docs/main/1.7.7/general/configuring
+
 if (command == prefix + 'shop_buy') {
     const guild = eco.guilds.get(message.guild.id)
     const user = guild.users.get(message.author.id)
@@ -337,12 +382,20 @@ if (command == prefix + 'shop_use') {
 }
 ```
 
-# Custom Currencies
+# Custom Currencies: Create, Get Balance, Add, Subtract & Transfer
 
 ```js
 // Create a currency for the guild
 if (command == prefix + 'createCurrency') {
     const [name, symbol] = args
+
+    if (!name) {
+        return message.channel.send(`${message.author}, currency name is not specified.`)
+    }
+    
+    if (!symbol) {
+        return message.channel.send(`${message.author}, currency symbol is not specified.`)
+    }
     
     eco.currencies.create(name, symbol, message.guild.id)
     message.channel.send(`Successfully created a new **${name} (${symbol})** currency!`)
@@ -367,16 +420,17 @@ if (command == prefix + 'currencyBalance') {
 
     const user = guild.users.get(guildUser.id)
 
+
     // here, the `get()` method fetches the user balance for specified currency and
     // `getCurrency()` method fetches the info object about specified currency
 
-    const [currencyBalance, currency] = [
-        user.balance.currency('(currency ID, currency name or currency symbol)').get(),
-        user.balance.currency('(currency ID, currency name or currency symbol)').getCurrency()
-    ]
+    const currency = user.balance.currency('(currency ID, currency name or currency symbol)')
+    const currencyInfo = currency.getCurrency()
+
+    const currencyBalance = currency.get()
 
     message.channel.send(
-        `${message.author}'s balance: **${currencyBalance}** ${currency.symbol}`
+        `${message.author}'s balance is **${currencyBalance}** ${currencyInfo.symbol}`
     )
 }
 
@@ -391,10 +445,18 @@ if (command == prefix + 'currencyAdd') {
         message.author.id
     )
 
+    if (!amount) {
+        return message.channel.send(`${message.author}, amount is not specified.`)
+    }
+
     const user = guild.users.get(guildUser.id)
 
-    user.balance.currency('(currency ID, currency name or currency symbol)').add(amount)
-    message.channel.send('Adding successful!')
+    const currency = user.balance.currency('(currency ID, currency name or currency symbol)')
+    const operationResult = currency.add(amount)
+
+    message.channel.send(
+        `Successfully added **${amount} ${operationResult.currency.symbol}** to ${message.author}'s balance!`
+    )
 }
 
 // Subtract the money from currency balance on the guild
@@ -407,13 +469,57 @@ if (command == prefix + 'currencySubtract') {
         message.guild.users.get(userID) ||
         message.author.id
     )
+ 
+    if (!amount) {
+        return message.channel.send(`${message.author}, amount is not specified.`)
+    }
 
     const user = guild.users.get(guildUser.id)
 
-    user.balance.currency('(currency ID, currency name or currency symbol)').subtract(amount)
-    message.channel.send('Subtracting successful!')
+    const currency = user.balance.currency('(currency ID, currency name or currency symbol)')
+    const operationResult = currency.subtract(amount)
+
+    message.channel.send(
+        `Successfully subtracted **${amount} ${operationResult.currency.symbol}** from ${message.author}'s balance!`
+    )
+}
+
+// Transfer currency to another user
+if (command == prefix + 'currencyTransfer') {
+    const [userID, amount] = args
+    const guild = eco.guilds.get(message.guild.id)
+
+    const guildUser = guild.users.get(
+        message.mentions.users.first()?.id ||
+        message.guild.users.get(userID) ||
+        message.author.id
+    )
+
+    if (!amount) {
+        return message.channel.send(`${message.author}, amount is not specified.`)
+    }
+
+    if (!guildUser) {
+        return message.channel.send(`${message.author}, user not found.`)
+    }
+
+    const user = guild.users.get(guildUser.id)
+    const currency = user.balance.currency('(currency ID, currency name or currency symbol)')
+
+    // we don't know who is the money receiver so we specify
+    // the receiver user ID here
+    const transferingResult = currency.transfer({
+        amount,
+        senderMemberID: message.author.id,
+        receiverMemberID: user.id,
+        sendingReason: `sent '${currency.name}s' to ${guildUser.tag}`, // optional property
+        receivingReason: `received '${currency.name}s' from ${guildUser.tag}` // optional property
+    })
+
+    message.channel.send(`Successfully transfered **${amount} ${currency.symbol}** to ${guildUser}!`)
 }
 ```
+
 See the full bot examples for both MongoDB and JSON databases in both JavaScript and TypeScript [here](https://github.com/shadowplay1/discord-economy-super/tree/main/examples)!
 
 ## ❗ | Useful Links
