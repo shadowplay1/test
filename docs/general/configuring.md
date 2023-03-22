@@ -133,7 +133,7 @@ const economyConfigExample = {
     // the percent of item price that is adding to user when selling the item
 
     // learn more about selling the items:
-    // https://des-docs.js.org/#/docs/main/1.7.6/class/InventoryItem?scrollTo=sell
+    // https://des-docs.js.org/#/docs/main/1.7.7/class/InventoryItem?scrollTo=sell
     sellingItemPercent: 75,
 
     // enable or disable saving the purchases history
