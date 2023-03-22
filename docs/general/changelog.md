@@ -23,7 +23,7 @@
 - Added a `transfer()` method to `Currency` class.
 - Added **monthly** and **hourly** rewards! 🔥
 
-<b>v1.7.5</b>
+<b>v1.7.7</b>
 
 - Fixed JSDoc typos/mismatches.
 - Fixed the hard crash in **JSON** version when trying to claim `daily`, `work` or `weekly` rewards.
