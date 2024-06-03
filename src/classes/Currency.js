@@ -184,7 +184,7 @@ class Currency extends Emitter {
      * @param {string} memberID Member ID.
      * @param {string} [reason] The reason why the balance was set.
      * @param {boolean} [emitSet=true] If true, `customCurrencySet` event will be emitted on set. Default: true.
-     * @returns {number} Amount of money that was set.
+     * @returns {CurrencyTransactionInfo} Currency transaction info object.
      */
     setBalance(amount, memberID, reason = '', emitSet = true) {
         const currenciesArray = this._all(this.guildID)
@@ -223,7 +223,13 @@ class Currency extends Emitter {
             })
         }
 
-        return amount
+        return {
+            status: true,
+            amount,
+            oldBalance: currency?.balances[memberID],
+            newBalance: amount,
+            currency: this
+        }
     }
 
     /**
@@ -231,7 +237,7 @@ class Currency extends Emitter {
      * @param {number} amount Amount of money to add.
      * @param {string} memberID Member ID.
      * @param {string} [reason] The reason why the balance was added.
-     * @returns {number} Amount of money that was added.
+     * @returns {CurrencyTransactionInfo} Currency transaction info object.
      */
     addBalance(amount, memberID, reason = '') {
         const currencyBalance = this.getBalance(memberID)
@@ -247,7 +253,13 @@ class Currency extends Emitter {
             reason
         })
 
-        return result
+        return {
+            status: true,
+            amount,
+            oldBalance: currencyBalance,
+            newBalance: result.newBalance,
+            currency: this
+        }
     }
 
     /**
@@ -255,7 +267,7 @@ class Currency extends Emitter {
      * @param {number} amount Amount of money to subtract.
      * @param {string} memberID Member ID.
      * @param {string} [reason] The reason why the balance was subtracted.
-     * @returns {number} Amount of money that was subtracted.
+     * @returns {CurrencyTransactionInfo} Currency transaction info object.
      */
     subtractBalance(amount, memberID, reason = '') {
         const currencyBalance = this.getBalance(memberID)
@@ -271,7 +283,13 @@ class Currency extends Emitter {
             reason
         })
 
-        return result
+        return {
+            status: true,
+            amount,
+            oldBalance: currencyBalance,
+            newBalance: result.newBalance,
+            currency: this
+        }
     }
 
     /**
@@ -319,6 +337,31 @@ class Currency extends Emitter {
     }
 
     /**
+     * Gets a balance leaderboard for this custom currency.
+     * @returns {BalanceLeaderboard[]} Sorted custom currency leaderboard array.
+    */
+    leaderboard() {
+        const lb = []
+
+        if (!Object.keys(this.balances).length) {
+            return []
+        }
+
+        const ranks = Object.entries(this.balances)
+
+        for (const [userID, money] of ranks) {
+            lb.push({
+                userID,
+                money: parseInt(money)
+            })
+        }
+
+        return lb
+            .sort((previous, current) => current.money - previous.money)
+            .map((entry, index) => ({ index: index + 1, ...entry }))
+    }
+
+    /**
      * Saves the currency object in database.
      * @returns {Currency} Currency instance.
      */
@@ -357,7 +400,7 @@ class Currency extends Emitter {
  */
 
 /**
- * @typedef {Object} TransferingResult
+ * @typedef {object} TransferingResult
  * @property {boolean} success Whether the transfer was successful or not.
  * @property {string} guildID Guild ID.
  * @property {number} amount Amount of money that was sent.
@@ -367,6 +410,15 @@ class Currency extends Emitter {
  * @property {string} receivingReason Receiving reason.
  * @property {number} senderBalance New sender balance.
  * @property {number} receiverBalance New receiver balance.
+ */
+
+/**
+ * @typedef {object} CurrencyTransactionInfo
+ * @property {boolean} status Status of the transaction.
+ * @property {number} amount Amount of currency used in the transaction.
+ * @property {number} oldBalance New currency balance before completing the transaction.
+ * @property {number} newBalance New currency balance after completing the transaction.
+ * @property {Currency} currency The currency that was used in the transaction.
  */
 
 /**

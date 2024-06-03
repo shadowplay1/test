@@ -3,11 +3,13 @@ const Emitter = require('../classes/util/Emitter')
 
 const FetchManager = require('./FetchManager')
 const BalanceManager = require('./BalanceManager')
+const CurrencyManager = require('./CurrencyManager')
 
 const errors = require('../structures/errors')
 
 const InventoryItem = require('../classes/InventoryItem')
 const ShopItem = require('../classes/ShopItem')
+
 
 /**
  * Inventory manager methods class.
@@ -53,6 +55,13 @@ class InventoryManager extends Emitter {
          * @private
          */
         this.balance = new BalanceManager(options, database)
+
+        /**
+         * Balance manager methods class.
+         * @type {BalanceManager}
+         * @private
+         */
+        this.currencies = new CurrencyManager(options, database)
     }
 
     /**
@@ -245,7 +254,7 @@ class InventoryManager extends Emitter {
         this.emit('shopItemUse', {
             guildID,
             usedBy: memberID,
-            item,
+            item: new InventoryItem(guildID, memberID, this.options, item, this.database),
             receivedMessage: msg
         })
 
@@ -364,9 +373,15 @@ class InventoryManager extends Emitter {
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {number} [quantity=1] Quantity of items to add. Default: 1.
+     * 
+     * @param {string | number} [currency=null] 
+     * The currency (ID, name or symbol) to subtract the money from. 
+     * Can be omitted by specifying 'null' or ignoring this parameter.
+     * Requires the `subtractOnBuy` option in `Economy` constructor to be enabled. Default: null.
+     * 
      * @returns {ShopOperationInfo} If added successfully: true, else: false.
      */
-    addItem(itemID, memberID, guildID, quantity = 1) {
+    addItem(itemID, memberID, guildID, quantity = 1, currency = null) {
 
         /**
         * @type {ShopItem[]}
@@ -408,7 +423,8 @@ class InventoryManager extends Emitter {
             message: 'item not found',
             item: null,
             quantity: 0,
-            totalPrice: 0
+            totalPrice: 0,
+            currencyUsed: currency ? this.currencies.get(currency, guildID) : null
         }
 
         const totalPrice = item.price * quantity
@@ -423,9 +439,10 @@ class InventoryManager extends Emitter {
         ) return {
             status: false,
             message: `maximum items reached (${item.maxAmount})`,
-            item,
+            item: new InventoryItem(guildID, memberID, this.options, item, this.database),
             quantity,
-            totalPrice
+            totalPrice,
+            currencyUsed: currency ? this.currencies.get(currency, guildID) : null
         }
 
 
@@ -434,24 +451,31 @@ class InventoryManager extends Emitter {
         return {
             status: true,
             message: 'OK',
-            item,
+            item: new InventoryItem(guildID, memberID, this.options, item, this.database),
             quantity,
-            totalPrice: item.price * quantity
+            totalPrice: item.price * quantity,
+            currencyUsed: currency ? this.currencies.get(currency, guildID) : null
         }
     }
 
     /**
-     * Removes the item from user's inventory
-     * and adds its price to the user's balance.
-     * This is the same as selling something.
+     * Removes the item from user's inventory and adds its price to the user's balance.
+     * This is the same as selling an item.
+     *
      * @param {string | number} itemID Item ID or name.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {number} [quantity=1] Quantity of items to sell.
-     * @param {string} [reason='sold the item from the inventory'] The reason why the item was sold.
+     * 
+     * @param {string | number} [currency=null] 
+     * The currency (ID, name or symbol) to subtract the money from. 
+     * Can be omitted by specifying 'null' or ignoring this parameter.
+     * Requires the `subtractOnBuy` option in `Economy` constructor to be enabled. Default: null.
+     * 
+     * @param {string} [reason='sold the item from inventory'] The reason why the item was sold.
      * @returns {ShopOperationInfo} Selling operation info.
      */
-    sellItem(itemID, memberID, guildID, quantity = 1, reason = 'sold the item from the inventory') {
+    sellItem(itemID, memberID, guildID, quantity = 1, currency = null, reason = 'sold the item from inventory') {
         const inventory = this.fetch(memberID, guildID)
 
         const item = this.findItem(itemID, memberID, guildID)
@@ -495,7 +519,8 @@ class InventoryManager extends Emitter {
             message: 'item not found',
             item: null,
             quantity: 0,
-            totalPrice: 0
+            totalPrice: 0,
+            currencyUsed: currency ? this.currencies.get(currency, guildID) : null
         }
 
         if (quantity > itemQuantity || quantity < 1) {
@@ -504,7 +529,8 @@ class InventoryManager extends Emitter {
                 message: `not enough items to sell (${itemQuantity} < ${quantity})`,
                 item,
                 quantity,
-                totalPrice: totalSellingPrice
+                totalPrice: totalSellingPrice,
+                currencyUsed: currency ? this.currencies.get(currency, guildID) : null
             }
         }
 
@@ -516,25 +542,32 @@ class InventoryManager extends Emitter {
             message: 'OK',
             item,
             quantity,
-            totalPrice: totalSellingPrice
+            totalPrice: totalSellingPrice,
+            currencyUsed: currency ? this.currencies.get(currency, guildID) : null
         }
     }
 
     /**
-     * Removes the item from user's inventory
-     * and adds its price to the user's balance.
-     * This is the same as selling something.
+     * Removes the item from user's inventory and adds its price to the user's balance.
+     * This is the same as selling an item.
      *
      * This method is an alias for 'InventoryManager.sellItem()' method.
+     *
      * @param {string | number} itemID Item ID or name.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {number} [quantity=1] Quantity of items to sell.
-     * @param {string} [reason='sold the item from the inventory'] The reason why the item was sold.
+     * 
+     * @param {string | number} [currency=null] 
+     * The currency (ID, name or symbol) to subtract the money from. 
+     * Can be omitted by specifying 'null' or ignoring this parameter.
+     * Requires the `subtractOnBuy` option in `Economy` constructor to be enabled. Default: null.
+     * 
+     * @param {string} [reason='sold the item from inventory'] The reason why the item was sold.
      * @returns {ShopOperationInfo} Selling operation info.
      */
-    sell(itemID, memberID, guildID, quantity = 1, reason = 'sold the item from the inventory') {
-        return this.sellItem(itemID, memberID, guildID, quantity, reason)
+    sell(itemID, memberID, guildID, quantity = 1, currency = null, reason = 'sold the item from inventory') {
+        return this.sellItem(itemID, memberID, guildID, quantity, currency, reason)
     }
 }
 
@@ -545,16 +578,17 @@ class InventoryManager extends Emitter {
  * @property {string} [message='You have used this item!'] Item message that will be returned on use.
  * @property {string} [description='Very mysterious item.'] Item description.
  * @property {number} [maxAmount=null] Max amount of the item that user can hold in their inventory.
- * @property {string} [role=null] Role **ID** from your Discord server.
+ * @property {string} [role=null] Role **ID** from your Discord server that will be adding to the member on item use.
  */
 
 /**
  * @typedef {object} ShopOperationInfo
  * @property {boolean} status Operation status.
  * @property {string} message Operation message.
- * @property {ShopItem | InventoryItem} item Item object.
+ * @property {InventoryItem} item Inventory item object.
  * @property {number} quantity Item quantity.
- * @property {number} totalPrice Total price of the items.
+ * @property {number} totalPrice Total price of all the items (item price multiplied by quantity).
+ * @property {Currency} currencyUsed The object of the currency that was used in this operation.
  */
 
 /**

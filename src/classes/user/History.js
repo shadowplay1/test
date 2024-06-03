@@ -5,6 +5,7 @@ const DatabaseManager = require('../../managers/DatabaseManager')
 const FetchManager = require('../../managers/FetchManager')
 
 const BaseManager = require('../../managers/BaseManager')
+const CurrencyManager = require('../../managers/CurrencyManager')
 
 const HistoryItem = require('../HistoryItem')
 
@@ -49,6 +50,13 @@ class History extends BaseManager {
          * @private
          */
         this.database = new DatabaseManager(options)
+
+        /**
+         * Currency Manager.
+         * @type {CurrencyManager}
+         * @private
+         */
+        this.currencies = new CurrencyManager(options, this.database)
     }
 
     /**
@@ -73,9 +81,14 @@ class History extends BaseManager {
     /**
      * Adds the item from the shop to the purchases history.
      * @param {string | number} itemID Shop item ID.
+     * 
+     * @param {string | number} [currency=null] 
+     * The currency (ID, name or symbol) that was used for the purchase. 
+     * Can be omitted by specifying 'null' or ignoring this parameter. Default: null.
+     * 
      * @returns {boolean} If added: true, else: false.
      */
-    add(itemID) {
+    add(itemID, currency = null) {
         const shop = this.database.fetch(`${this.guildID}.shop`)
         const history = this.database.fetch(`${this.guildID}.${this.memberID}.history`)
 
@@ -96,7 +109,8 @@ class History extends BaseManager {
             price: item.price,
             role: item.role || null,
             maxAmount: item.maxAmount,
-            date: new Date().toLocaleString(this.options.dateLocale || 'en')
+            date: new Date().toLocaleString(this.options.dateLocale || 'en'),
+            currencyUsed: currency ? this.currencies.get(currency, this.guildID).rawObject : null
         })
     }
 

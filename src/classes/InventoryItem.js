@@ -254,9 +254,8 @@ class InventoryItem extends Emitter {
     }
 
     /**
-     * Removes the item from user's inventory
-     * and adds its price to the user's balance.
-     * This is the same as selling something.
+     * Removes the item from user's inventory and adds its price to the user's balance.
+     * This is the same as selling an item.
      *
      * @param {number} [quantity=1] Quantity of items to sell.
      * @returns {SellingOperationInfo} Selling operation info.
@@ -285,7 +284,7 @@ class InventoryItem extends Emitter {
             return {
                 status: false,
                 message: `not enough items to sell (${itemQuantity} < ${quantity})`,
-                item,
+                item: this,
                 quantity,
                 totalPrice: totalSellingPrice
             }
@@ -297,7 +296,7 @@ class InventoryItem extends Emitter {
         return {
             status: true,
             message: 'OK',
-            item,
+            item: this,
             quantity,
             totalPrice: totalSellingPrice
         }

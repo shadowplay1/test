@@ -122,7 +122,7 @@ class EconomyGuild {
  * @property {string} [message='You have used this item!'] Item message that will be returned on use.
  * @property {string} [description='Very mysterious item.'] Item description.
  * @property {string | number} [maxAmount=null] Max amount of the item that user can hold in their inventory.
- * @property {string} [role=null] Role **ID** from your Discord server.
+ * @property {string} [role=null] Role **ID** from your Discord server that will be adding to the member on item use.
  */
 
 /**

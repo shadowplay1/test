@@ -21,7 +21,6 @@ var y = d * 365.25
  * @return {string | number}
  * @api public
  */
-
 module.exports = function (val, options = { long: true }) {
     options = options || {}
     var type = typeof val

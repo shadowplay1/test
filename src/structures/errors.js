@@ -133,7 +133,7 @@ module.exports = {
          * @returns {string} Currency with ID/name/symbol "{currencyID}" not found in guild {guildID}.
          */
         notFound(currencyID, guildID) {
-            return `Currency with ID/name/symbol "${currencyID}" not found in guild ${guildID}.`
+            return `Currency with ID/name/symbol "${currencyID}" was not found in guild "${guildID}".`
         }
     },
 

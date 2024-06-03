@@ -180,11 +180,14 @@ class UtilsManager {
         this._logger.debug('Debug mode is enabled.', 'lightcyan')
         this._logger.debug('Checking the configuration...')
 
-        const filePathArray = require.main.filename.replaceAll('\\', '/').split('/')
+        const filePathArray = require?.main?.filename?.replaceAll('\\', '/')?.split('/') || __filename
         const fileName = filePathArray[filePathArray.length - 1]
 
         const isTSFileAllowed = fileName.endsWith('.ts')
-        const dirName = dirname(require.main.filename).replace('/' + fileName, '').replace('\\' + fileName, '')
+
+        const dirName = dirname(require?.main?.filename || __filename)
+        .replace('/' + fileName, '')
+        .replace('\\' + fileName, '')
 
         let fileExtension = isTSFileAllowed ? 'ts' : 'js'
         let optionsFileExists = existsSync(`./economy.config.${fileExtension}`)
@@ -202,11 +205,13 @@ class UtilsManager {
             )
 
             try {
-                const rawOptionsObject = require(`${dirName}/economy.config.${fileExtension}`)
-                const optionsObject = rawOptionsObject.default ? rawOptionsObject.default : rawOptionsObject
+                const rawConfigurationObject = require(`${dirName}/economy.config.${fileExtension}`)
+                const configurationObject = this._extractConfigFromObject(
+                    rawConfigurationObject?.default || rawConfigurationObject
+                )
 
-                options = optionsObject.optionsChecker
-                ecoOptions = optionsObject
+                options = configurationObject.optionsChecker || {}
+                ecoOptions = configurationObject
             } catch (err) {
                 this._logger.error(`Failed to open the configuration file:\n${err.stack}`)
                 this._logger.debug('Using the configuration specified in a constructor...', 'cyan')

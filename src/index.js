@@ -346,7 +346,7 @@ class Economy extends Emitter {
                 if (this.errored) return reject(new EconomyError(errors.errored, 'UNKNOWN_ERROR'))
                 if (this.ready) return reject(new EconomyError(errors.notReady, 'MODULE_NOT_READY'))
 
-                if (Number(process.version.split('.')[0].slice(1)) < 14) {
+                if (parseInt(process.version.split('.')[0].slice(1)) < 14) {
                     return reject(new EconomyError(errors.oldNodeVersion + process.version, 'OLD_NODE_VERSION'))
                 }
 
@@ -754,7 +754,7 @@ class Economy extends Emitter {
 * @param {string} data.message Item message that will be returned on item use.
 * @param {string} data.description Item description.
 * @param {number} data.maxAmount Max amount of the item that user can hold in their inventory.
-* @param {string} data.role Role **ID** from your Discord server.
+* @param {string} data.role Role **ID** from your Discord server that will be adding to the member on item use.
 * @param {string} data.date Formatted date when the item was added to the shop.
 */
 
@@ -768,14 +768,18 @@ class Economy extends Emitter {
 * @param {string} data.message Item message that will be returned on item use.
 * @param {string} data.description Item description.
 * @param {number} data.maxAmount Max amount of the item that user can hold in their inventory.
-* @param {string} data.role Role **ID** from your Discord server.
+* @param {string} data.role Role **ID** from your Discord server that will be adding to the member on item use.
 * @param {string} data.date Formatted date when the item was added to the shop.
 */
 
 /**
 * Emits when someone's added an item in the shop.
 * @event Economy#shopItemBuy
-* @param {ShopItem} item Shop item that was bought.
+* @param {object} data Data object.
+* @param {string} data.guildID Guild ID.
+* @param {string} data.boughtBy The user ID that bought the item.
+* @param {ShopItem} data.item The item that was bought.
+* @param {Currency} data.currencyUsed The currency that was used for the purchase.
 */
 
 /**
@@ -788,7 +792,7 @@ class Economy extends Emitter {
 * @param {string} data.message Item message that will be returned on item use.
 * @param {string} data.description Item description.
 * @param {number} data.maxAmount Max amount of the item that user can hold in their inventory.
-* @param {string} data.role Role **ID** from your Discord server.
+* @param {string} data.role Role **ID** from your Discord server that will be adding to the member on item use.
 * @param {string} data.date Formatted date when the item was added to the shop.
 */
 

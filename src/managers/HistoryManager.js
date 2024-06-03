@@ -2,6 +2,7 @@ const EconomyError = require('../classes/util/EconomyError')
 const errors = require('../structures/errors')
 
 const HistoryItem = require('../classes/HistoryItem')
+const CurrencyManager = require('./CurrencyManager')
 
 /**
  * History manager methods class.
@@ -38,6 +39,13 @@ class HistoryManager {
         * @private
         */
         this.database = database
+
+        /**
+         * Currency Manager.
+         * @type {CurrencyManager}
+         * @private
+         */
+        this.currencies = new CurrencyManager(options, database)
     }
 
     /**
@@ -106,9 +114,14 @@ class HistoryManager {
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {number} [quantity=1] Quantity of the item.
+     * 
+     * @param {string | number} [currency=null] 
+     * The currency (ID, name or symbol) that was used for the purchase. 
+     * Can be omitted by specifying 'null' or ignoring this parameter. Default: null.
+     *
      * @returns {boolean} If added: true, else: false.
      */
-    add(itemID, memberID, guildID, quantity = 1) {
+    add(itemID, memberID, guildID, quantity = 1, currency = null) {
         const shop = this.database.fetch(`${guildID}.shop`) || []
         const history = this.database.fetch(`${guildID}.${memberID}.history`) || []
 
@@ -148,7 +161,8 @@ class HistoryManager {
             role: item.role || null,
             maxAmount: item.maxAmount,
             date: new Date().toLocaleString(this.options.dateLocale || 'en'),
-            custom: item.custom || {}
+            custom: item.custom || {},
+            currencyUsed: currency ? this.currencies.get(currency, guildID).rawObject : null
         })
 
         return result

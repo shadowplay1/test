@@ -5,6 +5,8 @@ const EconomyError = require('./util/EconomyError')
 
 const Emitter = require('./util/Emitter')
 
+const InventoryItem = require('./InventoryItem')
+
 
 /**
 * Shop item class.
@@ -225,9 +227,9 @@ class ShopItem extends Emitter {
      * @param {number} [quantity=1] Quantity of items to buy. Default: 1.
      *
      * @param {string | number} [currency=null]
-     * The currency to subtract the money from.
+     * The currency (ID, name or symbol) to subtract the money from.
      * Can be omitted by specifying 'null' or ignoring this parameter.
-     * Requires the `subtractOnBuy` option to be enabled. Default: null.
+     * Requires the `subtractOnBuy` option in `Economy` constructor to be enabled. Default: null.
      *
      * @param {string} [reason='received the item from the shop']
      * The reason why the money was subtracted. Default: 'received the item from the shop'.
@@ -278,6 +280,7 @@ class ShopItem extends Emitter {
             item: null,
             quantity: 0,
             totalPrice: 0,
+            currencyUsed: currency ? this.currencies.get(currency, this.guildID) : null
         }
 
         const totalPrice = item.price * quantity
@@ -293,9 +296,10 @@ class ShopItem extends Emitter {
         ) return {
             status: false,
             message: `maximum items reached (${item.maxAmount})`,
-            item,
+            item: new InventoryItem(this.guildID, this.memberID, this.options, item, this.database),
             quantity,
-            totalPrice
+            totalPrice,
+            currencyUsed: currency ? this.currencies.get(currency, this.guildID) : null
         }
 
         const settings = this.database.fetch(`${this.guildID}.settings`) || {}
@@ -321,7 +325,7 @@ class ShopItem extends Emitter {
                     type: 'subtract',
                     guildID: this.guildID,
                     memberID,
-                    amount: Number(totalPrice),
+                    amount: parseInt(totalPrice),
                     balance: balance - totalPrice,
                     reason
                 })
@@ -346,7 +350,8 @@ class ShopItem extends Emitter {
                 role: item.role || null,
                 maxAmount: item.maxAmount,
                 date: new Date().toLocaleString(dateLocale),
-                custom: item.custom || {}
+                custom: item.custom || {},
+                currencyUsed: currency ? this.currencies.get(currency, this.guildID).rawObject : null
             })
         } else {
             this.database.logger.debug('ShopItem.buy - Saving purchases history is disabled.')
@@ -355,15 +360,17 @@ class ShopItem extends Emitter {
         this.emit('shopItemBuy', {
             guildID: this.guildID,
             boughtBy: memberID,
-            item
+            item,
+            currencyUsed: currency ? this.currencies.get(currency, this.guildID) : null
         })
 
         return {
             status: true,
             message: 'OK',
-            item,
+            item: new InventoryItem(this.guildID, this.memberID, this.options, item, this.database),
             quantity,
-            totalPrice
+            totalPrice,
+            currencyUsed: currency ? this.currencies.get(currency, this.guildID) : null
         }
     }
 
@@ -452,6 +459,16 @@ class ShopItem extends Emitter {
  * @property {number} maxAmount Max amount of the item that user can hold in their inventory.
  * @property {string} date Date when the item was added in the shop.
  * @property {object} custom Custom item properties object.
+ */
+
+/**
+ * @typedef {object} ShopOperationInfo
+ * @property {boolean} status Operation status.
+ * @property {string} message Operation message.
+ * @property {InventoryItem} item Inventory item object.
+ * @property {number} quantity Item quantity.
+ * @property {number} totalPrice Total price of all the items (item price multiplied by quantity).
+ * @property {Currency} currencyUsed The object of the currency that was used in this operation.
  */
 
 /**

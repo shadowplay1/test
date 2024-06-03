@@ -1,12 +1,14 @@
 const Emitter = require('../classes/util/Emitter')
+
 const EconomyError = require('../classes/util/EconomyError')
+const errors = require('../structures/errors')
 
 const DatabaseManager = require('./DatabaseManager')
 const CurrencyManager = require('./CurrencyManager')
 
-const errors = require('../structures/errors')
 const ShopItem = require('../classes/ShopItem')
 const InventoryItem = require('../classes/InventoryItem')
+
 
 /**
  * Shop manager methods class.
@@ -122,7 +124,7 @@ class ShopManager extends Emitter {
             price,
             message: message || 'You have used this item!',
             description: description || 'Very mysterious item.',
-            maxAmount: maxAmount == undefined ? null : Number(maxAmount),
+            maxAmount: maxAmount == undefined ? null : parseInt(maxAmount),
             role: role || null,
             date,
             custom: custom || {}
@@ -497,9 +499,9 @@ class ShopManager extends Emitter {
      * @param {number} [quantity=1] Quantity of items to buy. Default: 1.
      *
      * @param {string | number} [currency=null]
-     * The currency to subtract the money from.
+     * The currency (ID, name or symbol) to subtract the money from.
      * Can be omitted by specifying 'null' or ignoring this parameter.
-     * Requires the `subtractOnBuy` option to be enabled. Default: null.
+     * Requires the `subtractOnBuy` option in `Economy` constructor to be enabled. Default: null.
      *
      * @param {string} [reason='received the item from the shop']
      * The reason why the money was subtracted. Default: 'received the item from the shop'.
@@ -567,7 +569,8 @@ class ShopManager extends Emitter {
             message: 'item not found',
             item: null,
             quantity: 0,
-            totalPrice: 0
+            totalPrice: 0,
+            currencyUsed: currency ? this.currencies.get(currency, guildID) : null
         }
 
         const totalPrice = item.price * quantity
@@ -583,9 +586,10 @@ class ShopManager extends Emitter {
         ) return {
             status: false,
             message: `maximum items reached (${item.maxAmount})`,
-            item,
+            item: new InventoryItem(guildID, memberID, this.options, item, this.database),
             quantity,
-            totalPrice
+            totalPrice,
+            currencyUsed: currency ? this.currencies.get(currency, guildID) : null
         }
 
         if (subtractOnBuy) {
@@ -599,7 +603,7 @@ class ShopManager extends Emitter {
                     type: 'subtract',
                     guildID,
                     memberID,
-                    amount: Number(totalPrice),
+                    amount: parseInt(totalPrice),
                     balance: balance - totalPrice,
                     reason
                 })
@@ -624,7 +628,8 @@ class ShopManager extends Emitter {
                 role: item.role || null,
                 maxAmount: item.maxAmount,
                 date: new Date().toLocaleString(dateLocale),
-                custom: item.custom || {}
+                custom: item.custom || {},
+                currencyUsed: currency ? this.currencies.get(currency, guildID) : null
             })
         } else {
             this.database.logger.debug('ShopItem.buy - Saving purchases history is disabled.')
@@ -639,9 +644,10 @@ class ShopManager extends Emitter {
         return {
             status: true,
             message: 'OK',
-            item,
+            item: new InventoryItem(guildID, memberID, this.options, item, this.database),
             quantity,
-            totalPrice
+            totalPrice,
+            currencyUsed: currency ? this.currencies.get(currency, guildID) : null
         }
     }
 
@@ -655,9 +661,9 @@ class ShopManager extends Emitter {
      * @param {number} [quantity=1] Quantity of items to buy. Default: 1.
      *
      * @param {string | number} [currency=null]
-     * The currency to subtract the money from.
+     * The currency (ID, name or symbol) to subtract the money from.
      * Can be omitted by specifying 'null' or ignoring this parameter.
-     * Requires the `subtractOnBuy` option to be enabled. Default: null.
+     * Requires the `subtractOnBuy` option in `Economy` constructor to be enabled. Default: null.
      *
      * @param {string} [reason='received the item from the shop']
      * The reason why the money was subtracted. Default: 'received the item from the shop'.
@@ -921,7 +927,7 @@ class ShopManager extends Emitter {
  * @property {string} [message='You have used this item!'] Item message that will be returned on use.
  * @property {string} [description='Very mysterious item.'] Item description.
  * @property {string | number} [maxAmount=null] Max amount of the item that user can hold in their inventory.
- * @property {string} [role=null] Role **ID** from your Discord server.
+ * @property {string} [role=null] Role **ID** from your Discord server that will be adding to the member on item use.
  * @property {object} [custom] Custom item properties object.
  */
 
@@ -929,9 +935,10 @@ class ShopManager extends Emitter {
  * @typedef {object} ShopOperationInfo
  * @property {boolean} status Operation status.
  * @property {string} message Operation message.
- * @property {ShopItem | InventoryItem} item Item object.
+ * @property {InventoryItem} item Inventory item object.
  * @property {number} quantity Item quantity.
- * @property {number} totalPrice Total price of the items.
+ * @property {number} totalPrice Total price of all the items (item price multiplied by quantity).
+ * @property {Currency} currencyUsed The object of the currency that was used in this operation.
  */
 
 /**

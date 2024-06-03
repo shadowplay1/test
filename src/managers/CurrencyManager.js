@@ -38,7 +38,7 @@ class CurrencyManager extends Emitter {
 
     /**
      * Finds the info for the specified currency.
-     * @param {string | number} currencyID Currency ID, its name or its symbol.
+     * @param {string | number} currencyID Currency ID, its name or its symbol (such as '$', '€', etc).
      * @param {string} guildID Guild ID.
      * @returns {Currency} Currency object.
      */
@@ -67,7 +67,7 @@ class CurrencyManager extends Emitter {
         )
 
         if (!currency) {
-            return {}
+            return null
         }
 
         return new Currency(
@@ -83,7 +83,7 @@ class CurrencyManager extends Emitter {
      * Finds the info for the specified currency.
      *
      * This method is an alias for `CurrencyManager.find()` method.
-     * @param {string | number} currencyID Currency ID, its name or its symbol.
+     * @param {string | number} currencyID Currency ID, its name or its symbol (such as '$', '€', etc).
      * @param {string} guildID Guild ID.
      * @returns {Currency} Currency object.
      */
@@ -93,7 +93,7 @@ class CurrencyManager extends Emitter {
 
     /**
      * Edits the currency object.
-     * @param {string | number} currencyID Currency ID, its name or its symbol.
+     * @param {string | number} currencyID Currency ID, its name or its symbol (such as '$', '€', etc).
      * @param {'name' | 'symbol' | 'custom'} property Currency property to edit.
      * @param {any} value Any value to set.
      * @param {string} guildID Guild ID.
@@ -142,7 +142,7 @@ class CurrencyManager extends Emitter {
 
     /**
      * Edits the currency's custom data object.
-     * @param {string | number} currencyID Currency ID, its name or its symbol.
+     * @param {string | number} currencyID Currency ID, its name or its symbol (such as '$', '€', etc).
      * @param {string} guildID Guild ID.
      * @param {object} customObject Custom data object to set.
      * @returns {Currency} Currency object with its updated custom property.
@@ -154,7 +154,7 @@ class CurrencyManager extends Emitter {
 
     /**
      * Gets the specified currency balance for specified member.
-     * @param {string | number} currencyID Currency ID, its name or its symbol.
+     * @param {string | number} currencyID Currency ID, its name or its symbol (such as '$', '€', etc).
      * @param {string} memberID Guild ID.
      * @param {string} guildID Guild ID.
      * @returns {number} Currency balance for specified member.
@@ -172,13 +172,13 @@ class CurrencyManager extends Emitter {
 
     /**
      * Sets the currecy balance for speciied member.
-     * @param {string | number} currencyID Currency ID, its name or its symbol.
+     * @param {string | number} currencyID Currency ID, its name or its symbol (such as '$', '€', etc).
      * @param {number} amount Amount of money to set.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {string} [reason] The reason why the money was set.
      * @param {boolean} [emitSet=true] If true, `customCurrencySet` event will be emitted on set. Default: true.
-     * @returns {number} Amount of money that was set.
+     * @returns {CurrencyTransactionInfo} Currency transaction info object.
      */
     setBalance(currencyID, amount, memberID, guildID, reason = '', emitSet = true) {
         const currenciesArray = this.all(guildID)
@@ -228,17 +228,23 @@ class CurrencyManager extends Emitter {
             })
         }
 
-        return amount
+        return {
+            status: true,
+            amount,
+            oldBalance: currency?.balances[memberID],
+            newBalance: amount,
+            currency
+        }
     }
 
     /**
      * Adds the currecy balance for speciied member.
-     * @param {string | number} currencyID Currency ID, its name or its symbol.
+     * @param {string | number} currencyID Currency ID, its name or its symbol (such as '$', '€', etc).
      * @param {number} amount Amount of money to add.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {string} [reason] The reason why the money was added.
-     * @returns {number} Amount of money that was add.
+     * @returns {CurrencyTransactionInfo} Currency transaction info object.
      */
     addBalance(currencyID, amount, memberID, guildID, reason = '') {
         const currency = this.get(currencyID, memberID, guildID)
@@ -251,22 +257,28 @@ class CurrencyManager extends Emitter {
             guildID,
             memberID,
             amount,
-            balance: currencyBalance + result,
+            balance: result.newBalance,
             currency,
             reason
         })
 
-        return result
+        return {
+            status: true,
+            amount,
+            oldBalance: currencyBalance,
+            newBalance: result.newBalance,
+            currency
+        }
     }
 
     /**
      * Subtracts the currecy balance for speciied member.
-     * @param {string | number} currencyID Currency ID, its name or its symbol.
+     * @param {string | number} currencyID Currency ID, its name or its symbol (such as '$', '€', etc).
      * @param {number} amount Amount of money to subtract.
      * @param {string} memberID Member ID.
      * @param {string} guildID Guild ID.
      * @param {string} [reason] The reason why the money was subtracted.
-     * @returns {number} Amount of money that was subtracted.
+     * @returns {CurrencyTransactionInfo} Currency transaction info object.
      */
     subtractBalance(currencyID, amount, memberID, guildID, reason = '') {
         const currency = this.get(currencyID, memberID, guildID)
@@ -279,18 +291,58 @@ class CurrencyManager extends Emitter {
             guildID,
             memberID,
             amount,
-            balance: currencyBalance - result,
+            balance: result.newBalance,
             currency,
             reason
         })
 
-        return result
+        return {
+            status: true,
+            amount,
+            oldBalance: currencyBalance,
+            newBalance: result.newBalance,
+            currency
+        }
+    }
+
+    /**
+     * Gets a balance leaderboard for specified custom currency in specified guild.
+     * @param {string | number} currencyID Currency ID, its name or its symbol (such as '$', '€', etc).
+     * @param {string} guildID Guild ID.
+     * @returns {BalanceLeaderboard[]} Sorted custom currency leaderboard array.
+     */
+    leaderboard(currencyID, guildID) {
+        const lb = []
+        const currency = this.get(currencyID, guildID)
+
+        if (!currency) {
+            throw new EconomyError(errors.currencies.notFound(currencyID, guildID), 'CURRENCY_NOT_FOUND')
+        }
+
+        const currencyBalances = currency.balances
+
+        if (!Object.keys(currencyBalances).length) {
+            return []
+        }
+
+        const ranks = Object.entries(currencyBalances)
+
+        for (const [userID, money] of ranks) {
+            lb.push({
+                userID,
+                money: parseInt(money)
+            })
+        }
+
+        return lb
+            .sort((previous, current) => current.money - previous.money)
+            .map((entry, index) => ({ index: index + 1, ...entry }))
     }
 
     /**
      * Creates a currency object in database.
      * @param {string} name Currency name to set.
-     * @param {string} symbol Currency symbol to set.
+     * @param {string} symbol Currency symbol to set (such as '$', '€', etc).
      * @param {string} guildID Guild ID.
      * @returns {Currency} Currency object.
      */
@@ -303,7 +355,24 @@ class CurrencyManager extends Emitter {
             throw new EconomyError(errors.invalidType('symbol', 'string', typeof symbol), 'INVALID_TYPE')
         }
 
-        const currenciesArray = this.all(guildID)
+        const currenciesArray = this.all(guildID).map(currency => currency.rawObject)
+
+        const existingCurrency = currenciesArray.find(currency =>
+            currency.name.toLowerCase() == name.toLowerCase() ||
+            currency.symbol.toLowerCase() == symbol.toLowerCase()
+        )
+
+        if (existingCurrency) {
+            return new Currency(
+                existingCurrency.id,
+                guildID,
+                this.options,
+                existingCurrency,
+                this.database,
+                this.cache
+            )
+        }
+
         const newCurrencyObject = defaultCurrencyObject
 
         newCurrencyObject.id = currenciesArray.length ? currenciesArray[currenciesArray.length - 1].id + 1 : 1
@@ -320,12 +389,12 @@ class CurrencyManager extends Emitter {
             this.options,
             newCurrencyObject,
             this.database
-        ) || null
+        )
     }
 
     /**
      * Deletes the currency object and all its balances in a specified guild.
-     * @param {string | number} currencyID Currency ID, its name or its symbol.
+     * @param {string | number} currencyID Currency ID, its name or its symbol (such as '$', '€', etc).
      * @param {string} guildID Guild ID.
      * @returns {Currency} Deleted currency object.
      */
@@ -380,18 +449,35 @@ class CurrencyManager extends Emitter {
             this.options,
             currency,
             this.database
-        ) || null)
+        ))
     }
 }
 
 /**
- * @typedef {Object} CurrencyObject
+ * @typedef {object} CurrencyObject
  * @property {number} id Currency ID.
  * @property {string} guildID Guild ID.
  * @property {string} name Currency name.
  * @property {string} [symbol] Currency symbol.
  * @property {object} balances Currency balances object.
  * @property {object} custom Custom currency data object.
+ */
+
+/**
+ * @typedef {object} CurrencyTransactionInfo
+ * @property {boolean} status Status of the transaction.
+ * @property {number} amount Amount of currency used in the transaction.
+ * @property {number} oldBalance New currency balance before completing the transaction.
+ * @property {number} newBalance New currency balance after completing the transaction.
+ * @property {Currency} currency The currency that was used in the transaction.
+ */
+
+/**
+ * Balance leaderboard object.
+ * @typedef {object} BalanceLeaderboard
+ * @property {number} index User's place in the leaderboard.
+ * @property {string} userID User ID.
+ * @property {number} money Amount of money.
  */
 
 /**

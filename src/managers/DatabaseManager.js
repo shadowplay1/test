@@ -104,7 +104,7 @@ class DatabaseManager {
      */
     add(key, value) {
         try {
-            const data = this.parser.parse(key)
+            const data = this.parser.parse(key) ?? 0
 
             if (!key) return false
             if (typeof key !== 'string') {
@@ -119,8 +119,8 @@ class DatabaseManager {
                 throw new EconomyError(errors.databaseManager.invalidTypes.target.number + typeof data, 'INVALID_TYPE')
             }
 
-            const numData = Number(data)
-            const numValue = Number(value)
+            const numData = parseInt(data)
+            const numValue = parseInt(value)
 
             this.logger.debug(`Performed "add" operation on key "${key}".`)
             return this.set(key, numData + numValue, false)
@@ -138,7 +138,7 @@ class DatabaseManager {
      */
     subtract(key, value) {
         try {
-            const data = this.parser.parse(key)
+            const data = this.parser.parse(key) ?? 0
 
             if (!key) return false
             if (typeof key !== 'string') {
@@ -153,8 +153,8 @@ class DatabaseManager {
                 throw new EconomyError(errors.databaseManager.invalidTypes.target.number + typeof data, 'INVALID_TYPE')
             }
 
-            const numData = Number(data)
-            const numValue = Number(value)
+            const numData = parseInt(data)
+            const numValue = parseInt(value)
 
             this.logger.debug(`Performed "subtract" operation on key "${key}".`)
             return this.set(key, numData - numValue, false)

@@ -87,7 +87,7 @@ class HistoryItem {
          * @type {DatabaseManager}
          * @private
          */
-        this._database = database
+        this.database = database
 
         for (const [key, value] of Object.entries(itemObject || {})) {
             this[key] = value

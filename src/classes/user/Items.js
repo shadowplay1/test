@@ -50,9 +50,9 @@ class Items {
      * @param {number} [quantity=1] Quantity of items to buy. Default: 1.
      *
      * @param {string | number} [currency=null]
-     * The currency to subtract the money from.
+     * The currency (ID, name or symbol) to subtract the money from.
      * Can be omitted by specifying 'null' or ignoring this parameter.
-     * Requires the `subtractOnBuy` option to be enabled. Default: null.
+     * Requires the `subtractOnBuy` option in `Economy` constructor to be enabled. Default: null.
      *
      * @param {string} [reason='received the item from the shop']
      * The reason why the money was subtracted. Default: 'received the item from the shop'.
@@ -156,8 +156,10 @@ class Items {
  * @typedef {object} ShopOperationInfo
  * @property {boolean} status Operation status.
  * @property {string} message Operation message.
- * @property {ShopItem | InventoryItem} item Item object.
+ * @property {InventoryItem} item Inventory item object.
  * @property {number} quantity Item quantity.
+ * @property {number} totalPrice Total price of all the items (item price multiplied by quantity).
+ * @property {Currency} currencyUsed The object of the currency that was used in this operation.
  */
 
 /**
