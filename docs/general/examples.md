@@ -401,7 +401,7 @@ if (command == prefix + 'createCurrency') {
     message.channel.send(`Successfully created a new **${name} (${symbol})** currency!`)
 }
 
-// Check the currency balance on the guild
+// Check the currency balance in the guild
 if (command == prefix + 'currencyBalance') {
     // (currency ID, currency name or currency symbol) means that
     // either currency ID (currency's unique ID), currency name or currency symbol
@@ -434,7 +434,7 @@ if (command == prefix + 'currencyBalance') {
     )
 }
 
-// Add the money on currency balance on the guild
+// Add the money on currency balance in the guild
 if (command == prefix + 'currencyAdd') {
     const [userID, amount] = args
     const guild = eco.guilds.get(message.guild.id)
@@ -459,7 +459,7 @@ if (command == prefix + 'currencyAdd') {
     )
 }
 
-// Subtract the money from currency balance on the guild
+// Subtract the money from currency balance in the guild
 if (command == prefix + 'currencySubtract') {
     const [userID, amount] = args
     const guild = eco.guilds.get(message.guild.id)

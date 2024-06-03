@@ -10,6 +10,19 @@
 
 <div>
 
+<b>v1.7.7</b>
+- Fixed JSDoc typos/mismatches.
+- Fixed and improved typings.
+- Code optimization.
+- Examples improvements.
+- Added custom currencies leaderboard.
+- Fixed `currencies` key appearing in core leaderboard object in some instances.
+- Added the `currencyUsed` property in all objects that contain the purchase information.
+- Added the `index` property in `LeaderboardData` object which determines the position of the user in leaderboard.
+- Fixed a bug where creating the same custom currency more than once will result in **error**.
+- Fixed a bug when the balance will be set to `null` if any balance addition/subtraction was performed in newly created database.
+- *...and more!*
+
 <b>v1.7.6</b>
 
 - Fixed TONS of bugs.
@@ -23,7 +36,7 @@
 - Added a `transfer()` method to `Currency` class.
 - Added **monthly** and **hourly** rewards! 🔥
 
-<b>v1.7.7</b>
+<b>v1.7.5</b>
 
 - Fixed JSDoc typos/mismatches.
 - Fixed the hard crash in **JSON** version when trying to claim `daily`, `work` or `weekly` rewards.
@@ -77,7 +90,7 @@ To enable them back, you need to set the `"postinstall"` property of `"discord-e
 
 - **Custom currencies system! 🔥**
 - Added a new `customCurrencySet`, `customCurrencyAdd` and `customCurrencySubtract` events so the changes in any custom currencies could be tracked!
-- Added a new optional `currency` argument in **all item buying methods** that takes eaither *currency ID*, *name* or its *symbol* so the currency balance will be subtracted instead of core balance. Requires the `subtractOnBuy` option to be enabled.
+- Added a new optional `currency` argument in **all item buying methods** that takes eaither *currency ID*, *name* or its *symbol* so the currency balance will be subtracted instead of core balance. Requires the `subtractOnBuy` option in `Economy` constructor to be enabled.
 ```ts
 eco.shop.buy(itemID, 'memberID', 'guildID', quantity, currency, 'reason')
 ```
